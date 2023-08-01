@@ -1,5 +1,6 @@
 import java.sql.*;
-public class App {
+
+public class myMain {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         visualizzaDatiTabellaSocieta();
@@ -8,13 +9,13 @@ public class App {
     public static void visualizzaDatiTabellaSocieta() {
         String connectionUrl = "jdbc:postgresql://localhost:5432/checkups_db";
         String username = "postgres";
-        String password = "postgres";
+        String password = "1234";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl, username, password)) {
             String query = "SELECT * FROM public.societa";
 
             try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery(query)) {
+                ResultSet resultSet = statement.executeQuery(query)) {
 
                 while (resultSet.next()) {
                     int idSocieta = resultSet.getInt("id_societa");
