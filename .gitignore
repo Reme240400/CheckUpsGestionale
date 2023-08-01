@@ -1,3 +1,6 @@
 #file bin
 .bin/
 .vscode/
+
+#file build
+*.class
