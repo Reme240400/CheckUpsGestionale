@@ -1,8 +1,5 @@
 {
-    "java.project.sourcePaths": [
-        "src\\test\\java",
-        "src\\Controller"
-    ],
+    "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
