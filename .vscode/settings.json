@@ -1,5 +1,5 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": ["checkUps/src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "checkUps/lib/**/*.jar"
