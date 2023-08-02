@@ -79,4 +79,6 @@ public class Societa {
         this.ente = ente;
     }
 
+
 }
+
