@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+
 public class ControllerSql {
 
     private final String connectionUrl = "jdbc:postgresql://localhost:5432/checkups_db";
