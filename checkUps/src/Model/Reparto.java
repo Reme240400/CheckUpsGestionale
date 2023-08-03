@@ -13,6 +13,46 @@ public class Reparto {
         this.descrizione = descrizione;
     }
 
+    //Metodo per modificare un campo
+    public void modificaCampo(String campo, Object nuovoValore) {
+        switch (campo.toLowerCase()) {
+            case "idreparto":
+                if (nuovoValore instanceof Integer) {
+                    this.idReparto = (int) nuovoValore;
+                } else {
+                    throw new IllegalArgumentException("Il valore per il campo 'idReparto' deve essere di tipo Integer.");
+                }
+                break;
+
+            case "idunitalocale":
+                if (nuovoValore instanceof Integer) {
+                    this.idUnitaLocale = (int) nuovoValore;
+                } else {
+                    throw new IllegalArgumentException("Il valore per il campo 'idUnitaLocale' deve essere di tipo Integer.");
+                }
+                break;
+
+            case "nome":
+                if (nuovoValore instanceof String) {
+                    this.nome = (String) nuovoValore;
+                } else {
+                    throw new IllegalArgumentException("Il valore per il campo 'nome' deve essere di tipo String.");
+                }
+                break;
+
+            case "descrizione":
+                if (nuovoValore instanceof String) {
+                    this.descrizione = (String) nuovoValore;
+                } else {
+                    throw new IllegalArgumentException("Il valore per il campo 'descrizione' deve essere di tipo String.");
+                }
+                break;
+
+            default:
+                throw new IllegalArgumentException("Campo non valido: " + campo);
+        }
+    }
+
     public int getIdReparto() {
         return idReparto;
     }
