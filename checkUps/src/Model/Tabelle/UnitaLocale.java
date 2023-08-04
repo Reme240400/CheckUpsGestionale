@@ -1,6 +1,5 @@
 package Model.Tabelle;
 
-import Model.interfaces.GeneralTable;
 
 public class UnitaLocale extends GeneralTable{
     private int idUnitaLocale;

@@ -1,7 +1,5 @@
 package Model.Tabelle;
 
-import Model.interfaces.GeneralTable;
-
 public class Oggetto extends GeneralTable{
     private int idOggetto;
     private String nome;
