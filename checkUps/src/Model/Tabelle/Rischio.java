@@ -1,7 +1,8 @@
 package Model.Tabelle;
 
+import Model.interfaces.TableInterface;
 
-public class Rischio extends GeneralTable{
+public class Rischio implements TableInterface{
     private int idRischio;
     private String nome;
     private int p;
@@ -64,5 +65,29 @@ public class Rischio extends GeneralTable{
 
     public void setIdReparto(int idReparto) {
         this.idReparto = idReparto;
+    }
+
+    @Override
+    public void modificaCampo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modificaCampo'");
+    }
+
+    @Override
+    public void inserisciCampo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'inserisciCampo'");
+    }
+
+    @Override
+    public void eliminaCampo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'eliminaCampo'");
+    }
+
+    @Override
+    public void visualizzaCampo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'visualizzaCampo'");
     }
 }
