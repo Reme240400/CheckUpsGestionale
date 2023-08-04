@@ -1,6 +1,8 @@
 package Model;
 
-public class Rischio {
+import Model.interfaces.GeneralTable;
+
+public class Rischio extends GeneralTable{
     private int idRischio;
     private String nome;
     private int p;

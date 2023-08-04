@@ -1,6 +1,8 @@
 package Model;
 
-public class Mansione {
+import Model.interfaces.GeneralTable;
+
+public class Mansione extends GeneralTable{
     private int idMansione;
     private String nome;
     private String responsabile;

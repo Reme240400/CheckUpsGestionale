@@ -1,5 +1,6 @@
 package Model;
 
-public class ModelController {
-    
+import Model.interfaces.GeneralTable;
+
+public class ModelController extends GeneralTable{
 }

@@ -1,6 +1,8 @@
 package Model;
 
-public class Titolo {
+import Model.interfaces.GeneralTable;
+
+public class Titolo extends GeneralTable{
     private int idTitolo;
     private String descrizione;
     private int idReparto;

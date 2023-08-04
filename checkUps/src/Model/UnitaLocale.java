@@ -1,5 +1,8 @@
 package Model;
-public class UnitaLocale {
+
+import Model.interfaces.GeneralTable;
+
+public class UnitaLocale extends GeneralTable{
     private int idUnitaLocale;
     private int idSocieta;
     private String nome;

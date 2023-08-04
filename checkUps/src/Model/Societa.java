@@ -1,6 +1,8 @@
 package Model;
 
-public class Societa {
+import Model.interfaces.GeneralTable;
+
+public class Societa extends GeneralTable{
     
     private int idSocieta;
     private String indirizzo;
