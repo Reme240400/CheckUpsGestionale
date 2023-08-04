@@ -23,6 +23,11 @@ public class TestModelController {
         modelController.popolaLista(mansione1);
         modelController.popolaLista(mansione2);
 
+        System.out.println("\nLista Mansione:");
+        for (Mansione mansione : modelController.listMansione) {
+            System.out.println(mansione.getIdMansione() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
+        }
+        
         // Modifica di un campo nella lista Reparto
         Reparto repartoModificato = modelController.listReparto.get(0); // Prendi il primo elemento della lista
         modelController.modificaCampo(repartoModificato, "nome", "Nuovo nome del Reparto 1");
@@ -34,6 +39,7 @@ public class TestModelController {
         // Rimozione di un oggetto dalla lista Reparto
         modelController.rimuoviDaLista(reparto2);
 
+        System.out.println("STAMPA DOPO OPERAZIONI: \n");
         // Visualizzazione della lista Reparto dopo le operazioni
         System.out.println("Lista Reparto:");
         for (Reparto reparto : modelController.listReparto) {
