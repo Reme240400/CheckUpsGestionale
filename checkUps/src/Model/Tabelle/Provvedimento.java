@@ -1,6 +1,5 @@
 package Model.Tabelle;
 
-import Model.interfaces.GeneralTable;
 
 public class Provvedimento extends GeneralTable{
     private int idProvvedimento;
