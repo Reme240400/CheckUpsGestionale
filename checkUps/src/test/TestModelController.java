@@ -1,5 +1,7 @@
-package Model;
+package test;
 
+import Controller.ClassHelper;
+import Model.ModelController;
 import Model.Tabelle.Mansione;
 import Model.Tabelle.Reparto;
 
@@ -14,7 +16,7 @@ public class TestModelController {
         modelController.popolaLista(reparto2);
 
         System.out.println("Lista Reparto:");
-        for (Reparto reparto : modelController.listReparto) {
+        for (Reparto reparto : ClassHelper.listReparto) {
             System.out.println(reparto.getIdReparto() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
         }
 
@@ -29,11 +31,11 @@ public class TestModelController {
         }
         
         // Modifica di un campo nella lista Reparto
-        Reparto repartoModificato = modelController.listReparto.get(0); // Prendi il primo elemento della lista
+        Reparto repartoModificato = ClassHelper.listReparto.get(0); // Prendi il primo elemento della lista
         modelController.modificaCampo(repartoModificato, "nome", "Nuovo nome del Reparto 1");
 
         // Modifica di un campo in un'altra lista
-        Mansione mansioneModificata = modelController.listMansione.get(0); // Prendi il primo elemento della lista Mansione
+        Mansione mansioneModificata = ClassHelper.listMansione.get(0); // Prendi il primo elemento della lista Mansione
         modelController.modificaCampo(mansioneModificata, "nome", "Nuovo nome della Mansione 1");
 
         // Rimozione di un oggetto dalla lista Reparto
@@ -42,12 +44,12 @@ public class TestModelController {
         System.out.println("STAMPA DOPO OPERAZIONI: \n");
         // Visualizzazione della lista Reparto dopo le operazioni
         System.out.println("Lista Reparto:");
-        for (Reparto reparto : modelController.listReparto) {
+        for (Reparto reparto : ClassHelper.listReparto) {
             System.out.println(reparto.getIdReparto() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
         }
 
         System.out.println("\nLista Mansione:");
-        for (Mansione mansione : modelController.listMansione) {
+        for (Mansione mansione : ClassHelper.listMansione) {
             System.out.println(mansione.getIdMansione() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
         }
     }
