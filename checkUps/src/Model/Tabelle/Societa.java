@@ -12,12 +12,12 @@ public class Societa implements TableInterface{
     private String descrizione;
     private String ente;
 
-    public Societa(int idSocieta, String indirizzo, String localita, String provincia, String telefono, String descrizione, String ente) {
+    public Societa(int idSocieta, String indirizzo, String localita, String provincia, long telefono, String descrizione, String ente) {
         this.idSocieta = idSocieta;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
-        this.telefono = Long.parseLong(telefono);
+        this.telefono = telefono;
         this.descrizione = descrizione;
         this.ente = ente;
     }
