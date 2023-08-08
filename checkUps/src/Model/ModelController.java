@@ -18,21 +18,8 @@ import Model.Tabelle.UnitaLocale;
 import sql.ControllerSql;
 
 public class ModelController extends ClassHelper{
-
-
-//CARICAMENTO DATI DA DB A LISTE
- public void popolaListeDaDatabase() {
-        popolaListaSocieta();
-        popolaListaUnitaLocali();
-        popolaListaReparti();
-        popolaListaTitoli();
-        popolaListaMansioni();
-        popolaListaOggetti();
-        popolaListaProvvedimenti();
-        popolaListaRischi();
-    }
-
-    private void popolaListaSocieta() {
+    
+    public static void popolaListaSocieta() {
         try (Connection connection = ControllerSql.connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement();
@@ -48,7 +35,7 @@ public class ModelController extends ClassHelper{
                         String ente = resultSet.getString("ente");
 
                         Societa societa = new Societa(idSocieta, indirizzo, localita, provincia, telefono, descrizione, ente);
-                        popolaLista(societa);
+                        Controller.popolaLista(societa);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella societa: " + e.getMessage());
@@ -66,60 +53,68 @@ public class ModelController extends ClassHelper{
         }
     }
 
-    private void popolaListaMansioni() {
-        Connection connection = ControllerSql.connessioneDb();
-        if (connection != null) {
-            try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
+    public static void popolaListaMansioni() {
+        try (Connection connection = ControllerSql.connessioneDb()){
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
 
-                while (resultSet.next()) {
-                    int idMansione = resultSet.getInt("id_mansione");
-                    String nome = resultSet.getString("nome");
-                    String responsabile = resultSet.getString("responsabile");
+                    while (resultSet.next()) {
+                        int idMansione = resultSet.getInt("id_mansione");
+                        String nome = resultSet.getString("nome");
+                        String responsabile = resultSet.getString("responsabile");
 
-                    Mansione mansione = new Mansione(idMansione, nome, responsabile);
-                    popolaLista(mansione);
-                }
-            } catch (SQLException e) {
-                System.out.println("Errore durante la lettura della tabella mansioni: " + e.getMessage());
-            } finally {
-                try {
-                    connection.close();
+                        Mansione mansione = new Mansione(idMansione, nome, responsabile);
+                        Controller.popolaLista(mansione);
+                    }
                 } catch (SQLException e) {
-                    System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    System.out.println("Errore durante la lettura della tabella mansioni: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
                 }
             }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    private void popolaListaTitoli() {
-        Connection connection = ControllerSql.connessioneDb();
-        if (connection != null) {
-            try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery("SELECT * FROM public.titoli")) {
+    public static void popolaListaTitoli() {
+        try(Connection connection = ControllerSql.connessioneDb()){
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM public.titoli")) {
 
-                while (resultSet.next()) {
-                    int idTitolo = resultSet.getInt("id_titolo");
-                    String descrizione = resultSet.getString("descrizione");
-                    int idReparto = resultSet.getInt("id_reparto");
+                    while (resultSet.next()) {
+                        int idTitolo = resultSet.getInt("id_titolo");
+                        String descrizione = resultSet.getString("descrizione");
+                        int idReparto = resultSet.getInt("id_reparto");
 
-                    Titolo titolo = new Titolo(idTitolo, descrizione, idReparto);
-                    popolaLista(titolo);
-                }
-            } catch (SQLException e) {
-                System.out.println("Errore durante la lettura della tabella titoli: " + e.getMessage());
-            } finally {
-                try {
-                    connection.close();
+                        Titolo titolo = new Titolo(idTitolo, descrizione, idReparto);
+                        Controller.popolaLista(titolo);
+                    }
                 } catch (SQLException e) {
-                    System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    System.out.println("Errore durante la lettura della tabella titoli: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
                 }
             }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    private void popolaListaReparti() {
-        Connection connection = ControllerSql.connessioneDb();
+    public static void popolaListaReparti() {
+        try(Connection connection = ControllerSql.connessioneDb()){
         if (connection != null) {
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery("SELECT * FROM public.reparti")) {
@@ -131,7 +126,7 @@ public class ModelController extends ClassHelper{
                     String descrizione = resultSet.getString("descrizione");
 
                     Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
-                    popolaLista(reparto);
+                    Controller.popolaLista(reparto);
                 }
             } catch (SQLException e) {
                 System.out.println("Errore durante la lettura della tabella reparti: " + e.getMessage());
@@ -143,10 +138,14 @@ public class ModelController extends ClassHelper{
                 }
             }
         }
+    } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
-    private void popolaListaRischi() {
-        Connection connection = ControllerSql.connessioneDb();
+    public static void popolaListaRischi() {
+        try(Connection connection = ControllerSql.connessioneDb()){
         if (connection != null) {
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery("SELECT * FROM public.rischi")) {
@@ -160,7 +159,7 @@ public class ModelController extends ClassHelper{
                     int idReparto = resultSet.getInt("id_reparto");
 
                     Rischio rischio = new Rischio(idRischio, nome, p, d, r, idReparto);
-                    popolaLista(rischio);
+                    Controller.popolaLista(rischio);
                 }
             } catch (SQLException e) {
                 System.out.println("Errore durante la lettura della tabella rischi: " + e.getMessage());
@@ -172,10 +171,14 @@ public class ModelController extends ClassHelper{
                 }
             }
         }
+    } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
-    private void popolaListaOggetti() {
-        Connection connection = ControllerSql.connessioneDb();
+    public static void popolaListaOggetti() {
+        try(Connection connection = ControllerSql.connessioneDb()){
         if (connection != null) {
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery("SELECT * FROM public.oggetti")) {
@@ -186,7 +189,7 @@ public class ModelController extends ClassHelper{
                     int idTitolo = resultSet.getInt("id_titolo");
 
                     Oggetto oggetto = new Oggetto(idOggetto, nome, idTitolo);
-                    popolaLista(oggetto);
+                    Controller.popolaLista(oggetto);
                 }
             } catch (SQLException e) {
                 System.out.println("Errore durante la lettura della tabella oggetti: " + e.getMessage());
@@ -198,10 +201,14 @@ public class ModelController extends ClassHelper{
                 }
             }
         }
+    } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
-    private void popolaListaProvvedimenti() {
-        Connection connection = ControllerSql.connessioneDb();
+    public static void popolaListaProvvedimenti() {
+        try(Connection connection = ControllerSql.connessioneDb()){
         if (connection != null) {
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery("SELECT * FROM public.provvedimenti")) {
@@ -214,7 +221,7 @@ public class ModelController extends ClassHelper{
                     int idElencoRischi = resultSet.getInt("id_elenco_rischi");
 
                     Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto, idElencoRischi);
-                    popolaLista(provvedimento);
+                    Controller.popolaLista(provvedimento);
                 }
             } catch (SQLException e) {
                 System.out.println("Errore durante la lettura della tabella provvedimenti: " + e.getMessage());
@@ -226,13 +233,17 @@ public class ModelController extends ClassHelper{
                 }
             }
         }
+    } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
-    private void popolaListaUnitaLocali() {
-        Connection connection = ControllerSql.connessioneDb();
+    public static void popolaListaUnitaLocali() {
+        try(Connection connection = ControllerSql.connessioneDb()){
         if (connection != null) {
             try (Statement statement = connection.createStatement();
-                 ResultSet resultSet = statement.executeQuery("SELECT * FROM public.unita_locale")) {
+                 ResultSet resultSet = statement.executeQuery("SELECT * FROM public.unita_locali")) {
 
                 while (resultSet.next()) {
                     int idUnitaLocale = resultSet.getInt("id_unita_locale");
@@ -244,7 +255,7 @@ public class ModelController extends ClassHelper{
                     
 
                     UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, idSocieta ,nome, indirizzo, localita, provincia);
-                    popolaLista(unitaLocale);
+                    Controller.popolaLista(unitaLocale);
                 }
             } catch (SQLException e) {
                 System.out.println("Errore durante la lettura della tabella unita_locale: " + e.getMessage());
@@ -256,254 +267,9 @@ public class ModelController extends ClassHelper{
                 }
             }
         }
-    }
-
-
-
-
-
-
-
-
-//OPERAZIONI SULLE LISTE
-    
-    public void popolaLista(Object obj) {
-        
-        switch (obj.getClass().getSimpleName()) {
-
-        case "Mansione":   
-            ClassHelper.getListMansione().add((Mansione) obj);
-            break;
-        case "Titolo":
-            ClassHelper.getListTitolo().add((Titolo) obj);
-            break;
-        case "Reparto":
-            ClassHelper.getListReparto().add((Reparto) obj);
-            break;
-        case "Rischio":
-            ClassHelper.getListRischio().add((Rischio) obj);
-            break;
-        case "Societa":
-            ClassHelper.getListSocieta().add((Societa) obj);
-            break;
-        case "Oggetto":
-            ClassHelper.getListOggetto().add((Oggetto) obj);
-            break;
-        case "Provvedimento":
-            ClassHelper.getListProvvedimento().add((Provvedimento) obj);
-            break;
-        case "UnitaLocale":
-            ClassHelper.getListUnitaLocale().add((UnitaLocale) obj);
-            break;
-        default:
-            throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
+    } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
-
-    public void rimuoviDaLista(Object obj) {
-        
-        switch (obj.getClass().getSimpleName()) {
-
-        case "Mansione":
-            ClassHelper.getListMansione().remove((Mansione) obj);
-            break;
-        case "Titolo":
-            ClassHelper.getListTitolo().remove((Titolo) obj);
-            break;
-        case "Reparto":
-            ClassHelper.getListReparto().remove((Reparto) obj);
-            break;
-        case "Rischio":
-            ClassHelper.getListRischio().remove((Rischio) obj);
-            break;
-        case "Societa":
-            ClassHelper.getListSocieta().remove((Societa) obj);
-            break;
-        case "Oggetto":
-            ClassHelper.getListOggetto().remove((Oggetto) obj);
-            break;
-        case "Provvedimento":
-            ClassHelper.getListProvvedimento().remove((Provvedimento) obj);
-            break;
-        case "UnitaLocale":
-            ClassHelper.getListUnitaLocale().remove((UnitaLocale) obj);
-            break;
-        default:
-            throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
-        }
-    }
-
-    public void modificaCampo(Object obj, String campo, String valore) {
-        
-        switch (obj.getClass().getSimpleName()) {
-
-        case "Mansione":
-            switch (campo) {
-                case "idMansione":
-                    ((Mansione) obj).setIdMansione(Integer.parseInt(valore));
-                    break;
-                case "nome":
-                    ((Mansione) obj).setNome(valore);
-                    break;
-                case "responsabile":
-                    ((Mansione) obj).setResponsabile(valore);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "Titolo":
-            switch (campo) {
-                case "idTitolo":
-                    ((Titolo) obj).setIdTitolo(Integer.parseInt(valore));
-                    break;
-                case "idReparto":
-                    ((Titolo) obj).setIdReparto(Integer.parseInt(valore));
-                    break;
-                case "descrizione":
-                    ((Titolo) obj).setDescrizione(valore);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "Reparto":
-            switch (campo) {
-                case "idReparto":
-                    ((Reparto) obj).setIdReparto(Integer.parseInt(valore));
-                    break;
-                case "nome":
-                    ((Reparto) obj).setNome(valore);
-                    break;
-                case "descrizione":
-                    ((Reparto) obj).setDescrizione(valore);
-                    break;
-                case "idUnitaLocale":
-                    ((Reparto) obj).setIdUnitaLocale(Integer.parseInt(valore));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "Rischio":
-            switch (campo) {
-                case "idRischio":
-                    ((Rischio) obj).setIdRischio(Integer.parseInt(valore));
-                    break;
-                case "nome":
-                    ((Rischio) obj).setNome(valore);
-                    break;
-                case "p":
-                    ((Rischio) obj).setP(Integer.parseInt(valore));
-                    break;
-                case "d":
-                    ((Rischio) obj).setD(Integer.parseInt(valore));
-                    break;
-                case "idReparto":
-                    ((Rischio) obj).setIdReparto(Integer.parseInt(valore));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "Societa":
-            switch (campo) {
-                case "idSocieta":
-                    ((Societa) obj).setIdSocieta(Integer.parseInt(valore));
-                    break;
-                case "indirizzo":
-                    ((Societa) obj).setIndirizzo(valore);
-                    break;
-                case "localita":
-                    ((Societa) obj).setLocalita(valore);
-                    break;
-                case "provincia":
-                    ((Societa) obj).setProvincia(valore);
-                    break;
-                case "telefono":
-                    ((Societa) obj).setTelefono(valore);
-                    break;
-                case "descrizione":
-                    ((Societa) obj).setDescrizione(valore);
-                    break;
-                case "ente":
-                    ((Societa) obj).setEnte(valore);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "Oggetto":
-            switch (campo) {
-                case "idOggetto":
-                    ((Oggetto) obj).setIdOggetto(Integer.parseInt(valore));
-                    break;
-                case "nome":
-                    ((Oggetto) obj).setNome(valore);
-                    break;
-                case "idTitolo":
-                    ((Oggetto) obj).setIdTitolo(Integer.parseInt(valore));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "Provvedimento":
-            switch (campo) {
-                case "idProvvedimento":
-                    ((Provvedimento) obj).setIdProvvedimento(Integer.parseInt(valore));
-                    break;
-                case "nome":
-                    ((Provvedimento) obj).setNome(valore);
-                    break;
-                case "idMansione":
-                    ((Provvedimento) obj).setIdMansione(Integer.parseInt(valore));
-                    break;
-                case "idOggetto":
-                    ((Provvedimento) obj).setIdOggetto(Integer.parseInt(valore));
-                    break;
-                case "idElencoRischi":
-                    ((Provvedimento) obj).setIdElencoRischi(Integer.parseInt(valore));
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        case "UnitaLocale":
-            switch (campo) {
-                case "idUnitaLocale":
-                    ((UnitaLocale) obj).setIdUnitaLocale(Integer.parseInt(valore));
-                    break;
-                case "nome":
-                    ((UnitaLocale) obj).setNome(valore);
-                    break;
-                case "idSocieta":
-                    ((UnitaLocale) obj).setIdSocieta(Integer.parseInt(valore));
-                    break;
-                case "indirizzo":
-                    ((UnitaLocale) obj).setIndirizzo(valore);
-                    break;
-                case "localita":
-                    ((UnitaLocale) obj).setLocalita(valore);
-                    break;
-                case "provincia":
-                    ((UnitaLocale) obj).setProvincia(valore);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected value: " + campo);
-            }
-        break;
-
-        default:
-            throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
-        }
-    }
-        
 }
