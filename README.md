@@ -13,3 +13,7 @@
 * metodo che crea il pdf(con anteprima) in cui vado a scrivere per ora solo qualche tabella
 
 * cercare metodo per inserire immagini in postgres(o altro modo)
+
+## Issues
+
+* non capisco bene chi fa cosa tra ModelController e Controller
