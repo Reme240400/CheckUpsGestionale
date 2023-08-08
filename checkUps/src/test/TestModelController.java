@@ -2,14 +2,11 @@ package test;
 
 import Controller.ClassHelper;
 import Controller.Controller;
-import Model.ModelController;
 import Model.Tabelle.Mansione;
 import Model.Tabelle.Reparto;
 
 public class TestModelController {
     public static void main(String[] args) {
-
-        ModelController  modelController = new ModelController();
 
         // Popolamento della lista Reparto
         Reparto reparto1 = new Reparto(1, 1, "Reparto 1", "Descrizione Reparto 1");
@@ -28,7 +25,7 @@ public class TestModelController {
         Controller.popolaLista(mansione2);
 
         System.out.println("\nLista Mansione:");
-        for (Mansione mansione : modelController.getListMansione()) {
+        for (Mansione mansione : ClassHelper.getListMansione()) {
             System.out.println(mansione.getIdMansione() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
         }
         
@@ -37,7 +34,7 @@ public class TestModelController {
         Controller.modificaCampo(repartoModificato, "nome", "Nuovo nome del Reparto 1");
 
         // Modifica di un campo in un'altra lista
-        Mansione mansioneModificata = modelController.getListMansione().get(0); // Prendi il primo elemento della lista Mansione
+        Mansione mansioneModificata = ClassHelper.getListMansione().get(0); // Prendi il primo elemento della lista Mansione
         Controller.modificaCampo(mansioneModificata, "nome", "Nuovo nome della Mansione 1");
 
         // Rimozione di un oggetto dalla lista Reparto
@@ -51,7 +48,7 @@ public class TestModelController {
         }
 
         System.out.println("\nLista Mansione:");
-        for (Mansione mansione : modelController.getListMansione()) {
+        for (Mansione mansione : ClassHelper.getListMansione()) {
             System.out.println(mansione.getIdMansione() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
         }
     }
