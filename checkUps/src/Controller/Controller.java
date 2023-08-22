@@ -252,7 +252,7 @@ public class Controller {
         }
     }
 
-    public void inserisciCampo(Object obj){
+    public void inserisciRecord(Object obj){
         
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
