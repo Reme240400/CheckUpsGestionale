@@ -251,4 +251,65 @@ public class Controller {
             throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
         }
     }
+
+    public void inserisciCampo(Object obj){
+        
+        switch (obj.getClass().getSimpleName()) {
+            case "Mansione":
+                new Mansione(((Mansione) obj).getIdMansione(), 
+                            ((Mansione) obj).getNome(), 
+                            ((Mansione) obj).getResponsabile());
+                break;
+            case "Titolo":
+                new Titolo(((Titolo) obj).getIdTitolo(), 
+                            ((Titolo) obj).getDescrizione(), 
+                            ((Titolo) obj).getIdReparto());
+                break;
+            case "Reparto":
+                new Reparto(((Reparto) obj).getIdReparto(), 
+                            ((Reparto) obj).getIdUnitaLocale(), 
+                            ((Reparto) obj).getDescrizione(), 
+                            ((Reparto) obj).getNome());
+                break;
+            case "Rischio":
+                new Rischio(((Rischio) obj).getIdRischio(), 
+                            ((Rischio) obj).getNome(), 
+                            ((Rischio) obj).getP(), 
+                            ((Rischio) obj).getD(),
+                            ((Rischio) obj).getR(),
+                            ((Rischio) obj).getIdReparto());
+                break;
+            case "Societa":
+                new Societa(((Societa) obj).getIdSocieta(), 
+                            ((Societa) obj).getIndirizzo(), 
+                            ((Societa) obj).getLocalita(), 
+                            ((Societa) obj).getProvincia(), 
+                            ((Societa) obj).getTelefono(), 
+                            ((Societa) obj).getDescrizione(), 
+                            ((Societa) obj).getEnte());
+                break;
+            case "Oggetto":
+                new Oggetto(((Oggetto) obj).getIdOggetto(), 
+                            ((Oggetto) obj).getNome(), 
+                            ((Oggetto) obj).getIdTitolo());
+                break;
+            case "Provvedimento":
+                new Provvedimento(((Provvedimento) obj).getIdProvvedimento(), 
+                                    ((Provvedimento) obj).getNome(), 
+                                    ((Provvedimento) obj).getIdMansione(), 
+                                    ((Provvedimento) obj).getIdOggetto(), 
+                                    ((Provvedimento) obj).getIdElencoRischi());
+                break;
+            case "UnitaLocale":
+                new UnitaLocale(((UnitaLocale) obj).getIdUnitaLocale(), 
+                                ((UnitaLocale) obj).getNome(), 
+                                ((UnitaLocale) obj).getIndirizzo(), 
+                                ((UnitaLocale) obj).getLocalita(), 
+                                ((UnitaLocale) obj).getProvincia(),
+                                ((UnitaLocale) obj).getIdSocieta());
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
+        }
+    }
 }

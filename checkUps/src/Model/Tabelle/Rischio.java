@@ -1,8 +1,7 @@
 package Model.Tabelle;
 
-import Model.interfaces.TableInterface;
 
-public class Rischio implements TableInterface{
+public class Rischio {
     private int idRischio;
     private String nome;
     private int p;
@@ -67,27 +66,4 @@ public class Rischio implements TableInterface{
         this.idReparto = idReparto;
     }
 
-    @Override
-    public void modificaCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modificaCampo'");
-    }
-
-    @Override
-    public void inserisciCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inserisciCampo'");
-    }
-
-    @Override
-    public void eliminaCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminaCampo'");
-    }
-
-    @Override
-    public void visualizzaCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visualizzaCampo'");
-    }
 }

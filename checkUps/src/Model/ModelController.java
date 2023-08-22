@@ -254,7 +254,7 @@ public class ModelController extends ClassHelper{
                     String provincia = resultSet.getString("provincia");
                     
 
-                    UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, idSocieta ,nome, indirizzo, localita, provincia);
+                    UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, provincia ,nome, indirizzo, localita, idSocieta);
                     Controller.popolaLista(unitaLocale);
                 }
             } catch (SQLException e) {

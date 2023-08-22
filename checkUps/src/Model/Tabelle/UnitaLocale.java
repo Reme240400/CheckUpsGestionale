@@ -1,8 +1,7 @@
 package Model.Tabelle;
 
-import Model.interfaces.TableInterface;
 
-public class UnitaLocale implements TableInterface{
+public class UnitaLocale {
     private int idUnitaLocale;
     private int idSocieta;
     private String nome;
@@ -10,7 +9,7 @@ public class UnitaLocale implements TableInterface{
     private String localita;
     private String provincia;
 
-    public UnitaLocale(int idUnitaLocale, int idSocieta, String nome, String indirizzo, String localita, String provincia) {
+    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, int idSocieta) {
         this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;
         this.nome = nome;
@@ -65,29 +64,5 @@ public class UnitaLocale implements TableInterface{
 
     public void setProvincia(String provincia) {
         this.provincia = provincia.toUpperCase();
-    }
-
-    @Override
-    public void modificaCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modificaCampo'");
-    }
-
-    @Override
-    public void inserisciCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inserisciCampo'");
-    }
-
-    @Override
-    public void eliminaCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminaCampo'");
-    }
-
-    @Override
-    public void visualizzaCampo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'visualizzaCampo'");
     }
 }
