@@ -1,9 +1,21 @@
 package sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import Model.Tabelle.ElencoRischi;
+import Model.Tabelle.Mansione;
+import Model.Tabelle.Oggetto;
+import Model.Tabelle.Provvedimento;
+import Model.Tabelle.Reparto;
+import Model.Tabelle.Rischio;
+import Model.Tabelle.Societa;
+import Model.Tabelle.Titolo;
+import Model.Tabelle.UnitaLocale;
 
 
 
@@ -311,6 +323,208 @@ public class ControllerSql {
             }
         }
     }
+
+    public void cancellaDatiTabelle() {
+        Connection connection = connessioneDb();
+        if (connection != null) {
+            try (Statement statement = connection.createStatement()) {
+                // Disabilita il controllo delle chiavi esterne temporaneamente
+                statement.execute("SET FOREIGN_KEY_CHECKS = 0");
+
+                // Cancella i dati da tutte le tabelle
+                statement.executeUpdate("DELETE FROM public.elenco_rischi");
+                statement.executeUpdate("DELETE FROM public.provvedimenti");
+                statement.executeUpdate("DELETE FROM public.mansioni");
+                statement.executeUpdate("DELETE FROM public.oggetti");
+                statement.executeUpdate("DELETE FROM public.rischi");
+                statement.executeUpdate("DELETE FROM public.titoli");
+                statement.executeUpdate("DELETE FROM public.reparti");
+                statement.executeUpdate("DELETE FROM public.unita_locali");
+                statement.executeUpdate("DELETE FROM public.societa");
+
+                // Riabilita il controllo delle chiavi esterne
+                statement.execute("SET FOREIGN_KEY_CHECKS = 1");
+
+                System.out.println("Dati cancellati con successo da tutte le tabelle.");
+            } catch (SQLException e) {
+                System.out.println("Errore durante la cancellazione dei dati: " + e.getMessage());
+            } finally {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    public void popolaDatabaseDaListe(List<Societa> societaList, List<UnitaLocale> unitaLocaleList, List<Reparto> repartoList,
+                                      List<Titolo> titoloList, List<Mansione> mansioneList, List<Oggetto> oggettoList,
+                                      List<Provvedimento> provvedimentoList, List<Rischio> rischioList, List<ElencoRischi> elencorischiList) {
+        Connection connection = connessioneDb();
+
+        try {
+            if (connection != null) {
+                // Popola la tabella "societa"
+                popolaTabellaSocieta(connection, societaList);
+
+                // Popola la tabella "unita_locali"
+                popolaTabellaUnitaLocali(connection, unitaLocaleList);
+
+                // Popola la tabella "reparti"
+                popolaTabellaReparti(connection, repartoList);
+
+                // Popola la tabella "titoli"
+                popolaTabellaTitoli(connection, titoloList);
+
+                // Popola la tabella "mansioni"
+                popolaTabellaMansioni(connection, mansioneList);
+
+                // Popola la tabella "oggetti"
+                popolaTabellaOggetti(connection, oggettoList);
+
+                // Popola la tabella "provvedimenti"
+                popolaTabellaProvvedimenti(connection, provvedimentoList);
+
+                // Popola la tabella "rischi"
+                popolaTabellaRischi(connection, rischioList);
+
+                // Popola la tabella "elenco_rischi"
+                popolaTabellaElencoRischi(connection, elencorischiList);
+
+                System.out.println("Popolamento del database completato con successo.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Errore durante il popolamento del database: " + e.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+            }
+        }
+    }
+
+    // Metodi per popolare le tabelle individuali
+    private void popolaTabellaSocieta(Connection connection, List<Societa> societaList) throws SQLException {
+        String insertQuery = "INSERT INTO public.societa (id_societa, indirizzo, localita, provincia, telefono, descrizione, ente) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Societa societa : societaList) {
+                preparedStatement.setInt(1, societa.getIdSocieta());
+                preparedStatement.setString(2, societa.getIndirizzo());
+                preparedStatement.setString(3, societa.getLocalita());
+                preparedStatement.setString(4, societa.getProvincia());
+                preparedStatement.setLong(5, societa.getTelefono());
+                preparedStatement.setString(6, societa.getDescrizione());
+                preparedStatement.setString(7, societa.getEnte());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+
+    private void popolaTabellaUnitaLocali(Connection connection, List<UnitaLocale> unitaLocaleList) throws SQLException {
+        String insertQuery = "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (UnitaLocale unitaLocale : unitaLocaleList) {
+                preparedStatement.setInt(1, unitaLocale.getIdUnitaLocale());
+                preparedStatement.setInt(2, unitaLocale.getIdSocieta());
+                preparedStatement.setString(3, unitaLocale.getNome());
+                preparedStatement.setString(4, unitaLocale.getIndirizzo());
+                preparedStatement.setString(5, unitaLocale.getLocalita());
+                preparedStatement.setString(6, unitaLocale.getProvincia());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
     
+    private void popolaTabellaReparti(Connection connection, List<Reparto> repartoList) throws SQLException {
+        String insertQuery = "INSERT INTO public.reparti (id_reparto, id_unita_locale, nome, descrizione) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Reparto reparto : repartoList) {
+                preparedStatement.setInt(1, reparto.getIdReparto());
+                preparedStatement.setInt(2, reparto.getIdUnitaLocale());
+                preparedStatement.setString(3, reparto.getNome());
+                preparedStatement.setString(4, reparto.getDescrizione());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    
+    private void popolaTabellaTitoli(Connection connection, List<Titolo> titoloList) throws SQLException {
+        String insertQuery = "INSERT INTO public.titoli (id_titolo, descrizione, id_reparto) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Titolo titolo : titoloList) {
+                preparedStatement.setInt(1, titolo.getIdTitolo());
+                preparedStatement.setString(2, titolo.getDescrizione());
+                preparedStatement.setInt(3, titolo.getIdReparto());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    
+    private void popolaTabellaMansioni(Connection connection, List<Mansione> mansioneList) throws SQLException {
+        String insertQuery = "INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Mansione mansione : mansioneList) {
+                preparedStatement.setInt(1, mansione.getIdMansione());
+                preparedStatement.setString(2, mansione.getNome());
+                preparedStatement.setString(3, mansione.getResponsabile());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    
+    private void popolaTabellaOggetti(Connection connection, List<Oggetto> oggettoList) throws SQLException {
+        String insertQuery = "INSERT INTO public.oggetti (id_oggetto, nome, id_titolo) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Oggetto oggetto : oggettoList) {
+                preparedStatement.setInt(1, oggetto.getIdOggetto());
+                preparedStatement.setString(2, oggetto.getNome());
+                preparedStatement.setInt(3, oggetto.getIdTitolo());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    
+    private void popolaTabellaProvvedimenti(Connection connection, List<Provvedimento> provvedimentoList) throws SQLException {
+        String insertQuery = "INSERT INTO public.provvedimenti (id_provvedimento, nome, id_mansione, id_oggetto, id_elenco_rischi) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Provvedimento provvedimento : provvedimentoList) {
+                preparedStatement.setInt(1, provvedimento.getIdProvvedimento());
+                preparedStatement.setString(2, provvedimento.getNome());
+                preparedStatement.setInt(3, provvedimento.getIdMansione());
+                preparedStatement.setInt(4, provvedimento.getIdOggetto());
+                preparedStatement.setInt(5, provvedimento.getIdElencoRischi());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    
+    private void popolaTabellaRischi(Connection connection, List<Rischio> rischioList) throws SQLException {
+        String insertQuery = "INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+            for (Rischio rischio : rischioList) {
+                preparedStatement.setInt(1, rischio.getIdRischio());
+                preparedStatement.setString(2, rischio.getNome());
+                preparedStatement.setInt(3, rischio.getP());
+                preparedStatement.setInt(4, rischio.getD());
+                preparedStatement.setInt(5, rischio.getR());
+                preparedStatement.setInt(6, rischio.getIdReparto());
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+    private void popolaTabellaElencoRischi(Connection connection, List<ElencoRischi> elencoRischiList) throws SQLException {
+    String insertQuery = "INSERT INTO public.elenco_rischi (id_provvedimento, id_rischio) VALUES (?, ?)";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+        for (ElencoRischi elencoRischi : elencoRischiList) {
+            preparedStatement.setInt(1, elencoRischi.getIdProvvedimento());
+            preparedStatement.setInt(2, elencoRischi.getIdRischio());
+            preparedStatement.executeUpdate();
+        }
+    }
+}
 
 }
