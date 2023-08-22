@@ -17,3 +17,6 @@
 ## Issues
 
 * non capisco bene chi fa cosa tra ModelController e Controller
+
+
+[Entity Relationship Diagram.pdf](https://github.com/Reme240400/CheckUpsGestionale/files/12409121/Entity.Relationship.Diagram.pdf)
