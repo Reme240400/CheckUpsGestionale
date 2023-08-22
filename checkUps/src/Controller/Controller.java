@@ -1,7 +1,5 @@
 package Controller;
 
-import java.util.List;
-
 import Model.Tabelle.Mansione;
 import Model.Tabelle.Oggetto;
 import Model.Tabelle.Provvedimento;
