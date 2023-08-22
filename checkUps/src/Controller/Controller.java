@@ -1,5 +1,7 @@
 package Controller;
 
+import java.util.List;
+
 import Model.Tabelle.Mansione;
 import Model.Tabelle.Oggetto;
 import Model.Tabelle.Provvedimento;
@@ -252,61 +254,77 @@ public class Controller {
         }
     }
 
-    public void inserisciCampo(Object obj){
+    public void inserisciRecord(Object obj){
         
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
-                new Mansione(((Mansione) obj).getIdMansione(), 
+                Mansione mansione = new Mansione(((Mansione) obj).getIdMansione(), 
                             ((Mansione) obj).getNome(), 
                             ((Mansione) obj).getResponsabile());
+
+                ClassHelper.getListMansione().add(mansione);
                 break;
             case "Titolo":
-                new Titolo(((Titolo) obj).getIdTitolo(), 
+                Titolo titolo = new Titolo(((Titolo) obj).getIdTitolo(), 
                             ((Titolo) obj).getDescrizione(), 
                             ((Titolo) obj).getIdReparto());
+
+                ClassHelper.getListTitolo().add(titolo);
                 break;
             case "Reparto":
-                new Reparto(((Reparto) obj).getIdReparto(), 
+                Reparto reparto = new Reparto(((Reparto) obj).getIdReparto(), 
                             ((Reparto) obj).getIdUnitaLocale(), 
                             ((Reparto) obj).getDescrizione(), 
                             ((Reparto) obj).getNome());
+
+                ClassHelper.getListReparto().add(reparto);
                 break;
             case "Rischio":
-                new Rischio(((Rischio) obj).getIdRischio(), 
+                Rischio rischio = new Rischio(((Rischio) obj).getIdRischio(), 
                             ((Rischio) obj).getNome(), 
                             ((Rischio) obj).getP(), 
                             ((Rischio) obj).getD(),
                             ((Rischio) obj).getR(),
                             ((Rischio) obj).getIdReparto());
+
+                ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-                new Societa(((Societa) obj).getIdSocieta(), 
+                Societa societa = new Societa(((Societa) obj).getIdSocieta(), 
                             ((Societa) obj).getIndirizzo(), 
                             ((Societa) obj).getLocalita(), 
                             ((Societa) obj).getProvincia(), 
                             ((Societa) obj).getTelefono(), 
                             ((Societa) obj).getDescrizione(), 
                             ((Societa) obj).getEnte());
+
+                ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":
-                new Oggetto(((Oggetto) obj).getIdOggetto(), 
+                Oggetto oggetto = new Oggetto(((Oggetto) obj).getIdOggetto(), 
                             ((Oggetto) obj).getNome(), 
                             ((Oggetto) obj).getIdTitolo());
+
+                ClassHelper.getListOggetto().add(oggetto);
                 break;
             case "Provvedimento":
-                new Provvedimento(((Provvedimento) obj).getIdProvvedimento(), 
+                Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getIdProvvedimento(), 
                                     ((Provvedimento) obj).getNome(), 
                                     ((Provvedimento) obj).getIdMansione(), 
                                     ((Provvedimento) obj).getIdOggetto(), 
                                     ((Provvedimento) obj).getIdElencoRischi());
+
+                ClassHelper.getListProvvedimento().add(provvedimento);
                 break;
             case "UnitaLocale":
-                new UnitaLocale(((UnitaLocale) obj).getIdUnitaLocale(), 
+                UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getIdUnitaLocale(), 
                                 ((UnitaLocale) obj).getNome(), 
                                 ((UnitaLocale) obj).getIndirizzo(), 
                                 ((UnitaLocale) obj).getLocalita(), 
                                 ((UnitaLocale) obj).getProvincia(),
                                 ((UnitaLocale) obj).getIdSocieta());
+
+                ClassHelper.getListUnitaLocale().add(unitaLocale);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
