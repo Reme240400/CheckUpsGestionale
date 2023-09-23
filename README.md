@@ -2,11 +2,11 @@
 
 ## TO DO LIST
 
-* metodi per aggiunta di un nuovo record
+* metodi per aggiunta di un nuovo record (manca la parte dove si aggionra il db dopo'l'operazione)
 
-* metodi per modifica di ogni campo di ogni record
+* metodi per modifica di ogni campo di ogni record (manca la parte dove si aggionra il db dopo'l'operazione)
 
-* metodi per eliminazione di un record
+* metodi per eliminazione di un record (manca la parte dove si aggionra il db dopo'l'operazione)
 
 * metodo per crea ed aggiorna in automatico la tabella creata con la relazione n a n
 
@@ -16,7 +16,7 @@
 
 ## Issues
 
-* non capisco bene chi fa cosa tra ModelController e Controller
+
 
 [Entity Relationship Diagram.pdf](https://github.com/Reme240400/CheckUpsGestionale/files/12409121/Entity.Relationship.Diagram.pdf)
 ## Bozza grafica
