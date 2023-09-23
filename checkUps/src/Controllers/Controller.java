@@ -11,6 +11,8 @@ import Tables.UnitaLocale;
 
 public class Controller {
 
+    final static DbController dbController = new DbController();
+
     // OPERAZIONI SULLE LISTE
 
     public static void popolaLista(Object obj) {
@@ -46,8 +48,10 @@ public class Controller {
         }
     }
 
-    public static void rimuoviDaLista(Object obj) {
+    public static void rimuoviDaLista(Object obj, int id) {
 
+        dbController.eliminaRecord(obj.getClass().getSimpleName().toLowerCase(), id);
+        System.out.println(obj.getClass().getSimpleName().toLowerCase());
         switch (obj.getClass().getSimpleName()) {
 
             case "Mansione":
@@ -79,11 +83,13 @@ public class Controller {
         }
     }
 
-    public static void modificaCampo(Object obj, String campo, String valore) {
+    public static void modificaCampo(Object obj, String campo, String valore, int id) {
 
+        dbController.modificaCampo(obj.getClass().getSimpleName().toLowerCase(), id, campo, valore);
         switch (obj.getClass().getSimpleName()) {
 
             case "Mansione":
+
                 switch (campo) {
                     case "idMansione":
                         ((Mansione) obj).setIdMansione(Integer.parseInt(valore));
