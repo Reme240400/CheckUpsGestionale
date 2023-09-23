@@ -1,4 +1,4 @@
-package Model.interfaces;
+package Interfaces;
 
 public interface TableInterface {
     

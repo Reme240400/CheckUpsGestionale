@@ -1,9 +1,9 @@
 package test.java;
 
-import Controller.ClassHelper;
-import Controller.Controller;
-import Model.Tabelle.Mansione;
-import Model.Tabelle.Reparto;
+import Controllers.ClassHelper;
+import Controllers.Controller;
+import Tables.Mansione;
+import Tables.Reparto;
 
 public class TestModelController {
     public static void main(String[] args) {

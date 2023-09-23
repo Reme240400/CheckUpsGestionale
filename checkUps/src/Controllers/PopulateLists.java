@@ -1,6 +1,4 @@
-package Controller;
-
-import Model.ModelController;
+package Controllers;
 
 public class PopulateLists {
     

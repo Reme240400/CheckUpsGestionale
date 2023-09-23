@@ -1,4 +1,4 @@
-package Model.Tabelle;
+package Tables;
 
 
 public class Mansione {

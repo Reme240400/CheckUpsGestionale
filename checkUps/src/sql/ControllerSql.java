@@ -8,15 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import Model.Tabelle.ElencoRischi;
-import Model.Tabelle.Mansione;
-import Model.Tabelle.Oggetto;
-import Model.Tabelle.Provvedimento;
-import Model.Tabelle.Reparto;
-import Model.Tabelle.Rischio;
-import Model.Tabelle.Societa;
-import Model.Tabelle.Titolo;
-import Model.Tabelle.UnitaLocale;
+import Tables.ElencoRischi;
+import Tables.Mansione;
+import Tables.Oggetto;
+import Tables.Provvedimento;
+import Tables.Reparto;
+import Tables.Rischio;
+import Tables.Societa;
+import Tables.Titolo;
+import Tables.UnitaLocale;
 
 
 

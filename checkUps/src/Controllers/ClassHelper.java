@@ -1,18 +1,18 @@
-package Controller;
+package Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.Tabelle.Mansione;
-import Model.Tabelle.Oggetto;
-import Model.Tabelle.Provvedimento;
-import Model.Tabelle.Reparto;
-import Model.Tabelle.Rischio;
-import Model.Tabelle.Societa;
-import Model.Tabelle.Titolo;
-import Model.Tabelle.UnitaLocale;
+import Tables.Mansione;
+import Tables.Oggetto;
+import Tables.Provvedimento;
+import Tables.Reparto;
+import Tables.Rischio;
+import Tables.Societa;
+import Tables.Titolo;
+import Tables.UnitaLocale;
 
-// ? Classe che conterra' i metodi per avete oggetti globali da passare tra le classi
+//? Classe che conterra' i metodi per avete oggetti globali da passare tra le classi
 public class ClassHelper {
     
     private static List<Mansione> listMansione = new ArrayList<>();

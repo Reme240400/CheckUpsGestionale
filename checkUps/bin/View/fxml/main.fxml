@@ -122,14 +122,14 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
-                           <children>
+                            <children>
                               <Button mnemonicParsing="false" text="Button" />
                               <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" />
                               <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
                               <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="2" />
-                           </children>
+                            </children>
                         </GridPane>
               </children>
             </AnchorPane>

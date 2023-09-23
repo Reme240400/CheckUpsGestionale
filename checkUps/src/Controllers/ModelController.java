@@ -1,20 +1,18 @@
-package Model;
+package Controllers;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Controller.ClassHelper;
-import Controller.Controller;
-import Model.Tabelle.Mansione;
-import Model.Tabelle.Oggetto;
-import Model.Tabelle.Provvedimento;
-import Model.Tabelle.Reparto;
-import Model.Tabelle.Rischio;
-import Model.Tabelle.Societa;
-import Model.Tabelle.Titolo;
-import Model.Tabelle.UnitaLocale;
+import Tables.Mansione;
+import Tables.Oggetto;
+import Tables.Provvedimento;
+import Tables.Reparto;
+import Tables.Rischio;
+import Tables.Societa;
+import Tables.Titolo;
+import Tables.UnitaLocale;
 import sql.ControllerSql;
 
 public class ModelController extends ClassHelper{
