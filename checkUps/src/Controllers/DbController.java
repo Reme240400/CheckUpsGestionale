@@ -15,7 +15,7 @@ import Tables.Titolo;
 import Tables.UnitaLocale;
 import sql.ControllerSql;
 
-public class ModelController extends ClassHelper{
+public class DbController {
     
     public static void popolaListaSocieta() {
         try (Connection connection = ControllerSql.connessioneDb()) {
