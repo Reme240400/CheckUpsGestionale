@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ import sql.ControllerSql;
 
 public class DbController {
     
+
     public static void popolaListaSocieta() {
         try (Connection connection = ControllerSql.connessioneDb()) {
             if (connection != null) {
@@ -50,6 +52,9 @@ public class DbController {
             e.printStackTrace();
         }
     }
+
+    
+    
 
     public static void popolaListaMansioni() {
         try (Connection connection = ControllerSql.connessioneDb()){
@@ -267,6 +272,45 @@ public class DbController {
         }
     } catch (SQLException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+
+    // Metodo generico per l'eliminazione di un record da qualsiasi tabella
+    public void eliminaRecord(String tableName, int recordId) {
+        try (Connection connection = ControllerSql.connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "DELETE FROM public." + tableName + " WHERE id_" + tableName + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("Errore durante l'eliminazione del record dalla tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo generico per la modifica di un campo in qualsiasi tabella
+    public void modificaCampo(String tableName, int recordId, String campo, String nuovoValore) {
+        try (Connection connection = ControllerSql.connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, nuovoValore);
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
