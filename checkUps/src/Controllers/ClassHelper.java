@@ -14,7 +14,7 @@ import Tables.UnitaLocale;
 
 //? Classe che conterra' i metodi per avete oggetti globali da passare tra le classi
 public class ClassHelper {
-    
+
     private static List<Mansione> listMansione = new ArrayList<>();
     private static List<Titolo> listTitolo = new ArrayList<>();
     private static List<Reparto> listReparto = new ArrayList<>();
@@ -56,8 +56,5 @@ public class ClassHelper {
     public static List<UnitaLocale> getListUnitaLocale() {
         return listUnitaLocale;
     }
-    
 
 }
-
-
