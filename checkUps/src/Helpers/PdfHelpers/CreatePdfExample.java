@@ -3,8 +3,8 @@ package Helpers.PdfHelpers;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-
 
 import Controllers.ClassHelper;
 import Controllers.DbController;
@@ -19,11 +19,12 @@ public class CreatePdfExample {
     public static void main(String[] args) {
         // Creazione di un documento PDF
         String nomeFile = "prova.pdf";
-
+        
         try {
 
 
             PDDocument document = new PDDocument();
+            PDType0Font font = PDType0Font.load(document, new File("src/resources/fonts/Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
@@ -31,24 +32,24 @@ public class CreatePdfExample {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Impostazione del font
-            //contentStream.setFont(, 5);
+            contentStream.setFont(font, 12);
+
 
             // Aggiunta del contenuto al documento
             DbController dbc = new DbController();
             dbc.popolaListaSocieta();
             
             List<Societa> records = ClassHelper.getListSocieta(); // Sostituisci con la tua logica per ottenere i record dalla tabella "societa"
-            System.out.println(records);
             float yPosition = page.getMediaBox().getHeight() - 50;
 
             for (Societa record : records) {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, yPosition);
-                contentStream.showText("ID: "+record.getIdSocieta());
+                contentStream.showText("ID: "+ record.getIdSocieta());
                 contentStream.newLine();
-                contentStream.showText("Nome: "+record.getEnte());
+                contentStream.showText("Nome: " + record.getEnte());
                 contentStream.newLine();
-                contentStream.showText("Altro: "+record.getDescrizione());
+                contentStream.showText("Altro: " + record.getDescrizione());
                 contentStream.newLine();
                 contentStream.endText();
                 yPosition -= 50; // Spaziatura tra le righe
