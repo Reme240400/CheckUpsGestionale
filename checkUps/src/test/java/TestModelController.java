@@ -38,7 +38,7 @@ public class TestModelController {
         Controller.modificaCampo(mansioneModificata, "nome", "Nuovo nome della Mansione 1", 1);
 
         // Rimozione di un oggetto dalla lista Reparto
-        Controller.rimuoviDaLista(reparto2);
+        Controller.rimuoviDaLista(reparto2, 0);
 
         System.out.println("STAMPA DOPO OPERAZIONI: \n");
         // Visualizzazione della lista Reparto dopo le operazioni
