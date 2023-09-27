@@ -4,17 +4,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.StageStyle;
-import sql.ControllerSql;
+
 
 public class myMain extends Application{
     public static void main(String[] args) {
         launch(args);
-        visualizzaDatiTabellaSocieta();
     }
 
-    public static void visualizzaDatiTabellaSocieta() {
-        new ControllerSql();
-    }
+
 
     @Override
     public void start(javafx.stage.Stage primaryStage) throws Exception {
