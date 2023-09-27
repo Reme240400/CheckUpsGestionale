@@ -18,7 +18,7 @@ import sql.ControllerSql;
 
 public class DbController {
 
-    public static void popolaListaSocieta() {
+    public void popolaListaSocieta() {
         try (Connection connection = ControllerSql.connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement();
