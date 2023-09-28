@@ -8,7 +8,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import Controllers.ClassHelper;
 import Controllers.DbController;
-import Tables.Societa;
+import Models.Tables.Societa;
 
 import java.awt.Desktop;
 import java.io.File;
