@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -13,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
   <AnchorPane fx:id="btn_home" minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="278.0">
@@ -22,7 +22,7 @@
                <children>
                   <AnchorPane id="ancor_pane" fx:id="anchorPane" prefHeight="761.0" prefWidth="246.0" styleClass="anchor_pane" stylesheets="@../css/style.css">
                      <children>
-                        <Button fx:id="btn_home" layoutX="12.0" layoutY="92.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" styleClass="btn_home" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+                        <Button fx:id="btn_home" layoutX="12.0" layoutY="92.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Home" textAlignment="CENTER" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -30,8 +30,12 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="btn_home" />
+                              <String fx:value="btn_homePage" />
+                           </styleClass>
                         </Button>
-                        <Button alignment="CENTER" layoutX="13.0" layoutY="158.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" prefWidth="255.0" style="-fx-background-color: #353A56;" styleClass="btn_reg" stylesheets="@../css/style.css" text="Registration" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" layoutX="13.0" layoutY="158.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Registration" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -42,8 +46,12 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="btn_reg" />
+                              <String fx:value="btn_homePage" />
+                           </styleClass>
                         </Button>
-                        <Button alignment="CENTER" layoutX="13.0" layoutY="696.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" prefWidth="255.0" style="-fx-background-color: #353A56;" styleClass="btn_quit" stylesheets="@../css/style.css" text="Quit" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="CENTER" layoutX="13.0" layoutY="696.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Quit" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -54,6 +62,10 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                           <styleClass>
+                              <String fx:value="btn_quit" />
+                              <String fx:value="btn_homePage" />
+                           </styleClass>
                         </Button>
                      </children>
                   </AnchorPane>
@@ -63,7 +75,7 @@
       </AnchorPane>
       <VBox prefHeight="761.0" prefWidth="902.0">
          <children>
-            <Pane prefHeight="142.0" prefWidth="900.0">
+            <Pane fx:id="top_pane" prefHeight="142.0" prefWidth="900.0" styleClass="top_pane" stylesheets="@../css/style.css">
                <children>
                   <TextField fx:id="search_bar" layoutX="612.0" layoutY="23.0" prefHeight="26.0" prefWidth="197.0" promptText="cerca..." />
                   <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="578.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
@@ -92,15 +104,87 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Button" GridPane.rowIndex="4" />
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <Button layoutX="310.0" layoutY="125.0" mnemonicParsing="false" prefHeight="147.0" prefWidth="301.0" text="Button" GridPane.rowIndex="2" />
-                  <Button layoutX="10.0" layoutY="125.0" mnemonicParsing="false" text="Button" GridPane.rowIndex="3" />
-                  <Button alignment="CENTER" layoutX="10.0" layoutY="125.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="269.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Pane fx:id="grid_pane" prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fx:id="grid_img0" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.rowIndex="3">
+                     <children>
+                        <ImageView fx:id="grid_img3" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.rowIndex="4">
+                     <children>
+                        <ImageView fx:id="grid_img6" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <ImageView fx:id="grid_img4" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <ImageView fx:id="grid_img7" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fx:id="grid_img2" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <children>
+                        <ImageView fx:id="grid_img5" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <children>
+                        <ImageView fx:id="grid_img8" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="grid_pane" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fx:id="grid_img1" fitHeight="200.0" fitWidth="200.0" layoutX="50.0" layoutY="15.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img">
+                           <image>
+                              <Image url="@../images/jimmy-fallon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </GridPane>
          </children>
