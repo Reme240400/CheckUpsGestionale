@@ -1,9 +1,9 @@
-.root{
+.root {
     -fx-background-color: #353A56;
     
 }
 
-.anchor_pane{
+.anchor_pane {
     -fx-background-color:  #353A56;
     -fx-border-color:  #2207bb;
     -fx-border-width: 2px 2px 2px 2px;
@@ -12,9 +12,38 @@
 
 }
 
-.btn_home  {
+.btn_home {
+}
+
+.btn_homePage {
     -fx-background-color: #353A56;
-    -fx-border-width: 2px 2px 2px 2px;
     -fx-border-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #4c5585;
+    -fx-text-fill: #47d82a;
+}
+
+.btn_homePage:hover {
+    -fx-background-color: #4c5585;
+    -fx-border-radius: 20px;
+    -fx-border-style: solid;
+}
+
+.top_pane {
+    -fx-background-color: #353A56;
+    -fx-border-color:  #2207bb;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-style: solid;
+}
+
+.grid_img:hover {
+    -fx-opacity: 0.5;
+
+}
+
+.grid_pane {
+    -fx-background-color: #4c5585;
+    -fx-border-color:  #2207bb;
+    -fx-border-width: 2px 2px 2px 2px;
     -fx-border-style: solid;
 }

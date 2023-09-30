@@ -29,11 +29,6 @@
     -fx-border-style: solid;
 }
 
-.grid_pane {
-    -fx-background-color: #4c5585;
-    
-}
-
 .top_pane {
     -fx-background-color: #353A56;
     -fx-border-color:  #2207bb;
@@ -44,4 +39,11 @@
 .grid_img:hover {
     -fx-opacity: 0.5;
 
+}
+
+.grid_pane {
+    -fx-background-color: #4c5585;
+    -fx-border-color:  #2207bb;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-style: solid;
 }
