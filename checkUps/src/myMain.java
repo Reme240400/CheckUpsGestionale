@@ -12,15 +12,12 @@ public class myMain extends Application{
     @Override
     public void start(javafx.stage.Stage primaryStage) throws Exception {
 
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/home.fxml"));
 
         Parent root = loader.load();
         primaryStage.setTitle("CheckUp Gestionale");
         primaryStage.setScene(new Scene(root));
         primaryStage.initStyle(StageStyle.UNDECORATED);
-
-        
 
         root.setOnMousePressed(event -> {
             x = event.getSceneX();

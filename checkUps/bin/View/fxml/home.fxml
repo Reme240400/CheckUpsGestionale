@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -15,96 +16,103 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1175.0" type="HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-  <AnchorPane fx:id="btn_home" minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="278.0">
+      <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="822.0" prefWidth="277.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css">
          <children>
-            <VBox fx:id="VBox_options" prefHeight="761.0" prefWidth="277.0" stylesheets="@../css/style.css">
+            <ImageView fitHeight="63.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8_Meanpath_64px_2.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="32.0" prefWidth="273.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
+            <Button fx:id="btn_home" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Home" textAlignment="CENTER" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/grid_shape_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn_home" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Button>
+            <Pane prefHeight="60.0" prefWidth="273.0" styleClass="separator_pane" stylesheets="@../css/style.css" VBox.vgrow="SOMETIMES" />
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Registration" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Century Gothic Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Box_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn_reg" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+            </Button>
+            <Pane prefHeight="86.0" prefWidth="273.0" styleClass="separator_pane" stylesheets="@../css/style.css" VBox.vgrow="SOMETIMES" />
+            <Button alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Quit" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Georgia Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8_Sign_Out_32px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="btn_quit" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+            </Button>
+         </children>
+      </VBox>
+      <VBox fx:id="VBox_screen" prefHeight="666.0" prefWidth="899.0" HBox.hgrow="SOMETIMES">
+         <children>
+            <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="899.0" styleClass="top_pane" stylesheets="@../css/style.css" VBox.vgrow="SOMETIMES">
                <children>
-                  <AnchorPane id="ancor_pane" fx:id="anchorPane" prefHeight="761.0" prefWidth="246.0" styleClass="anchor_pane" stylesheets="@../css/style.css">
+                  <Label prefHeight="43.0" prefWidth="230.0" text="Home Page" textFill="#c90000">
+                     <font>
+                        <Font name="Berlin Sans FB" size="39.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Pane prefHeight="43.0" prefWidth="120.0" HBox.hgrow="SOMETIMES" />
+                  <Pane prefHeight="43.0" prefWidth="238.0" stylesheets="@../css/style.css">
                      <children>
-                        <Button fx:id="btn_home" layoutX="12.0" layoutY="92.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Home" textAlignment="CENTER" textFill="WHITE">
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/grid_shape_icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="btn_home" />
-                              <String fx:value="btn_homePage" />
-                           </styleClass>
-                           <font>
-                              <Font name="Arial Bold" size="15.0" />
-                           </font>
-                        </Button>
-                        <Button alignment="CENTER" layoutX="13.0" layoutY="158.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Registration" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="Century Gothic Bold" size="15.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons8_Box_32px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="btn_reg" />
-                              <String fx:value="btn_homePage" />
-                           </styleClass>
-                        </Button>
-                        <Button alignment="CENTER" layoutX="13.0" layoutY="696.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Quit" textAlignment="CENTER" textFill="WHITE">
-                           <font>
-                              <Font name="Georgia Bold" size="15.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/icons8_Sign_Out_32px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="btn_quit" />
-                              <String fx:value="btn_homePage" />
-                           </styleClass>
-                        </Button>
-                        <ImageView fitHeight="63.0" fitWidth="166.0" layoutX="107.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="search_bar" layoutX="59.0" layoutY="18.0" prefHeight="26.0" prefWidth="165.0" promptText="cerca..." />
+                        <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_Meanpath_64px_2.png" />
+                              <Image url="@../images/icons8_Search_52px.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <AnchorPane prefHeight="43.0" prefWidth="76.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="26.0" layoutY="18.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/settings.png" />
                            </image>
                         </ImageView>
                      </children>
                   </AnchorPane>
                </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <VBox fx:id="VBox_screen" prefHeight="761.0" prefWidth="902.0">
-         <children>
-            <Pane fx:id="top_pane" prefHeight="142.0" prefWidth="900.0" styleClass="top_pane" stylesheets="@../css/style.css">
-               <children>
-                  <TextField fx:id="search_bar" layoutX="612.0" layoutY="23.0" prefHeight="26.0" prefWidth="197.0" promptText="cerca..." />
-                  <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="578.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_Search_52px.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="26.0" fitWidth="25.0" layoutX="851.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/settings.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="72.0" layoutY="15.0" prefHeight="37.0" prefWidth="378.0" text="Home Page" textFill="#c90000">
-                     <font>
-                        <Font name="Berlin Sans FB" size="39.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Pane fx:id="grid_pane" prefHeight="751.0" prefWidth="900.0" styleClass="grid_pane" stylesheets="@../css/style.css">
+            </HBox>
+            <Pane fx:id="grid_pane" prefHeight="751.0" prefWidth="900.0" styleClass="grid_pane" stylesheets="@../css/style.css" VBox.vgrow="ALWAYS">
                <children>
                   <GridPane fx:id="home_grid" alignment="CENTER" prefHeight="685.0" prefWidth="903.0">
                     <columnConstraints>
@@ -208,4 +216,4 @@
          </children>
       </VBox>
    </children>
-</HBox>
+</fx:root>

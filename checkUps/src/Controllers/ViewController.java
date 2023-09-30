@@ -55,29 +55,8 @@ public class ViewController implements Initializable{
     }
 
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        
-        
-    }
-
-    public void handleClicks(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == btnCustomers) {
-            pnlCustomer.setStyle("-fx-background-color : #1620A1");
-            pnlCustomer.toFront();
-        }
-        if (actionEvent.getSource() == btnMenus) {
-            pnlMenus.setStyle("-fx-background-color : #53639F");
-            pnlMenus.toFront();
-        }
-        if (actionEvent.getSource() == btnOverview) {
-            pnlOverview.setStyle("-fx-background-color : #02030A");
-            pnlOverview.toFront();
-        }
-        if(actionEvent.getSource()==btnOrders)
-        {
-            pnlOrders.setStyle("-fx-background-color : #464F67");
-            pnlOrders.toFront();
-        }
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }
     
 }
