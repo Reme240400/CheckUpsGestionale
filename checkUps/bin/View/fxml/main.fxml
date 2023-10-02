@@ -12,27 +12,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="src.Controllers.ViewController">
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ViewController">
    <left>
-      <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="761.0"
-         prefWidth="288.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css"
-         BorderPane.alignment="CENTER">
+      <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="761.0" prefWidth="288.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="32.0" prefWidth="288.0" styleClass="separator_pane"
-               stylesheets="@../css/style.css" />
-            <JFXButton layoutX="27.0" layoutY="144.0" prefHeight="44.0" prefWidth="255.0"
-               stylesheets="@../css/style.css" text="Home" textOverrun="CENTER_WORD_ELLIPSIS">
+            <Pane prefHeight="32.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
+            <JFXButton fx:id="btnHome" layoutX="27.0" layoutY="144.0" onAction="#switchToHome" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Home" textOverrun="CENTER_WORD_ELLIPSIS">
                <styleClass>
                   <String fx:value="btn_homePage" />
                   <String fx:value="btn_home" />
                </styleClass>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true"
-                     preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/grid_shape_icon.png" />
                      </image>
@@ -42,43 +37,33 @@
                   <Font name="Yu Gothic Bold" size="18.0" />
                </font>
             </JFXButton>
-            <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane"
-               stylesheets="@../css/style.css" />
-            <JFXButton layoutX="27.0" layoutY="246.0" prefHeight="44.0" prefWidth="255.0"
-               styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
+            <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
+            <JFXButton fx:id="btnOrders" layoutX="27.0" layoutY="246.0" prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true"
-                     preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_Box_32px.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane layoutX="10.0" layoutY="230.0" prefHeight="60.0" prefWidth="288.0"
-               styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage"
-               stylesheets="@../css/style.css" text="Registration">
+            <Pane layoutX="10.0" layoutY="230.0" prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
+            <JFXButton prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true"
-                     preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_Box_32px.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane layoutX="10.0" layoutY="162.0" prefHeight="60.0" prefWidth="288.0"
-               styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <Button alignment="CENTER" layoutX="27.0" layoutY="110.0" mnemonicParsing="false"
-               prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css"
-               text="Registration" textAlignment="CENTER" textFill="WHITE">
+            <Pane layoutX="10.0" layoutY="162.0" prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
+            <Button alignment="CENTER" layoutX="27.0" layoutY="110.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Registration" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Century Gothic Bold" size="15.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true"
-                     preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_Box_32px.png" />
                      </image>
@@ -89,13 +74,10 @@
                   <String fx:value="btn_homePage" />
                </styleClass>
             </Button>
-            <Pane minHeight="10.0" prefHeight="217.0" prefWidth="288.0"
-               stylesheets="@../css/style.css" VBox.vgrow="ALWAYS" />
-            <JFXButton fx:id="btnQuit" layoutX="27.0" layoutY="246.0" prefHeight="44.0"
-               prefWidth="255.0" stylesheets="@../css/style.css" text="Quit">
+            <Pane minHeight="10.0" prefHeight="217.0" prefWidth="288.0" stylesheets="@../css/style.css" VBox.vgrow="ALWAYS" />
+            <JFXButton fx:id="btnQuit" layoutX="27.0" layoutY="246.0" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Quit">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true"
-                     preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_Sign_Out_32px.png" />
                      </image>
@@ -109,21 +91,16 @@
                   <Font name="Yu Gothic Bold" size="20.0" />
                </font>
             </JFXButton>
-            <Pane prefHeight="54.0" prefWidth="288.0" styleClass="separator_pane"
-               stylesheets="@../css/style.css" />
+            <Pane prefHeight="54.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
          </children>
       </VBox>
    </left>
    <top>
-      <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity"
-         nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane"
-         stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+      <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane minWidth="-Infinity" prefHeight="70.0" prefWidth="288.0"
-               style="-fx-background-color: #353A56;">
+            <Pane minWidth="-Infinity" prefHeight="70.0" prefWidth="288.0" style="-fx-background-color: #353A56;">
                <children>
-                  <ImageView fitHeight="63.0" fitWidth="166.0" layoutX="117.0" layoutY="7.0"
-                     pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="63.0" fitWidth="166.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8_Meanpath_64px_2.png" />
                      </image>
@@ -138,17 +115,13 @@
                   <Insets left="40.0" />
                </HBox.margin>
             </Label>
-            <Pane layoutX="1406.0" layoutY="10.0" prefHeight="70.0" prefWidth="74.0"
-               HBox.hgrow="SOMETIMES" />
+            <Pane layoutX="1406.0" layoutY="10.0" prefHeight="70.0" prefWidth="74.0" HBox.hgrow="SOMETIMES" />
             <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="304.0">
                <children>
                   <Pane prefHeight="29.0" prefWidth="248.0">
                      <children>
-                        <TextField fx:id="search_bar" layoutY="22.0" prefHeight="26.0"
-                           prefWidth="223.0" promptText="Cerca..." styleClass="transparent"
-                           stylesheets="@../css/style.css" />
-                        <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="222.0" layoutY="23.0"
-                           pickOnBounds="true" preserveRatio="true">
+                        <TextField fx:id="search_bar" layoutY="22.0" prefHeight="26.0" prefWidth="223.0" promptText="Cerca..." styleClass="transparent" stylesheets="@../css/style.css" />
+                        <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="222.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icons8_Search_52px.png" />
                            </image>
@@ -160,8 +133,7 @@
             <Pane prefHeight="70.0" prefWidth="23.0" />
             <AnchorPane prefHeight="70.0" prefWidth="27.0">
                <children>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="1.0" layoutY="23.0"
-                     nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="1.0" layoutY="23.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/settings.png" />
                      </image>
@@ -172,4 +144,7 @@
          </children>
       </HBox>
    </top>
+   <center>
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

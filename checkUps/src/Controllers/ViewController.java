@@ -3,36 +3,32 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Stack;
+
+import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ViewController implements Initializable{
 
-    
     @FXML
-    private Button btnQuit;
+    private JFXButton btnQuit;
 
     @FXML
-    private Button btnHome;
+    private JFXButton btnHome;
+
+    @FXML
+    private JFXButton btnOrders;
 
     @FXML
     private StackPane stackPane;
-
-
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -41,7 +37,14 @@ public class ViewController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
+        btnQuit.setOnAction(event -> {
+            try {
+                logout(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void switchToHome(ActionEvent event) throws IOException{
@@ -65,7 +68,7 @@ public class ViewController implements Initializable{
         alert.setHeaderText("Stai per uscire!");
         alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
 
-        if(alert.showAndWait().get().equals("OK")){
+        if(alert.showAndWait().get().getText().equals("OK")){
             Stage stage = (Stage) btnQuit.getScene().getWindow();
             System.out.println("Salvataggio in corso...");
             stage.close();
