@@ -5,9 +5,9 @@
 
 .Vbox_buttons {
     -fx-background-color:  #353A56;
-    -fx-border-color:  #2207bb;
-    -fx-border-width: 2px 2px 2px 2px;
-    -fx-border-style: solid;
+    /* -fx-border-color:  #2207bb; */
+    /* -fx-border-width: 2px 2px 2px 2px; */
+    /* -fx-border-style: solid; */
 
 }
 
@@ -22,20 +22,22 @@
     -fx-border-style: solid;
     -fx-border-color: #4c5585;
     -fx-text-fill: #47d82a;
-    -fx-padding: 20px;
+    -fx-padding: 10px;
 }
 
 .btn_homePage:hover {
     -fx-background-color: #4c5585;
     -fx-border-radius: 20px;
-    -fx-border-style: solid;
+    /* -fx-border-style: solid; */
 }
 
 .top_pane {
-    -fx-background-color: #353A56;
-    -fx-border-color:  #2207bb;
-    -fx-border-width: 2px 2px 2px 2px;
-    -fx-border-style: solid;
+    -fx-background-color: #3a4794;
+    /* -fx-border-width: 2px 2px 2px 2px; */ 
+}
+
+.grid_img {
+    -fx-start-margin: 10px;
 }
 
 .grid_img:hover {
@@ -43,14 +45,23 @@
 
 }
 
-.grid_pane {
+.grid {
     -fx-background-color: #4c5585 ;
-    -fx-border-color:  #2207bb;
-    -fx-border-width: 2px 2px 2px 2px;
-    -fx-border-style: solid;
+    /* -fx-border-color:  #2207bb; */
+    /* -fx-border-width: 2px 2px 2px 2px; */
+    /* -fx-border-style: solid; */
 }
 
 .separator_pane{
     -fx-min-height: 10px;
     -fx-max-height: 50px;
+}
+
+.grid_img_pane{
+    -fx-min-width: 100px;
+    -fx-max-width: 300px;
+}
+
+.transparent {
+    -fx-background-color: rgba(0,0,0,0);
 }
