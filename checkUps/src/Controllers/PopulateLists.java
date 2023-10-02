@@ -8,7 +8,7 @@ public class PopulateLists {
         DbController.popolaListaTitoli();
         DbController.popolaListaReparti();
         DbController.popolaListaRischi();
-        DbController.popolaListaSocieta();
+        //DbController.popolaListaSocieta();
         DbController.popolaListaOggetti();
         DbController.popolaListaProvvedimenti();
         DbController.popolaListaUnitaLocali();

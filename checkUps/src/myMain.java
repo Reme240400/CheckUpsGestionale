@@ -4,45 +4,60 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sql.ControllerSql;
 
 public class myMain extends Application{
-    public static void main(String[] args) {
-        launch(args);
-        visualizzaDatiTabellaSocieta();
-    }
-
-    public static void visualizzaDatiTabellaSocieta() {
-        new ControllerSql();
-    }
+    private double x = 0;
+    private double y = 0;
 
     @Override
     public void start(javafx.stage.Stage primaryStage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main.fxml"));
-        Parent root = loader.load();
+        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/main.fxml"));
         primaryStage.setTitle("CheckUp Gestionale");
-        primaryStage.setScene(new Scene(root));
+        
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
-        final double[] x = {0};
-        final double[] y = {0};
-
         root.setOnMousePressed(event -> {
-            x[0] = event.getSceneX();
-            y[0] = event.getSceneY();
+            x = event.getSceneX();
+            y  = event.getSceneY();
         });
 
         root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - x[0]);
-            primaryStage.setY(event.getScreenY() - y[0]);
+            primaryStage.setX(event.getScreenX() - x);
+            primaryStage.setY(event.getScreenY() - y);
         });
 
+        primaryStage.setScene( new Scene(root));
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(e -> {
+            e.consume();
+            logout(primaryStage);
+            }
+        );
     }
 
+    public void logout(Stage stage){
+        Alert alert = new Alert(AlertType.CONFIRMATION);
 
+        alert.setTitle("Quit");
+        alert.setHeaderText("Stai per uscire!");
+        alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
+
+        if(alert.showAndWait().get().equals("OK")){
+            System.out.println("Salvataggio in corso...");
+            stage.close();
+        }
+    }
+
+    public static void main(String[] args) {
+            launch(args);
+        
+        }
 
 }
 

@@ -4,21 +4,31 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class ViewController implements Initializable{
 
     @FXML
-    private Button btn;
+    private JFXButton btnQuit;
 
     @FXML
-    private VBox vItems;
+    private JFXButton btnHome;
+
+    @FXML
+    private JFXButton btnOrders;
+
+    @FXML
+    private StackPane stackPane;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -26,38 +36,53 @@ public class ViewController implements Initializable{
     }
 
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("fxml/main.fxml"));
+    public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-            
-        
-            Node [] node = new Node[5];
-            for(int i = 0; i < node.length; i++){
-                node[i] = FXMLLoader.load(getClass().getResource("fxml/main.fxml"));
-                final int n = i;
-                vItems.getChildren().add(node[i]);
-
-                node[i].setOnMouseEntered(e -> {
-                    node[n].setStyle("-fx-background-color : #165DDB");
-                });
-
-                node[i].setOnMouseExited(e -> {
-                    node[n].setStyle("-fx-background-color : #F0F0F0");
-                });
-
-                node[i].setOnMousePressed(e -> {
-                    node[n].setStyle("-fx-background-color : #1E1E1E");
-                });
+        btnQuit.setOnAction(event -> {
+            try {
+                logout(event);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        });
 
-        } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
+            stackPane.getChildren().removeAll();
+            stackPane.getChildren().setAll(root);
 
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
         
+    }
+
+    public void switchToHome(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
+        stackPane.getChildren().removeAll();
+        stackPane.getChildren().setAll(root);
+
+    }
+
+    public void switchToOrders(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/nuovo.fxml"));
+        stackPane.getChildren().removeAll();
+        stackPane.getChildren().setAll(root);
+    }
+
+    public void logout(ActionEvent event) throws IOException{
+        System.out.println("Logout");
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+
+        alert.setTitle("Quit");
+        alert.setHeaderText("Stai per uscire!");
+        alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
+
+        if(alert.showAndWait().get().getText().equals("OK")){
+            Stage stage = (Stage) btnQuit.getScene().getWindow();
+            System.out.println("Salvataggio in corso...");
+            stage.close();
+        }
     }
     
 }

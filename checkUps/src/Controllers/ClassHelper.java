@@ -3,18 +3,18 @@ package Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import Tables.Mansione;
-import Tables.Oggetto;
-import Tables.Provvedimento;
-import Tables.Reparto;
-import Tables.Rischio;
-import Tables.Societa;
-import Tables.Titolo;
-import Tables.UnitaLocale;
+import Models.Tables.Mansione;
+import Models.Tables.Oggetto;
+import Models.Tables.Provvedimento;
+import Models.Tables.Reparto;
+import Models.Tables.Rischio;
+import Models.Tables.Societa;
+import Models.Tables.Titolo;
+import Models.Tables.UnitaLocale;
 
 //? Classe che conterra' i metodi per avete oggetti globali da passare tra le classi
 public class ClassHelper {
-    
+
     private static List<Mansione> listMansione = new ArrayList<>();
     private static List<Titolo> listTitolo = new ArrayList<>();
     private static List<Reparto> listReparto = new ArrayList<>();
@@ -56,8 +56,5 @@ public class ClassHelper {
     public static List<UnitaLocale> getListUnitaLocale() {
         return listUnitaLocale;
     }
-    
 
 }
-
-
