@@ -38,7 +38,7 @@
                </font>
             </JFXButton>
             <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton fx:id="btnOrders" layoutX="27.0" layoutY="246.0" prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
+            <JFXButton fx:id="btnOrders" layoutX="27.0" layoutY="246.0" onAction="#switchToOrders" prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>

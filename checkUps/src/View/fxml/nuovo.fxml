@@ -10,7 +10,7 @@
 <AnchorPane
    xmlns="http://javafx.com/javafx/20.0.1"
    xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="fxml.nuovo">
+   fx:controller="View.Controllers.Orders">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>

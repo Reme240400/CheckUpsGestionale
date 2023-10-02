@@ -45,17 +45,27 @@ public class ViewController implements Initializable{
                 e.printStackTrace();
             }
         });
+
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
+            stackPane.getChildren().removeAll();
+            stackPane.getChildren().setAll(root);
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public void switchToHome(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
 
     }
 
     public void switchToOrders(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("nuovo.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/nuovo.fxml"));
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
     }
