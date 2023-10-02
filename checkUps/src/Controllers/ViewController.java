@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 
 public class ViewController implements Initializable{
 
+    private String path = "/View/fxml/";
+
     @FXML
     private JFXButton btnQuit;
 
@@ -28,7 +30,10 @@ public class ViewController implements Initializable{
     private JFXButton btnOrders;
 
     @FXML
-    private StackPane stackPane;
+    private StackPane center_stackPane;
+
+    @FXML
+    private StackPane topBar_stackPane;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -47,9 +52,9 @@ public class ViewController implements Initializable{
         });
 
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
+            Parent root = FXMLLoader.load(getClass().getResource(path + "home.fxml"));
+            center_stackPane.getChildren().removeAll();
+            center_stackPane.getChildren().setAll(root);
 
         }catch (IOException e) {
             e.printStackTrace();
@@ -58,16 +63,16 @@ public class ViewController implements Initializable{
     }
 
     public void switchToHome(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        Parent root = FXMLLoader.load(getClass().getResource(path + "home.fxml"));
+        center_stackPane.getChildren().removeAll();
+        center_stackPane.getChildren().setAll(root);
 
     }
 
     public void switchToOrders(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/nuovo.fxml"));
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        Parent root = FXMLLoader.load(getClass().getResource(path + "nuovo.fxml"));
+        center_stackPane.getChildren().removeAll();
+        center_stackPane.getChildren().setAll(root);
     }
 
     public void logout(ActionEvent event) throws IOException{
@@ -81,6 +86,7 @@ public class ViewController implements Initializable{
         if(alert.showAndWait().get().getText().equals("OK")){
             Stage stage = (Stage) btnQuit.getScene().getWindow();
             System.out.println("Salvataggio in corso...");
+            // call save method
             stage.close();
         }
     }

@@ -98,15 +98,19 @@
    <top>
       <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane minWidth="-Infinity" prefHeight="70.0" prefWidth="288.0" style="-fx-background-color: #353A56;">
+            <StackPane fx:id="topBar_stackPane">
                <children>
-                  <ImageView fitHeight="63.0" fitWidth="166.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_Meanpath_64px_2.png" />
-                     </image>
-                  </ImageView>
+                  <Pane minWidth="-Infinity" prefHeight="70.0" prefWidth="288.0" style="-fx-background-color: #353A56;">
+                     <children>
+                        <ImageView fitHeight="63.0" fitWidth="166.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8_Meanpath_64px_2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
+            </StackPane>
             <Label prefHeight="43.0" prefWidth="230.0" text="Home Page" textFill="#c90000">
                <font>
                   <Font name="Berlin Sans FB" size="39.0" />
@@ -145,6 +149,6 @@
       </HBox>
    </top>
    <center>
-      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="center_stackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
