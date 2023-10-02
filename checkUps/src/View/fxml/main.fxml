@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="src.Controllers.ViewController">
+   fx:controller="Controllers.ViewController">
    <left>
       <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="761.0"
          prefWidth="288.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css"
