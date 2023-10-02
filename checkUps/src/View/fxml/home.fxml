@@ -1,95 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
-<GridPane fx:id="grid" alignment="CENTER" prefHeight="411.0" prefWidth="397.0" styleClass="grid" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    </rowConstraints>
-    <children>
-        <ImageView fx:id="grid_img0" fitHeight="51.0" fitWidth="74.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
-            <image>
-                <Image url="@../icons/apps.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img1" fitHeight="106.0" fitWidth="61.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="1" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
-            <image>
-                <Image url="@../icons/download_down_save_icon.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img2" fitHeight="119.0" fitWidth="56.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="2" GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
-            <image>
-                <Image url="@../icons/pencil.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img6" fitHeight="43.0" fitWidth="47.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.rowIndex="2">
-            <image>
-                <Image url="@../icons/info.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img7" fitHeight="140.0" fitWidth="66.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <image>
-                <Image url="@../icons/upload_icon.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img8" fitHeight="116.0" fitWidth="56.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="2" GridPane.rowIndex="2">
-            <image>
-                <Image url="@../icons/settings.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img5" fitHeight="143.0" fitWidth="65.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="2" GridPane.rowIndex="1">
-            <image>
-                <Image url="@../icons/save_icon.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img71" fitHeight="133.0" fitWidth="63.0" layoutX="259.0" layoutY="545.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <image>
-                <Image url="@../icons/trash_icon.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-        <ImageView fx:id="grid_img711" fitHeight="81.0" fitWidth="48.0" layoutX="10.0" layoutY="37.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.rowIndex="1">
-            <image>
-                <Image url="@../icons/alert_triangle_icon.png" />
-            </image>
-            <GridPane.margin>
-                <Insets />
-            </GridPane.margin>
-        </ImageView>
-    </children>
-</GridPane>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="37.0" prefWidth="600.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="10.0" text="Societa'" textFill="WHITE" />
+            <Label layoutX="98.0" layoutY="10.0" text="Ente" textFill="WHITE" />
+            <Label layoutX="160.0" layoutY="10.0" text="Oggetto" textFill="WHITE" />
+            <Label layoutX="136.0" layoutY="10.0" text="&gt;&gt;" textFill="WHITE" />
+            <Label layoutX="71.0" layoutY="10.0" text="&gt;&gt;" textFill="WHITE" />
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
