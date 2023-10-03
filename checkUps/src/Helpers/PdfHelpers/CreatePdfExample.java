@@ -30,7 +30,7 @@ public class CreatePdfExample {
 
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
-                    new File("C:/dev/CheckUpsGestionale/bin/resources/fonts/Helvetica-Bold-Font.ttf"));
+                    new File("src/resources/fonts/Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
@@ -84,10 +84,7 @@ public class CreatePdfExample {
 
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
 
-                    File selectedFile = fileChooser.getSelectedFile();
-
-                    selectedFile.
-                    
+                    File selectedFile = new File(fileChooser.getSelectedFile().toPath().toString() + ".pdf");             
                     
                     // Salva il PDF nel percorso selezionato
                     Files.copy(new File(nomeFile).toPath(), selectedFile.toPath());
@@ -95,7 +92,7 @@ public class CreatePdfExample {
                     JOptionPane.showMessageDialog(null, "Il PDF è stato salvato con successo.");
 
                     // Apertura del PDF con l'applicazione predefinita per la visualizzazione
-                    Desktop.getDesktop().open(new File(nomeFile));
+                    Desktop.getDesktop().open(selectedFile);
 
                 }
             }
