@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane prefHeight="514.0" prefWidth="634.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css"
+   xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="View.Controllers.CreazioneSocieta">
+   <children>
+      <Label layoutX="48.0" layoutY="120.0" prefHeight="17.0" prefWidth="93.0"
+         text="Ragione Sociale:" textFill="WHITE" />
+      <TextField layoutX="150.0" layoutY="116.0" prefHeight="25.0" prefWidth="437.0" />
+      <Label layoutX="48.0" layoutY="184.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:"
+         textFill="WHITE" />
+      <TextField layoutX="112.0" layoutY="180.0" prefHeight="25.0" prefWidth="330.0" />
+      <Label layoutX="48.0" layoutY="305.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:"
+         textFill="WHITE" />
+      <TextField accessibleText="INTEGER" layoutX="112.0" layoutY="301.0" prefHeight="25.0"
+         prefWidth="330.0" />
+      <Label layoutX="48.0" layoutY="243.0" prefHeight="17.0" prefWidth="43.0" text="e-mail:"
+         textFill="WHITE" />
+      <TextField layoutX="112.0" layoutY="239.0" prefHeight="25.0" prefWidth="330.0" />
+      <Label layoutX="464.0" layoutY="184.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:"
+         textFill="WHITE" />
+      <TextField accessibleText="INTEGER" layoutX="530.0" layoutY="180.0" prefHeight="25.0"
+         prefWidth="56.0" />
+      <JFXButton fx:id="saveButton" layoutX="570.0" layoutY="458.0" onAction="#salvaSocieta"
+         prefHeight="42.0" prefWidth="32.0">
+         <graphic>
+            <ImageView fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/save_icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</Pane>

@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ViewController">
+<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
    <left>
       <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="761.0" prefWidth="288.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -38,11 +37,11 @@
                </font>
             </JFXButton>
             <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton fx:id="btnOrders" layoutX="27.0" layoutY="246.0" onAction="#switchToOrders" prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
+            <JFXButton fx:id="btnOrders" layoutX="27.0" layoutY="246.0" onAction="#switchToCreazione" prefHeight="44.0" prefWidth="255.0" styleClass="btn_homePage" stylesheets="@../css/style.css" text="Registration">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_Box_32px.png" />
+                        <Image url="@../icons/plus.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -52,34 +51,18 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_Box_32px.png" />
+                        <Image url="@../icons/pencil.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
             <Pane layoutX="10.0" layoutY="162.0" prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <Button alignment="CENTER" layoutX="27.0" layoutY="110.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Registration" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Century Gothic Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8_Box_32px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <styleClass>
-                  <String fx:value="btn_reg" />
-                  <String fx:value="btn_homePage" />
-               </styleClass>
-            </Button>
             <Pane minHeight="10.0" prefHeight="217.0" prefWidth="288.0" stylesheets="@../css/style.css" VBox.vgrow="ALWAYS" />
             <JFXButton fx:id="btnQuit" layoutX="27.0" layoutY="246.0" prefHeight="44.0" prefWidth="255.0" stylesheets="@../css/style.css" text="Quit">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/icons8_Sign_Out_32px.png" />
+                        <Image url="@../icons/icons8_Sign_Out_32px.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -100,9 +83,9 @@
          <children>
             <Pane minWidth="-Infinity" prefHeight="70.0" prefWidth="288.0" style="-fx-background-color: #353A56;">
                <children>
-                  <ImageView fitHeight="63.0" fitWidth="166.0" layoutX="117.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="97.0" fitWidth="197.0" layoutX="46.0" pickOnBounds="true" preserveRatio="true" styleClass="logo_img">
                      <image>
-                        <Image url="@../images/icons8_Meanpath_64px_2.png" />
+                        <Image url="@../images/LogoCUpH12%20-%20Copia.png" />
                      </image>
                   </ImageView>
                </children>
@@ -123,7 +106,7 @@
                         <TextField fx:id="search_bar" layoutY="22.0" prefHeight="26.0" prefWidth="223.0" promptText="Cerca..." styleClass="transparent" stylesheets="@../css/style.css" />
                         <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="222.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/icons8_Search_52px.png" />
+                              <Image url="@../icons/icons8_Search_52px.png" />
                            </image>
                         </ImageView>
                      </children>

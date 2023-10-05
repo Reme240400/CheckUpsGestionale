@@ -11,6 +11,14 @@
 
 }
 
+.logo_img {
+    -fx-border-radius: 15px 15px 15px 15px;
+}
+
+/* .logo_img:hover {
+    -fx-opacity: 0.5;
+} */
+
 .btn_home:hover {
 
 }
@@ -55,6 +63,11 @@
 .separator_pane{
     -fx-min-height: 10px;
     -fx-max-height: 50px;
+}
+
+.top_separator_pane{
+    -fx-min-height: 50px;
+    -fx-max-height: 130px;
 }
 
 .grid_img_pane{
