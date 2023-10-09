@@ -47,7 +47,7 @@
          textFill="WHITE" />
       <TextField layoutX="96.0" layoutY="246.0" prefHeight="25.0" prefWidth="323.0" />
       <JFXButton fx:id="btnSalva" layoutX="570.0" layoutY="464.0" prefHeight="42.0"
-         prefWidth="32.0">
+         prefWidth="32.0" onAction="#salvaUnitaLocale">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
