@@ -13,8 +13,8 @@
             <Label alignment="CENTER" layoutX="181.0" layoutY="16.0" minWidth="34.0" prefHeight="17.0" text="&gt;&gt;" />
             <Label alignment="CENTER" layoutX="382.0" layoutY="16.0" text="&gt;&gt;" />
             <JFXButton fx:id="btnSocieta" alignment="CENTER" layoutX="53.0" layoutY="12.0" onAction="#switchToSocieta" text="Società / Ente" />
-            <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" layoutX="255.0" layoutY="12.0" text="Unità locali" />
-            <JFXButton fx:id="btnReparti" alignment="CENTER" layoutX="453.0" layoutY="12.0" text="Reparti" />
+            <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" layoutX="255.0" layoutY="12.0" onAction="#switchToUnitaLocali" text="Unità locali" />
+            <JFXButton fx:id="btnReparti" alignment="CENTER" layoutX="453.0" layoutY="12.0" onAction="#switchToReparti" text="Reparti" />
          </children>
       </Pane>
    </top>

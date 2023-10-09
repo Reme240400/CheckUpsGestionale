@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
    <left>
       <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="761.0" prefWidth="288.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -83,14 +83,14 @@
          <children>
             <Pane minWidth="-Infinity" prefHeight="70.0" prefWidth="288.0" style="-fx-background-color: #353A56;">
                <children>
-                  <ImageView fitHeight="97.0" fitWidth="197.0" layoutX="46.0" pickOnBounds="true" preserveRatio="true" styleClass="logo_img">
+                  <ImageView fitHeight="72.0" fitWidth="197.0" layoutX="25.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" styleClass="logo_img">
                      <image>
                         <Image url="@../images/LogoCUpH12%20-%20Copia.png" />
                      </image>
                   </ImageView>
                </children>
             </Pane>
-            <Label prefHeight="43.0" prefWidth="230.0" text="Home Page" textFill="#c90000">
+            <Label prefHeight="43.0" prefWidth="224.0" text="Home Page" textFill="#c90000">
                <font>
                   <Font name="Berlin Sans FB" size="39.0" />
                </font>
@@ -98,10 +98,10 @@
                   <Insets left="40.0" />
                </HBox.margin>
             </Label>
-            <Pane layoutX="1406.0" layoutY="10.0" prefHeight="70.0" prefWidth="74.0" HBox.hgrow="SOMETIMES" />
-            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="304.0">
+            <Pane layoutX="1406.0" layoutY="10.0" prefHeight="70.0" prefWidth="43.0" HBox.hgrow="SOMETIMES" />
+            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="310.0">
                <children>
-                  <Pane prefHeight="29.0" prefWidth="248.0">
+                  <Pane prefHeight="70.0" prefWidth="249.0">
                      <children>
                         <TextField fx:id="search_bar" layoutY="22.0" prefHeight="26.0" prefWidth="223.0" promptText="Cerca..." styleClass="transparent" stylesheets="@../css/style.css" />
                         <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="222.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
@@ -113,7 +113,7 @@
                   </Pane>
                </children>
             </HBox>
-            <Pane prefHeight="70.0" prefWidth="23.0" />
+            <Pane prefHeight="70.0" prefWidth="63.0" />
             <AnchorPane prefHeight="70.0" prefWidth="27.0">
                <children>
                   <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="1.0" layoutY="23.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
@@ -123,7 +123,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Pane prefHeight="70.0" prefWidth="28.0" />
+            <Pane prefHeight="70.0" prefWidth="37.0" />
          </children>
       </HBox>
    </top>

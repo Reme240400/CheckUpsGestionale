@@ -8,7 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane prefHeight="514.0" prefWidth="634.0" styleClass="Vbox_buttons" stylesheets="@../css/style.css"
+<Pane styleClass="Vbox_buttons" stylesheets="@../css/style.css"
    xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="View.Controllers.CreazioneUnitaLocale">
    <children>
@@ -46,7 +46,7 @@
       <Label layoutX="40.0" layoutY="250.0" prefHeight="17.0" prefWidth="56.0" text="Località:"
          textFill="WHITE" />
       <TextField layoutX="96.0" layoutY="246.0" prefHeight="25.0" prefWidth="323.0" />
-      <JFXButton fx:id="saveButton" layoutX="570.0" layoutY="464.0" prefHeight="42.0"
+      <JFXButton fx:id="btnSalva" layoutX="570.0" layoutY="464.0" prefHeight="42.0"
          prefWidth="32.0">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">

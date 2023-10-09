@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 
 
 public class CreazioneSocieta implements Initializable {
@@ -23,11 +24,14 @@ public class CreazioneSocieta implements Initializable {
 
     public void salvaSocieta(javafx.event.ActionEvent event) throws IOException{
         
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/View/fxml/main_creazione.fxml"));
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
+        Parent root = (Parent) loader.load();
+        
         Creazione controller = loader.getController();
-        controller.setEnableBtnUnitaLocale();    
+        controller.setEnableBtnUnitaLocale();
+
+        loader.setController(controller);
+
     }
 
     

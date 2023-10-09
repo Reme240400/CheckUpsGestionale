@@ -30,11 +30,6 @@ public class ViewController implements Initializable{
     @FXML
     private StackPane stackPane;
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -84,5 +79,6 @@ public class ViewController implements Initializable{
             stage.close();
         }
     }
+
     
 }

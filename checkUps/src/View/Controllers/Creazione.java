@@ -10,7 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class Creazione implements Initializable{
     
@@ -25,12 +27,6 @@ public class Creazione implements Initializable{
 
     @FXML
     private StackPane stackPane;
-
-
-    @FXML
-    private void handleButtonAction(javafx.event.ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,15 +62,14 @@ public class Creazione implements Initializable{
     }
 
     public void setEnableBtnUnitaLocale() {
-    
+        System.out.println("setEnableBtnUnitaLocale");
         btnUnitaLocali.setDisable(false);
-    }
 
+    }
 
     public void setEnableBtnReparti(){
         
         btnReparti.setDisable(false);
     }
-
 
 }
