@@ -4,15 +4,15 @@
 
 * metodi per aggiunta di un nuovo record (manca la parte dove si aggionra il db dopo'l'operazione)
 
-* metodi per modifica di ogni campo di ogni record (manca la parte dove si aggionra il db dopo'l'operazione)
-
-* metodi per eliminazione di un record (manca la parte dove si aggionra il db dopo'l'operazione)
-
-* metodo per crea ed aggiorna in automatico la tabella creata con la relazione n a n
+* metodo per crea ed aggiorna in automatico la tabella creata con la relazione n a n, ogni volta che verrà effettuata un operazione di  
+  
+* cercare metodo per inserire immagini in postgres(o altro modo)
 
 * metodo che crea il pdf(con anteprima) in cui vado a scrivere per ora solo qualche tabella
 
-* cercare metodo per inserire immagini in postgres(o altro modo)
+* parte grafica
+
+
 
 ## Issues
 
