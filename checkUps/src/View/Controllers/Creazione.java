@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import Models.CreazioneModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,35 +27,21 @@ public class Creazione implements Initializable {
     @FXML
     private StackPane stackPane;
 
+    private CreazioneModel creazioneModel;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        btnUnitaLocali.setDisable(true);
-        btnReparti.setDisable(true);
-
-        try {
-
-            FXMLLoader mainCreazioneLoader = new FXMLLoader(
-                    getClass().getResource("/View/fxml/creazione_societa.fxml"));
-            Parent root = mainCreazioneLoader.load();
-            CreazioneSocieta creazioneSocieta = mainCreazioneLoader.getController();
-            creazioneSocieta.setCreazione(this);
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        
     }
 
-    public void switchToSocieta(javafx.event.ActionEvent event) throws IOException {
+    public void switchToSocieta() throws IOException {
         FXMLLoader mainCreazioneLoader = new FXMLLoader(
                 getClass().getResource("/View/fxml/creazione_societa.fxml"));
 
         Parent root = mainCreazioneLoader.load();
         CreazioneSocieta creazioneSocieta = mainCreazioneLoader.getController();
-        creazioneSocieta.setCreazione(this);
+
+        creazioneSocieta.setModel(creazioneModel);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -66,7 +53,7 @@ public class Creazione implements Initializable {
 
         Parent root = mainCreazioneLoader.load();
         CreazioneUnitaLocale creazioneUnita = mainCreazioneLoader.getController();
-        creazioneUnita.setCreazione(this);
+        creazioneUnita.setModel(creazioneModel);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -84,20 +71,17 @@ public class Creazione implements Initializable {
         stackPane.getChildren().setAll(root);
     }
 
-    public void setEnableBtnUnitaLocale() {
+    public void setCreazioneModel(CreazioneModel creazioneModel) {
+        this.creazioneModel = creazioneModel;
 
-        btnUnitaLocali.setDisable(false);
-
-    }
-
-    public void setEnableBtnReparti() {
-
-        btnReparti.setDisable(false);
-
-    }
-
-    public void finalReport() {
-
+        try {
+            switchToSocieta();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        this.btnUnitaLocali.disableProperty().bind(creazioneModel.societaSavedProperty().not());
+        this.btnReparti.disableProperty().bind(creazioneModel.unitaLocaleSavedProperty().not());
     }
 
 }

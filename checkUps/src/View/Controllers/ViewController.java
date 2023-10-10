@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import Models.CreazioneModel;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,9 +43,7 @@ public class ViewController implements Initializable{
         });
 
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
+            switchToHome();
 
         }catch (IOException e) {
             e.printStackTrace();
@@ -52,15 +51,24 @@ public class ViewController implements Initializable{
         
     }
 
-    public void switchToHome(ActionEvent event) throws IOException{
+    public void switchToHome() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
+
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
 
     }
 
     public void switchToCreazione(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/main_creazione.fxml"));
+        CreazioneModel creazioneModel = new CreazioneModel();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
+
+        Parent root = loader.load();
+        Creazione creazione = loader.getController();
+
+        creazione.setCreazioneModel(creazioneModel);
+
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
     }

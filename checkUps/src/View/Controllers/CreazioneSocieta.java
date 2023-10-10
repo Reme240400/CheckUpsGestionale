@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import Models.CreazioneModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -13,7 +14,8 @@ public class CreazioneSocieta implements Initializable {
     @FXML
     JFXButton btnSalva;
 
-    private Creazione creazione;
+   // private Creazione creazione;
+    private CreazioneModel creazioneModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -22,12 +24,12 @@ public class CreazioneSocieta implements Initializable {
 
     public void salvaSocieta(javafx.event.ActionEvent event) {
 
-        creazione.setEnableBtnUnitaLocale();
+        creazioneModel.setSocietySaved(true);
 
     }
 
-    public void setCreazione(Creazione creazione) {
-        this.creazione = creazione;
-    }
     
+    public void setModel(CreazioneModel creazioneModel) {
+        this.creazioneModel = creazioneModel;
+    }
 }
