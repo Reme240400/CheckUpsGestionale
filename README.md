@@ -2,9 +2,9 @@
 
 ## TO DO LIST
 
-* metodi per aggiunta di un nuovo record (manca la parte dove si aggionra il db dopo l'operazione)
+* metodi per aggiunta di un nuovo record (manca la parte dove si aggiorna il db dopo l'operazione)
 
-* metodo per creare ed aggiorna in automatico la tabella creata con la relazione n a n, ogni volta che verrà effettuata un operazione di  
+* revisione ruolo ed esistenza tabella elenco_rischi 
   
 * cercare metodo per inserire immagini in postgres(o altro modo) 
 
