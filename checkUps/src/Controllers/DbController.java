@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import Models.Tables.ElencoRischi;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
@@ -52,9 +53,6 @@ public class DbController {
             e.printStackTrace();
         }
     }
-
-    
-    
 
     public static void popolaListaMansioni() {
         try (Connection connection = ControllerSql.connessioneDb()) {
@@ -277,8 +275,6 @@ public class DbController {
         }
     }
 
-
-
     // Metodo generico per l'eliminazione di un record da qualsiasi tabella
     public void eliminaRecord(String tableName, int recordId) {
         try (Connection connection = ControllerSql.connessioneDb()) {
@@ -289,7 +285,8 @@ public class DbController {
                     preparedStatement.setInt(1, recordId);
                     preparedStatement.executeUpdate();
                 } catch (SQLException e) {
-                    System.out.println("Errore durante l'eliminazione del record dalla tabella " + tableName + ": " + e.getMessage());
+                    System.out.println("Errore durante l'eliminazione del record dalla tabella " + tableName + ": "
+                            + e.getMessage());
                 }
             }
         } catch (SQLException e) {
@@ -302,17 +299,66 @@ public class DbController {
         try (Connection connection = ControllerSql.connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement()) {
-                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName + " = ?";
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
+                            + " = ?";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, nuovoValore);
                     preparedStatement.setInt(2, recordId);
                     preparedStatement.executeUpdate();
                 } catch (SQLException e) {
-                    System.out.println("Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // Metodo generico per l'inserimento di un record in una tabella CONVIENE FARE
+    // UNA SOLO CLASSE CHE QUANDO SI AGGIUNGE, MODIFCA O ELIMINA UN RECORD CHIAMA
+    // ENTRAMBI I METODI?
+    public void inserisciRecord(Object obj) {
+        try (Connection connection = ControllerSql.connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+
+                    switch (obj.getClass().getSimpleName()) {
+                        case "Mansione":
+                            ControllerSql.inserisciElementoMansioni(connection, ClassHelper.getListMansione());
+                            break;
+                        case "Titolo":
+                            ControllerSql.inserisciElementoTitoli(connection, ClassHelper.getListTitolo());
+                            break;
+                        case "Reparto":
+                            ControllerSql.inserisciElementoReparti(connection, ClassHelper.getListReparto());
+                            break;
+                        case "Rischio":
+                            ControllerSql.inserisciElementoRischi(connection, ClassHelper.getListRischio());
+                            break;
+                        case "Societa":
+                            ControllerSql.inserisciElementoSocieta(connection, ClassHelper.getListSocieta());
+                            break;
+                        case "Oggetto":
+                            ControllerSql.inserisciElementoOggetti(connection, ClassHelper.getListOggetto());
+                            break;
+                        case "Provvedimento":
+                            ControllerSql.inserisciElementoProvvedimenti(connection, ClassHelper.getListProvvedimento());
+                            break;
+                        case "UnitaLocale":
+                            ControllerSql.inserisciElementoUnitaLocali(connection, ClassHelper.getListUnitaLocale());
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
+                    }
+
+                } catch (SQLException e) {
+                    System.out.println("Errore durante l'inserimento di un nuovo record nel DB:  " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }

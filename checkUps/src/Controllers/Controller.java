@@ -258,8 +258,8 @@ public class Controller {
         }
     }
 
-    public void inserisciRecord(Object obj) {
-
+    public void inserisciRecordInLista(Object obj) {
+        
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
                 Mansione mansione = new Mansione(((Mansione) obj).getIdMansione(),
