@@ -2,7 +2,7 @@
 
 ## TO DO LIST
 
-* metodi per aggiunta di un nuovo record (manca la parte dove si aggiorna il db dopo l'operazione)
+
 
 * revisione ruolo ed esistenza tabella elenco_rischi 
   
