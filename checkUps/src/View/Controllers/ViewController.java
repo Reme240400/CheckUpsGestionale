@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import Models.CreazioneModel;
+import Models.ModelCreazione;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,14 +60,14 @@ public class ViewController implements Initializable{
     }
 
     public void switchToCreazione(ActionEvent event) throws IOException{
-        CreazioneModel creazioneModel = new CreazioneModel();
+        ModelCreazione ModelCreazione = new ModelCreazione();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
         Parent root = loader.load();
         Creazione creazione = loader.getController();
 
-        creazione.setCreazioneModel(creazioneModel);
+        creazione.setModelCreazione(ModelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

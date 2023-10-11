@@ -2,6 +2,7 @@ package View.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 
+import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -10,7 +11,7 @@ public class CreazioneReparti implements Initializable{
     @FXML
     JFXButton btnSalva;
 
-    private Creazione creazione;
+    private ModelCreazione modelCreazione;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -19,12 +20,13 @@ public class CreazioneReparti implements Initializable{
 
     public void salvaReparto(javafx.event.ActionEvent event) {
 
-        creazione.finalReport();
+        
 
     }
 
-    public void setCreazione(Creazione creazione) {
-        this.creazione = creazione;
+    public void setModel(ModelCreazione modelCreazione) {
+        this.modelCreazione = modelCreazione;
     }
+
     
 }

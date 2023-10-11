@@ -5,28 +5,38 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.CreazioneSocieta">
+
+<AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.CreazioneSocieta">
    <children>
-      <Label layoutX="51.0" layoutY="139.0" prefHeight="17.0" prefWidth="93.0" text="Ragione Sociale:" />
-      <TextField layoutX="153.0" layoutY="135.0" prefHeight="25.0" prefWidth="437.0" />
-      <Label layoutX="51.0" layoutY="203.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
-      <TextField layoutX="115.0" layoutY="199.0" prefHeight="25.0" prefWidth="330.0" />
-      <Label layoutX="51.0" layoutY="324.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
-      <TextField accessibleText="INTEGER" layoutX="115.0" layoutY="320.0" prefHeight="25.0" prefWidth="330.0" />
-      <Label layoutX="51.0" layoutY="262.0" prefHeight="17.0" prefWidth="43.0" text="e-mail:" />
-      <TextField layoutX="115.0" layoutY="258.0" prefHeight="25.0" prefWidth="330.0" />
-      <Label layoutX="467.0" layoutY="203.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
-      <TextField accessibleText="INTEGER" layoutX="533.0" layoutY="199.0" prefHeight="25.0" prefWidth="56.0" />
-      <JFXButton fx:id="btnSalva" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="573.0" layoutY="421.0" onAction="#salvaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#bfbdbd" textFill="WHITE" textOverrun="CLIP">
-         <graphic>
-            <ImageView  fitHeight="37.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/save_icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="459.0" prefWidth="618.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="44.0" layoutY="71.0" prefHeight="17.0" prefWidth="93.0" text="Ragione Sociale:" />
+            <TextField layoutX="146.0" layoutY="67.0" prefHeight="25.0" prefWidth="437.0" />
+            <Label layoutX="44.0" layoutY="135.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
+            <TextField layoutX="108.0" layoutY="131.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="44.0" layoutY="256.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
+            <TextField accessibleText="INTEGER" layoutX="108.0" layoutY="252.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="44.0" layoutY="194.0" prefHeight="17.0" prefWidth="43.0" text="e-mail:" />
+            <TextField layoutX="108.0" layoutY="190.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="460.0" layoutY="135.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
+            <TextField accessibleText="INTEGER" layoutX="526.0" layoutY="131.0" prefHeight="25.0" prefWidth="56.0" />
+            <AnchorPane layoutX="554.0" layoutY="400.0">
+               <children>
+                  <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="BLACK" textFill="WHITE" textOverrun="CLIP">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/save_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
    </children>
-</Pane>
+</AnchorPane>

@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import Models.CreazioneModel;
+import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -15,7 +15,7 @@ public class CreazioneUnitaLocale implements Initializable{
     @FXML
     JFXButton btnSalva;
 
-    private CreazioneModel model;
+    private ModelCreazione model;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -28,7 +28,7 @@ public class CreazioneUnitaLocale implements Initializable{
 
     }
 
-    public void setModel(CreazioneModel model) {
+    public void setModel(ModelCreazione model) {
         this.model = model;
     }
 }

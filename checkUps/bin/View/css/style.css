@@ -3,31 +3,35 @@
     
 }
 
-.Vbox_buttons {
-    -fx-background-color:  #353A56;
+.VBox_options {
+    -fx-background-color:  #505b9b;
     /* -fx-border-color:  #2207bb; */
     /* -fx-border-width: 2px 2px 2px 2px; */
     /* -fx-border-style: solid; */
 
 }
 
-.logo_img {
-    -fx-border-radius: 15px 15px 15px 15px;
+.bordered {
+    -fx-background-radius: 20px 20px 20px 20px;
+    -fx-border-radius: 20px 20px 20px 20px;
 }
+
+.bordered_style{
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-style: solid;
+}
+
 
 /* .logo_img:hover {
     -fx-opacity: 0.5;
 } */
 
-.btn_home:hover {
+/* .btn_home:hover {
 
-}
+} */
 
 .btn_homePage {
     -fx-background-color: #353A56;
-    -fx-background-radius: 0px 15px 15px 15px;
-    -fx-border-radius: 0px 15px 15px 15px;
-    -fx-border-style: solid;
     -fx-border-color: #4c5585;
     -fx-text-fill: #47d82a;
     -fx-padding: 10px;
@@ -35,7 +39,6 @@
 
 .btn_homePage:hover {
     -fx-background-color: #4c5585;
-    -fx-border-radius: 20px;
     /* -fx-border-style: solid; */
 }
 

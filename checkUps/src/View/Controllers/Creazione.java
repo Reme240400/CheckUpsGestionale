@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import Models.CreazioneModel;
+import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +27,7 @@ public class Creazione implements Initializable {
     @FXML
     private StackPane stackPane;
 
-    private CreazioneModel creazioneModel;
+    private ModelCreazione modelCreazione;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,7 +41,7 @@ public class Creazione implements Initializable {
         Parent root = mainCreazioneLoader.load();
         CreazioneSocieta creazioneSocieta = mainCreazioneLoader.getController();
 
-        creazioneSocieta.setModel(creazioneModel);
+        creazioneSocieta.setModel(modelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -53,7 +53,8 @@ public class Creazione implements Initializable {
 
         Parent root = mainCreazioneLoader.load();
         CreazioneUnitaLocale creazioneUnita = mainCreazioneLoader.getController();
-        creazioneUnita.setModel(creazioneModel);
+
+        creazioneUnita.setModel(modelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -65,14 +66,15 @@ public class Creazione implements Initializable {
 
         Parent root = mainCreazioneLoader.load();
         CreazioneReparti creazioneReparti = mainCreazioneLoader.getController();
-        creazioneReparti.setCreazione(this);
+
+        creazioneReparti.setModel(modelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
     }
 
-    public void setCreazioneModel(CreazioneModel creazioneModel) {
-        this.creazioneModel = creazioneModel;
+    public void setModelCreazione(ModelCreazione modelCreazione) {
+        this.modelCreazione = modelCreazione;
 
         try {
             switchToSocieta();
@@ -80,8 +82,8 @@ public class Creazione implements Initializable {
             e.printStackTrace();
         }
         
-        this.btnUnitaLocali.disableProperty().bind(creazioneModel.societaSavedProperty().not());
-        this.btnReparti.disableProperty().bind(creazioneModel.unitaLocaleSavedProperty().not());
+        this.btnUnitaLocali.disableProperty().bind(modelCreazione.societaSavedProperty().not());
+        this.btnReparti.disableProperty().bind(modelCreazione.unitaLocaleSavedProperty().not());
     }
 
 }

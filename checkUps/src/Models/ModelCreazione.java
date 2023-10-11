@@ -3,7 +3,7 @@ package Models;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-public class CreazioneModel {
+public class ModelCreazione {
 
     private final BooleanProperty societySaved = new SimpleBooleanProperty(false);
     private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
