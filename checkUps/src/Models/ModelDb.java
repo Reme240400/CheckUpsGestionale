@@ -1,4 +1,4 @@
-package sql;
+package Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import Controllers.ClassHelper;
 import Models.Tables.ElencoRischi;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
@@ -18,23 +19,11 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
-public class ControllerSql {
+public class ModelDb {
 
     private static final String connectionUrl = "jdbc:postgresql://localhost:5432/checkups_db";
     private static final String username = "postgres";
     private static final String password = "postgres";
-
-    public ControllerSql() {
-        visualizzaTabellaSocieta();
-        visualizzaTabellaUnitaLocali();
-        visualizzaTabellaReparti();
-        visualizzaTabellaTitoli();
-        visualizzaTabellaMansioni();
-        visualizzaTabellaOggetti();
-        visualizzaTabellaProvvedimenti();
-        visualizzaTabellaRischi();
-        visualizzaTabellaElencoRischi();
-    }
 
     public static Connection connessioneDb() {
         try {
@@ -44,6 +33,369 @@ public class ControllerSql {
             System.out.println("Errore di connessione al database: " + ex.getMessage());
         }
         return null;
+    }
+
+    // Prendo i dati dal db e li metto in una lista
+    public static void popolaListaSocieta() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.societa")) {
+
+                    while (resultSet.next()) {
+                        int idSocieta = resultSet.getInt("id_societa");
+                        String indirizzo = resultSet.getString("indirizzo");
+                        String localita = resultSet.getString("localita");
+                        String provincia = resultSet.getString("provincia");
+                        long telefono = resultSet.getLong("telefono");
+                        String descrizione = resultSet.getString("descrizione");
+                        String ente = resultSet.getString("ente");
+
+                        Societa societa = new Societa(idSocieta, indirizzo, localita, provincia, telefono, descrizione,
+                                ente);
+                        Model.inserisciRecordInLista(societa);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella societa: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaMansioni() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
+
+                    while (resultSet.next()) {
+                        int idMansione = resultSet.getInt("id_mansione");
+                        String nome = resultSet.getString("nome");
+                        String responsabile = resultSet.getString("responsabile");
+
+                        Mansione mansione = new Mansione(idMansione, nome, responsabile);
+                        Model.inserisciRecordInLista(mansione);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella mansioni: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaTitoli() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.titoli")) {
+
+                    while (resultSet.next()) {
+                        int idTitolo = resultSet.getInt("id_titolo");
+                        String descrizione = resultSet.getString("descrizione");
+                        int idReparto = resultSet.getInt("id_reparto");
+
+                        Titolo titolo = new Titolo(idTitolo, descrizione, idReparto);
+                        Model.inserisciRecordInLista(titolo);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella titoli: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaReparti() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.reparti")) {
+
+                    while (resultSet.next()) {
+                        int idReparto = resultSet.getInt("id_reparto");
+                        int idUnitaLocale = resultSet.getInt("id_unita_locale");
+                        String nome = resultSet.getString("nome");
+                        String descrizione = resultSet.getString("descrizione");
+
+                        Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
+                        Model.inserisciRecordInLista(reparto);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella reparti: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaRischi() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.rischi")) {
+
+                    while (resultSet.next()) {
+                        int idRischio = resultSet.getInt("id_rischio");
+                        String nome = resultSet.getString("nome");
+                        int p = resultSet.getInt("P");
+                        int d = resultSet.getInt("D");
+                        int r = resultSet.getInt("R");
+                        int idReparto = resultSet.getInt("id_reparto");
+
+                        Rischio rischio = new Rischio(idRischio, nome, p, d, r, idReparto);
+                        Model.inserisciRecordInLista(rischio);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella rischi: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaOggetti() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.oggetti")) {
+
+                    while (resultSet.next()) {
+                        int idOggetto = resultSet.getInt("id_oggetto");
+                        String nome = resultSet.getString("nome");
+                        int idTitolo = resultSet.getInt("id_titolo");
+
+                        Oggetto oggetto = new Oggetto(idOggetto, nome, idTitolo);
+                        Model.inserisciRecordInLista(oggetto);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella oggetti: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaProvvedimenti() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.provvedimenti")) {
+
+                    while (resultSet.next()) {
+                        int idProvvedimento = resultSet.getInt("id_provvedimento");
+                        String nome = resultSet.getString("tipo");
+                        int idMansione = resultSet.getInt("id_mansione");
+                        int idOggetto = resultSet.getInt("id_oggetto");
+                        int idElencoRischi = resultSet.getInt("id_elenco_rischi");
+
+                        Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
+                                idElencoRischi);
+                        Model.inserisciRecordInLista(provvedimento);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella provvedimenti: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void popolaListaUnitaLocali() {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.unita_locali")) {
+
+                    while (resultSet.next()) {
+                        int idUnitaLocale = resultSet.getInt("id_unita_locale");
+                        int idSocieta = resultSet.getInt("id_societa");
+                        String nome = resultSet.getString("nome");
+                        String indirizzo = resultSet.getString("indirizzo");
+                        String localita = resultSet.getString("localita");
+                        String provincia = resultSet.getString("provincia");
+
+                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, provincia, nome, indirizzo, localita,
+                                idSocieta);
+                        Model.inserisciRecordInLista(unitaLocale);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Errore durante la lettura della tabella unita_locale: " + e.getMessage());
+                } finally {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo generico per l'eliminazione di un record da qualsiasi tabella
+    public static void eliminaRecord(String tableName, int recordId) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "DELETE FROM public." + tableName + " WHERE id_" + tableName + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("Errore durante l'eliminazione del record dalla tabella " + tableName + ": "
+                            + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo generico per la modifica di un campo in qualsiasi tabella
+    public static void modificaCampoStringa(String tableName, int recordId, String campo, String nuovoValore) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
+                            + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, nuovoValore);
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo generico per la modifica di un campo in qualsiasi tabella
+    public static void modificaCampoIntero(String tableName, int recordId, String campo, int nuovoValore) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
+                            + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, nuovoValore);
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodo generico per l'inserimento di un record in una tabella
+    public static void inserisciRecord(Object obj) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+
+                    switch (obj.getClass().getSimpleName()) {
+                        case "Mansione":
+                            inserisciElementoMansioni(connection, ClassHelper.getListMansione());
+                            break;
+                        case "Titolo":
+                            inserisciElementoTitoli(connection, ClassHelper.getListTitolo());
+                            break;
+                        case "Reparto":
+                            inserisciElementoReparti(connection, ClassHelper.getListReparto());
+                            break;
+                        case "Rischio":
+                            inserisciElementoRischi(connection, ClassHelper.getListRischio());
+                            break;
+                        case "Societa":
+                            inserisciElementoSocieta(connection, ClassHelper.getListSocieta());
+                            break;
+                        case "Oggetto":
+                            inserisciElementoOggetti(connection, ClassHelper.getListOggetto());
+                            break;
+                        case "Provvedimento":
+                            inserisciElementoProvvedimenti(connection, ClassHelper.getListProvvedimento());
+                            break;
+                        case "UnitaLocale":
+                            inserisciElementoUnitaLocali(connection, ClassHelper.getListUnitaLocale());
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
+                    }
+
+                } catch (SQLException e) {
+                    System.out.println("Errore durante l'inserimento di un nuovo record nel DB:  " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void visualizzaTabellaSocieta() {
