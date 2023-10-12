@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione">
    <children>
       <BorderPane prefHeight="503.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -20,10 +19,6 @@
                   <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
                   <Pane prefHeight="48.0" prefWidth="90.0" />
                   <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" onAction="#switchToUnitaLocali" text="Unità locali" />
-                  <Pane layoutX="493.0" layoutY="10.0" prefHeight="48.0" prefWidth="90.0" />
-                  <Label alignment="CENTER" text="&gt;&gt;" />
-                  <Pane prefHeight="48.0" prefWidth="90.0" />
-                  <JFXButton fx:id="btnReparti" alignment="CENTER" onAction="#switchToReparti" text="Reparti" />
                </children>
             </HBox>
          </top>
