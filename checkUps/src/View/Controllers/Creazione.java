@@ -22,9 +22,6 @@ public class Creazione implements Initializable {
     private JFXButton btnUnitaLocali;
 
     @FXML
-    private JFXButton btnReparti;
-
-    @FXML
     private StackPane stackPane;
 
     private ModelCreazione modelCreazione;
@@ -60,19 +57,6 @@ public class Creazione implements Initializable {
         stackPane.getChildren().setAll(root);
     }
 
-    public void switchToReparti(javafx.event.ActionEvent event) throws IOException {
-        FXMLLoader mainCreazioneLoader = new FXMLLoader(
-                getClass().getResource("/View/fxml/creazione_reparti.fxml"));
-
-        Parent root = mainCreazioneLoader.load();
-        CreazioneReparti creazioneReparti = mainCreazioneLoader.getController();
-
-        creazioneReparti.setModel(modelCreazione);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
-    }
-
     public void setModelCreazione(ModelCreazione modelCreazione) {
         this.modelCreazione = modelCreazione;
 
@@ -83,7 +67,6 @@ public class Creazione implements Initializable {
         }
         
         this.btnUnitaLocali.disableProperty().bind(modelCreazione.societaSavedProperty().not());
-        this.btnReparti.disableProperty().bind(modelCreazione.unitaLocaleSavedProperty().not());
     }
 
 }
