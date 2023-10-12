@@ -12,9 +12,8 @@ import Models.Tables.UnitaLocale;
 import sql.ControllerDb;
 
 public class Model {
-    
-     
-    //Metodo per eliminare un elemento sia da db che nelle liste
+
+    // Metodo per eliminare un elemento sia da db che nelle liste
     public static void rimuoviDaLista(Object obj, int id) {
 
         ControllerDb.eliminaRecordDaId(obj.getClass().getSimpleName().toLowerCase(), id);
@@ -50,9 +49,9 @@ public class Model {
         }
     }
 
-    //Metodo per modificare il valore di una campo sia nella lista che nel db
+    // Metodo per modificare il valore di una campo sia nella lista che nel db
     public static void modificaCampo(Object obj, String campo, String valore, int id) {
-        
+
         switch (obj.getClass().getSimpleName()) {
 
             case "Mansione":
@@ -60,15 +59,18 @@ public class Model {
                 switch (campo) {
                     case "idMansione":
                         ((Mansione) obj).setIdMansione(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "nome":
                         ((Mansione) obj).setNome(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "responsabile":
                         ((Mansione) obj).setResponsabile(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -79,15 +81,18 @@ public class Model {
                 switch (campo) {
                     case "idTitolo":
                         ((Titolo) obj).setIdTitolo(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "idReparto":
                         ((Titolo) obj).setIdReparto(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "descrizione":
                         ((Titolo) obj).setDescrizione(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -98,19 +103,23 @@ public class Model {
                 switch (campo) {
                     case "idReparto":
                         ((Reparto) obj).setIdReparto(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "nome":
                         ((Reparto) obj).setNome(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "descrizione":
                         ((Reparto) obj).setDescrizione(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "idUnitaLocale":
                         ((Reparto) obj).setIdUnitaLocale(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -121,23 +130,28 @@ public class Model {
                 switch (campo) {
                     case "idRischio":
                         ((Rischio) obj).setIdRischio(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "nome":
                         ((Rischio) obj).setNome(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "p":
                         ((Rischio) obj).setP(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "d":
                         ((Rischio) obj).setD(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "idReparto":
                         ((Rischio) obj).setIdReparto(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -148,31 +162,38 @@ public class Model {
                 switch (campo) {
                     case "idSocieta":
                         ((Societa) obj).setIdSocieta(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "indirizzo":
                         ((Societa) obj).setIndirizzo(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "localita":
                         ((Societa) obj).setLocalita(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "provincia":
                         ((Societa) obj).setProvincia(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "telefono":
                         ((Societa) obj).setTelefono(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "descrizione":
                         ((Societa) obj).setDescrizione(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "ente":
                         ((Societa) obj).setEnte(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -183,15 +204,18 @@ public class Model {
                 switch (campo) {
                     case "idOggetto":
                         ((Oggetto) obj).setIdOggetto(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "nome":
                         ((Oggetto) obj).setNome(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "idTitolo":
                         ((Oggetto) obj).setIdTitolo(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -202,23 +226,28 @@ public class Model {
                 switch (campo) {
                     case "idProvvedimento":
                         ((Provvedimento) obj).setIdProvvedimento(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "nome":
                         ((Provvedimento) obj).setNome(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "idMansione":
                         ((Provvedimento) obj).setIdMansione(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "idOggetto":
                         ((Provvedimento) obj).setIdOggetto(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "idElencoRischi":
                         ((Provvedimento) obj).setIdElencoRischi(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -229,27 +258,33 @@ public class Model {
                 switch (campo) {
                     case "idUnitaLocale":
                         ((UnitaLocale) obj).setIdUnitaLocale(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "nome":
                         ((UnitaLocale) obj).setNome(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "idSocieta":
                         ((UnitaLocale) obj).setIdSocieta(Integer.parseInt(valore));
-                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,Integer.parseInt(valore));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
                         break;
                     case "indirizzo":
                         ((UnitaLocale) obj).setIndirizzo(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "localita":
                         ((UnitaLocale) obj).setLocalita(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     case "provincia":
                         ((UnitaLocale) obj).setProvincia(valore);
-                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
                         break;
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
@@ -261,7 +296,7 @@ public class Model {
         }
     }
 
-    //Metodo per inserire un nuovo elemento sia nel DB che nella lista
+    // Metodo per inserire un nuovo elemento sia nel DB che nella lista
     public static void inserisciRecordInLista(Object obj) {
         ControllerDb.inserisciRecord(obj);
         switch (obj.getClass().getSimpleName()) {
@@ -340,40 +375,40 @@ public class Model {
     }
 }
 
-/* 
-    
-    public static void inserisciInLista(Object obj) {
-        
-        switch (obj.getClass().getSimpleName()) {
-
-            case "Mansione":
-                ClassHelper.getListMansione().add((Mansione) obj);
-                
-                break;
-            case "Titolo":
-                ClassHelper.getListTitolo().add((Titolo) obj);
-                break;
-            case "Reparto":
-                ClassHelper.getListReparto().add((Reparto) obj);
-                break;
-            case "Rischio":
-                ClassHelper.getListRischio().add((Rischio) obj);
-                break;
-            case "Societa":
-                ClassHelper.getListSocieta().add((Societa) obj);
-                break;
-            case "Oggetto":
-                ClassHelper.getListOggetto().add((Oggetto) obj);
-                break;
-            case "Provvedimento":
-                ClassHelper.getListProvvedimento().add((Provvedimento) obj);
-                break;
-            case "UnitaLocale":
-                ClassHelper.getListUnitaLocale().add((UnitaLocale) obj);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
-        }
-    }
-*/
-
+/*
+ * 
+ * public static void inserisciInLista(Object obj) {
+ * 
+ * switch (obj.getClass().getSimpleName()) {
+ * 
+ * case "Mansione":
+ * ClassHelper.getListMansione().add((Mansione) obj);
+ * 
+ * break;
+ * case "Titolo":
+ * ClassHelper.getListTitolo().add((Titolo) obj);
+ * break;
+ * case "Reparto":
+ * ClassHelper.getListReparto().add((Reparto) obj);
+ * break;
+ * case "Rischio":
+ * ClassHelper.getListRischio().add((Rischio) obj);
+ * break;
+ * case "Societa":
+ * ClassHelper.getListSocieta().add((Societa) obj);
+ * break;
+ * case "Oggetto":
+ * ClassHelper.getListOggetto().add((Oggetto) obj);
+ * break;
+ * case "Provvedimento":
+ * ClassHelper.getListProvvedimento().add((Provvedimento) obj);
+ * break;
+ * case "UnitaLocale":
+ * ClassHelper.getListUnitaLocale().add((UnitaLocale) obj);
+ * break;
+ * default:
+ * throw new IllegalArgumentException("Unexpected value: " +
+ * obj.getClass().getSimpleName());
+ * }
+ * }
+ */
