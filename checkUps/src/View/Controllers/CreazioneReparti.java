@@ -19,8 +19,7 @@ public class CreazioneReparti implements Initializable{
     }
 
     public void salvaReparto(javafx.event.ActionEvent event) {
-
-        
+ 
 
     }
 

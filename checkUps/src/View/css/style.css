@@ -47,6 +47,11 @@
     /* -fx-border-width: 2px 2px 2px 2px; */ 
 }
 
+.main_creazione_top_pane {
+    -fx-background-color: #aaadbd;
+    /* -fx-border-width: 2px 2px 2px 2px; */ 
+}
+
 .grid_img {
     -fx-start-margin: 10px;
 }

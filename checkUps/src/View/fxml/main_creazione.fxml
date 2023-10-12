@@ -4,27 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
 
 <AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione">
    <children>
-      <BorderPane prefHeight="503.0" prefWidth="705.0">
+      <BorderPane prefHeight="503.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="48.0" prefWidth="705.0" AnchorPane.rightAnchor="0.0">
-                     <children>
-                        <JFXButton fx:id="btnSocieta" alignment="CENTER" layoutX="53.0" layoutY="12.0" onAction="#switchToSocieta" text="Società / Ente" />
-                        <Label alignment="CENTER" layoutX="209.0" layoutY="16.0" minWidth="34.0" prefHeight="17.0" text="&gt;&gt;" />
-                        <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" layoutX="314.0" layoutY="12.0" onAction="#switchToUnitaLocali" text="Unità locali" />
-                        <Label alignment="CENTER" layoutX="479.0" layoutY="16.0" text="&gt;&gt;" />
-                        <JFXButton fx:id="btnReparti" alignment="CENTER" layoutX="597.0" layoutY="12.0" onAction="#switchToReparti" text="Reparti" />
-                     </children>
-                  </Pane>
+                  <JFXButton fx:id="btnSocieta" alignment="CENTER" onAction="#switchToSocieta" text="Società / Ente" />
+                  <Pane prefHeight="48.0" prefWidth="90.0" />
+                  <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
+                  <Pane prefHeight="48.0" prefWidth="90.0" />
+                  <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" onAction="#switchToUnitaLocali" text="Unità locali" />
+                  <Pane layoutX="493.0" layoutY="10.0" prefHeight="48.0" prefWidth="90.0" />
+                  <Label alignment="CENTER" text="&gt;&gt;" />
+                  <Pane prefHeight="48.0" prefWidth="90.0" />
+                  <JFXButton fx:id="btnReparti" alignment="CENTER" onAction="#switchToReparti" text="Reparti" />
                </children>
-            </AnchorPane>
+            </HBox>
          </top>
          <center>
             <StackPane fx:id="stackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="352.0" prefWidth="600.0" BorderPane.alignment="CENTER" />

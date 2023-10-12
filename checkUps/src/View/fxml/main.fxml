@@ -105,7 +105,7 @@
                   <Insets left="10.0" />
                </HBox.margin>
             </ImageView>
-            <Label prefHeight="43.0" prefWidth="224.0" text="Home Page" textFill="#c90000">
+            <Label prefHeight="43.0" prefWidth="223.0" text="Home Page" textFill="#c90000">
                <font>
                   <Font name="Berlin Sans FB" size="39.0" />
                </font>
@@ -113,14 +113,14 @@
                   <Insets left="40.0" />
                </HBox.margin>
             </Label>
-            <Pane layoutX="1406.0" layoutY="10.0" prefHeight="70.0" prefWidth="43.0" HBox.hgrow="SOMETIMES" />
+            <Pane layoutX="1406.0" layoutY="10.0" prefHeight="70.0" prefWidth="179.0" HBox.hgrow="SOMETIMES" />
             <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="310.0">
                <children>
                   <AnchorPane prefHeight="70.0" prefWidth="295.0" HBox.hgrow="SOMETIMES">
                      <children>
                         <Pane layoutY="13.0" prefHeight="44.0" prefWidth="310.0" stylesheets="@../css/style.css">
                            <children>
-                              <TextField fx:id="search_bar" layoutY="10.0" prefHeight="26.0" prefWidth="253.0" promptText="Cerca..." styleClass="transparent" stylesheets="@../css/style.css" />
+                              <TextField fx:id="search_bar" layoutX="14.0" layoutY="9.0" prefHeight="26.0" prefWidth="253.0" promptText="Cerca..." styleClass="transparent" stylesheets="@../css/style.css" />
                               <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="271.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/icons8_Search_52px.png" />
@@ -139,7 +139,7 @@
             <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="0.0" HBox.hgrow="SOMETIMES" />
             <AnchorPane prefHeight="70.0" prefWidth="80.0">
                <children>
-                  <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="17.0" layoutY="15.0" prefHeight="40.0" prefWidth="40.0" textOverrun="CLIP">
+                  <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="17.0" layoutY="15.0" prefHeight="40.0" prefWidth="40.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="35.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
