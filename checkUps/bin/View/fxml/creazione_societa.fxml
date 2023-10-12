@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="409.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.CreazioneSocieta">
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="TOP_RIGHT">
          <children>
-            <JFXButton fx:id="btnElimina" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#eliminaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+            <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#eliminaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,39 +42,46 @@
    <center>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="340.0" prefWidth="674.0">
+            <VBox alignment="CENTER" prefHeight="450.0" prefWidth="753.0">
                <children>
-                  <AnchorPane>
+                  <AnchorPane prefHeight="200.0">
                      <children>
                         <Label layoutX="22.0" layoutY="12.0" prefHeight="17.0" prefWidth="93.0" text="Ragione Sociale:" />
-                        <TextField layoutX="126.0" layoutY="9.0" prefHeight="25.0" prefWidth="437.0" />
+                        <TextField fx:id="textFieldSocieta" layoutX="126.0" layoutY="9.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" />
                      </children>
                   </AnchorPane>
                   <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="674.0">
+                     <children>
+                        <Label layoutX="23.0" layoutY="8.0" prefHeight="17.0" prefWidth="56.0" text="Località:" />
+                        <TextField fx:id="textFieldLocalita" accessibleText="INTEGER" layoutX="88.0" layoutY="4.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" />
+                     </children>
+                  </AnchorPane>
+                  <Pane layoutX="10.0" layoutY="111.0" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0">
                      <children>
                         <Label layoutX="21.0" layoutY="13.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
-                        <TextField layoutX="90.0" layoutY="9.0" prefHeight="25.0" prefWidth="330.0" />
+                        <TextField fx:id="textFieldIndirizzo" layoutX="90.0" layoutY="9.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" />
                         <AnchorPane layoutX="479.0" prefHeight="42.0" prefWidth="170.0">
                            <children>
                               <Label layoutX="6.0" layoutY="13.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
-                              <TextField accessibleText="INTEGER" layoutX="85.0" layoutY="9.0" prefHeight="25.0" prefWidth="56.0" />
+                              <TextField fx:id="textFieldProvincia" accessibleText="INTEGER" layoutX="85.0" layoutY="9.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="56.0" />
                            </children>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
                   <Pane prefHeight="200.0" prefWidth="200.0" />
-                  <AnchorPane>
+                  <AnchorPane prefHeight="200.0">
                      <children>
                         <Label layoutX="20.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
-                        <TextField accessibleText="INTEGER" layoutX="90.0" layoutY="9.0" prefHeight="25.0" prefWidth="330.0" />
+                        <TextField fx:id="textFieldTel" accessibleText="INTEGER" layoutX="90.0" layoutY="9.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" />
                      </children>
                   </AnchorPane>
-                  <Pane layoutX="10.0" layoutY="111.0" prefHeight="200.0" prefWidth="200.0" />
-                  <AnchorPane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane disable="true" prefHeight="27.0" prefWidth="753.0">
                      <children>
-                        <Label layoutX="32.0" layoutY="12.0" prefHeight="17.0" prefWidth="43.0" text="e-mail:" />
-                        <TextField layoutX="91.0" layoutY="9.0" prefHeight="25.0" prefWidth="330.0" />
+                        <Label layoutX="16.0" layoutY="4.0" text="Descrizione:" />
+                        <TextField fx:id="textFieldDesc" accessibleText="INTEGER" layoutX="93.0" prefHeight="25.0" prefWidth="330.0" />
                      </children>
                   </AnchorPane>
                   <Pane layoutX="10.0" layoutY="162.0" prefHeight="200.0" prefWidth="200.0" />

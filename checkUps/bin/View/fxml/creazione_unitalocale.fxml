@@ -91,19 +91,19 @@
    <bottom>
       <HBox alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnElimina" contentDisplay="CENTER" ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#salvaUnitaLocale" prefHeight="44.0" prefWidth="52.0" ripplerFill="#ee1f1f" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE">
+            <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#salvaUnitaLocale" prefHeight="44.0" prefWidth="52.0" ripplerFill="#ee1f1f" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/cross.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane prefHeight="53.0" prefWidth="500.0" />
+            <Pane prefHeight="53.0" prefWidth="487.0" />
             <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" onAction="#salvaUnitaLocale" prefHeight="46.0" prefWidth="53.0" ripplerFill="#6ed333" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="41.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/save_icon.png" />
                      </image>

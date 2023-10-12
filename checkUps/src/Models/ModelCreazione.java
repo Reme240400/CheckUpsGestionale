@@ -7,43 +7,61 @@ public class ModelCreazione {
 
     private final BooleanProperty societySaved = new SimpleBooleanProperty(false);
     private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
-    private final BooleanProperty repartoSaved = new SimpleBooleanProperty(false);
+    private final BooleanProperty saved = new SimpleBooleanProperty(false);
+    private final BooleanProperty discard = new SimpleBooleanProperty(false);
 
+// initialize methods
     public BooleanProperty societaSavedProperty() {
-        return societySaved ;
+        return societySaved;
     }
 
-    public final boolean isSocietySaved() {
-        return societaSavedProperty().get();
+    public BooleanProperty discardProperty() {
+        return discard;
     }
 
-    public final void setSocietySaved(boolean societySaved) {
-        societaSavedProperty().set(societySaved);
+    public BooleanProperty savedProperty() {
+        return saved;
     }
 
     public BooleanProperty unitaLocaleSavedProperty() {
-        return unitaLocaleSaved ;
+        return unitaLocaleSaved;
+    }
+// end initialize methods
+
+// ------------------ GETTER ------------------ //
+    public final boolean isSocietySaved() {
+        return societaSavedProperty().get();
     }
 
     public final boolean isUnitaLocaleSaved() {
         return unitaLocaleSavedProperty().get();
     }
 
+    public final boolean isSaved() {
+        return savedProperty().get();
+    }
+
+    public final boolean isDiscard() {
+        return discardProperty().get();
+    }
+// ------------------ END GETTER ------------------ //
+
+// ------------------ SETTER ------------------ //
+    public final void setSocietySaved(boolean societySaved) {
+        societaSavedProperty().set(societySaved);
+    }
+
     public final void setUnitaSaved(boolean unitaLocaleSaved) {
         unitaLocaleSavedProperty().set(unitaLocaleSaved);
     }
 
-    public BooleanProperty repartoSavedProperty() {
-        return repartoSaved ;
+    public final void setSaved(boolean saved) {
+        savedProperty().set(saved);
     }
 
-    public final boolean isRepartoSaved() {
-        return repartoSavedProperty().get();
+    public final void setDiscard(boolean discard) {
+        discardProperty().set(discard);
     }
+// ------------------ END SETTER ------------------ //
 
-    public final void setRepartoSaved(boolean repartoSaved) {
-        repartoSavedProperty().set(repartoSaved);
-    }
-
-    
 }
