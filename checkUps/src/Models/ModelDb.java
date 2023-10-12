@@ -43,16 +43,16 @@ public class ModelDb {
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.societa")) {
 
                     while (resultSet.next()) {
-                        int idSocieta = resultSet.getInt("id_societa");
+                        int id_societa = resultSet.getInt("id_societa");
                         String indirizzo = resultSet.getString("indirizzo");
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
                         long telefono = resultSet.getLong("telefono");
                         String descrizione = resultSet.getString("descrizione");
-                        String ente = resultSet.getString("ente");
+                        String nome = resultSet.getString("nome");
 
-                        Societa societa = new Societa(idSocieta, indirizzo, localita, provincia, telefono, descrizione,
-                                ente);
+                        Societa societa = new Societa(id_societa, indirizzo, localita, provincia, telefono, descrizione,
+                                nome);
                         Model.inserisciRecordInLista(societa);
                     }
                 } catch (SQLException e) {
@@ -96,7 +96,7 @@ public class ModelDb {
                 }
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            System.out.println(e);// TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -109,9 +109,8 @@ public class ModelDb {
 
                     while (resultSet.next()) {
                         int idTitolo = resultSet.getInt("id_titolo");
-                        String descrizione = resultSet.getString("descrizione");
                         int idReparto = resultSet.getInt("id_reparto");
-
+                        String descrizione = resultSet.getString("descrizione");
                         Titolo titolo = new Titolo(idTitolo, descrizione, idReparto);
                         Model.inserisciRecordInLista(titolo);
                     }
@@ -411,7 +410,7 @@ public class ModelDb {
                     String provincia = resultSet.getString("provincia");
                     long telefono = resultSet.getLong("telefono");
                     String descrizione = resultSet.getString("descrizione");
-                    String ente = resultSet.getString("ente");
+                    String nome = resultSet.getString("nome");
 
                     System.out.println("ID: " + idSocieta);
                     System.out.println("Indirizzo: " + indirizzo);
@@ -419,7 +418,7 @@ public class ModelDb {
                     System.out.println("Provincia: " + provincia);
                     System.out.println("Telefono: " + telefono);
                     System.out.println("Descrizione: " + descrizione);
-                    System.out.println("Ente: " + ente);
+                    System.out.println("Nome: " + nome);
                     System.out.println();
                 }
             } catch (SQLException e) {
@@ -676,9 +675,9 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoSocieta(Connection connection, List<Societa> societaList) throws SQLException {
-        String insertQuery = "INSERT INTO public.societa (id_societa, indirizzo, localita, provincia, telefono, descrizione, ente) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO public.societa (id_societa, indirizzo, localita, provincia, telefono, descrizione, nome) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             preparedStatement.setInt(1, societaList.get(societaList.size() - 1).getIdSocieta());
             preparedStatement.setString(2, societaList.get(societaList.size() - 1).getIndirizzo());
@@ -686,14 +685,14 @@ public class ModelDb {
             preparedStatement.setString(4, societaList.get(societaList.size() - 1).getProvincia());
             preparedStatement.setLong(5, societaList.get(societaList.size() - 1).getTelefono());
             preparedStatement.setString(6, societaList.get(societaList.size() - 1).getDescrizione());
-            preparedStatement.setString(7, societaList.get(societaList.size() - 1).getEnte());
+            preparedStatement.setString(7, societaList.get(societaList.size() - 1).getNome());
             preparedStatement.executeUpdate();
 
         }
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoUnitaLocali(Connection connection, List<UnitaLocale> unitaLocaleList)
             throws SQLException {
         String insertQuery = "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia) VALUES (?, ?, ?, ?, ?, ?)";
@@ -711,7 +710,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoReparti(Connection connection, List<Reparto> repartoList) throws SQLException {
         String insertQuery = "INSERT INTO public.reparti (id_reparto, id_unita_locale, nome, descrizione) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -726,7 +725,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoTitoli(Connection connection, List<Titolo> titoloList) throws SQLException {
         String insertQuery = "INSERT INTO public.titoli (id_titolo, descrizione, id_reparto) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -740,7 +739,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoMansioni(Connection connection, List<Mansione> mansioneList)
             throws SQLException {
         String insertQuery = "INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)";
@@ -755,7 +754,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoOggetti(Connection connection, List<Oggetto> oggettoList) throws SQLException {
         String insertQuery = "INSERT INTO public.oggetti (id_oggetto, nome, id_titolo) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -769,7 +768,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoProvvedimenti(Connection connection, List<Provvedimento> provvedimentoList)
             throws SQLException {
         String insertQuery = "INSERT INTO public.provvedimenti (id_provvedimento, nome, id_mansione, id_oggetto, id_elenco_rischi) VALUES (?, ?, ?, ?, ?)";
@@ -786,7 +785,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoRischi(Connection connection, List<Rischio> rischioList) throws SQLException {
         String insertQuery = "INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -803,7 +802,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
+    // corrispondnome
     public static void inserisciElementoElencoRischi(Connection connection, List<ElencoRischi> elencoRischiList)
             throws SQLException {
         String insertQuery = "INSERT INTO public.elenco_rischi (id_provvedimento, id_rischio) VALUES (?, ?)";
@@ -823,7 +822,7 @@ public class ModelDb {
  * Connection connection = connessioneDb();
  * if (connection != null) {
  * try (Statement statement = connection.createStatement()) {
- * // Disabilita il controllo delle chiavi esterne temporaneamente
+ * // Disabilita il controllo delle chiavi esterne temporaneamnome
  * statement.execute("SET FOREIGN_KEY_CHECKS = 0");
  * 
  * // Cancella i dati da tutte le tabelle

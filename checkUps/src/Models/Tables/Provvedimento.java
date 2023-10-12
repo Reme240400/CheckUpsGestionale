@@ -5,14 +5,19 @@ public class Provvedimento {
     private String nome;
     private int idMansione;
     private int idOggetto;
-    private int idElencoRischi;
+    private String Rischio;
+    private String soggettiEsposti;
+    private int stima;
 
-    public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, int idElencoRischi) {
+    public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, String Rischio,
+            String soggettiEsposti, int stima) {
         this.idProvvedimento = idProvvedimento;
         this.nome = nome;
         this.idMansione = idMansione;
         this.idOggetto = idOggetto;
-        this.idElencoRischi = idElencoRischi;
+        this.Rischio = Rischio;
+        this.soggettiEsposti = soggettiEsposti;
+        this.stima = stima;
     }
 
     public int getIdProvvedimento() {
@@ -47,12 +52,27 @@ public class Provvedimento {
         this.idOggetto = idOggetto;
     }
 
-    public int getIdElencoRischi() {
-        return idElencoRischi;
+    public String getSoggettiEsposti() {
+        return soggettiEsposti;
     }
 
-    public void setIdElencoRischi(int idElencoRischi) {
-        this.idElencoRischi = idElencoRischi;
+    public void setSoggettiEsposti(String soggettiEsposti) {
+        this.soggettiEsposti = soggettiEsposti;
+    }
+
+    public String getRischio() {
+        return Rischio;
+    }
+
+    public void setRischio(String rischio) {
+        this.Rischio = rischio;
+    }
+    public int getStima() {
+        return stima;
+    }
+
+    public void setStima(int stima) {
+        this.stima = stima;
     }
 
 }

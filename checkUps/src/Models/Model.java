@@ -57,7 +57,7 @@ public class Model {
             case "Mansione":
 
                 switch (campo) {
-                    case "idMansione":
+                    case "id_mansione":
                         ((Mansione) obj).setIdMansione(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -79,12 +79,12 @@ public class Model {
 
             case "Titolo":
                 switch (campo) {
-                    case "idTitolo":
+                    case "id_titolo":
                         ((Titolo) obj).setIdTitolo(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
-                    case "idReparto":
+                    case "id_reparto":
                         ((Titolo) obj).setIdReparto(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -101,7 +101,7 @@ public class Model {
 
             case "Reparto":
                 switch (campo) {
-                    case "idReparto":
+                    case "id_reparto":
                         ((Reparto) obj).setIdReparto(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -116,7 +116,7 @@ public class Model {
                         ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 valore);
                         break;
-                    case "idUnitaLocale":
+                    case "id_unita_locale":
                         ((Reparto) obj).setIdUnitaLocale(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -128,7 +128,7 @@ public class Model {
 
             case "Rischio":
                 switch (campo) {
-                    case "idRischio":
+                    case "id_rischio":
                         ((Rischio) obj).setIdRischio(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -148,7 +148,7 @@ public class Model {
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
-                    case "idReparto":
+                    case "id_reparto":
                         ((Rischio) obj).setIdReparto(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -160,7 +160,7 @@ public class Model {
 
             case "Societa":
                 switch (campo) {
-                    case "idSocieta":
+                    case "id_societa":
                         ((Societa) obj).setIdSocieta(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -190,8 +190,8 @@ public class Model {
                         ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 valore);
                         break;
-                    case "ente":
-                        ((Societa) obj).setEnte(valore);
+                    case "nome":
+                        ((Societa) obj).setNome(valore);
                         ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 valore);
                         break;
@@ -202,7 +202,7 @@ public class Model {
 
             case "Oggetto":
                 switch (campo) {
-                    case "idOggetto":
+                    case "id_oggetto":
                         ((Oggetto) obj).setIdOggetto(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -212,7 +212,7 @@ public class Model {
                         ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 valore);
                         break;
-                    case "idTitolo":
+                    case "id_titolo":
                         ((Oggetto) obj).setIdTitolo(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -224,7 +224,7 @@ public class Model {
 
             case "Provvedimento":
                 switch (campo) {
-                    case "idProvvedimento":
+                    case "id_provvedimento":
                         ((Provvedimento) obj).setIdProvvedimento(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -234,21 +234,32 @@ public class Model {
                         ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 valore);
                         break;
-                    case "idMansione":
+                    case "id_mansione":
                         ((Provvedimento) obj).setIdMansione(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
-                    case "idOggetto":
+                    case "id_oggetto":
                         ((Provvedimento) obj).setIdOggetto(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
-                    case "idElencoRischi":
-                        ((Provvedimento) obj).setIdElencoRischi(Integer.parseInt(valore));
+                    case "rischio":
+                        ((Provvedimento) obj).setRischio(valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
+                        break;
+                    case "soggetti_esposti":
+                        ((Provvedimento) obj).setSoggettiEsposti(valore);
+                        ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                valore);
+                        break;
+                    case "stima":
+                        ((Provvedimento) obj).setStima((Integer.parseInt(valore)));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
-                        break;
+                        break;        
+                    
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
                 }
@@ -256,7 +267,7 @@ public class Model {
 
             case "UnitaLocale":
                 switch (campo) {
-                    case "idUnitaLocale":
+                    case "id_unitaLocale":
                         ((UnitaLocale) obj).setIdUnitaLocale(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -266,7 +277,7 @@ public class Model {
                         ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 valore);
                         break;
-                    case "idSocieta":
+                    case "id_societa":
                         ((UnitaLocale) obj).setIdSocieta(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
@@ -339,7 +350,7 @@ public class Model {
                         ((Societa) obj).getProvincia(),
                         ((Societa) obj).getTelefono(),
                         ((Societa) obj).getDescrizione(),
-                        ((Societa) obj).getEnte());
+                        ((Societa) obj).getNome());
 
                 ClassHelper.getListSocieta().add(societa);
                 break;
@@ -355,7 +366,9 @@ public class Model {
                         ((Provvedimento) obj).getNome(),
                         ((Provvedimento) obj).getIdMansione(),
                         ((Provvedimento) obj).getIdOggetto(),
-                        ((Provvedimento) obj).getIdElencoRischi());
+                        ((Provvedimento) obj).getRischio(),
+                        ((Provvedimento) obj).getSoggettiEsposti(),
+                        ((Provvedimento) obj).getStima());
 
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;

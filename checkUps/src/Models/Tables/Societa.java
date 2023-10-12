@@ -9,16 +9,16 @@ public class Societa{
     private String provincia;
     private long telefono;
     private String descrizione;
-    private String ente;
+    private String nome;
 
-    public Societa(int idSocieta, String indirizzo, String localita, String provincia, long telefono, String descrizione, String ente) {
+    public Societa(int idSocieta, String indirizzo, String localita, String provincia, long telefono, String descrizione, String nome) {
         this.idSocieta = idSocieta;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
         this.telefono = telefono;
         this.descrizione = descrizione;
-        this.ente = ente;
+        this.nome = nome;
     }
 
     public int getIdSocieta() {
@@ -45,8 +45,8 @@ public class Societa{
         return telefono;
     }
 
-    public String getEnte() {
-        return ente;
+    public String getNome() {
+        return nome;
     }
 
     public void setIdSocieta(int idSocieta) {
@@ -76,8 +76,8 @@ public class Societa{
         }
     }
 
-    public void setEnte(String ente) {
-        this.ente = ente;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
 }
