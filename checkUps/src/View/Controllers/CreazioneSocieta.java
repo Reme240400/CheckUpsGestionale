@@ -29,6 +29,10 @@ public class CreazioneSocieta implements Initializable {
 
     }
 
+    public void eliminaSocieta() {
+        
+    }
+
     
     public void setModel(ModelCreazione model) {
         this.model = model;
