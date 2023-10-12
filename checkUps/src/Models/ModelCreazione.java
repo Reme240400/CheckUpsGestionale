@@ -7,6 +7,7 @@ public class ModelCreazione {
 
     private final BooleanProperty societySaved = new SimpleBooleanProperty(false);
     private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
+    private final BooleanProperty repartoSaved = new SimpleBooleanProperty(false);
 
     public BooleanProperty societaSavedProperty() {
         return societySaved ;
@@ -31,5 +32,18 @@ public class ModelCreazione {
     public final void setUnitaSaved(boolean unitaLocaleSaved) {
         unitaLocaleSavedProperty().set(unitaLocaleSaved);
     }
+
+    public BooleanProperty repartoSavedProperty() {
+        return repartoSaved ;
+    }
+
+    public final boolean isRepartoSaved() {
+        return repartoSavedProperty().get();
+    }
+
+    public final void setRepartoSaved(boolean repartoSaved) {
+        repartoSavedProperty().set(repartoSaved);
+    }
+
     
 }

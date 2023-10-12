@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.AutoCompleteTextField?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +17,7 @@
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="TOP_RIGHT">
          <children>
-            <JFXButton fx:id="btnElimina" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+            <JFXButton fx:id="btnElimina" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#eliminaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -86,8 +85,7 @@
                               <Font name="Bell MT Bold" size="21.0" />
                            </font>
                         </Label>
-                        <AutoCompleteTextField layoutX="21.0" layoutY="25.0" prefHeight="25.0" prefWidth="415.0" />
-                        <JFXComboBox layoutX="387.0" layoutY="25.0" prefHeight="25.0" prefWidth="49.0" unFocusColor="WHITE" />
+                        <JFXComboBox editable="true" layoutX="21.0" layoutY="25.0" prefHeight="25.0" prefWidth="416.0" unFocusColor="BLACK" />
                         <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="437.0" layoutY="22.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

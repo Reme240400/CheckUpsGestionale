@@ -55,12 +55,12 @@
                   <Pane prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane prefHeight="55.0" prefWidth="674.0">
                      <children>
-                        <Label layoutX="14.0" text="Carica da File">
+                        <Label layoutX="14.0" text="Cerca / Carica da File">
                            <font>
                               <Font name="Bell MT Bold" size="21.0" />
                            </font>
                         </Label>
-                        <JFXComboBox layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="442.0" promptText="Cerca..." />
+                        <JFXComboBox editable="true" layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="442.0" promptText="Cerca..." />
                      </children>
                   </AnchorPane>
                   <Pane layoutX="10.0" layoutY="267.0" prefHeight="200.0" prefWidth="200.0" />

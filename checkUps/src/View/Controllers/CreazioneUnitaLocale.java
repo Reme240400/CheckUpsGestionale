@@ -24,6 +24,7 @@ public class CreazioneUnitaLocale implements Initializable{
 
     public void salvaUnitaLocale(javafx.event.ActionEvent event) {
 
+        // fare la call alla Query
         model.setUnitaSaved(true);
 
     }

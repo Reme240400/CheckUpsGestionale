@@ -15,7 +15,7 @@ public class CreazioneSocieta implements Initializable {
     JFXButton btnSalva;
 
    // private Creazione creazione;
-    private ModelCreazione modelCreazione;
+    private ModelCreazione model;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -24,12 +24,13 @@ public class CreazioneSocieta implements Initializable {
 
     public void salvaSocieta(javafx.event.ActionEvent event) {
 
-        modelCreazione.setSocietySaved(true);
+        // fare la call alla Query
+        model.setSocietySaved(true);
 
     }
 
     
-    public void setModel(ModelCreazione modelCreazione) {
-        this.modelCreazione = modelCreazione;
+    public void setModel(ModelCreazione model) {
+        this.model = model;
     }
 }
