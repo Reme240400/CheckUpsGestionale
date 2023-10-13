@@ -67,6 +67,7 @@ public class Creazione implements Initializable {
         }
         
         this.btnUnitaLocali.disableProperty().bind(modelCreazione.societaSavedProperty().not());
+        
     }
 
 }

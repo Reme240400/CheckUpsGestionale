@@ -9,7 +9,10 @@ import javafx.fxml.Initializable;
 public class CreazioneReparti implements Initializable{
 
     @FXML
-    JFXButton btnSalva;
+    private JFXButton btnAnnulla;
+
+    @FXML
+    private JFXButton btnSalva;
 
     private ModelCreazione modelCreazione;
 
