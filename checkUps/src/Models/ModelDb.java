@@ -232,13 +232,15 @@ public class ModelDb {
 
                     while (resultSet.next()) {
                         int idProvvedimento = resultSet.getInt("id_provvedimento");
-                        String nome = resultSet.getString("tipo");
+                        String nome = resultSet.getString("nome");
                         int idMansione = resultSet.getInt("id_mansione");
                         int idOggetto = resultSet.getInt("id_oggetto");
-                        int idElencoRischi = resultSet.getInt("id_elenco_rischi");
+                        String rischio = resultSet.getString("rischio");
+                        String soggettiEsposti = resultSet.getString("soggetti_esposti");
+                        int stima = resultSet.getInt("stima");
 
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
-                                idElencoRischi);
+                                rischio, soggettiEsposti, stima);
                         Model.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -778,7 +780,9 @@ public class ModelDb {
             preparedStatement.setString(2, provvedimentoList.get(provvedimentoList.size() - 1).getNome());
             preparedStatement.setInt(3, provvedimentoList.get(provvedimentoList.size() - 1).getIdMansione());
             preparedStatement.setInt(4, provvedimentoList.get(provvedimentoList.size() - 1).getIdOggetto());
-            preparedStatement.setInt(5, provvedimentoList.get(provvedimentoList.size() - 1).getIdElencoRischi());
+            preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getRischio());
+            preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getSoggettiEsposti());
+            preparedStatement.setInt(4, provvedimentoList.get(provvedimentoList.size() - 1).getStima());
             preparedStatement.executeUpdate();
 
         }
