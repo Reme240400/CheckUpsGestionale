@@ -47,10 +47,16 @@ public class CreatePdfExample {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, yPosition);
                 contentStream.showText("ID: " + record.getIdSocieta());
-                contentStream.newLine();
+                contentStream.endText();
+                contentStream.beginText();
+                contentStream.newLineAtOffset(150, yPosition);
                 contentStream.showText("Nome: " + record.getNome());
-                contentStream.newLine();
-                contentStream.showText("Altro: " + record.getDescrizione());
+                contentStream.endText();
+                contentStream.beginText();
+                contentStream.newLineAtOffset(350, yPosition);
+                contentStream.showText("Indirizzo: " + record.getIndirizzo());
+                contentStream.endText();
+                contentStream.beginText();
                 contentStream.newLine();
                 contentStream.endText();
                 yPosition -= 50; // Spaziatura tra le righe
