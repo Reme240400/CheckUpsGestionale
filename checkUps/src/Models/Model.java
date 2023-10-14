@@ -258,8 +258,8 @@ public class Model {
                         ((Provvedimento) obj).setStima((Integer.parseInt(valore)));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
-                        break;        
-                    
+                        break;
+
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
                 }
@@ -307,9 +307,8 @@ public class Model {
         }
     }
 
-    // Metodo per inserire un nuovo elemento sia nel DB che nella lista
+    // Metodo per inserire un nuovo elemento nella lista
     public static void inserisciRecordInLista(Object obj) {
-        ControllerDb.inserisciRecord(obj);
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
                 Mansione mansione = new Mansione(((Mansione) obj).getIdMansione(),
@@ -344,6 +343,7 @@ public class Model {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
+               
                 Societa societa = new Societa(((Societa) obj).getIdSocieta(),
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
@@ -351,7 +351,7 @@ public class Model {
                         ((Societa) obj).getTelefono(),
                         ((Societa) obj).getDescrizione(),
                         ((Societa) obj).getNome());
-
+                
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":

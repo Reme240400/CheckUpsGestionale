@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.List;
 
 import Controllers.ClassHelper;
-import Models.Tables.ElencoRischi;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
@@ -41,7 +40,6 @@ public class ModelDb {
             if (connection != null) {
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.societa")) {
-
                     while (resultSet.next()) {
                         int id_societa = resultSet.getInt("id_societa");
                         String indirizzo = resultSet.getString("indirizzo");
@@ -76,7 +74,6 @@ public class ModelDb {
             if (connection != null) {
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
-
                     while (resultSet.next()) {
                         int idMansione = resultSet.getInt("id_mansione");
                         String nome = resultSet.getString("nome");
@@ -789,7 +786,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondnome
+    // corrispondente
     public static void inserisciElementoRischi(Connection connection, List<Rischio> rischioList) throws SQLException {
         String insertQuery = "INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -805,19 +802,8 @@ public class ModelDb {
         }
     }
 
-    // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondnome
-    public static void inserisciElementoElencoRischi(Connection connection, List<ElencoRischi> elencoRischiList)
-            throws SQLException {
-        String insertQuery = "INSERT INTO public.elenco_rischi (id_provvedimento, id_rischio) VALUES (?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, elencoRischiList.get(elencoRischiList.size() - 1).getIdProvvedimento());
-            preparedStatement.setInt(2, elencoRischiList.get(elencoRischiList.size() - 1).getIdRischio());
-            preparedStatement.executeUpdate();
-
-        }
-    }
+    
+    
 
 }
 
