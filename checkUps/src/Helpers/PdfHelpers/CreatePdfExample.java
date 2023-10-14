@@ -7,8 +7,9 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import Controllers.ClassHelper;
-import Controllers.DbController;
+import Controllers.Controller;
 import Models.Tables.Societa;
+import sql.ControllerDb;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -42,9 +43,8 @@ public class CreatePdfExample {
 
             // Aggiunta del contenuto al documento
 
-            DbController dbc = new DbController();
 
-            dbc.popolaListaSocieta();
+            ControllerDb.popolaListeDaDatabase();
 
             List<Societa> records = ClassHelper.getListSocieta(); // Sostituisci con la tua logica per ottenere i record
                                                                   // dalla tabella "societa"
@@ -55,7 +55,7 @@ public class CreatePdfExample {
                 contentStream.newLineAtOffset(50, yPosition);
                 contentStream.showText("ID: " + record.getIdSocieta() + "/n");
                 contentStream.newLine();
-                contentStream.showText("Nome: " + record.getEnte() + "/n");
+                contentStream.showText("Nome: " + record.getNome() + "/n");
                 contentStream.newLine();
                 contentStream.showText("Altro: " + record.getDescrizione() + "n");
                 contentStream.newLine();
