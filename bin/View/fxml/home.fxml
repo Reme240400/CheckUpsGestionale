@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<GridPane fx:id="grid" alignment="CENTER" styleClass="grid"
+    stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/20.0.1"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="View.Controllers.Home">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <ImageView fx:id="grid_img0" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img"
+            GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img1" fitHeight="200.0" fitWidth="217.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="1"
+            GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img2" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="2"
+            GridPane.hgrow="SOMETIMES" GridPane.vgrow="SOMETIMES">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img6" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.rowIndex="2">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img7" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="1"
+            GridPane.rowIndex="1">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img8" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="2"
+            GridPane.rowIndex="2">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img5" fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT"
+            pickOnBounds="true" preserveRatio="true" styleClass="grid_img" GridPane.columnIndex="2"
+            GridPane.rowIndex="1">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img71" fitHeight="200.0" fitWidth="200.0" layoutX="259.0"
+            layoutY="545.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true"
+            styleClass="grid_img" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+        <ImageView fx:id="grid_img711" fitHeight="200.0" fitWidth="200.0" layoutX="10.0"
+            layoutY="37.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true"
+            styleClass="grid_img" GridPane.rowIndex="1">
+            <image>
+                <Image url="@../images/jimmy-fallon.png" />
+            </image>
+            <GridPane.margin>
+                <Insets left="40.0" />
+            </GridPane.margin>
+        </ImageView>
+    </children>
+</GridPane>

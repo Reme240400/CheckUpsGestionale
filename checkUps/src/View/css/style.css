@@ -3,23 +3,35 @@
     
 }
 
-.Vbox_buttons {
-    -fx-background-color:  #353A56;
+.VBox_options {
+    -fx-background-color:  #505b9b;
     /* -fx-border-color:  #2207bb; */
     /* -fx-border-width: 2px 2px 2px 2px; */
     /* -fx-border-style: solid; */
 
 }
 
-.btn_home:hover {
-
+.bordered {
+    -fx-background-radius: 20px 20px 20px 20px;
+    -fx-border-radius: 20px 20px 20px 20px;
 }
+
+.bordered_style{
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-style: solid;
+}
+
+
+/* .logo_img:hover {
+    -fx-opacity: 0.5;
+} */
+
+/* .btn_home:hover {
+
+} */
 
 .btn_homePage {
     -fx-background-color: #353A56;
-    -fx-background-radius: 0px 15px 15px 15px;
-    -fx-border-radius: 0px 15px 15px 15px;
-    -fx-border-style: solid;
     -fx-border-color: #4c5585;
     -fx-text-fill: #47d82a;
     -fx-padding: 10px;
@@ -27,12 +39,16 @@
 
 .btn_homePage:hover {
     -fx-background-color: #4c5585;
-    -fx-border-radius: 20px;
     /* -fx-border-style: solid; */
 }
 
 .top_pane {
     -fx-background-color: #3a4794;
+    /* -fx-border-width: 2px 2px 2px 2px; */ 
+}
+
+.main_creazione_top_pane {
+    -fx-background-color: #aaadbd;
     /* -fx-border-width: 2px 2px 2px 2px; */ 
 }
 
@@ -55,6 +71,11 @@
 .separator_pane{
     -fx-min-height: 10px;
     -fx-max-height: 50px;
+}
+
+.top_separator_pane{
+    -fx-min-height: 50px;
+    -fx-max-height: 130px;
 }
 
 .grid_img_pane{

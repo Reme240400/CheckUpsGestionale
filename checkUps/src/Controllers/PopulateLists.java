@@ -1,4 +1,6 @@
-package Controllers;
+/*package Controllers;
+
+import Models.DbController;
 
 public class PopulateLists {
     
@@ -14,3 +16,4 @@ public class PopulateLists {
         DbController.popolaListaUnitaLocali();
     }
 }
+*/
