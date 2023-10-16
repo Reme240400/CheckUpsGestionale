@@ -7,20 +7,15 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import Controllers.ClassHelper;
-import Controllers.Controller;
+import sql.ControllerDb;
 import Models.Tables.Societa;
 import sql.ControllerDb;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.lang.ModuleLayer.Controller;
 import java.util.List;
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import java.awt.*;
-import java.io.File;
 
 public class CreatePdfExample {
     public static void main(String[] args) {
@@ -31,7 +26,7 @@ public class CreatePdfExample {
 
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
-                    new File("src/resources/fonts/Helvetica-Bold-Font.ttf"));
+                    new File("C:\\dev\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
@@ -43,21 +38,26 @@ public class CreatePdfExample {
 
             // Aggiunta del contenuto al documento
 
+            System.out.println("Lista società prima" + ClassHelper.getListSocieta());
+            ControllerDb.popolaListaSocietaDaDb();
 
-            ControllerDb.popolaListeDaDatabase();
-
-            List<Societa> records = ClassHelper.getListSocieta(); // Sostituisci con la tua logica per ottenere i record
-                                                                  // dalla tabella "societa"
+            List<Societa> records = ClassHelper.getListSocieta();
             float yPosition = page.getMediaBox().getHeight() - 50;
 
             for (Societa record : records) {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, yPosition);
-                contentStream.showText("ID: " + record.getIdSocieta() + "/n");
-                contentStream.newLine();
-                contentStream.showText("Nome: " + record.getNome() + "/n");
-                contentStream.newLine();
-                contentStream.showText("Altro: " + record.getDescrizione() + "n");
+                contentStream.showText("ID: " + record.getIdSocieta());
+                contentStream.endText();
+                contentStream.beginText();
+                contentStream.newLineAtOffset(150, yPosition);
+                contentStream.showText("Nome: " + record.getNome());
+                contentStream.endText();
+                contentStream.beginText();
+                contentStream.newLineAtOffset(350, yPosition);
+                contentStream.showText("Indirizzo: " + record.getIndirizzo());
+                contentStream.endText();
+                contentStream.beginText();
                 contentStream.newLine();
                 contentStream.endText();
                 yPosition -= 50; // Spaziatura tra le righe
@@ -71,32 +71,7 @@ public class CreatePdfExample {
 
             // Apertura del PDF con l'applicazione predefinita per la visualizzazione
             Desktop.getDesktop().open(new File(nomeFile));
-
-            // Chiedi all'utente se vuole salvare il PDF
-            int userChoice = JOptionPane.showConfirmDialog(null, "Vuoi salvare il PDF?", "Conferma",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (userChoice == JOptionPane.YES_OPTION) {
-                // Chiedi all'utente di selezionare un percorso per il salvataggio
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setFileFilter(new FileNameExtensionFilter("File PDF", "pdf"));
-                int returnValue = fileChooser.showSaveDialog(null);
-
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-
-                    File selectedFile = new File(fileChooser.getSelectedFile().toPath().toString() + ".pdf");             
-                    
-                    // Salva il PDF nel percorso selezionato
-                    Files.copy(new File(nomeFile).toPath(), selectedFile.toPath());
-
-                    JOptionPane.showMessageDialog(null, "Il PDF è stato salvato con successo.");
-
-                    // Apertura del PDF con l'applicazione predefinita per la visualizzazione
-                    Desktop.getDesktop().open(selectedFile);
-
-                }
-            }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

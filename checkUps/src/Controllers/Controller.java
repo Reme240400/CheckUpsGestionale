@@ -1,6 +1,7 @@
 package Controllers;
 
 import Models.Model;
+import sql.ControllerDb;
 
 public class Controller {
 
@@ -16,6 +17,7 @@ public class Controller {
 
     // Metodo per inserire un nuovo record sia su DB sia nelle liste
     public static void inserisciNuovoRecord(Object obj) {
+        ControllerDb.inserisciRecord(obj);
         Model.inserisciRecordInLista(obj);
 
     }
