@@ -57,4 +57,36 @@ public class ClassHelper {
         return listUnitaLocale;
     }
 
+    public static void svuotaListaUnitaLocali() {
+        listUnitaLocale.clear();
+    }
+
+    public static void svuotaListaReparti() {
+        listReparto.clear();
+    }
+
+    public static void svuotaListaRischi() {
+        listRischio.clear();
+    }
+
+    public static void svuotaListaMansioni() {
+        listMansione.clear();
+    }
+
+    public static void svuotaListaOggetti() {
+        listOggetto.clear();
+    }
+
+    public static void svuotaListaProvvedimenti() {
+        listProvvedimento.clear();
+    }
+
+    public static void svuotaListaSocieta() {
+        listSocieta.clear();
+    }
+
+    public static void svuotaListaTitoli() {
+        listTitolo.clear();
+    }
+
 }
