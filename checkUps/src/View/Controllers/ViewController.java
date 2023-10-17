@@ -60,14 +60,14 @@ public class ViewController implements Initializable{
     }
 
     public void switchToCreazione(ActionEvent event) throws IOException{
-        ModelCreazione ModelCreazione = new ModelCreazione();
+        ModelCreazione modelCreazione = new ModelCreazione();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
         Parent root = loader.load();
         Creazione creazione = loader.getController();
 
-        creazione.setModelCreazione(ModelCreazione);
+        creazione.setModelCreazione(modelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

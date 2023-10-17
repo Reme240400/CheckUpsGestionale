@@ -45,12 +45,13 @@ public class ModelDb {
                         String indirizzo = resultSet.getString("indirizzo");
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
-                        long telefono = resultSet.getLong("telefono");
+                        String telefono = resultSet.getString("telefono");
                         String descrizione = resultSet.getString("descrizione");
                         String nome = resultSet.getString("nome");
 
-                        Societa societa = new Societa(id_societa, indirizzo, localita, provincia, telefono, descrizione,
+                        Societa societa = new Societa(indirizzo, localita, provincia, telefono, descrizione,
                                 nome);
+                                societa.setIdSocieta(id_societa);
                         Model.inserisciRecordInLista(societa);
                     }
                 } catch (SQLException e) {
@@ -682,7 +683,7 @@ public class ModelDb {
             preparedStatement.setString(2, societaList.get(societaList.size() - 1).getIndirizzo());
             preparedStatement.setString(3, societaList.get(societaList.size() - 1).getLocalita());
             preparedStatement.setString(4, societaList.get(societaList.size() - 1).getProvincia());
-            preparedStatement.setLong(5, societaList.get(societaList.size() - 1).getTelefono());
+            preparedStatement.setString(5, societaList.get(societaList.size() - 1).getTelefono());
             preparedStatement.setString(6, societaList.get(societaList.size() - 1).getDescrizione());
             preparedStatement.setString(7, societaList.get(societaList.size() - 1).getNome());
             preparedStatement.executeUpdate();

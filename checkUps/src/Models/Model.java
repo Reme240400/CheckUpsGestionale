@@ -343,14 +343,15 @@ public class Model {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-               
-                Societa societa = new Societa(((Societa) obj).getIdSocieta(),
+            
+                Societa societa = new Societa(
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
                         ((Societa) obj).getProvincia(),
                         ((Societa) obj).getTelefono(),
                         ((Societa) obj).getDescrizione(),
                         ((Societa) obj).getNome());
+                        societa.setIdSocieta(((Societa) obj).getIdSocieta());
                 
                 ClassHelper.getListSocieta().add(societa);
                 break;

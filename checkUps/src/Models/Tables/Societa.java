@@ -7,12 +7,12 @@ public class Societa{
     private String indirizzo;
     private String localita;
     private String provincia;
-    private long telefono;
+    private String telefono;
     private String descrizione;
     private String nome;
 
-    public Societa(int idSocieta, String indirizzo, String localita, String provincia, long telefono, String descrizione, String nome) {
-        this.idSocieta = idSocieta;
+    public Societa( String indirizzo, String localita, String provincia, String telefono, String descrizione, String nome) {
+        //this.idSocieta = idSocieta;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
@@ -41,7 +41,7 @@ public class Societa{
         return descrizione;
     } 
     
-    public long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
@@ -65,7 +65,7 @@ public class Societa{
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = Long.parseLong(telefono);
+        this.telefono = telefono;
     }
 
     public void setDescrizione(String descrizione) {
