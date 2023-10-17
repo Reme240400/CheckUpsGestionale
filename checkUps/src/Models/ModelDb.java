@@ -38,6 +38,7 @@ public class ModelDb {
     public static void popolaListaSocieta() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaSocieta();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.societa")) {
                     while (resultSet.next()) {
@@ -73,6 +74,7 @@ public class ModelDb {
     public static void popolaListaMansioni() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaMansioni();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
                     while (resultSet.next()) {
@@ -102,6 +104,7 @@ public class ModelDb {
     public static void popolaListaTitoli() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaTitoli();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.titoli")) {
 
@@ -131,6 +134,7 @@ public class ModelDb {
     public static void popolaListaReparti() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaReparti();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.reparti")) {
 
@@ -162,6 +166,7 @@ public class ModelDb {
     public static void popolaListaRischi() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaRischi();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.rischi")) {
 
@@ -195,6 +200,7 @@ public class ModelDb {
     public static void popolaListaOggetti() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaOggetti();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.oggetti")) {
 
@@ -225,6 +231,7 @@ public class ModelDb {
     public static void popolaListaProvvedimenti() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaProvvedimenti();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.provvedimenti")) {
 
@@ -260,6 +267,7 @@ public class ModelDb {
     public static void popolaListaUnitaLocali() {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
+                ClassHelper.svuotaListaUnitaLocali();
                 try (Statement statement = connection.createStatement();
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.unita_locali")) {
 
@@ -802,9 +810,6 @@ public class ModelDb {
 
         }
     }
-
-    
-    
 
 }
 
