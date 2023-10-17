@@ -10,12 +10,9 @@ import Controllers.ClassHelper;
 import sql.ControllerDb;
 import Models.Tables.Provvedimento;
 import Models.Tables.Societa;
-import sql.ControllerDb;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 import java.util.List;
 
 public class CreatePdfExample {
@@ -27,7 +24,7 @@ public class CreatePdfExample {
 
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
-                    new File("C:\\dev\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
+                    new File("src/resources/fonts/Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 

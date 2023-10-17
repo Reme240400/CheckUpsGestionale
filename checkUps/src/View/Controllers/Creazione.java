@@ -25,18 +25,21 @@ public class Creazione implements Initializable {
     private StackPane stackPane;
 
     private ModelCreazione modelCreazione;
+    private FXMLLoader loaderSocieta;
+    private FXMLLoader loaderUnitaLocale;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
     }
 
+    // * cambia scena in UnitaLocale
     public void switchToSocieta() throws IOException {
-        FXMLLoader mainCreazioneLoader = new FXMLLoader(
-                getClass().getResource("/View/fxml/creazione_societa.fxml"));
 
-        Parent root = mainCreazioneLoader.load();
-        CreazioneSocieta creazioneSocieta = mainCreazioneLoader.getController();
+        loaderSocieta = new FXMLLoader(
+                getClass().getResource("/View/fxml/creazione_societa.fxml"));
+        Parent root = loaderSocieta.load();
+        CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
         creazioneSocieta.setModel(modelCreazione);
 
@@ -44,12 +47,13 @@ public class Creazione implements Initializable {
         stackPane.getChildren().setAll(root);
     }
 
+    // * cambia scena in UnitaLocale
     public void switchToUnitaLocali(javafx.event.ActionEvent event) throws IOException {
-        FXMLLoader mainCreazioneLoader = new FXMLLoader(
+        
+        loaderUnitaLocale = new FXMLLoader(
                 getClass().getResource("/View/fxml/creazione_unitalocale.fxml"));
-
-        Parent root = mainCreazioneLoader.load();
-        CreazioneUnitaLocale creazioneUnita = mainCreazioneLoader.getController();
+        Parent root = loaderUnitaLocale.load();
+        CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
         creazioneUnita.setModel(modelCreazione);
 
@@ -57,17 +61,18 @@ public class Creazione implements Initializable {
         stackPane.getChildren().setAll(root);
     }
 
-    public void setModelCreazione(ModelCreazione modelCreazione) {
-        this.modelCreazione = modelCreazione;
+    // * setta il modello
+    public void setModelCreazione(ModelCreazione model) {
+        this.modelCreazione = model;
 
         try {
             switchToSocieta();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         this.btnUnitaLocali.disableProperty().bind(modelCreazione.societaSavedProperty().not());
-        
+
     }
 
 }
