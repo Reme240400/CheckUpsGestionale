@@ -49,10 +49,10 @@ public class ModelDb {
                         String telefono = resultSet.getString("telefono");
                         String descrizione = resultSet.getString("descrizione");
                         String nome = resultSet.getString("nome");
-
                         Societa societa = new Societa(indirizzo, localita, provincia, telefono, descrizione,
                                 nome);
-                                societa.setIdSocieta(id_societa);
+                        societa.setIdSocieta(id_societa);
+
                         Model.inserisciRecordInLista(societa);
                     }
                 } catch (SQLException e) {

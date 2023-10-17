@@ -24,20 +24,19 @@ public class CreatePdfExample {
 
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
-                    new File("src/resources/fonts/Helvetica-Bold-Font.ttf"));
+                    new File("C:\\dev\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
            // Creazione di un nuovo stream di contenuto per la pagina
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
+             
 
             // Impostazione del font
-            contentStream.setFont(font, 12);
+            contentStream.setFont(font, 8);
 
-            /*/
+            
             // Aggiunta del contenuto al documento
-
-            System.out.println("Lista società prima" + ClassHelper.getListSocieta());
             ControllerDb.popolaListaSocietaDaDb();
 
             List<Societa> records = ClassHelper.getListSocieta();
@@ -45,7 +44,7 @@ public class CreatePdfExample {
 
             for (Societa record : records) {
                 contentStream.beginText();
-                contentStream.newLineAtOffset(50, yPosition);
+                contentStream.newLineAtOffset(15, yPosition);
                 contentStream.showText("ID: " + record.getIdSocieta());
                 contentStream.endText();
                 contentStream.beginText();
@@ -61,14 +60,15 @@ public class CreatePdfExample {
                 contentStream.endText();
                 yPosition -= 50; // Spaziatura tra le righe
             }
-            */
+            
+            contentStream.close();
              PDPage page1 = new PDPage(PDRectangle.A4);
             document.addPage(page1);
 
             // Creazione di un nuovo stream di contenuto per la pagina
             PDPageContentStream contentStream1 = new PDPageContentStream(document, page1);
             // Impostazione del font
-            contentStream1.setFont(font, 12);
+            contentStream1.setFont(font, 6);
 
             
             // Aggiunta del contenuto al documento
@@ -77,13 +77,15 @@ public class CreatePdfExample {
             ControllerDb.popolaListaProvvedimentiDaDb();
             System.out.println("Lista provvedimenti: " + ClassHelper.getListProvvedimento());
 
-            List<Provvedimento> records = ClassHelper.getListProvvedimento();
-            float yPosition = page1.getMediaBox().getHeight() - 50;
+            List<Provvedimento> recordspProvvedimento = ClassHelper.getListProvvedimento();
+            yPosition = page1.getMediaBox().getHeight() - 50;
 
-            for (Provvedimento record : records) {
+   
+
+            for (Provvedimento record : recordspProvvedimento) {
                 contentStream1.beginText();
-                contentStream1.newLineAtOffset(50, yPosition);
-                contentStream1.showText("NOME: " + record.getNome());
+                contentStream1.newLineAtOffset(15, yPosition);
+                contentStream1.showText("NOME: " + record.getNome().replace("\n", "").replace("\r", ""));
                 contentStream1.endText();
                 contentStream1.beginText();
                 contentStream1.newLineAtOffset(150, yPosition);

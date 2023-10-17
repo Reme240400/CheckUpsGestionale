@@ -21,7 +21,7 @@ public class ControllerDb {
     }
 
     public static void popolaListaProvvedimentiDaDb(){
-        ModelDb.popolaListaSocieta();
+        ModelDb.popolaListaProvvedimenti();
     }
 
     // Metodo per eliminare un qualsiasi record passandogli il nome della tabella e
