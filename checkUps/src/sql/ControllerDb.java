@@ -20,6 +20,10 @@ public class ControllerDb {
         ModelDb.popolaListaSocieta();
     }
 
+    public static void popolaListaProvvedimentiDaDb(){
+        ModelDb.popolaListaSocieta();
+    }
+
     // Metodo per eliminare un qualsiasi record passandogli il nome della tabella e
     // l'id del record da eliminare
     public static void eliminaRecordDaId(String tableName, int recordId) {

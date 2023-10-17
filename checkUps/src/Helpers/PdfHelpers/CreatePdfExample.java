@@ -8,6 +8,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import Controllers.ClassHelper;
 import sql.ControllerDb;
+import Models.Tables.Provvedimento;
 import Models.Tables.Societa;
 import sql.ControllerDb;
 
@@ -30,12 +31,13 @@ public class CreatePdfExample {
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
-            // Creazione di un nuovo stream di contenuto per la pagina
+           // Creazione di un nuovo stream di contenuto per la pagina
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             // Impostazione del font
             contentStream.setFont(font, 12);
 
+            /*/
             // Aggiunta del contenuto al documento
 
             System.out.println("Lista società prima" + ClassHelper.getListSocieta());
@@ -62,8 +64,46 @@ public class CreatePdfExample {
                 contentStream.endText();
                 yPosition -= 50; // Spaziatura tra le righe
             }
+            */
+             PDPage page1 = new PDPage(PDRectangle.A4);
+            document.addPage(page1);
 
-            contentStream.close();
+            // Creazione di un nuovo stream di contenuto per la pagina
+            PDPageContentStream contentStream1 = new PDPageContentStream(document, page1);
+            // Impostazione del font
+            contentStream1.setFont(font, 12);
+
+            
+            // Aggiunta del contenuto al documento
+
+            
+            ControllerDb.popolaListaProvvedimentiDaDb();
+            System.out.println("Lista provvedimenti: " + ClassHelper.getListProvvedimento());
+
+            List<Provvedimento> records = ClassHelper.getListProvvedimento();
+            float yPosition = page1.getMediaBox().getHeight() - 50;
+
+            for (Provvedimento record : records) {
+                contentStream1.beginText();
+                contentStream1.newLineAtOffset(50, yPosition);
+                contentStream1.showText("NOME: " + record.getNome());
+                contentStream1.endText();
+                contentStream1.beginText();
+                contentStream1.newLineAtOffset(150, yPosition);
+                contentStream1.showText("RISCHIO: " + record.getRischio());
+                contentStream1.endText();
+                contentStream1.beginText();
+                contentStream1.newLineAtOffset(350, yPosition);
+                contentStream1.showText("SOGGETTI ESPOSTI: " + record.getSoggettiEsposti());
+                contentStream1.endText();
+                contentStream1.beginText();
+                contentStream1.newLine();
+                contentStream1.endText();
+                yPosition -= 50; // Spaziatura tra le righe
+            }
+
+
+            contentStream1.close();
 
             // Visualizzazione del PDF
             document.save(nomeFile);
