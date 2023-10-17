@@ -93,6 +93,8 @@ public class CreatePdfExample {
    
 
             for (Provvedimento record : recordspProvvedimento) {
+
+                //if(caso in cui nome sia più corto di 200){}
                 contentStream1.beginText();
                 contentStream1.newLineAtOffset(15, yPosition);
                 contentStream1.showText("NOME: " + wordWrap(record.getNome(), 10).replace("\n", "").replace("\r", "")); // Suddivide il testo in linee più corte
@@ -108,6 +110,13 @@ public class CreatePdfExample {
                 contentStream1.beginText();
                 contentStream1.newLine();
                 contentStream1.endText();
+
+                //}else{
+                    //caso in cui ho più di 200 caratteri
+                    //faccio la stessa cosa di sopra ma scorro la y solo con il nome e prima di fare rischio e soggetti esposti torno alla y originale 
+
+                //}
+
                 yPosition -= 50; // Spaziatura tra le righe
             }
 
