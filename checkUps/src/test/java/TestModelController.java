@@ -11,8 +11,8 @@ public class TestModelController {
         // Popolamento della lista Reparto
         Reparto reparto1 = new Reparto(1, 1, "Reparto 1", "Descrizione Reparto 1");
         Reparto reparto2 = new Reparto(2, 1, "Reparto 2", "Descrizione Reparto 2");
-        Controller.popolaLista(reparto1);
-        Controller.popolaLista(reparto2);
+        // Controller.popolaLista(reparto1);
+        // Controller.popolaLista(reparto2);
 
         System.out.println("Lista Reparto:");
         for (Reparto reparto : ClassHelper.getListReparto()) {
@@ -21,8 +21,8 @@ public class TestModelController {
 
         Mansione mansione1 = new Mansione(1, "Mansione 1", "Responsabile 1");
         Mansione mansione2 = new Mansione(2, "Mansione 2", "Responsabile 2");
-        Controller.popolaLista(mansione1);
-        Controller.popolaLista(mansione2);
+        // Controller.popolaLista(mansione1);
+        // Controller.popolaLista(mansione2);
 
         System.out.println("\nLista Mansione:");
         for (Mansione mansione : ClassHelper.getListMansione()) {
@@ -38,7 +38,7 @@ public class TestModelController {
         Controller.modificaCampo(mansioneModificata, "nome", "Nuovo nome della Mansione 1", 1);
 
         // Rimozione di un oggetto dalla lista Reparto
-        Controller.rimuoviDaLista(reparto2, 0);
+        //Controller.rimuoviDaLista(reparto2, 0);
 
         System.out.println("STAMPA DOPO OPERAZIONI: \n");
         // Visualizzazione della lista Reparto dopo le operazioni
