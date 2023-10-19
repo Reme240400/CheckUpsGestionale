@@ -13,6 +13,7 @@ import Models.Tables.Societa;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class CreatePdfExample {
@@ -24,18 +25,17 @@ public class CreatePdfExample {
 
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
-                    new File("C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
+                    new File(
+                            "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
-           // Creazione di un nuovo stream di contenuto per la pagina
+            // Creazione di un nuovo stream di contenuto per la pagina
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
-             
 
             // Impostazione del font
             contentStream.setFont(font, 8);
 
-            
             // Aggiunta del contenuto al documento
             ControllerDb.popolaListaSocietaDaDb();
 
@@ -44,6 +44,15 @@ public class CreatePdfExample {
             int maxRowsPerPage = calculateMaxRowsPerPage(page, 50);
 
             for (Societa record : records) {
+                //Controllo per creazione di numero giusto di pagine
+                if (yPosition < maxRowsPerPage) {
+                    contentStream.close();
+                    page = new PDPage(PDRectangle.A4);
+                    document.addPage(page);
+                    contentStream = new PDPageContentStream(document, page);
+                    contentStream.setFont(font, 6);
+                    yPosition = page.getMediaBox().getHeight() - 50;
+                }
                 contentStream.beginText();
                 contentStream.newLineAtOffset(15, yPosition);
                 contentStream.showText("ID: " + record.getIdSocieta());
@@ -56,48 +65,48 @@ public class CreatePdfExample {
                 contentStream.newLineAtOffset(350, yPosition);
                 contentStream.showText("Indirizzo: " + record.getIndirizzo());
                 contentStream.endText();
-                contentStream.beginText();
-                contentStream.newLine();
-                contentStream.endText();
+
                 yPosition -= 50; // Spaziatura tra le righe
 
-                if (yPosition < maxRowsPerPage) {
-                    contentStream.close();
-                    page = new PDPage(PDRectangle.A4);
-                    document.addPage(page);
-                    contentStream = new PDPageContentStream(document, page);
-                    contentStream.setFont(font, 6);
-                    yPosition = page.getMediaBox().getHeight() - 50;
-                }
             }
-            
             contentStream.close();
-             PDPage page1 = new PDPage(PDRectangle.A4);
+
+            
+            PDPage page1 = new PDPage(PDRectangle.A4);
             document.addPage(page1);
 
             // Creazione di un nuovo stream di contenuto per la pagina
-            PDPageContentStream contentStream1 = new PDPageContentStream(document, page1);
+            PDPageContentStream contentStream1 = new PDPageContentStream(document,
+                    page1);
             // Impostazione del font
             contentStream1.setFont(font, 3);
 
-            
             // Aggiunta del contenuto al documento
 
-            
             ControllerDb.popolaListaProvvedimentiDaDb();
-            System.out.println("Lista provvedimenti: " + ClassHelper.getListProvvedimento());
+            System.out.println("Lista provvedimenti: " +
+                    ClassHelper.getListProvvedimento());
 
             List<Provvedimento> recordspProvvedimento = ClassHelper.getListProvvedimento();
             yPosition = page1.getMediaBox().getHeight() - 50;
 
-   
-
             for (Provvedimento record : recordspProvvedimento) {
 
-                //if(caso in cui nome sia più corto di 200){}
+                //Controllo per creazione di numero giusto di pagine
+                if (yPosition < maxRowsPerPage) {
+                    contentStream1.close();
+                    page = new PDPage(PDRectangle.A4);
+                    document.addPage(page);
+                    contentStream1 = new PDPageContentStream(document, page);
+                    contentStream1.setFont(font, 6);
+                    yPosition = page.getMediaBox().getHeight() - 50;
+                }
+
+                // if(caso in cui nome sia più corto di 200){}
                 contentStream1.beginText();
                 contentStream1.newLineAtOffset(15, yPosition);
-                contentStream1.showText("NOME: " + wordWrap(record.getNome(), 10).replace("\n", "").replace("\r", "")); // Suddivide il testo in linee più corte
+                contentStream1.showText("NOME: " + wordWrap(record.getNome(),
+                        10).replace("\n", "").replace("\r", "")); // Suddivide il testo in linee piùcorte
                 contentStream1.endText();
                 contentStream1.beginText();
                 contentStream1.newLineAtOffset(350, yPosition);
@@ -111,15 +120,15 @@ public class CreatePdfExample {
                 contentStream1.newLine();
                 contentStream1.endText();
 
-                //}else{
-                    //caso in cui ho più di 200 caratteri
-                    //faccio la stessa cosa di sopra ma scorro la y solo con il nome e prima di fare rischio e soggetti esposti torno alla y originale 
+                // }else{
+                // caso in cui ho più di 200 caratteri
+                // faccio la stessa cosa di sopra ma scorro la y solo con il nome e prima di
+                // fare rischio e soggetti esposti torno alla y originale
 
-                //}
+                // }
 
                 yPosition -= 50; // Spaziatura tra le righe
             }
-
 
             contentStream1.close();
 
@@ -157,5 +166,5 @@ public class CreatePdfExample {
 
         return wrappedText.toString().trim();
     }
-}
 
+}
