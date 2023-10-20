@@ -92,7 +92,7 @@
                               <Font name="Bell MT Bold" size="21.0" />
                            </font>
                         </Label>
-                        <JFXComboBox editable="true" layoutX="21.0" layoutY="25.0" prefHeight="25.0" prefWidth="416.0" unFocusColor="BLACK" />
+                        <JFXComboBox fx:id="cercaRecord" editable="true" layoutX="21.0" layoutY="25.0" prefHeight="25.0" prefWidth="416.0" unFocusColor="BLACK" />
                         <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="437.0" layoutY="22.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

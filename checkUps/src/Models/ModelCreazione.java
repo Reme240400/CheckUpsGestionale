@@ -64,4 +64,17 @@ public class ModelCreazione {
     }
 // ------------------ END SETTER ------------------ //
 
+    public void reset() {
+
+        // textFieldIndirizzo.clear();
+        // textFieldLocalita.clear();
+        // textFieldProvincia.clear();
+        // textFieldSocieta.clear();
+        // textFieldTel.clear();
+
+        setSocietySaved(false);
+        setUnitaSaved(false);
+        setSaved(false);
+        setDiscard(false);
+    }
 }
