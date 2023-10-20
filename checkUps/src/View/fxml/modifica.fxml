@@ -114,7 +114,61 @@
         </Tab>
         <Tab text="Unità Locale">
           <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="252.0" prefWidth="641.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="641.0" VBox.vgrow="SOMETIMES">
+                                 <children>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                                    <Label prefHeight="27.0" prefWidth="317.0" text="Selezione l'Unità Locale">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                                    <JFXComboBox editable="true" prefHeight="25.0" prefWidth="338.0" promptText="Cerca..." />
+                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <AnchorPane>
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="98.0" text="Unità Produttiva:" />
+                                    <TextField fx:id="textFieldUnitaLocale" layoutX="123.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="412.0" />
+                                 </children>
+                              </AnchorPane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <AnchorPane>
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Località:" />
+                                    <TextField fx:id="textFieldLocalita1" layoutX="82.0" layoutY="1.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                                    <Label layoutX="458.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
+                                    <TextField fx:id="textFieldProvincia1" accessibleText="INTEGER" layoutX="522.0" layoutY="2.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="56.0" />
+                                 </children>
+                              </AnchorPane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <AnchorPane>
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
+                                    <TextField fx:id="textFieldIndirizzo1" layoutX="83.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                                 </children>
+                              </AnchorPane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <AnchorPane disable="true">
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
+                                    <TextField fx:id="textFieldTel1" layoutX="85.0" layoutY="7.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                                 </children>
+                              </AnchorPane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
           </content>
         </Tab>
         <Tab text="Reparto">
