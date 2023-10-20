@@ -1,7 +1,6 @@
 package View.Controllers;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -47,8 +46,8 @@ public class CreazioneSocieta implements Initializable {
     @FXML
     private TextField textFieldTel;
 
-    @FXML
-    private TextField textFieldDesc;
+    // @FXML
+    // private TextField textFieldDesc;
 
     @FXML
     private JFXComboBox<String> cercaRecord;
@@ -67,16 +66,18 @@ public class CreazioneSocieta implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        // * *************** inizializza i campi *************** //
         ControllerDb.popolaListaSocietaDaDb();
         List<Societa> listSocieta = ClassHelper.getListSocieta();
         ObservableList<String> items = FXCollections.observableArrayList();
 
+        // * *************** popola il combobox *************** //
         cercaRecord.getItems().add("Nuovo");
         for (Societa societa : listSocieta) {
             cercaRecord.getItems().add(societa.getNome());
             items.add(societa.getNome());
         }
-        
+
         // * controlla se vengono inseriti solo numeri
         UnaryOperator<TextFormatter.Change> filter = change -> {
 
@@ -85,8 +86,8 @@ public class CreazioneSocieta implements Initializable {
                 change.setText(change.getText().replaceAll("[^\\d]", ""));
             }
 
-            if ( change.getControlNewText().length() > 15 ) {
-                return null ;
+            if (change.getControlNewText().length() > 15) {
+                return null;
             }
 
             return change;
@@ -96,7 +97,6 @@ public class CreazioneSocieta implements Initializable {
         textFieldTel.setTextFormatter(formatter);
 
         // * **************************************** //
-
 
         // * filtra il Combobox
         FilteredList<String> filteredItems = new FilteredList<String>(items, p -> true);
@@ -129,7 +129,6 @@ public class CreazioneSocieta implements Initializable {
         });
 
         cercaRecord.setItems(filteredItems);
-
         // * ************************************************ //
 
     }
@@ -137,9 +136,11 @@ public class CreazioneSocieta implements Initializable {
     // * salva la societa
     public void salvaSocieta(javafx.event.ActionEvent event) {
 
-        // fare la call alla Query
-        this.societaTmp = new Societa(txtIndirizzo, txtIndirizzo, txtIndirizzo, txtTel, txtIndirizzo,
+        Societa societaTmp = new Societa(txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel,
                 "");
+
+        // fare la call alla Query
+        model.setSocietaTmp(societaTmp);
 
         Model.inserisciRecordInLista(societaTmp);
         model.setSocietySaved(true);
@@ -151,7 +152,13 @@ public class CreazioneSocieta implements Initializable {
     // * elimina la societa
     public void eliminaSocieta() {
 
-        
+        // textFieldDesc.clear();
+        textFieldIndirizzo.clear();
+        textFieldLocalita.clear();
+        textFieldProvincia.clear();
+        textFieldSocieta.clear();
+        textFieldTel.clear();
+        cercaRecord.getSelectionModel().clearSelection();
 
         model.setSaved(false);
         model.setDiscard(false);
@@ -159,52 +166,27 @@ public class CreazioneSocieta implements Initializable {
 
     // * controlla se i campi sono vuoti
     public void keyReleasedProperty() {
+        this.txtSocieta = textFieldSocieta.getText();
+        this.txtIndirizzo = textFieldIndirizzo.getText();
+        this.txtLocalita = textFieldLocalita.getText();
+        this.txtProvincia = textFieldProvincia.getText();
+        this.txtTel = textFieldTel.getText();
 
-        txtSocieta = textFieldSocieta.getText();
-        txtIndirizzo = textFieldIndirizzo.getText();
-        txtLocalita = textFieldLocalita.getText();
-        txtProvincia = textFieldProvincia.getText();
-        txtTel = textFieldTel.getText();
-
-        boolean areAllDisabled = (txtSocieta.isEmpty() ||
-                txtSocieta.trim().isEmpty() ||
-                txtIndirizzo.isEmpty() ||
-                txtIndirizzo.trim().isEmpty() ||
-                txtLocalita.isEmpty() ||
-                txtLocalita.trim().isEmpty() ||
-                txtProvincia.isEmpty() ||
-                txtProvincia.trim().isEmpty() ||
-                txtTel.isEmpty() ||
-                txtTel.trim().isEmpty());
-
-        boolean isDisabled = (txtSocieta.isEmpty() &&
-                txtIndirizzo.isEmpty() &&
-                txtLocalita.isEmpty() &&
-                txtProvincia.isEmpty() &&
-                txtTel.isEmpty());
-
-        model.setSaved(!areAllDisabled);
-        model.setDiscard(!isDisabled);
-
-        if (areAllDisabled) {
-        
-            if(societaTmp != null){ System.out.println("test");
-                textFieldSocieta.setText(societaTmp.getNome());
-                textFieldIndirizzo.setText(societaTmp.getIndirizzo());
-                textFieldLocalita.setText(societaTmp.getLocalita());
-                textFieldProvincia.setText(societaTmp.getProvincia());
-                textFieldTel.setText(String.valueOf(societaTmp.getTelefono()));
-                //textFieldDesc.setText(societaTmp.getDescrizione());
-            }
-        }
+        model.isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
+                textFieldProvincia, textFieldTel);
 
     }
 
-    // * setta il modello
+    // * ************ setta il modello ************ //
     public void setModel(ModelCreazione model) {
         this.model = model;
 
         this.btnSalva.disableProperty().bind(model.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(model.discardProperty().not());
+
+        // * ************ setta i campi come sono stati salvati ************ //
+        model.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+                textFieldTel);
+        // * ************************************************ //
     }
 }

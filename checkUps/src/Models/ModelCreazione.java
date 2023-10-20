@@ -1,7 +1,9 @@
 package Models;
 
+import Models.Tables.Societa;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.TextField;
 
 public class ModelCreazione {
 
@@ -10,7 +12,9 @@ public class ModelCreazione {
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty discard = new SimpleBooleanProperty(false);
 
-// initialize methods
+    private Societa societaTmp = null;
+
+    // initialize methods
     public BooleanProperty societaSavedProperty() {
         return societySaved;
     }
@@ -26,9 +30,9 @@ public class ModelCreazione {
     public BooleanProperty unitaLocaleSavedProperty() {
         return unitaLocaleSaved;
     }
-// end initialize methods
+    // end initialize methods
 
-// ------------------ GETTER ------------------ //
+    // ------------------ GETTER ------------------ //
     public final boolean isSocietySaved() {
         return societaSavedProperty().get();
     }
@@ -44,9 +48,9 @@ public class ModelCreazione {
     public final boolean isDiscard() {
         return discardProperty().get();
     }
-// ------------------ END GETTER ------------------ //
+    // ------------------ END GETTER ------------------ //
 
-// ------------------ SETTER ------------------ //
+    // ------------------ SETTER ------------------ //
     public final void setSocietySaved(boolean societySaved) {
         societaSavedProperty().set(societySaved);
     }
@@ -62,19 +66,79 @@ public class ModelCreazione {
     public final void setDiscard(boolean discard) {
         discardProperty().set(discard);
     }
-// ------------------ END SETTER ------------------ //
+    // ------------------ END SETTER ------------------ //
 
     public void reset() {
-
-        // textFieldIndirizzo.clear();
-        // textFieldLocalita.clear();
-        // textFieldProvincia.clear();
-        // textFieldSocieta.clear();
-        // textFieldTel.clear();
 
         setSocietySaved(false);
         setUnitaSaved(false);
         setSaved(false);
         setDiscard(false);
     }
+
+    public Societa getSocietaTmp() {
+        return societaTmp;
+    }
+
+    public void setSocietaTmp(Societa societaTmp) {
+        this.societaTmp = societaTmp;
+        System.out.println("setSocietaTmp: " + societaTmp.getNome());
+    }
+
+    public void isTextFilled(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
+            TextField textFieldProvincia, TextField textFieldTel) {
+
+        String txtSocieta = textFieldSocieta.getText();
+        String txtIndirizzo = textFieldIndirizzo.getText();
+        String txtLocalita = textFieldLocalita.getText();
+        String txtProvincia = textFieldProvincia.getText();
+        String txtTel = textFieldTel.getText();
+        
+
+        boolean areAllDisabled = (txtSocieta.isEmpty() ||
+                txtSocieta.trim().isEmpty() ||
+                txtIndirizzo.isEmpty() ||
+                txtIndirizzo.trim().isEmpty() ||
+                txtLocalita.isEmpty() ||
+                txtLocalita.trim().isEmpty() ||
+                txtProvincia.isEmpty() ||
+                txtProvincia.trim().isEmpty() ||
+                txtTel.isEmpty() ||
+                txtTel.trim().isEmpty());
+
+        boolean isDisabled = (txtSocieta.isEmpty() &&
+                txtSocieta.trim().isEmpty() &&
+                txtIndirizzo.isEmpty() &&
+                txtIndirizzo.trim().isEmpty() &&
+                txtLocalita.isEmpty() &&
+                txtLocalita.trim().isEmpty() &&
+                txtProvincia.isEmpty() &&
+                txtProvincia.trim().isEmpty() &&
+                txtTel.isEmpty()
+                && txtTel.trim().isEmpty());
+
+        setSaved(!areAllDisabled);
+        setDiscard(!isDisabled);
+        
+    }
+
+    public void setOldTextFields(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
+            TextField textFieldProvincia, TextField textFieldTel) {
+        if (getSocietaTmp() != null) {
+            textFieldSocieta.setText(getSocietaTmp().getNome());
+            textFieldIndirizzo.setText(getSocietaTmp().getIndirizzo());
+            textFieldLocalita.setText(getSocietaTmp().getLocalita());
+            textFieldProvincia.setText(getSocietaTmp().getProvincia());
+            textFieldTel.setText(String.valueOf(getSocietaTmp().getTelefono()));
+            // textFieldDesc.setText(societaTmp.getDescrizione());
+            // * ************ controlla se i campi sono vuoti ************ //
+            isTextFilled(textFieldSocieta,
+                    textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+
+            // model.setSaved(areDisabled[0]);
+            //setDiscard(areDisabled[1]);
+            // * ************************************************ //
+        }
+    }
+
 }
