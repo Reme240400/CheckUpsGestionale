@@ -11,7 +11,7 @@ public class Societa{
     private String descrizione;
     private String nome;
 
-    public Societa( String indirizzo, String localita, String provincia, String telefono, String descrizione, String nome) {
+    public Societa(  String nome, String indirizzo, String localita, String provincia, String telefono, String descrizione) {
         //this.idSocieta = idSocieta;
         this.indirizzo = indirizzo;
         this.localita = localita;

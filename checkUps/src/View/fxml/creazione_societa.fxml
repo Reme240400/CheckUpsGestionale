@@ -15,7 +15,7 @@
 
 <BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.CreazioneSocieta">
    <bottom>
-      <HBox alignment="CENTER" BorderPane.alignment="TOP_RIGHT">
+      <HBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="752.0" BorderPane.alignment="TOP_RIGHT">
          <children>
             <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#eliminaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
