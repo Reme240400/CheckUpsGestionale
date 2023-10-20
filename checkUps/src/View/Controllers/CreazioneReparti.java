@@ -14,7 +14,7 @@ public class CreazioneReparti implements Initializable{
     @FXML
     private JFXButton btnSalva;
 
-    private ModelCreazione modelCreazione;
+    //private ModelCreazione modelCreazione;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -27,7 +27,7 @@ public class CreazioneReparti implements Initializable{
     }
 
     public void setModel(ModelCreazione modelCreazione) {
-        this.modelCreazione = modelCreazione;
+        //this.modelCreazione = modelCreazione;
     }
 
     
