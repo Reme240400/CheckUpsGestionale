@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import Models.ModelCreazione;
+import Models.ModelModifica;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,10 @@ public class ViewController implements Initializable{
     private JFXButton btnHome;
 
     @FXML
-    private JFXButton btnOrders;
+    private JFXButton btnModify;
+
+    @FXML
+    private JFXButton btnCreate;
 
     @FXML
     private StackPane stackPane;
@@ -60,14 +64,28 @@ public class ViewController implements Initializable{
     }
 
     public void switchToCreazione(ActionEvent event) throws IOException{
-        ModelCreazione ModelCreazione = new ModelCreazione();
+        ModelCreazione modelCreazione = new ModelCreazione();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
         Parent root = loader.load();
         Creazione creazione = loader.getController();
 
-        creazione.setModelCreazione(ModelCreazione);
+        creazione.setModelCreazione(modelCreazione);
+
+        stackPane.getChildren().removeAll();
+        stackPane.getChildren().setAll(root);
+    }
+
+    public void switchToModifica(ActionEvent event) throws IOException{
+        ModelModifica modelModifica = new ModelModifica();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica.fxml"));
+
+        Parent root = loader.load();
+        Modifica modifica = loader.getController();
+
+        modifica.setModel(modelModifica);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

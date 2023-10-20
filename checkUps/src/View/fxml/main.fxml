@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
    <left>
       <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="633.0" prefWidth="170.0" styleClass="VBox_options" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -38,7 +38,7 @@
                </font>
             </JFXButton>
             <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton fx:id="btnOrders" contentDisplay="TOP" layoutX="27.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#switchToCreazione" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Crea">
+            <JFXButton fx:id="btnCreate" contentDisplay="TOP" layoutX="27.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#switchToCreazione" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Crea">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -55,7 +55,7 @@
                </styleClass>
             </JFXButton>
             <Pane layoutX="10.0" layoutY="230.0" prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Modifica">
+            <JFXButton fx:id="btnModify" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#switchToModifica" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Modifica">
                <graphic>
                   <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
