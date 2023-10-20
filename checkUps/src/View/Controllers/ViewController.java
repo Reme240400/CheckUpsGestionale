@@ -65,7 +65,6 @@ public class ViewController implements Initializable{
 
     public void switchToCreazione(ActionEvent event) throws IOException{
         ModelCreazione modelCreazione = new ModelCreazione();
-        ModelCreazione modelCreazione = new ModelCreazione();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
