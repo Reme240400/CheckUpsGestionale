@@ -1,6 +1,11 @@
 package Models;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import Controllers.ClassHelper;
+import Controllers.Controller;
+import Controllers.ControllerDb;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
@@ -9,7 +14,6 @@ import Models.Tables.Rischio;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-import sql.ControllerDb;
 
 public class Model {
 
@@ -319,16 +323,16 @@ public class Model {
                 break;
             case "Titolo":
                 Titolo titolo = new Titolo(((Titolo) obj).getIdTitolo(),
-                        ((Titolo) obj).getDescrizione(),
-                        ((Titolo) obj).getIdReparto());
+                ((Titolo) obj).getIdReparto(),
+                ((Titolo) obj).getDescrizione());
 
                 ClassHelper.getListTitolo().add(titolo);
                 break;
             case "Reparto":
                 Reparto reparto = new Reparto(((Reparto) obj).getIdReparto(),
                         ((Reparto) obj).getIdUnitaLocale(),
-                        ((Reparto) obj).getDescrizione(),
-                        ((Reparto) obj).getNome());
+                        ((Reparto) obj).getNome(),
+                        ((Reparto) obj).getDescrizione());
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
@@ -343,7 +347,7 @@ public class Model {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-            
+
                 Societa societa = new Societa(
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
@@ -351,8 +355,8 @@ public class Model {
                         ((Societa) obj).getTelefono(),
                         ((Societa) obj).getDescrizione(),
                         ((Societa) obj).getNome());
-                        societa.setIdSocieta(((Societa) obj).getIdSocieta());
-                
+                societa.setIdSocieta(((Societa) obj).getIdSocieta());
+
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":
@@ -387,42 +391,19 @@ public class Model {
                 throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
         }
     }
-}
 
-/*
- * 
- * public static void inserisciInLista(Object obj) {
- * 
- * switch (obj.getClass().getSimpleName()) {
- * 
- * case "Mansione":
- * ClassHelper.getListMansione().add((Mansione) obj);
- * 
- * break;
- * case "Titolo":
- * ClassHelper.getListTitolo().add((Titolo) obj);
- * break;
- * case "Reparto":
- * ClassHelper.getListReparto().add((Reparto) obj);
- * break;
- * case "Rischio":
- * ClassHelper.getListRischio().add((Rischio) obj);
- * break;
- * case "Societa":
- * ClassHelper.getListSocieta().add((Societa) obj);
- * break;
- * case "Oggetto":
- * ClassHelper.getListOggetto().add((Oggetto) obj);
- * break;
- * case "Provvedimento":
- * ClassHelper.getListProvvedimento().add((Provvedimento) obj);
- * break;
- * case "UnitaLocale":
- * ClassHelper.getListUnitaLocale().add((UnitaLocale) obj);
- * break;
- * default:
- * throw new IllegalArgumentException("Unexpected value: " +
- * obj.getClass().getSimpleName());
- * }
- * }
- */
+    public static List<UnitaLocale> filtraListaUnitaDaSocieta(int idSocieta) {
+
+        return ClassHelper.getListUnitaLocale().stream().filter(ul -> ul.getIdSocieta() == idSocieta)
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<Reparto> filtraRepartoDaUnita(int idUnitaLocale) {
+
+        return ClassHelper.getListReparto().stream().filter(ul -> ul.getIdUnitaLocale() == idUnitaLocale)
+                .collect(Collectors.toList());
+
+    }
+
+}

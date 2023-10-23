@@ -113,7 +113,7 @@ public class ModelDb {
                         int idTitolo = resultSet.getInt("id_titolo");
                         int idReparto = resultSet.getInt("id_reparto");
                         String descrizione = resultSet.getString("descrizione");
-                        Titolo titolo = new Titolo(idTitolo, descrizione, idReparto);
+                        Titolo titolo = new Titolo(idTitolo, idReparto, descrizione);
                         Model.inserisciRecordInLista(titolo);
                     }
                 } catch (SQLException e) {
@@ -206,7 +206,7 @@ public class ModelDb {
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.oggetti")) {
 
                     while (resultSet.next()) {
-                        int idOggetto = resultSet.getInt("id_oggetto");
+                        int idOggetto = resultSet.getInt("id");
                         String nome = resultSet.getString("nome");
                         int idTitolo = resultSet.getInt("id_titolo");
 
@@ -812,6 +812,9 @@ public class ModelDb {
         }
     }
 
+    /*
+
+
     public static List<UnitaLocale> filtraUnitaDaSocieta(int idSocieta) throws SQLException {
 
         String filterQuery = "SELECT * FROM public.unita_locali WHERE id_societa = " + idSocieta + "";
@@ -841,96 +844,30 @@ public class ModelDb {
         }
     }
 
-}
+    public static List<Reparto> filtraRepartoDaUnita(int idUnitaLocale) throws SQLException {
 
-/*
- * public void cancellaDatiTabelle() {
- * Connection connection = connessioneDb();
- * if (connection != null) {
- * try (Statement statement = connection.createStatement()) {
- * // Disabilita il controllo delle chiavi esterne temporaneamnome
- * statement.execute("SET FOREIGN_KEY_CHECKS = 0");
- * 
- * // Cancella i dati da tutte le tabelle
- * statement.executeUpdate("DELETE FROM public.elenco_rischi");
- * statement.executeUpdate("DELETE FROM public.provvedimenti");
- * statement.executeUpdate("DELETE FROM public.mansioni");
- * statement.executeUpdate("DELETE FROM public.oggetti");
- * statement.executeUpdate("DELETE FROM public.rischi");
- * statement.executeUpdate("DELETE FROM public.titoli");
- * statement.executeUpdate("DELETE FROM public.reparti");
- * statement.executeUpdate("DELETE FROM public.unita_locali");
- * statement.executeUpdate("DELETE FROM public.societa");
- * 
- * // Riabilita il controllo delle chiavi esterne
- * statement.execute("SET FOREIGN_KEY_CHECKS = 1");
- * 
- * System.out.println("Dati cancellati con successo da tutte le tabelle.");
- * } catch (SQLException e) {
- * System.out.println("Errore durante la cancellazione dei dati: " +
- * e.getMessage());
- * } finally {
- * try {
- * connection.close();
- * } catch (SQLException e) {
- * System.out.println("Errore durante la chiusura della connessione: " +
- * e.getMessage());
- * }
- * }
- * }
- * }
- * 
- * public void popolaDatabaseDaListe(List<Societa> societaList,
- * List<UnitaLocale> unitaLocaleList, List<Reparto> repartoList,
- * List<Titolo> titoloList, List<Mansione> mansioneList, List<Oggetto>
- * oggettoList,
- * List<Provvedimento> provvedimentoList, List<Rischio> rischioList,
- * List<ElencoRischi> elencorischiList) {
- * Connection connection = connessioneDb();
- * 
- * try {
- * if (connection != null) {
- * // Popola la tabella "societa"
- * inserisciElementoSocieta(connection, societaList);
- * 
- * // Popola la tabella "unita_locali"
- * inserisciElementoUnitaLocali(connection, unitaLocaleList);
- * 
- * // Popola la tabella "reparti"
- * inserisciElementoReparti(connection, repartoList);
- * 
- * // Popola la tabella "titoli"
- * inserisciElementoTitoli(connection, titoloList);
- * 
- * // Popola la tabella "mansioni"
- * inserisciElementoMansioni(connection, mansioneList);
- * 
- * // Popola la tabella "oggetti"
- * inserisciElementoOggetti(connection, oggettoList);
- * 
- * // Popola la tabella "provvedimenti"
- * inserisciElementoProvvedimenti(connection, provvedimentoList);
- * 
- * // Popola la tabella "rischi"
- * inserisciElementoRischi(connection, rischioList);
- * 
- * // Popola la tabella "elenco_rischi"
- * inserisciElementoElencoRischi(connection, elencorischiList);
- * 
- * System.out.println("Popolamento del database completato con successo.");
- * }
- * } catch (SQLException e) {
- * System.out.println("Errore durante il popolamento del database: " +
- * e.getMessage());
- * } finally {
- * try {
- * if (connection != null) {
- * connection.close();
- * }
- * } catch (SQLException e) {
- * System.out.println("Errore durante la chiusura della connessione: " +
- * e.getMessage());
- * }
- * }
- * }
- */
+        String filterQuery = "SELECT * FROM public.reparti WHERE id_unita_locale = " + idUnitaLocale + "";
+        List<Reparto> repartiList = new ArrayList<>();
+
+        try (Connection connection = connessioneDb()) {
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(filterQuery);
+
+            while (resultSet.next()) {
+                int idReparto = resultSet.getInt("id_reparto");
+                String nome = resultSet.getString("nome");
+                String descrizione = resultSet.getString("descrizione");
+
+                Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
+                repartiList.add(reparto);
+
+            }
+
+            return repartiList;
+
+        }
+    }
+*/
+}

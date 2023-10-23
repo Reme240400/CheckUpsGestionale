@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.ControllerDb;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
@@ -21,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
-import sql.ControllerDb;
 
 public class CreazioneSocieta implements Initializable {
 

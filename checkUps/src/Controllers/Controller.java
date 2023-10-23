@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.Model;
-import sql.ControllerDb;
 
 public class Controller {
 
