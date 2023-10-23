@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.swing.text.Document;
 
 public class CreatePdfExample {
     public static void main(String[] args) {
