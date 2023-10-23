@@ -10,15 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="67.0" prefWidth="600.0" />
             <AnchorPane prefHeight="72.0" prefWidth="600.0">
                <children>
-                  <JFXComboBox editable="true" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" />
+                  <JFXComboBox fx:id="cercaSocieta" editable="true" layoutX="146.0" layoutY="24.0" onAction="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" />
                   <Label layoutX="22.0" layoutY="28.0" text="Società - Ente">
                      <font>
                         <Font size="16.0" />
@@ -30,7 +29,7 @@
             <Pane layoutX="10.0" layoutY="10.0" prefHeight="8.0" prefWidth="600.0" />
             <AnchorPane prefHeight="72.0" prefWidth="600.0">
                <children>
-                  <JFXComboBox editable="true" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" />
+                  <JFXComboBox fx:id="cercaUnitaLocale" editable="true" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" />
                   <Label layoutX="22.0" layoutY="28.0" text="Unità Locale">
                      <font>
                         <Font size="16.0" />

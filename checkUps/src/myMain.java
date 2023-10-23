@@ -43,7 +43,7 @@ public class myMain extends Application{
     public void logout(Stage stage){
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
-        alert.setTitle("Quit");
+        alert.setTitle("Esci");
         alert.setHeaderText("Stai per uscire!");
         alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
 
@@ -53,7 +53,8 @@ public class myMain extends Application{
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {     
+
         launch(args);
         
     }

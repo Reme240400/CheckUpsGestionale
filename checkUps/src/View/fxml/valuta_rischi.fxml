@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane minWidth="-Infinity" prefHeight="66.0" prefWidth="100.0" />
+            <Pane prefHeight="66.0" prefWidth="384.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label layoutX="14.0" layoutY="25.0" text="Società">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="83.0" layoutY="22.0" prefHeight="25.0" prefWidth="183.0" styleClass="transparent" stylesheets="@../css/style.css" />
+               </children>
+            </Pane>
+            <Pane layoutX="210.0" layoutY="10.0" prefHeight="66.0" prefWidth="398.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label layoutX="14.0" layoutY="25.0" text="Unità Locale">
+                     <font>
+                        <Font name="Arial Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="118.0" layoutY="24.0" prefHeight="25.0" prefWidth="165.0" styleClass="transparent" stylesheets="@../css/style.css" />
+               </children>
+            </Pane>
+            <Pane layoutX="42.0" layoutY="10.0" minWidth="-Infinity" prefHeight="66.0" prefWidth="100.0" stylesheets="@../css/style.css" HBox.hgrow="NEVER" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="681.0" styleClass="bordered_style" stylesheets="@../css/style.css">
+                           <children>
+                              <JFXButton prefHeight="25.0" prefWidth="115.0" ripplerFill="#7ec948" styleClass="bordered" stylesheets="@../css/style.css" text="Seleziona">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/check.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <Separator orientation="VERTICAL" prefHeight="29.0" prefWidth="21.0" />
+                              <JFXButton prefHeight="32.0" prefWidth="96.0" styleClass="bordered" stylesheets="@../css/style.css" text="Elimina">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/trash_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <Pane prefHeight="29.0" prefWidth="404.0" HBox.hgrow="SOMETIMES">
+                                 <children>
+                                    <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="79.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/filter_funnel_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TextField layoutX="105.0" layoutY="-1.0" prefHeight="30.0" prefWidth="240.0" promptText="Filtra per nome..." styleClass="transparent" stylesheets="@../css/style.css" />
+                                 </children></Pane>
+                           </children>
+                        </HBox>
+                        <TableView prefHeight="407.0" prefWidth="681.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn editable="false" prefWidth="75.0" text="ID" />
+                            <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="359.0" text="Reparto" />
+                              <TableColumn prefWidth="345.0" text="Descrizione" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

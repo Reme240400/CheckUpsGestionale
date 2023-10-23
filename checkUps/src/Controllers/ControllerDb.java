@@ -1,4 +1,6 @@
-package sql;
+package Controllers;
+
+import java.sql.SQLException;
 
 import Models.ModelDb;
 
@@ -18,6 +20,10 @@ public class ControllerDb {
 
     public static void popolaListaSocietaDaDb(){
         ModelDb.popolaListaSocieta();
+    }
+
+    public static void popolaListaUnitaLocaleDaDb(){
+        ModelDb.popolaListaUnitaLocali();
     }
 
     public static void popolaListaProvvedimentiDaDb(){
@@ -47,6 +53,15 @@ public class ControllerDb {
     // Metodo per inserire una nuova riga in una qualsiasi tabella
     public static void inserisciRecord(Object obj) {
         ModelDb.inserisciRecord(obj);
+    }
+
+    public static void filterUnitaLocaleBySocietaId( int idSocieta){
+        try {
+            ModelDb.filtraUnitaDaSocieta(idSocieta);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

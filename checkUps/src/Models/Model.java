@@ -1,6 +1,7 @@
 package Models;
 
 import Controllers.ClassHelper;
+import Controllers.ControllerDb;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
@@ -9,7 +10,6 @@ import Models.Tables.Rischio;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-import sql.ControllerDb;
 
 public class Model {
 
@@ -327,8 +327,8 @@ public class Model {
             case "Reparto":
                 Reparto reparto = new Reparto(((Reparto) obj).getIdReparto(),
                         ((Reparto) obj).getIdUnitaLocale(),
-                        ((Reparto) obj).getDescrizione(),
-                        ((Reparto) obj).getNome());
+                        ((Reparto) obj).getNome(),
+                        ((Reparto) obj).getDescrizione());
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
@@ -343,16 +343,15 @@ public class Model {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-            
-                Societa societa = new Societa(
+                Societa societa = new Societa(((Societa) obj).getNome(),
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
                         ((Societa) obj).getProvincia(),
                         ((Societa) obj).getTelefono(),
-                        ((Societa) obj).getDescrizione(),
-                        ((Societa) obj).getNome());
-                        societa.setIdSocieta(((Societa) obj).getIdSocieta());
-                
+                        ((Societa) obj).getDescrizione());
+
+                societa.setIdSocieta(((Societa) obj).getIdSocieta());
+
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":

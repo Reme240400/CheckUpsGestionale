@@ -7,7 +7,7 @@ import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
 import Controllers.ClassHelper;
-import sql.ControllerDb;
+import Controllers.ControllerDb;
 import Models.Tables.Provvedimento;
 import Models.Tables.Societa;
 

@@ -16,12 +16,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="401.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifica">
-  <center>
-    <TabPane prefHeight="401.0" prefWidth="680.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab text="Società">
-          <content>
+<BorderPane prefHeight="401.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifica">
+   <center>
+      <TabPane prefHeight="401.0" prefWidth="680.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Società">
+               <content>
                   <HBox alignment="CENTER">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="572.0" spacing="10.0" HBox.hgrow="ALWAYS">
@@ -37,7 +37,7 @@
                                        </font>
                                     </Label>
                                     <Pane prefHeight="0.0" prefWidth="200.0" />
-                                    <JFXComboBox prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
+                                    <JFXComboBox fx:id="cercaRecord" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
                                  </children>
                               </HBox>
                               <Pane prefHeight="21.0" prefWidth="651.0" VBox.vgrow="SOMETIMES" />
@@ -90,7 +90,7 @@
                                              <children>
                                                 <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="585.0" layoutY="-7.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                                                    <graphic>
-                                                      <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fx:id="saveChanges" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../icons/upload_icon.png" />
                                                          </image>
@@ -110,10 +110,10 @@
                         </VBox>
                      </children>
                   </HBox>
-          </content>
-        </Tab>
-        <Tab text="Unità Locale">
-          <content>
+               </content>
+            </Tab>
+            <Tab text="Unità Locale">
+               <content>
                   <HBox alignment="CENTER">
                      <children>
                         <VBox alignment="CENTER" prefHeight="252.0" prefWidth="641.0">
@@ -169,19 +169,19 @@
                         </VBox>
                      </children>
                   </HBox>
-          </content>
-        </Tab>
-        <Tab text="Reparto">
-          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-        <Tab text="Titolo">
-          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
-  </center>
+               </content>
+            </Tab>
+            <Tab text="Reparto">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="Titolo">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </center>
 </BorderPane>

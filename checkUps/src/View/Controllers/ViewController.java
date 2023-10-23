@@ -5,16 +5,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 
+import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
+import View.Controllers.Creazione.Creazione;
 import javafx.fxml.Initializable;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -34,6 +41,9 @@ public class ViewController implements Initializable{
 
     @FXML
     private StackPane stackPane;
+
+    static ModelCreazione modelCreazione = new ModelCreazione();
+    ModelModifica modelModifica = new ModelModifica();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,7 +74,7 @@ public class ViewController implements Initializable{
     }
 
     public void switchToCreazione(ActionEvent event) throws IOException{
-        ModelCreazione modelCreazione = new ModelCreazione();
+        
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
@@ -78,7 +88,7 @@ public class ViewController implements Initializable{
     }
 
     public void switchToModifica(ActionEvent event) throws IOException{
-        ModelModifica modelModifica = new ModelModifica();
+        
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica.fxml"));
 
@@ -104,6 +114,11 @@ public class ViewController implements Initializable{
             System.out.println("Salvataggio in corso...");
             stage.close();
         }
+    }
+
+    public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+
+        return modelCreazione.filterComboBox(cercaItem, units);
     }
 
     
