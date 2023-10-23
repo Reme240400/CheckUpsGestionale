@@ -12,6 +12,8 @@
 
 * parte grafica
 
+* aggiunta metodo che fa backup delle liste in un file e metodo che le cariche dal database
+
 
 
 ## Issues
