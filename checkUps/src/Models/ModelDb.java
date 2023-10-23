@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import Controllers.ClassHelper;
@@ -43,14 +44,14 @@ public class ModelDb {
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM public.societa")) {
                     while (resultSet.next()) {
                         int id_societa = resultSet.getInt("id_societa");
+                        String nome = resultSet.getString("nome");
                         String indirizzo = resultSet.getString("indirizzo");
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
                         String telefono = resultSet.getString("telefono");
                         String descrizione = resultSet.getString("descrizione");
-                        String nome = resultSet.getString("nome");
-                        Societa societa = new Societa(indirizzo, localita, provincia, telefono, descrizione,
-                                nome);
+
+                        Societa societa = new Societa(nome, indirizzo, localita, provincia, telefono, descrizione);
                         societa.setIdSocieta(id_societa);
 
                         Model.inserisciRecordInLista(societa);
@@ -279,7 +280,7 @@ public class ModelDb {
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
 
-                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, provincia, nome, indirizzo, localita,
+                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
                                 idSocieta);
                         Model.inserisciRecordInLista(unitaLocale);
                     }
@@ -807,6 +808,35 @@ public class ModelDb {
             preparedStatement.setInt(5, rischioList.get(rischioList.size() - 1).getR());
             preparedStatement.setInt(6, rischioList.get(rischioList.size() - 1).getIdReparto());
             preparedStatement.executeUpdate();
+
+        }
+    }
+
+    public static List<UnitaLocale> filtraUnitaDaSocieta(int idSocieta) throws SQLException {
+
+        String filterQuery = "SELECT * FROM public.unita_locali WHERE id_societa = " + idSocieta + "";
+        List<UnitaLocale> unitaLocaleList = new ArrayList<>();
+
+        try (Connection connection = connessioneDb()) {
+
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery(filterQuery);
+
+            while (resultSet.next()) {
+                int idUnitaLocale = resultSet.getInt("id_unita_locale");
+                String nome = resultSet.getString("nome");
+                String indirizzo = resultSet.getString("indirizzo");
+                String localita = resultSet.getString("localita");
+                String provincia = resultSet.getString("provincia");
+
+                UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
+                        idSocieta);
+                unitaLocaleList.add(unitaLocale);
+
+            }
+
+            return unitaLocaleList;
 
         }
     }
