@@ -322,8 +322,8 @@ public class Model {
                 break;
             case "Titolo":
                 Titolo titolo = new Titolo(((Titolo) obj).getIdTitolo(),
-                ((Titolo) obj).getIdReparto(),
-                ((Titolo) obj).getDescrizione());
+                        ((Titolo) obj).getIdReparto(),
+                        ((Titolo) obj).getDescrizione());
 
                 ClassHelper.getListTitolo().add(titolo);
                 break;
@@ -346,16 +346,16 @@ public class Model {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-            
+
                 Societa societa = new Societa(
+                        ((Societa) obj).getNome(),
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
                         ((Societa) obj).getProvincia(),
                         ((Societa) obj).getTelefono(),
-                        ((Societa) obj).getDescrizione(),
-                        ((Societa) obj).getNome());
-                        societa.setIdSocieta(((Societa) obj).getIdSocieta());
-                
+                        ((Societa) obj).getDescrizione());
+                societa.setIdSocieta(((Societa) obj).getIdSocieta());
+
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":
