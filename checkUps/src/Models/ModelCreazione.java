@@ -1,8 +1,13 @@
 package Models;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import Models.Tables.Societa;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TextField;
 
 public class ModelCreazione {
@@ -139,6 +144,41 @@ public class ModelCreazione {
             //setDiscard(areDisabled[1]);
             // * ************************************************ //
         }
+    }
+
+    public FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units ) {
+        
+        FilteredList<String> filteredUnita = new FilteredList<String>(units, p -> true);
+
+            // Add a listener to the textProperty of the combobox editor. The
+            // listener will simply filter the list every time the input is changed
+            // as long as the user hasn't selected an item in the list.
+            cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+                final TextField editor = cercaItem.getEditor();
+                final String selected = cercaItem.getSelectionModel().getSelectedItem();
+
+                // This needs run on the GUI thread to avoid the error described
+                // here: https://bugs.openjdk.java.net/browse/JDK-8081700.
+                Platform.runLater(() -> {
+                    // If the no item in the list is selected or the selected item
+                    // isn't equal to the current input, we refilter the list.
+                    if (selected == null || !selected.equals(editor.getText())) {
+                        filteredUnita.setPredicate(item -> {
+                            // We return true for any items that starts with the
+                            // same letters as the input. We use toUpperCase to
+                            // avoid case sensitivity.
+                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        });
+                    }
+                });
+            });
+
+        return filteredUnita;
+        
     }
 
 }

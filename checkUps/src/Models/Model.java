@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Controllers.ClassHelper;
-import Controllers.Controller;
 import Controllers.ControllerDb;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
@@ -347,7 +346,7 @@ public class Model {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-
+            
                 Societa societa = new Societa(
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
@@ -355,8 +354,8 @@ public class Model {
                         ((Societa) obj).getTelefono(),
                         ((Societa) obj).getDescrizione(),
                         ((Societa) obj).getNome());
-                societa.setIdSocieta(((Societa) obj).getIdSocieta());
-
+                        societa.setIdSocieta(((Societa) obj).getIdSocieta());
+                
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":

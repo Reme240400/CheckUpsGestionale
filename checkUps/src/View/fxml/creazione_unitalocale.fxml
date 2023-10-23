@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="467.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/20.0.1"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.CreazioneUnitaLocale">
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
    <center>
       <HBox alignment="CENTER">
          <children>

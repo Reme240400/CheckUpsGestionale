@@ -176,7 +176,7 @@ public class CreatePdfExample {
                 contentStream1.newLineAtOffset(15, yPosition);
                 contentStream1.showText("NOME: " + wordWrap(record.getNome(),
                         10).replace("\n", "").replace("\r", "")); // Suddivide il testo in linee più corte o alemno
-                                                                  // dovrebbe dio lup
+            
                 contentStream1.endText();
                 contentStream1.beginText();
                 contentStream1.newLineAtOffset(350, yPosition);
