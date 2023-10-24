@@ -1,7 +1,5 @@
 package Controllers;
 
-import java.sql.SQLException;
-
 import Models.ModelDb;
 
 public class ControllerDb {
@@ -18,15 +16,15 @@ public class ControllerDb {
         ModelDb.popolaListaUnitaLocali();
     }
 
-    public static void popolaListaSocietaDaDb(){
+    public static void popolaListaSocietaDaDb() {
         ModelDb.popolaListaSocieta();
     }
 
-    public static void popolaListaUnitaLocaleDaDb(){
+    public static void popolaListaUnitaLocaleDaDb() {
         ModelDb.popolaListaUnitaLocali();
     }
 
-    public static void popolaListaProvvedimentiDaDb(){
+    public static void popolaListaProvvedimentiDaDb() {
         ModelDb.popolaListaProvvedimenti();
     }
 

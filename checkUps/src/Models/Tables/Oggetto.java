@@ -1,7 +1,8 @@
 package Models.Tables;
 
+import java.io.Serializable;
 
-public class Oggetto {
+public class Oggetto implements Serializable{
     private int idOggetto;
     private String nome;
     private int idTitolo;

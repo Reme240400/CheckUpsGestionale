@@ -1,5 +1,10 @@
 package Models;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -813,61 +818,66 @@ public class ModelDb {
     }
 
     /*
-
-
-    public static List<UnitaLocale> filtraUnitaDaSocieta(int idSocieta) throws SQLException {
-
-        String filterQuery = "SELECT * FROM public.unita_locali WHERE id_societa = " + idSocieta + "";
-        List<UnitaLocale> unitaLocaleList = new ArrayList<>();
-
-        try (Connection connection = connessioneDb()) {
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery(filterQuery);
-
-            while (resultSet.next()) {
-                int idUnitaLocale = resultSet.getInt("id_unita_locale");
-                String nome = resultSet.getString("nome");
-                String indirizzo = resultSet.getString("indirizzo");
-                String localita = resultSet.getString("localita");
-                String provincia = resultSet.getString("provincia");
-
-                UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
-                        idSocieta);
-                unitaLocaleList.add(unitaLocale);
-
-            }
-
-            return unitaLocaleList;
-
-        }
-    }
-
-    public static List<Reparto> filtraRepartoDaUnita(int idUnitaLocale) throws SQLException {
-
-        String filterQuery = "SELECT * FROM public.reparti WHERE id_unita_locale = " + idUnitaLocale + "";
-        List<Reparto> repartiList = new ArrayList<>();
-
-        try (Connection connection = connessioneDb()) {
-
-            Statement statement = connection.createStatement();
-
-            ResultSet resultSet = statement.executeQuery(filterQuery);
-
-            while (resultSet.next()) {
-                int idReparto = resultSet.getInt("id_reparto");
-                String nome = resultSet.getString("nome");
-                String descrizione = resultSet.getString("descrizione");
-
-                Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
-                repartiList.add(reparto);
-
-            }
-
-            return repartiList;
-
-        }
-    }
-*/
+     * 
+     * 
+     * public static List<UnitaLocale> filtraUnitaDaSocieta(int idSocieta) throws
+     * SQLException {
+     * 
+     * String filterQuery = "SELECT * FROM public.unita_locali WHERE id_societa = "
+     * + idSocieta + "";
+     * List<UnitaLocale> unitaLocaleList = new ArrayList<>();
+     * 
+     * try (Connection connection = connessioneDb()) {
+     * 
+     * Statement statement = connection.createStatement();
+     * 
+     * ResultSet resultSet = statement.executeQuery(filterQuery);
+     * 
+     * while (resultSet.next()) {
+     * int idUnitaLocale = resultSet.getInt("id_unita_locale");
+     * String nome = resultSet.getString("nome");
+     * String indirizzo = resultSet.getString("indirizzo");
+     * String localita = resultSet.getString("localita");
+     * String provincia = resultSet.getString("provincia");
+     * 
+     * UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia,
+     * indirizzo, localita,
+     * idSocieta);
+     * unitaLocaleList.add(unitaLocale);
+     * 
+     * }
+     * 
+     * return unitaLocaleList;
+     * 
+     * }
+     * }
+     * 
+     * public static List<Reparto> filtraRepartoDaUnita(int idUnitaLocale) throws
+     * SQLException {
+     * 
+     * String filterQuery = "SELECT * FROM public.reparti WHERE id_unita_locale = "
+     * + idUnitaLocale + "";
+     * List<Reparto> repartiList = new ArrayList<>();
+     * 
+     * try (Connection connection = connessioneDb()) {
+     * 
+     * Statement statement = connection.createStatement();
+     * 
+     * ResultSet resultSet = statement.executeQuery(filterQuery);
+     * 
+     * while (resultSet.next()) {
+     * int idReparto = resultSet.getInt("id_reparto");
+     * String nome = resultSet.getString("nome");
+     * String descrizione = resultSet.getString("descrizione");
+     * 
+     * Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
+     * repartiList.add(reparto);
+     * 
+     * }
+     * 
+     * return repartiList;
+     * 
+     * }
+     * }
+     */
 }

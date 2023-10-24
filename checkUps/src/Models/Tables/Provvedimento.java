@@ -1,6 +1,8 @@
 package Models.Tables;
 
-public class Provvedimento {
+import java.io.Serializable;
+
+public class Provvedimento implements Serializable{
     private int idProvvedimento;
     private String nome;
     private int idMansione;

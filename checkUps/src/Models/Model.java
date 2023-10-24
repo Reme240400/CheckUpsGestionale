@@ -1,5 +1,15 @@
 package Models;
 
+import java.io.BufferedReader;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -404,5 +414,48 @@ public class Model {
                 .collect(Collectors.toList());
 
     }
+
+    //Metodi per backup e ripristino da file
+    public static void salvaListeSuFile(String fileName, List<?>... lists) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            for (List<?> list : lists) {
+                oos.writeObject(list);
+            }
+            System.out.println("Liste salvate con successo in " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<?> caricaListaDaFile(String fileName) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+            List<?> loadedList = (List<?>) ois.readObject();
+            System.out.println("Lista caricata con successo da " + fileName);
+            return loadedList;
+        } catch (EOFException e) {
+            System.out.println("Fine del file");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<List<?>> caricaListeDaFile(String fileName) {
+    List<List<?>> loadedLists = new ArrayList<>();
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+        while (true) {
+            try {
+                List<?> list = (List<?>) ois.readObject();
+                loadedLists.add(list);
+            } catch (EOFException e) {
+                break; // Fine del file
+            }
+        }
+        System.out.println("Liste caricate con successo da " + fileName);
+    } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+    return loadedLists;
+}
 
 }

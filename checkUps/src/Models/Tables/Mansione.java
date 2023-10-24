@@ -1,7 +1,8 @@
 package Models.Tables;
 
+import java.io.Serializable;
 
-public class Mansione {
+public class Mansione implements Serializable{
     private int idMansione;
     private String nome;
     private String responsabile;

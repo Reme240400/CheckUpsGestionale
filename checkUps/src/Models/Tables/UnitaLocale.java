@@ -1,7 +1,8 @@
 package Models.Tables;
 
+import java.io.Serializable;
 
-public class UnitaLocale {
+public class UnitaLocale implements Serializable{
     private int idUnitaLocale;
     private int idSocieta;
     private String nome;
