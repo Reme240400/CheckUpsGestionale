@@ -11,6 +11,7 @@ import Controllers.ClassHelper;
 import Controllers.ControllerDb;
 import Models.ModelModifica;
 import Models.Tables.Societa;
+import Models.Tables.UnitaLocale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,7 +24,10 @@ import javafx.util.converter.IntegerStringConverter;
 public class Modifica implements Initializable{
 
     @FXML
-    private JFXComboBox<String> cercaRecord;
+    private JFXComboBox<String> cercaRecordS;
+
+    @FXML
+    private JFXComboBox<String> cercaRecordU;
 
     @FXML
     private TextField textFieldTel;
@@ -35,14 +39,33 @@ public class Modifica implements Initializable{
     // * *************** inizializza i campi *************** //
         ControllerDb.popolaListaSocietaDaDb();
         List<Societa> listSocieta = ClassHelper.getListSocieta();
-        ObservableList<String> items = FXCollections.observableArrayList();
+        List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+        ObservableList<String> sItems = FXCollections.observableArrayList();
+        ObservableList<String> uItems = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
         for (Societa societa : listSocieta) {
-            cercaRecord.getItems().add(societa.getNome());
-            items.add(societa.getNome());
+            cercaRecordS.getItems().add(societa.getNome());
+            sItems.add(societa.getNome());
         }
 
+        for (UnitaLocale unitaLocale : listUnitaLocale) {
+            cercaRecordU.getItems().add(unitaLocale.getNome());
+            uItems.add(unitaLocale.getNome());
+        }
+
+        // * filtra il Combobox
+        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaRecordS, sItems);
+
+        cercaRecordS.setItems(filteredItems);
+
+        FilteredList<String> filteredItems2 = ViewController.filterComboBox(cercaRecordU, uItems);
+
+        cercaRecordU.setItems(filteredItems2);
+        // * ************************************************ //
+        
+        
+        
         // * controlla se vengono inseriti solo numeri
         UnaryOperator<TextFormatter.Change> filter = change -> {
 
@@ -57,18 +80,10 @@ public class Modifica implements Initializable{
 
             return change;
         };
-
+        
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
-
         // * **************************************** //
-
-        // * filtra il Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaRecord, items);
-
-        cercaRecord.setItems(filteredItems);
-        // * ************************************************ //
-
     }
 
     public void setModel(ModelModifica modelModifica) {

@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="401.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifica">
+<BorderPane prefHeight="476.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifica">
    <center>
-      <TabPane prefHeight="401.0" prefWidth="680.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="460.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab text="Società">
+            <Tab fx:id="tabSocieta" text="Società">
                <content>
                   <HBox alignment="CENTER">
                      <children>
@@ -37,7 +37,7 @@
                                        </font>
                                     </Label>
                                     <Pane prefHeight="0.0" prefWidth="200.0" />
-                                    <JFXComboBox fx:id="cercaRecord" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
+                                    <JFXComboBox fx:id="cercaRecordS" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
                                  </children>
                               </HBox>
                               <Pane prefHeight="21.0" prefWidth="651.0" VBox.vgrow="SOMETIMES" />
@@ -112,71 +112,67 @@
                   </HBox>
                </content>
             </Tab>
-            <Tab text="Unità Locale">
+            <Tab fx:id="tabUnitaLocale" text="Unità Locale">
                <content>
-                  <HBox alignment="CENTER">
+                  <VBox alignment="CENTER" prefHeight="476.0" prefWidth="791.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="252.0" prefWidth="641.0">
+                        <HBox alignment="CENTER" prefHeight="25.0" prefWidth="692.0" VBox.vgrow="SOMETIMES">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="641.0" VBox.vgrow="SOMETIMES">
-                                 <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                                    <Label prefHeight="27.0" prefWidth="317.0" text="Selezione l'Unità Locale">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                                    <JFXComboBox editable="true" prefHeight="25.0" prefWidth="338.0" promptText="Cerca..." />
-                                    <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <Pane prefHeight="200.0" prefWidth="200.0" />
-                              <AnchorPane>
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="98.0" text="Unità Produttiva:" />
-                                    <TextField fx:id="textFieldUnitaLocale" layoutX="123.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="412.0" />
-                                 </children>
-                              </AnchorPane>
-                              <Pane prefHeight="200.0" prefWidth="200.0" />
-                              <AnchorPane>
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Località:" />
-                                    <TextField fx:id="textFieldLocalita1" layoutX="82.0" layoutY="1.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
-                                    <Label layoutX="458.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
-                                    <TextField fx:id="textFieldProvincia1" accessibleText="INTEGER" layoutX="522.0" layoutY="2.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="56.0" />
-                                 </children>
-                              </AnchorPane>
-                              <Pane prefHeight="200.0" prefWidth="200.0" />
-                              <AnchorPane>
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
-                                    <TextField fx:id="textFieldIndirizzo1" layoutX="83.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
-                                 </children>
-                              </AnchorPane>
-                              <Pane prefHeight="200.0" prefWidth="200.0" />
-                              <AnchorPane disable="true">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
-                                    <TextField fx:id="textFieldTel1" layoutX="85.0" layoutY="7.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
-                                 </children>
-                              </AnchorPane>
-                              <Pane prefHeight="200.0" prefWidth="200.0" />
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                              <Label prefHeight="25.0" prefWidth="343.0" text="Selezione l'Unità Locale">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Pane prefHeight="25.0" prefWidth="162.0" HBox.hgrow="SOMETIMES" />
+                              <JFXComboBox fx:id="cercaRecordU" editable="true" prefHeight="25.0" prefWidth="338.0" promptText="Cerca..." />
+                              <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
                            </children>
-                        </VBox>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                        <AnchorPane>
+                           <children>
+                              <Label layoutX="87.0" layoutY="7.0" prefHeight="17.0" prefWidth="98.0" text="Unità Produttiva:" />
+                              <TextField fx:id="textFieldUnitaLocale" layoutX="196.0" layoutY="3.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="412.0" />
+                           </children>
+                        </AnchorPane>
+                        <Pane prefHeight="170.0" prefWidth="783.0" />
+                        <AnchorPane>
+                           <children>
+                              <Label layoutX="134.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Località:" />
+                              <TextField fx:id="textFieldLocalita1" layoutX="202.0" layoutY="1.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                              <Label layoutX="578.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
+                              <TextField fx:id="textFieldProvincia1" accessibleText="INTEGER" layoutX="642.0" layoutY="2.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="56.0" />
+                           </children>
+                        </AnchorPane>
+                        <Pane prefHeight="170.0" prefWidth="783.0" />
+                        <AnchorPane>
+                           <children>
+                              <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
+                              <TextField fx:id="textFieldIndirizzo1" layoutX="83.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                           </children>
+                        </AnchorPane>
+                        <Pane prefHeight="170.0" prefWidth="783.0" />
+                        <AnchorPane disable="true">
+                           <children>
+                              <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
+                              <TextField fx:id="textFieldTel1" layoutX="85.0" layoutY="7.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                           </children>
+                        </AnchorPane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
                      </children>
-                  </HBox>
+                  </VBox>
                </content>
             </Tab>
-            <Tab text="Reparto">
+            <Tab fx:id="tabReparti" text="Reparto">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
-            <Tab text="Titolo">
+            <Tab fx:id="tabTitoli" text="Titolo">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
