@@ -11,6 +11,7 @@ import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import View.Controllers.Creazione.Creazione;
+import View.Controllers.Modifiche.Modifica;
 import javafx.fxml.Initializable;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -121,14 +122,14 @@ public class ViewController implements Initializable{
         return modelCreazione.filterComboBoxSocieta(cercaItem, units);
     }
 
-    public static FilteredList<String> filterComboBoxUnitaLocale(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxUnitaLocale(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
-        return modelCreazione.filterComboBoxById(cercaItem, 0, units);
+        return modelCreazione.filterComboBoxById(cercaItem, id, units);
     }
 
-    public static FilteredList<String> filterComboBoxReparti(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxReparti(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
-        return modelCreazione.filterComboBoxById(cercaItem, 0, units);
+        return modelCreazione.filterComboBoxById(cercaItem, id, units);
     }
 
     

@@ -14,7 +14,6 @@ import Models.Model;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
 import View.Controllers.ViewController;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -100,7 +99,7 @@ public class CreazioneSocieta implements Initializable {
         // * **************************************** //
 
         // * filtra il Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaRecord, items);
+        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecord, items);
 
         cercaRecord.setItems(filteredItems);
         // * ************************************************ //

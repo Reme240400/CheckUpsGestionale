@@ -10,13 +10,11 @@ import Controllers.ClassHelper;
 import Controllers.ControllerDb;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 
 public class Home implements Initializable {
 
@@ -51,7 +49,7 @@ public class Home implements Initializable {
         // * **************************************** //
 
         // * filtra i Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
+        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, societies);
 
         cercaSocieta.setItems(filteredItems);
         
@@ -95,7 +93,7 @@ public class Home implements Initializable {
             // * **************************************** //
 
             // * filtra i Combobox
-            FilteredList<String> filteredUnita = ViewController.filterComboBox(cercaUnitaLocale, units);
+            FilteredList<String> filteredUnita =  ViewController.filterComboBoxUnitaLocale(cercaUnitaLocale,id, units);
 
             cercaUnitaLocale.setItems(filteredUnita);
 
