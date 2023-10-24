@@ -116,22 +116,6 @@
                <content>
                   <VBox alignment="CENTER" prefHeight="476.0" prefWidth="791.0">
                      <children>
-                        <HBox alignment="CENTER" prefHeight="25.0" prefWidth="692.0" VBox.vgrow="SOMETIMES">
-                           <children>
-                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                              <Label prefHeight="25.0" prefWidth="343.0" text="Selezione l'Unità Locale">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Pane prefHeight="25.0" prefWidth="162.0" HBox.hgrow="SOMETIMES" />
-                              <JFXComboBox fx:id="cercaRecordU" editable="true" prefHeight="25.0" prefWidth="338.0" promptText="Cerca..." />
-                              <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                           </children>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </HBox>
                         <Pane prefHeight="200.0" prefWidth="200.0" />
                         <AnchorPane>
                            <children>
@@ -142,7 +126,7 @@
                         <Pane prefHeight="170.0" prefWidth="783.0" />
                         <AnchorPane>
                            <children>
-                              <Label layoutX="134.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Località:" />
+                              <Label layoutX="127.0" layoutY="5.0" prefHeight="17.0" prefWidth="56.0" text="Località:" />
                               <TextField fx:id="textFieldLocalita1" layoutX="202.0" layoutY="1.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
                               <Label layoutX="578.0" layoutY="6.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
                               <TextField fx:id="textFieldProvincia1" accessibleText="INTEGER" layoutX="642.0" layoutY="2.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="56.0" />
@@ -151,15 +135,15 @@
                         <Pane prefHeight="170.0" prefWidth="783.0" />
                         <AnchorPane>
                            <children>
-                              <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
-                              <TextField fx:id="textFieldIndirizzo1" layoutX="83.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                              <Label layoutX="129.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" />
+                              <TextField fx:id="textFieldIndirizzo1" layoutX="204.0" layoutY="5.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
                            </children>
                         </AnchorPane>
                         <Pane prefHeight="170.0" prefWidth="783.0" />
                         <AnchorPane disable="true">
                            <children>
-                              <Label layoutX="14.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
-                              <TextField fx:id="textFieldTel1" layoutX="85.0" layoutY="7.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
+                              <Label layoutX="129.0" layoutY="9.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
+                              <TextField fx:id="textFieldTel1" layoutX="205.0" layoutY="6.0" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" />
                            </children>
                         </AnchorPane>
                         <Pane prefHeight="200.0" prefWidth="200.0" />

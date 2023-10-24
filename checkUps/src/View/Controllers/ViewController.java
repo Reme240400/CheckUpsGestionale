@@ -116,9 +116,19 @@ public class ViewController implements Initializable{
         }
     }
 
-    public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units) {
 
-        return modelCreazione.filterComboBox(cercaItem, units);
+        return modelCreazione.filterComboBoxSocieta(cercaItem, units);
+    }
+
+    public static FilteredList<String> filterComboBoxUnitaLocale(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+
+        return modelCreazione.filterComboBoxById(cercaItem, 0, units);
+    }
+
+    public static FilteredList<String> filterComboBoxReparti(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+
+        return modelCreazione.filterComboBoxById(cercaItem, 0, units);
     }
 
     

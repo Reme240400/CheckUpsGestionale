@@ -29,6 +29,8 @@ public class Modifica implements Initializable{
     @FXML
     private JFXComboBox<String> cercaRecordU;
 
+    
+
     @FXML
     private TextField textFieldTel;
 
@@ -55,11 +57,11 @@ public class Modifica implements Initializable{
         }
 
         // * filtra il Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaRecordS, sItems);
+        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecordS, sItems);
 
         cercaRecordS.setItems(filteredItems);
 
-        FilteredList<String> filteredItems2 = ViewController.filterComboBox(cercaRecordU, uItems);
+        FilteredList<String> filteredItems2 = ViewController.filterComboBoxById(cercaRecordU, uItems);
 
         cercaRecordU.setItems(filteredItems2);
         // * ************************************************ //

@@ -55,13 +55,4 @@ public class ControllerDb {
         ModelDb.inserisciRecord(obj);
     }
 
-    public static void filterUnitaLocaleBySocietaId( int idSocieta){
-        try {
-            ModelDb.filtraUnitaDaSocieta(idSocieta);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }
