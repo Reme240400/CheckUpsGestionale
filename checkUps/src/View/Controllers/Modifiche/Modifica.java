@@ -32,9 +32,6 @@ public class Modifica implements Initializable {
     @FXML
     private JFXComboBox<String> cercaRecordS;
 
-    @FXML
-    private JFXComboBox<String> cercaRecordU;
-
     private DialogPane dialogPane; // Inject your dialog pane
 
     private int id = -1;
@@ -71,11 +68,6 @@ public class Modifica implements Initializable {
             sItems.add(societa.getNome());
         }
 
-        for (UnitaLocale unitaLocale : listUnitaLocale) {
-            cercaRecordU.getItems().add(unitaLocale.getNome());
-            uItems.add(unitaLocale.getNome());
-        }
-
         // * filtra il Combobox
 
         // * ************************************************ //
@@ -109,6 +101,8 @@ public class Modifica implements Initializable {
     }
 
     public int showDialogPane() throws IOException {
+
+        // viene triggherato il metodo anche in uscita dalla tab
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
         DialogPane dialogPane = loader.load();

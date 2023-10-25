@@ -18,12 +18,12 @@ public class test {
     public static void main(String[] args) {
         
         ControllerDb.popolaListaSocietaDaDb();
-        Model.salvaListeSuFile("C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\test\\prova.csv",ClassHelper.getListSocieta());
+        Model.salvaListeSuFile("C:\\dev\\ProgettoCheckUp\\CheckUpsGestionale\\checkUps\\src\\test\\prova.csv",ClassHelper.getListSocieta());
         System.out.println("PROVA");
         System.out.println(ClassHelper.getListSocieta().size());
         ClassHelper.svuotaListaSocieta();
         List<?> prova = new ArrayList<>(); 
-        prova = Model.caricaListaDaFile("C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\test\\prova.csv");
+        prova = Model.caricaListaDaFile("C:\\dev\\ProgettoCheckUp\\CheckUpsGestionale\\checkUps\\src\\test\\prova.csv");
         System.out.println(((Societa)prova.get(14)).getNome());
         
     }

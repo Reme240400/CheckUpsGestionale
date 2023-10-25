@@ -442,20 +442,20 @@ public class Model {
 
     public static List<List<?>> caricaListeDaFile(String fileName) {
     List<List<?>> loadedLists = new ArrayList<>();
-    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-        while (true) {
-            try {
-                List<?> list = (List<?>) ois.readObject();
-                loadedLists.add(list);
-            } catch (EOFException e) {
-                break; // Fine del file
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+            while (true) {
+                try {
+                    List<?> list = (List<?>) ois.readObject();
+                    loadedLists.add(list);
+                } catch (EOFException e) {
+                    break; // Fine del file
+                }
             }
+            System.out.println("Liste caricate con successo da " + fileName);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        System.out.println("Liste caricate con successo da " + fileName);
-    } catch (IOException | ClassNotFoundException e) {
-        e.printStackTrace();
+        return loadedLists;
     }
-    return loadedLists;
-}
 
 }

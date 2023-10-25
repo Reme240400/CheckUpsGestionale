@@ -23,6 +23,9 @@ public class DialogPane1 implements Initializable {
     @FXML
     private JFXComboBox<String> cercaSocieta;
 
+    @FXML
+    private JFXComboBox<String> cercaUnitaLocale;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -36,6 +39,8 @@ public class DialogPane1 implements Initializable {
         }
 
         FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, sItems);
+
+        
 
         cercaSocieta.setItems(filteredItems);
     }
