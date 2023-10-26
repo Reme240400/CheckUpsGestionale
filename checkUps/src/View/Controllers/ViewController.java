@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Models.Model;
 import Models.ModelCreazione;
+import Models.ModelHome;
 import Models.ModelModifica;
 import View.Controllers.Creazione.Creazione;
 import View.Controllers.Modifiche.Modifica;
@@ -44,7 +45,8 @@ public class ViewController implements Initializable{
     private StackPane stackPane;
 
     static ModelCreazione modelCreazione = new ModelCreazione();
-    ModelModifica modelModifica = new ModelModifica();
+    static ModelHome modelHome = new ModelHome();
+    static ModelModifica modelModifica = new ModelModifica();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,7 +69,11 @@ public class ViewController implements Initializable{
     }
 
     public void switchToHome() throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/home.fxml"));
+        Parent root = loader.load();
+        Home home = loader.getController();
+
+        home.setModel(modelHome);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

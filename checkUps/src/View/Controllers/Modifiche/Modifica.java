@@ -96,7 +96,7 @@ public class Modifica implements Initializable {
         this.modelModifica = modelModifica;
     }
 
-    public void keyReleasedProperty() {
+    public void keyPressedProperty() {
 
     }
 
