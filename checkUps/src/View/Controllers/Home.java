@@ -111,37 +111,46 @@ public class Home implements Initializable {
 
 
     // Remove the previous listener, if any
-    cercaUnitaLocale.getSelectionModel().clearSelection();
-    cercaUnitaLocale.getItems().clear();
-
-    List<UnitaLocale> lista = new ArrayList<>();
-
-    if (this.id != -1) {
-
-        lista = listUnitaLocale.stream()
-                .filter(unitaLocale -> unitaLocale.getIdSocieta() == this.id)
-                .toList();
-                
-        System.out.println("Unita inculata: " + lista.get(0).getIdUnitaLocale());
-        ObservableList<String> units = FXCollections.observableArrayList();
-
-        // * *************** popola i combobox *************** //
-
-        for (UnitaLocale unita : lista) {
-            System.out.println("aggiunte unita locali");
-            cercaUnitaLocale.getItems().add(unita.getNome());
-            units.add(unita.getNome());
-        }
-
-        // * **************************************** //
-
-        // * filtra i Combobox
-        FilteredList<String> filteredUnita = ViewController.filterComboBoxUnitaLocale(cercaUnitaLocale,
-                id, units);
-
-        cercaUnitaLocale.setItems(filteredUnita);
+    if (societaSelectionListener != null) {
+        cercaSocieta.getSelectionModel().selectedItemProperty().removeListener(societaSelectionListener);
     }
     
+    societaSelectionListener = (options, oldValue, newValue) -> {
+
+        List<UnitaLocale> lista = new ArrayList<>();
+
+        this.id = listSocieta.stream()
+                .filter(societa -> societa.getNome().equals(newValue))
+                .findFirst()
+                .get().getIdSocieta();
+    
+        System.out.println("Societa selezionata: " + id);
+        
+        if (this.id != -1) {
+            
+            lista = listUnitaLocale.stream()
+                    .filter(unitaLocale -> unitaLocale.getIdSocieta() == this.id)
+                    .toList();
+            System.out.println("Unita inculata: " + lista.get(0).getIdUnitaLocale());
+            ObservableList<String> units = FXCollections.observableArrayList();
+    
+            // * *************** popola i combobox *************** //
+    
+            for (UnitaLocale unita : lista) {
+                System.out.println("aggiunte unita locali");
+                cercaUnitaLocale.getItems().add(unita.getNome());
+                units.add(unita.getNome());
+            }
+    
+            // * **************************************** //
+    
+            // * filtra i Combobox
+            FilteredList<String> filteredUnita = ViewController.filterComboBoxUnitaLocale(cercaUnitaLocale,
+                    id, units);
+    
+            cercaUnitaLocale.setItems(filteredUnita);
+        }
+    };
     
     cercaSocieta.getSelectionModel().selectedItemProperty().addListener(societaSelectionListener);
 }
