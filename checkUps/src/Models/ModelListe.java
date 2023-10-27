@@ -24,7 +24,7 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
-public class Model {
+public class ModelListe {
 
     // Metodo per eliminare un elemento sia da db che nelle liste
     public static void rimuoviDaLista(Object obj, int id) {

@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
    <center>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="67.0" prefWidth="600.0" />
-            <AnchorPane prefHeight="72.0" prefWidth="600.0">
+            <AnchorPane prefHeight="72.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
                <children>
                   <JFXComboBox fx:id="cercaSocieta" editable="true" layoutX="146.0" layoutY="24.0" onKeyPressed="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" />
                   <Label layoutX="22.0" layoutY="28.0" text="Società - Ente">
@@ -46,13 +45,13 @@
          <children>
             <AnchorPane prefHeight="100.0" prefWidth="147.0">
                <children>
-                  <JFXButton layoutX="25.0" layoutY="25.0" prefHeight="52.0" prefWidth="102.0" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
+                  <JFXButton fx:id="btnValutaRischi" layoutX="25.0" layoutY="25.0" onAction="#goToValutaRischi" prefHeight="52.0" prefWidth="102.0" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
                </children>
             </AnchorPane>
             <Pane prefHeight="100.0" prefWidth="260.0" />
             <AnchorPane layoutX="304.0" layoutY="10.0" prefHeight="100.0" prefWidth="147.0">
                <children>
-                  <JFXButton layoutX="46.0" layoutY="38.0" text="Stampa" />
+                  <JFXButton fx:id="btnStampaPdf" layoutX="46.0" layoutY="38.0" text="Stampa" />
                </children>
             </AnchorPane>
          </children>
