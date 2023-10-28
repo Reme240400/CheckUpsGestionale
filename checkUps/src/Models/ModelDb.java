@@ -59,7 +59,7 @@ public class ModelDb {
                         Societa societa = new Societa(nome, indirizzo, localita, provincia, telefono, descrizione);
                         societa.setIdSocieta(id_societa);
 
-                        Model.inserisciRecordInLista(societa);
+                        ModelListe.inserisciRecordInLista(societa);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella societa: " + e.getMessage());
@@ -89,7 +89,7 @@ public class ModelDb {
                         String responsabile = resultSet.getString("responsabile");
 
                         Mansione mansione = new Mansione(idMansione, nome, responsabile);
-                        Model.inserisciRecordInLista(mansione);
+                        ModelListe.inserisciRecordInLista(mansione);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella mansioni: " + e.getMessage());
@@ -119,7 +119,7 @@ public class ModelDb {
                         int idReparto = resultSet.getInt("id_reparto");
                         String descrizione = resultSet.getString("descrizione");
                         Titolo titolo = new Titolo(idTitolo, idReparto, descrizione);
-                        Model.inserisciRecordInLista(titolo);
+                        ModelListe.inserisciRecordInLista(titolo);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella titoli: " + e.getMessage());
@@ -151,7 +151,7 @@ public class ModelDb {
                         String descrizione = resultSet.getString("descrizione");
 
                         Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
-                        Model.inserisciRecordInLista(reparto);
+                        ModelListe.inserisciRecordInLista(reparto);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella reparti: " + e.getMessage());
@@ -185,7 +185,7 @@ public class ModelDb {
                         int idReparto = resultSet.getInt("id_reparto");
 
                         Rischio rischio = new Rischio(idRischio, nome, p, d, r, idReparto);
-                        Model.inserisciRecordInLista(rischio);
+                        ModelListe.inserisciRecordInLista(rischio);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella rischi: " + e.getMessage());
@@ -216,7 +216,7 @@ public class ModelDb {
                         int idTitolo = resultSet.getInt("id_titolo");
 
                         Oggetto oggetto = new Oggetto(idOggetto, nome, idTitolo);
-                        Model.inserisciRecordInLista(oggetto);
+                        ModelListe.inserisciRecordInLista(oggetto);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella oggetti: " + e.getMessage());
@@ -252,7 +252,7 @@ public class ModelDb {
 
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
                                 rischio, soggettiEsposti, stima);
-                        Model.inserisciRecordInLista(provvedimento);
+                        ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella provvedimenti: " + e.getMessage());
@@ -287,7 +287,7 @@ public class ModelDb {
 
                         UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
                                 idSocieta);
-                        Model.inserisciRecordInLista(unitaLocale);
+                        ModelListe.inserisciRecordInLista(unitaLocale);
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella unita_locale: " + e.getMessage());

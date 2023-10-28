@@ -10,7 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Controllers.ControllerDb;
-import Models.Model;
+import Models.ModelListe;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
 import View.Controllers.ViewController;
@@ -53,7 +53,7 @@ public class CreazioneSocieta implements Initializable {
     private JFXComboBox<String> cercaRecord;
 
     // private Creazione creazione;
-    private ModelCreazione model;
+    private ModelCreazione modelCreazione;
 
     private String txtSocieta;
     private String txtIndirizzo;
@@ -113,12 +113,12 @@ public class CreazioneSocieta implements Initializable {
                 "");
 
         // fare la call alla Query
-        model.setSocietaTmp(societaTmp);
+        modelCreazione.setSocietaTmp(societaTmp);
 
-        Model.inserisciRecordInLista(societaTmp);
-        model.setSocietySaved(true);
-        model.setSaved(false);
-        model.setDiscard(false);
+        ModelListe.inserisciRecordInLista(societaTmp);
+        modelCreazione.setSocietySaved(true);
+        modelCreazione.setSaved(false);
+        modelCreazione.setDiscard(false);
 
     }
 
@@ -133,8 +133,8 @@ public class CreazioneSocieta implements Initializable {
         textFieldTel.clear();
         cercaRecord.getSelectionModel().clearSelection();
 
-        model.setSaved(false);
-        model.setDiscard(false);
+        modelCreazione.setSaved(false);
+        modelCreazione.setDiscard(false);
     }
 
     // * controlla se i campi sono vuoti
@@ -145,20 +145,20 @@ public class CreazioneSocieta implements Initializable {
         this.txtProvincia = textFieldProvincia.getText();
         this.txtTel = textFieldTel.getText();
 
-        model.isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
+        modelCreazione.isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel);
 
     }
 
-    // * ************ setta il modello ************ //
-    public void setModel(ModelCreazione model) {
-        this.model = model;
+    // * ************ setta il modelCreazionelo ************ //
+    public void setModel(ModelCreazione modelCreazione) {
+        this.modelCreazione = modelCreazione;
 
-        this.btnSalva.disableProperty().bind(model.savedProperty().not());
-        this.btnAnnulla.disableProperty().bind(model.discardProperty().not());
+        this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
 
         // * ************ setta i campi come sono stati salvati ************ //
-        model.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+        modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
                 textFieldTel);
         // * ************************************************ //
     }

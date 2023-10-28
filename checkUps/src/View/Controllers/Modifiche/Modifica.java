@@ -96,8 +96,8 @@ public class Modifica implements Initializable {
         this.modelModifica = modelModifica;
     }
 
-    public void keyPressedProperty() {
-
+    public void keyReleasedProperty() {
+        
     }
 
     public int showDialogPane() throws IOException {
