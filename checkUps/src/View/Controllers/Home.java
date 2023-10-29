@@ -2,7 +2,6 @@ package View.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -12,15 +11,14 @@ import com.jfoenix.controls.JFXComboBox;
 import Controllers.ClassHelper;
 import Controllers.ControllerDb;
 import Models.ModelHome;
-import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 
 public class Home extends ViewController {
@@ -28,6 +26,7 @@ public class Home extends ViewController {
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
     private ModelHome model;
+    private ViewController controller;
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -45,13 +44,9 @@ public class Home extends ViewController {
         ControllerDb.popolaListaSocietaDaDb();
         ControllerDb.popolaListaUnitaLocaleDaDb();
 
-        List<Societa> listSocieta = ClassHelper.getListSocieta();
-
         ObservableList<String> societies = FXCollections.observableArrayList();
 
         // * *************** popola i combobox *************** //
-        //cercaSocieta.getItems().add("Nuovo");
-        //societies.add("Seleziona...");
 
         for (Societa societa : listSocieta) {
             cercaSocieta.getItems().add(societa.getNome());
@@ -73,15 +68,28 @@ public class Home extends ViewController {
     }
 
     public void goToValutaRischi() {
-        try {
-            switchToValutaRischi();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } 
+        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null) {
+            try {
+                controller.switchToValutaRischi();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } 
+        }else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("Errore");
+            alert.setContentText("Seleziona una società e un'unità locale");
+            alert.showAndWait();
+        }
+        
     }
 
     public void setModel(ModelHome model) {
         this.model = model;
+    }
+
+    public void setController(ViewController controller) {
+        this.controller = controller;
     }
 
 }

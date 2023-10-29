@@ -11,6 +11,7 @@ import Models.ModelCreazione;
 import Models.ModelHome;
 import Models.ModelModifica;
 import Models.ModelPaths;
+import Models.ModelValutaRischi;
 import View.Controllers.Creazione.Creazione;
 import View.Controllers.Modifiche.Modifica;
 import javafx.fxml.Initializable;
@@ -46,6 +47,7 @@ public class ViewController implements Initializable{
     static ModelCreazione modelCreazione = new ModelCreazione();
     static ModelHome modelHome = new ModelHome();
     static ModelModifica modelModifica = new ModelModifica();
+    static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,7 +71,7 @@ public class ViewController implements Initializable{
 
     public void switchToHome() throws IOException{
         
-        Parent root = modelPaths.switchToHome(modelHome);
+        Parent root = modelPaths.switchToHome(modelHome, this);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -94,7 +96,7 @@ public class ViewController implements Initializable{
     }
 
     public void switchToValutaRischi() throws IOException{
-        Parent root = modelPaths.switchToValutaRischi();
+        Parent root = modelPaths.switchToValutaRischi(modelValutaRischi);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

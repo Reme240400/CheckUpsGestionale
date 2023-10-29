@@ -4,16 +4,13 @@ import java.io.IOException;
 
 import View.Controllers.Home;
 import View.Controllers.ValutaRischi;
+import View.Controllers.ViewController;
 import View.Controllers.Creazione.Creazione;
 import View.Controllers.Modifiche.Modifica;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class ModelPaths {
-
-
-
 
     // * *************** Cambia la scena a modifica *************** //
     public Parent switchToModifica( ModelModifica model) throws IOException{
@@ -31,7 +28,7 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a valuta rischi *************** //
-    public Parent switchToValutaRischi() throws IOException {
+    public Parent switchToValutaRischi( ModelValutaRischi modelValutaRischi) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/valuta_rischi.fxml"));
 
@@ -39,7 +36,7 @@ public class ModelPaths {
         //loader.setController();
         ValutaRischi rischiController = loader.getController();
 
-        
+        rischiController.setModel(modelValutaRischi);
 
         return root;
     }
@@ -57,12 +54,13 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a home *************** //
-    public Parent switchToHome(ModelHome modelHome) throws IOException {
+    public Parent switchToHome(ModelHome modelHome, ViewController controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/home.fxml"));
         Parent root = loader.load();
         Home home = loader.getController();
 
         home.setModel(modelHome);
+        home.setController(controller);
 
         return root;
     }
