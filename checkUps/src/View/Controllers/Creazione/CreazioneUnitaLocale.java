@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-
 import Models.ModelCreazione;
+import Models.Tables.Societa;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -18,6 +18,9 @@ public class CreazioneUnitaLocale implements Initializable{
 
     @FXML
     JFXButton btnAnnulla;
+
+    @FXML
+    TextField nomeSocieta;
 
     @FXML
     TextField textFieldUnitaLocale;
@@ -105,5 +108,9 @@ public class CreazioneUnitaLocale implements Initializable{
         this.btnSalva.disableProperty().bind(model.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(model.discardProperty().not());
 
+    }
+
+    public void setSocieta(Societa societaTmp) {
+        nomeSocieta.setText(societaTmp.getNome());
     }
 }

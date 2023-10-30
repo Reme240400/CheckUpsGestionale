@@ -56,6 +56,7 @@ public class Creazione implements Initializable {
         CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
         creazioneUnita.setModel(modelCreazione);
+        creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

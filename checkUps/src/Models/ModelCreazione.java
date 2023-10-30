@@ -227,8 +227,7 @@ public class ModelCreazione {
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
             TextField textFieldTel) {
-
-                System.out.println("fillTextField");
+    
         String societa = cercaRecord.getValue();
 
         if (societa != null) {
@@ -240,13 +239,14 @@ public class ModelCreazione {
                 textFieldTel.setText(String.valueOf(s.getTelefono()));
             });
 
-            // * ************ controlla se i campi sono vuoti ************ //
             setDiscard(true);
-
             setSocietySaved(true);
 
+            createSocietaTmp(ClassHelper.getListSocieta().stream().filter(s -> s.getNome().equals(societa)).findFirst().get());
+        } else {
+            setDiscard(false);
+            setSocietySaved(false);
         }
-
     }
 
 }

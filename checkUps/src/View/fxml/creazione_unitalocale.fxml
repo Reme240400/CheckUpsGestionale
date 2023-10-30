@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -59,15 +58,8 @@
          <children>
             <AnchorPane prefHeight="34.0" prefWidth="207.0">
                <children>
-                  <Label layoutY="15.0" prefHeight="17.0" prefWidth="45.0" text="Societa:" textFill="WHITE" />
-                  <JFXTextArea editable="false" layoutX="45.0" prefHeight="28.0" prefWidth="162.0" />
-               </children>
-            </AnchorPane>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="46.0" prefWidth="290.0" HBox.hgrow="SOMETIMES" />
-            <AnchorPane>
-               <children>
-                  <Label layoutY="15.0" prefHeight="17.0" prefWidth="45.0" text="Codice:" textFill="WHITE" />
-                  <JFXTextArea editable="false" layoutX="45.0" prefHeight="36.0" prefWidth="45.0" />
+                  <Label layoutY="15.0" prefHeight="17.0" prefWidth="45.0" text="Societa:" />
+                  <TextField fx:id="nomeSocieta" editable="false" layoutX="59.0" layoutY="11.0" promptText="Nome" styleClass="transparent" />
                </children>
             </AnchorPane>
          </children>
