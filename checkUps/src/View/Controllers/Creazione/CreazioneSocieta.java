@@ -17,10 +17,12 @@ import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 public class CreazioneSocieta extends Creazione {
@@ -72,7 +74,7 @@ public class CreazioneSocieta extends Creazione {
         ObservableList<String> items = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
-        cercaRecord.getItems().add("Nuovo");
+
         for (Societa societa : listSocieta) {
             cercaRecord.getItems().add(societa.getNome());
             items.add(societa.getNome());
@@ -105,6 +107,13 @@ public class CreazioneSocieta extends Creazione {
         // * ************************************************ //
 
     }
+
+    public void fillTextField(KeyEvent event ){
+        if (event.getCode().toString().equals("ENTER")) 
+            modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+    
+    }
+
 
     // * salva la societa
     public void salvaSocieta(javafx.event.ActionEvent event) {

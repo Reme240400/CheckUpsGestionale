@@ -1,8 +1,8 @@
 package Models;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.ClassHelper;
 import Models.Tables.Societa;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 public class ModelCreazione {
 
-    // initialize variables 
+    // initialize variables
 
     private final BooleanProperty societySaved = new SimpleBooleanProperty(false);
     private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
@@ -22,7 +22,6 @@ public class ModelCreazione {
     private Societa societaTmp = null;
 
     // end initialize variables
-
 
     // initialize methods
     public BooleanProperty societaSavedProperty() {
@@ -80,7 +79,6 @@ public class ModelCreazione {
     }
     // ------------------ END SETTER ------------------ //
 
-
     // ------------------ SocietaTmp ------------------ //
     public Societa getSocietaTmp() {
         return societaTmp;
@@ -93,11 +91,12 @@ public class ModelCreazione {
 
     public void resetSocietaTmp() {
         this.societaTmp = null;
-        setSocietySaved(false);        
+        setSocietySaved(false);
     }
     // ------------------ END SocietaTmp ------------------ //
 
-    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
+    // ------------------ Controllo se i campi sono stati inseriti
+    // ------------------ //
     public void isTextFilled(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
 
@@ -106,7 +105,6 @@ public class ModelCreazione {
         String txtLocalita = textFieldLocalita.getText();
         String txtProvincia = textFieldProvincia.getText();
         String txtTel = textFieldTel.getText();
-        
 
         boolean areAllDisabled = (txtSocieta.isEmpty() ||
                 txtSocieta.trim().isEmpty() ||
@@ -132,11 +130,12 @@ public class ModelCreazione {
 
         setSaved(!areAllDisabled);
         setDiscard(!isDisabled);
-        
+
     }
     // ------------------ END ------------------ //
 
-    // ------------------ Setta i campi come sono stati salvati ------------------ //
+    // ------------------ Setta i campi come sono stati salvati ------------------
+    // //
     public void setOldTextFields(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
         if (getSocietaTmp() != null) {
@@ -151,79 +150,103 @@ public class ModelCreazione {
                     textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
 
             // model.setSaved(areDisabled[0]);
-            //setDiscard(areDisabled[1]);
+            // setDiscard(areDisabled[1]);
             // * ************************************************ //
         }
     }
     // ------------------ END ------------------ //
 
+    public FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units) {
 
-    public FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units ) {
-        
         FilteredList<String> filteredList = new FilteredList<String>(units, p -> true);
 
-            // Add a listener to the textProperty of the combobox editor. The
-            // listener will simply filter the list every time the input is changed
-            // as long as the user hasn't selected an item in the list.
-            cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-                final TextField editor = cercaItem.getEditor();
-                final String selected = cercaItem.getSelectionModel().getSelectedItem();
+        // Add a listener to the textProperty of the combobox editor. The
+        // listener will simply filter the list every time the input is changed
+        // as long as the user hasn't selected an item in the list.
+        cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            final TextField editor = cercaItem.getEditor();
+            final String selected = cercaItem.getSelectionModel().getSelectedItem();
 
-                Platform.runLater(() -> {
-                    // If the no item in the list is selected or the selected item
-                    // isn't equal to the current input, we refilter the list.
-                    if (selected == null || !selected.equals(editor.getText())) {
-                        filteredList.setPredicate(item -> {
-                            // We return true for any items that starts with the
-                            // same letters as the input. We use toUpperCase to
-                            // avoid case sensitivity.
-                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        });
-                    }
-                });
+            Platform.runLater(() -> {
+                // If the no item in the list is selected or the selected item
+                // isn't equal to the current input, we refilter the list.
+                if (selected == null || !selected.equals(editor.getText())) {
+                    filteredList.setPredicate(item -> {
+                        // We return true for any items that starts with the
+                        // same letters as the input. We use toUpperCase to
+                        // avoid case sensitivity.
+                        if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
             });
+        });
 
         return filteredList;
-        
+
     }
 
-    public FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id, ObservableList<String> units ) {
-        
+    public FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,
+            ObservableList<String> units) {
+
         FilteredList<String> filteredUnita = new FilteredList<String>(units, p -> true);
 
-            // Add a listener to the textProperty of the combobox editor. The
-            // listener will simply filter the list every time the input is changed
-            // as long as the user hasn't selected an item in the list.
-            cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-                final TextField editor = cercaItem.getEditor();
-                final String selected = cercaItem.getSelectionModel().getSelectedItem();
+        // Add a listener to the textProperty of the combobox editor. The
+        // listener will simply filter the list every time the input is changed
+        // as long as the user hasn't selected an item in the list.
+        cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            final TextField editor = cercaItem.getEditor();
+            final String selected = cercaItem.getSelectionModel().getSelectedItem();
 
-                // This needs run on the GUI thread to avoid the error described
-                // here: https://bugs.openjdk.java.net/browse/JDK-8081700.
-                Platform.runLater(() -> {
-                    // If the no item in the list is selected or the selected item
-                    // isn't equal to the current input, we refilter the list.
-                    if (selected == null || !selected.equals(editor.getText())) {
-                        filteredUnita.setPredicate(item -> {
-                            // We return true for any items that starts with the
-                            // same letters as the input. We use toUpperCase to
-                            // avoid case sensitivity.
-                            if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        });
-                    }
-                });
+            Platform.runLater(() -> {
+                // If the no item in the list is selected or the selected item
+                // isn't equal to the current input, we refilter the list.
+                if (selected == null || !selected.equals(editor.getText())) {
+                    filteredUnita.setPredicate(item -> {
+                        // We return true for any items that starts with the
+                        // same letters as the input. We use toUpperCase to
+                        // avoid case sensitivity.
+                        if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
             });
+        });
 
         return filteredUnita;
-        
+
+    }
+
+    // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
+    public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
+            TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
+            TextField textFieldTel) {
+
+                System.out.println("fillTextField");
+        String societa = cercaRecord.getValue();
+
+        if (societa != null) {
+            ClassHelper.getListSocieta().stream().filter(s -> s.getNome().equals(societa)).forEach(s -> {
+                textFieldSocieta.setText(s.getNome());
+                textFieldIndirizzo.setText(s.getIndirizzo());
+                textFieldLocalita.setText(s.getLocalita());
+                textFieldProvincia.setText(s.getProvincia());
+                textFieldTel.setText(String.valueOf(s.getTelefono()));
+            });
+
+            // * ************ controlla se i campi sono vuoti ************ //
+            setDiscard(true);
+
+            setSocietySaved(true);
+
+        }
+
     }
 
 }
