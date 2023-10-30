@@ -106,10 +106,9 @@ public class ViewController implements Initializable{
         System.out.println("Logout");
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
-        alert.setTitle("Quit");
+        alert.setTitle("Esci");
         alert.setHeaderText("Stai per uscire!");
         alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
-
 
 
         if(alert.showAndWait().get().getText().equals("OK")){

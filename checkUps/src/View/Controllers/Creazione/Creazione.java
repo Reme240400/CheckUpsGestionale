@@ -19,7 +19,7 @@ public class Creazione implements Initializable {
     private JFXButton btnSocieta;
 
     @FXML
-    private JFXButton btnUnitaLocali;
+    protected JFXButton btnUnitaLocali;
 
     @FXML
     private StackPane stackPane;

@@ -23,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneSocieta implements Initializable {
+public class CreazioneSocieta extends Creazione {
 
     @FXML
     private JFXButton btnAnnulla;
@@ -113,12 +113,11 @@ public class CreazioneSocieta implements Initializable {
                 "");
 
         // fare la call alla Query
-        modelCreazione.setSocietaTmp(societaTmp);
+        modelCreazione.createSocietaTmp(societaTmp);
 
         ModelListe.inserisciRecordInLista(societaTmp);
         modelCreazione.setSocietySaved(true);
         modelCreazione.setSaved(false);
-        modelCreazione.setDiscard(false);
 
     }
 
@@ -131,8 +130,10 @@ public class CreazioneSocieta implements Initializable {
         textFieldProvincia.clear();
         textFieldSocieta.clear();
         textFieldTel.clear();
+        
         cercaRecord.getSelectionModel().clearSelection();
 
+        modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
         modelCreazione.setDiscard(false);
     }
@@ -162,4 +163,5 @@ public class CreazioneSocieta implements Initializable {
                 textFieldTel);
         // * ************************************************ //
     }
+
 }

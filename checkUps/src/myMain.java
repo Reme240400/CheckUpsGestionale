@@ -40,12 +40,13 @@ public class myMain extends Application{
 
     public void logout(Stage stage){
         Alert alert = new Alert(AlertType.CONFIRMATION);
+        System.out.println("Logout");
 
         alert.setTitle("Esci");
         alert.setHeaderText("Stai per uscire!");
         alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
 
-        if(alert.showAndWait().get().equals("OK")){
+        if(alert.showAndWait().get().getText().equals("OK")){
             System.out.println("Salvataggio in corso...");
             stage.close();
         }

@@ -1,5 +1,6 @@
 package Models;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Models.Tables.Societa;
@@ -12,12 +13,16 @@ import javafx.scene.control.TextField;
 
 public class ModelCreazione {
 
+    // initialize variables 
+
     private final BooleanProperty societySaved = new SimpleBooleanProperty(false);
     private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty discard = new SimpleBooleanProperty(false);
-
     private Societa societaTmp = null;
+
+    // end initialize variables
+
 
     // initialize methods
     public BooleanProperty societaSavedProperty() {
@@ -56,6 +61,8 @@ public class ModelCreazione {
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
+
+    // * modifica anche lo stato del bottone unitaLocale
     public final void setSocietySaved(boolean societySaved) {
         societaSavedProperty().set(societySaved);
     }
@@ -73,23 +80,24 @@ public class ModelCreazione {
     }
     // ------------------ END SETTER ------------------ //
 
-    public void reset() {
 
-        setSocietySaved(false);
-        setUnitaSaved(false);
-        setSaved(false);
-        setDiscard(false);
-    }
-
+    // ------------------ SocietaTmp ------------------ //
     public Societa getSocietaTmp() {
         return societaTmp;
     }
 
-    public void setSocietaTmp(Societa societaTmp) {
+    public void createSocietaTmp(Societa societaTmp) {
         this.societaTmp = societaTmp;
         System.out.println("setSocietaTmp: " + societaTmp.getNome());
     }
 
+    public void resetSocietaTmp() {
+        this.societaTmp = null;
+        setSocietySaved(false);        
+    }
+    // ------------------ END SocietaTmp ------------------ //
+
+    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
     public void isTextFilled(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
 
@@ -126,7 +134,9 @@ public class ModelCreazione {
         setDiscard(!isDisabled);
         
     }
+    // ------------------ END ------------------ //
 
+    // ------------------ Setta i campi come sono stati salvati ------------------ //
     public void setOldTextFields(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
         if (getSocietaTmp() != null) {
@@ -145,6 +155,8 @@ public class ModelCreazione {
             // * ************************************************ //
         }
     }
+    // ------------------ END ------------------ //
+
 
     public FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units ) {
         
