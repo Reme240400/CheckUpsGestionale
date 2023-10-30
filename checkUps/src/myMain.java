@@ -17,8 +17,6 @@ public class myMain extends Application{
 
         Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/main.fxml"));
         primaryStage.setTitle("CheckUp Gestionale");
-        
-        primaryStage.initStyle(StageStyle.UNDECORATED);
 
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
