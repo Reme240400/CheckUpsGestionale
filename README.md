@@ -18,7 +18,7 @@
 
 ## Issues
 
-
+* Da vedere meglio come creare oggetti di tipo Societa e UnitaLocale cioè se settare làid facendo un controllo sulla lista e poi inserirlo anche da Db o farlo inserire da DB e settarl dopo
 
 [Entity Relationship Diagram.pdf](https://github.com/Reme240400/CheckUpsGestionale/files/12409121/Entity.Relationship.Diagram.pdf)
 ## Bozza grafica
