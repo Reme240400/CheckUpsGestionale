@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-
 public class CreatePdfExample {
     public static void main(String[] args) {
         // Creazione di un documento PDF
@@ -48,24 +47,6 @@ public class CreatePdfExample {
         PDRectangle mediaBox = page.getMediaBox();
         float rowHeight = 50; // Regola questa altezza a seconda delle tue esigenze
         return (int) ((mediaBox.getHeight() - 2 * margin) / rowHeight);
-    }
-
-    private static String wordWrap(String text, int lineLength) {
-        String[] words = text.split(" ");
-        StringBuilder wrappedText = new StringBuilder();
-        int currentLineLength = 0;
-
-        for (String word : words) {
-            if (currentLineLength + word.length() + 1 <= lineLength) {
-                wrappedText.append(word).append(" ");
-                currentLineLength += word.length() + 1;
-            } else {
-                wrappedText.append("\n").append(word).append(" ");
-                currentLineLength = word.length() + 1;
-            }
-        }
-
-        return wrappedText.toString().trim();
     }
 
     public static void stampaSocieta(PDDocument document, PDType0Font font) {
@@ -137,67 +118,167 @@ public class CreatePdfExample {
 
             for (Provvedimento record : recordspProvvedimento) {
 
-                // Controllo per creazione di numero giusto di pagine
-                if (yPosition < maxRowsPerPage) {
-                    contentStream1.close();
-                    page1 = new PDPage(PDRectangle.A4);
-                    document.addPage(page1);
-                    contentStream1 = new PDPageContentStream(document, page1);
-                    contentStream1.setFont(font, 3);
-                    yPosition = page1.getMediaBox().getHeight() - 50;
+                if (record.getNome().length() > 225) {
+                    // Controllo per creazione di numero giusto di pagine
+                    if (yPosition < maxRowsPerPage) {
+                        contentStream1.close();
+                        page1 = new PDPage(PDRectangle.A4);
+                        document.addPage(page1);
+                        contentStream1 = new PDPageContentStream(document, page1);
+                        contentStream1.setFont(font, 3);
+                        yPosition = page1.getMediaBox().getHeight() - 50;
+                    }
+                    // costruisco tabella
+                    // riga superiore
+                    contentStream1.moveTo(10, yPosition + 5);
+                    contentStream1.lineTo(575, yPosition + 5);
+                    contentStream1.stroke();
+                    // riga inferiore
+                    contentStream1.moveTo(10, yPosition - 10);
+                    contentStream1.lineTo(575, yPosition - 10);
+                    contentStream1.stroke();
+                    // colonne
+                    contentStream1.moveTo(10, yPosition + 5);
+                    contentStream1.lineTo(10, yPosition - 10);
+                    contentStream1.stroke();
+
+                    contentStream1.moveTo(340, yPosition + 5);
+                    contentStream1.lineTo(340, yPosition - 10);
+                    contentStream1.stroke();
+
+                    contentStream1.moveTo(490, yPosition + 5);
+                    contentStream1.lineTo(490, yPosition - 10);
+                    contentStream1.stroke();
+
+                    contentStream1.moveTo(575, yPosition + 5);
+                    contentStream1.lineTo(575, yPosition - 10);
+                    contentStream1.stroke();
+                    /*
+                     * contentStream1.beginText();
+                     * contentStream1.newLineAtOffset(15, yPosition);
+                     * contentStream1.showText(
+                     * "NOME: " + (record.getNome().substring(0, 215)).replace("\n",
+                     * "").replace("\r", ""));
+                     * contentStream1.endText();
+                     * 
+                     * contentStream1.beginText();
+                     * contentStream1.newLineAtOffset(26, yPosition - 5);
+                     * contentStream1.showText(record.getNome().substring(215).replace("\n",
+                     * "").replace("\r", ""));
+                     * contentStream1.endText();
+                     */
+
+                    String nome = record.getNome();
+                    String firstPart = "";
+                    String secondPart = "";
+
+                    if (nome.length() <= 215) {
+                        firstPart = nome;
+                    } else {
+                        int spaceIndex = nome.indexOf(" ", 215);
+                        if (spaceIndex != -1) {
+                            firstPart = nome.substring(0, spaceIndex);
+                            secondPart = nome.substring(spaceIndex + 1);
+                        } else {
+                            firstPart = nome.substring(0, 215);
+                            secondPart = nome.substring(215);
+                        }
+                    }
+
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(15, yPosition);
+                    contentStream1.showText("NOME: " + firstPart.replace("\n", "").replace("\r", ""));
+                    contentStream1.endText();
+
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(26, yPosition - 5);
+                    contentStream1.showText(secondPart.replace("\n", "").replace("\r", ""));
+                    contentStream1.endText();
+
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(350, yPosition);
+                    contentStream1.showText("RISCHIO: " + record.getRischio());
+                    contentStream1.endText();
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(500, yPosition);
+                    contentStream1.showText("SOGGETTI ESPOSTI: " + record.getSoggettiEsposti());
+                    contentStream1.endText();
+                    contentStream1.beginText();
+                    contentStream1.newLine();
+                    contentStream1.endText();
+
+                    yPosition -= 15; // Spaziatura tra le righe
+                    // caso in cui devo andare a capo
+                } else {
+                    // Controllo per creazione di numero giusto di pagine
+                    if (yPosition < maxRowsPerPage) {
+                        contentStream1.close();
+                        page1 = new PDPage(PDRectangle.A4);
+                        document.addPage(page1);
+                        contentStream1 = new PDPageContentStream(document, page1);
+                        contentStream1.setFont(font, 3);
+                        yPosition = page1.getMediaBox().getHeight() - 50;
+                    }
+                    // costruisco tabella
+                    // riga superiore
+                    contentStream1.moveTo(10, yPosition + 5);
+                    contentStream1.lineTo(575, yPosition + 5);
+                    contentStream1.stroke();
+                    // riga inferiore
+                    contentStream1.moveTo(10, yPosition - 5);
+                    contentStream1.lineTo(575, yPosition - 5);
+                    contentStream1.stroke();
+                    // colonne
+                    contentStream1.moveTo(10, yPosition + 5);
+                    contentStream1.lineTo(10, yPosition - 5);
+                    contentStream1.stroke();
+
+                    contentStream1.moveTo(340, yPosition + 5);
+                    contentStream1.lineTo(340, yPosition - 5);
+                    contentStream1.stroke();
+
+                    contentStream1.moveTo(490, yPosition + 5);
+                    contentStream1.lineTo(490, yPosition - 5);
+                    contentStream1.stroke();
+
+                    contentStream1.moveTo(575, yPosition + 5);
+                    contentStream1.lineTo(575, yPosition - 5);
+                    contentStream1.stroke();
+
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(15, yPosition);
+                    contentStream1.showText("NOME: " + record.getNome().replace("\n", "").replace("\r", "")); // Suddivide
+                                                                                                              // il
+                                                                                                              // testo
+                                                                                                              // in
+                                                                                                              // linee
+                                                                                                              // più
+                                                                                                              // corte o
+                                                                                                              // alemno
+
+                    contentStream1.endText();
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(350, yPosition);
+                    contentStream1.showText("RISCHIO: " + record.getRischio());
+                    contentStream1.endText();
+                    contentStream1.beginText();
+                    contentStream1.newLineAtOffset(500, yPosition);
+                    contentStream1.showText("SOGGETTI ESPOSTI: " + record.getSoggettiEsposti());
+                    contentStream1.endText();
+                    contentStream1.beginText();
+                    contentStream1.newLine();
+                    contentStream1.endText();
+
+                    // }else{
+                    // caso in cui ho più di 200 caratteri
+                    // faccio la stessa cosa di sopra ma scorro la y solo con il nome e prima di
+                    // fare rischio e soggetti esposti torno alla y originale
+
+                    // }
+
+                    yPosition -= 10; // Spaziatura tra le righe
+
                 }
-                // costruisco tabella
-                // riga superiore
-                contentStream1.moveTo(10, yPosition + 5);
-                contentStream1.lineTo(575, yPosition + 5);
-                contentStream1.stroke();
-                // riga inferiore
-                contentStream1.moveTo(10, yPosition - 5);
-                contentStream1.lineTo(575, yPosition - 5);
-                contentStream1.stroke();
-                // colonne
-                contentStream1.moveTo(10, yPosition + 5);
-                contentStream1.lineTo(10, yPosition - 5);
-                contentStream1.stroke();
-
-                contentStream1.moveTo(340, yPosition + 5);
-                contentStream1.lineTo(340, yPosition - 5);
-                contentStream1.stroke();
-
-                contentStream1.moveTo(490, yPosition + 5);
-                contentStream1.lineTo(490, yPosition - 5);
-                contentStream1.stroke();
-
-                contentStream1.moveTo(575, yPosition + 5);
-                contentStream1.lineTo(575, yPosition - 5);
-                contentStream1.stroke();
-
-                contentStream1.beginText();
-                contentStream1.newLineAtOffset(15, yPosition);
-                contentStream1.showText("NOME: " + wordWrap(record.getNome(),
-                        10).replace("\n", "").replace("\r", "")); // Suddivide il testo in linee più corte o alemno
-            
-                contentStream1.endText();
-                contentStream1.beginText();
-                contentStream1.newLineAtOffset(350, yPosition);
-                contentStream1.showText("RISCHIO: " + record.getRischio());
-                contentStream1.endText();
-                contentStream1.beginText();
-                contentStream1.newLineAtOffset(500, yPosition);
-                contentStream1.showText("SOGGETTI ESPOSTI: " + record.getSoggettiEsposti());
-                contentStream1.endText();
-                contentStream1.beginText();
-                contentStream1.newLine();
-                contentStream1.endText();
-
-                // }else{
-                // caso in cui ho più di 200 caratteri
-                // faccio la stessa cosa di sopra ma scorro la y solo con il nome e prima di
-                // fare rischio e soggetti esposti torno alla y originale
-
-                // }
-
-                yPosition -= 10; // Spaziatura tra le righe
             }
 
             contentStream1.close();
