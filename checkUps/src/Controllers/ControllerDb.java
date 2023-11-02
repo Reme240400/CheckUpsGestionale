@@ -49,7 +49,7 @@ public class ControllerDb {
     }
 
     // Metodo per inserire una nuova riga in una qualsiasi tabella
-    public static void inserisciRecord(Object obj) {
+    public void inserisciRecord(Object obj) {
         ModelDb.inserisciRecord(obj);
     }
 

@@ -2,8 +2,8 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class Rischio implements Serializable{
-    private int idRischio;
+public class Rischio extends TablesId implements Serializable{
+
     private String nome;
     private int p;
     private int d;
@@ -11,20 +11,13 @@ public class Rischio implements Serializable{
     private int idReparto;
 
     public Rischio(int idRischio, String nome, int p, int d, int r, int idReparto) {
-        this.idRischio = idRischio;
+        super(idReparto);
+
         this.nome = nome;
         this.p = p;
         this.d = d;
         this.r = r;
         this.idReparto = idReparto;
-    }
-
-    public int getIdRischio() {
-        return idRischio;
-    }
-
-    public void setIdRischio(int idRischio) {
-        this.idRischio = idRischio;
     }
 
     public String getNome() {

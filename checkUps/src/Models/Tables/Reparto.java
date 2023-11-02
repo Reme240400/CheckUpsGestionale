@@ -2,25 +2,18 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class Reparto implements Serializable{
-    private int idReparto;
+public class Reparto extends TablesId implements Serializable{
+
     private int idUnitaLocale;
     private String nome;
     private String descrizione;
 
     public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione) {
-        this.idReparto = idReparto;
+        super(idReparto);
+
         this.idUnitaLocale = idUnitaLocale;
         this.nome = nome;
         this.descrizione = descrizione;
-    }
-
-    public int getIdReparto() {
-        return idReparto;
-    }
-
-    public void setIdReparto(int idReparto) {
-        this.idReparto = idReparto;
     }
 
     public int getIdUnitaLocale() {

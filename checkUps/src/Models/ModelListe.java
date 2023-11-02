@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import Controllers.ClassHelper;
@@ -93,7 +94,7 @@ public class ModelListe {
             case "Titolo":
                 switch (campo) {
                     case "id_titolo":
-                        ((Titolo) obj).setIdTitolo(Integer.parseInt(valore));
+                        ((Titolo) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -115,7 +116,7 @@ public class ModelListe {
             case "Reparto":
                 switch (campo) {
                     case "id_reparto":
-                        ((Reparto) obj).setIdReparto(Integer.parseInt(valore));
+                        ((Reparto) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -142,7 +143,7 @@ public class ModelListe {
             case "Rischio":
                 switch (campo) {
                     case "id_rischio":
-                        ((Rischio) obj).setIdRischio(Integer.parseInt(valore));
+                        ((Rischio) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -174,7 +175,7 @@ public class ModelListe {
             case "Societa":
                 switch (campo) {
                     case "id_societa":
-                        ((Societa) obj).setIdSocieta(Integer.parseInt(valore));
+                        ((Societa) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -216,7 +217,7 @@ public class ModelListe {
             case "Oggetto":
                 switch (campo) {
                     case "id_oggetto":
-                        ((Oggetto) obj).setIdOggetto(Integer.parseInt(valore));
+                        ((Oggetto) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -238,7 +239,7 @@ public class ModelListe {
             case "Provvedimento":
                 switch (campo) {
                     case "id_provvedimento":
-                        ((Provvedimento) obj).setIdProvvedimento(Integer.parseInt(valore));
+                        ((Provvedimento) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -281,7 +282,7 @@ public class ModelListe {
             case "UnitaLocale":
                 switch (campo) {
                     case "id_unitaLocale":
-                        ((UnitaLocale) obj).setIdUnitaLocale(Integer.parseInt(valore));
+                        ((UnitaLocale) obj).setId(Integer.parseInt(valore));
                         ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
                                 Integer.parseInt(valore));
                         break;
@@ -331,14 +332,14 @@ public class ModelListe {
                 ClassHelper.getListMansione().add(mansione);
                 break;
             case "Titolo":
-                Titolo titolo = new Titolo(((Titolo) obj).getIdTitolo(),
+                Titolo titolo = new Titolo(((Titolo) obj).getId(),
                         ((Titolo) obj).getIdReparto(),
                         ((Titolo) obj).getDescrizione());
 
                 ClassHelper.getListTitolo().add(titolo);
                 break;
             case "Reparto":
-                Reparto reparto = new Reparto(((Reparto) obj).getIdReparto(),
+                Reparto reparto = new Reparto(((Reparto) obj).getId(),
                         ((Reparto) obj).getIdUnitaLocale(),
                         ((Reparto) obj).getNome(),
                         ((Reparto) obj).getDescrizione());
@@ -346,7 +347,7 @@ public class ModelListe {
                 ClassHelper.getListReparto().add(reparto);
                 break;
             case "Rischio":
-                Rischio rischio = new Rischio(((Rischio) obj).getIdRischio(),
+                Rischio rischio = new Rischio(((Rischio) obj).getId(),
                         ((Rischio) obj).getNome(),
                         ((Rischio) obj).getP(),
                         ((Rischio) obj).getD(),
@@ -358,25 +359,25 @@ public class ModelListe {
             case "Societa":
 
                 Societa societa = new Societa(
+                        ((Societa) obj).getId(),
                         ((Societa) obj).getNome(),
                         ((Societa) obj).getIndirizzo(),
                         ((Societa) obj).getLocalita(),
                         ((Societa) obj).getProvincia(),
                         ((Societa) obj).getTelefono(),
                         ((Societa) obj).getDescrizione());
-                societa.setIdSocieta(((Societa) obj).getIdSocieta());
 
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":
-                Oggetto oggetto = new Oggetto(((Oggetto) obj).getIdOggetto(),
+                Oggetto oggetto = new Oggetto(((Oggetto) obj).getId(),
                         ((Oggetto) obj).getNome(),
                         ((Oggetto) obj).getIdTitolo());
 
                 ClassHelper.getListOggetto().add(oggetto);
                 break;
             case "Provvedimento":
-                Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getIdProvvedimento(),
+                Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
                         ((Provvedimento) obj).getNome(),
                         ((Provvedimento) obj).getIdMansione(),
                         ((Provvedimento) obj).getIdOggetto(),
@@ -387,7 +388,7 @@ public class ModelListe {
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;
             case "UnitaLocale":
-                UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getIdUnitaLocale(),
+                UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getId(),
                         ((UnitaLocale) obj).getNome(),
                         ((UnitaLocale) obj).getIndirizzo(),
                         ((UnitaLocale) obj).getLocalita(),
@@ -415,7 +416,7 @@ public class ModelListe {
 
     }
 
-    //Metodi per backup e ripristino da file
+    // Metodi per backup e ripristino da file
     public static void salvaListeSuFile(String fileName, List<?>... lists) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             for (List<?> list : lists) {
@@ -441,7 +442,7 @@ public class ModelListe {
     }
 
     public static List<List<?>> caricaListeDaFile(String fileName) {
-    List<List<?>> loadedLists = new ArrayList<>();
+        List<List<?>> loadedLists = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             while (true) {
                 try {

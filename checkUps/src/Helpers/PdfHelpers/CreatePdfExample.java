@@ -97,7 +97,7 @@ public class CreatePdfExample {
                 }
                 contentStream.beginText();
                 contentStream.newLineAtOffset(15, yPosition);
-                contentStream.showText("ID: " + record.getIdSocieta());
+                contentStream.showText("ID: " + record.getId());
                 contentStream.endText();
                 contentStream.beginText();
                 contentStream.newLineAtOffset(150, yPosition);

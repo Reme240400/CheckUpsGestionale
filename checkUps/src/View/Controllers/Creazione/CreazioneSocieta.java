@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Controllers.ControllerDb;
 import Models.ModelListe;
 import Models.ModelCreazione;
@@ -17,9 +18,7 @@ import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
@@ -62,7 +61,10 @@ public class CreazioneSocieta extends Creazione {
     private String txtLocalita;
     private String txtTel;
     private String txtProvincia;
+
     Societa societaTmp = null;
+    List<Societa> listSocieta;
+    Controller controller = new Controller();
     // private String txtDesc;
 
     @Override
@@ -70,7 +72,8 @@ public class CreazioneSocieta extends Creazione {
 
         // * *************** inizializza i campi *************** //
         ControllerDb.popolaListaSocietaDaDb();
-        List<Societa> listSocieta = ClassHelper.getListSocieta();
+
+        listSocieta = ClassHelper.getListSocieta();
         ObservableList<String> items = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
@@ -108,29 +111,31 @@ public class CreazioneSocieta extends Creazione {
 
     }
 
-    public void fillTextField(KeyEvent event ){
-        if (event.getCode().toString().equals("ENTER")) 
-            modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
-    
-    }
+    // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
 
+    public void fillTextField(KeyEvent event ){
+        if (event.getCode().toString().equals("ENTER")){
+            modelCreazione.setEnable(false);
+            modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+        }
+    }
 
     // * salva la societa
     public void salvaSocieta(javafx.event.ActionEvent event) {
 
-        Societa societaTmp = new Societa(txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel,
+        int id = controller.getNewId(listSocieta);
+
+        Societa societaTmp = new Societa(id, txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel,
                 "");
 
-        // fare la call alla Query
         modelCreazione.createSocietaTmp(societaTmp);
 
-        ModelListe.inserisciRecordInLista(societaTmp);
         modelCreazione.setSocietySaved(true);
         modelCreazione.setSaved(false);
 
     }
 
-    // * elimina la societa
+    // * ----------------------------- elimina la societa ----------------------------- //
     public void eliminaSocieta() {
 
         // textFieldDesc.clear();
@@ -142,12 +147,15 @@ public class CreazioneSocieta extends Creazione {
         
         cercaRecord.getSelectionModel().clearSelection();
 
+        modelCreazione.setEnable(true);
         modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
         modelCreazione.setDiscard(false);
     }
+    // * ------------------------------------------------------------------------------- //
 
-    // * controlla se i campi sono vuoti
+
+    // * ---------------------- controlla se i campi sono vuoti ---------------------- //
     public void keyReleasedProperty() {
         this.txtSocieta = textFieldSocieta.getText();
         this.txtIndirizzo = textFieldIndirizzo.getText();
@@ -159,6 +167,7 @@ public class CreazioneSocieta extends Creazione {
                 textFieldProvincia, textFieldTel);
 
     }
+    // * ------------------------------------------------------------------------------- //
 
     // * ************ setta il modelCreazionelo ************ //
     public void setModel(ModelCreazione modelCreazione) {
@@ -166,6 +175,12 @@ public class CreazioneSocieta extends Creazione {
 
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
+        
+        this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
+        this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
+        this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
+        this.textFieldSocieta.editableProperty().bind(modelCreazione.isEnableProperty());
+        this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
 
         // * ************ setta i campi come sono stati salvati ************ //
         modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,

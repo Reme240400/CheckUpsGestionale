@@ -2,8 +2,8 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class Provvedimento implements Serializable{
-    private int idProvvedimento;
+public class Provvedimento extends TablesId implements Serializable{
+
     private String nome;
     private int idMansione;
     private int idOggetto;
@@ -13,21 +13,15 @@ public class Provvedimento implements Serializable{
 
     public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, String Rischio,
             String soggettiEsposti, int stima) {
-        this.idProvvedimento = idProvvedimento;
+        super(idProvvedimento);
+
+
         this.nome = nome;
         this.idMansione = idMansione;
         this.idOggetto = idOggetto;
         this.Rischio = Rischio;
         this.soggettiEsposti = soggettiEsposti;
         this.stima = stima;
-    }
-
-    public int getIdProvvedimento() {
-        return idProvvedimento;
-    }
-
-    public void setIdProvvedimento(int idProvvedimento) {
-        this.idProvvedimento = idProvvedimento;
     }
 
     public String getNome() {

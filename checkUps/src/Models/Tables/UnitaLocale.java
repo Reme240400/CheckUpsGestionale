@@ -2,8 +2,7 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class UnitaLocale implements Serializable{
-    private int idUnitaLocale;
+public class UnitaLocale extends TablesId implements Serializable{
     private int idSocieta;
     private String nome;
     private String indirizzo;
@@ -11,20 +10,13 @@ public class UnitaLocale implements Serializable{
     private String provincia;
 
     public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, int idSocieta) {
-        this.idUnitaLocale = idUnitaLocale;
+        super(idUnitaLocale);
+        //this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
-    }
-
-    public int getIdUnitaLocale() {
-        return idUnitaLocale;
-    }
-
-    public void setIdUnitaLocale(int idUnitaLocale) {
-        this.idUnitaLocale = idUnitaLocale;
     }
 
     public int getIdSocieta() {

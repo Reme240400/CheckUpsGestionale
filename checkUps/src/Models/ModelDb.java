@@ -56,8 +56,8 @@ public class ModelDb {
                         String telefono = resultSet.getString("telefono");
                         String descrizione = resultSet.getString("descrizione");
 
-                        Societa societa = new Societa(nome, indirizzo, localita, provincia, telefono, descrizione);
-                        societa.setIdSocieta(id_societa);
+                        Societa societa = new Societa(id_societa, nome, indirizzo, localita, provincia, telefono,
+                                descrizione);
 
                         ModelListe.inserisciRecordInLista(societa);
                     }
@@ -287,6 +287,7 @@ public class ModelDb {
 
                         UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
                                 idSocieta);
+
                         ModelListe.inserisciRecordInLista(unitaLocale);
                     }
                 } catch (SQLException e) {
@@ -693,7 +694,7 @@ public class ModelDb {
     public static void inserisciElementoSocieta(Connection connection, List<Societa> societaList) throws SQLException {
         String insertQuery = "INSERT INTO public.societa (id_societa, indirizzo, localita, provincia, telefono, descrizione, nome) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setInt(1, societaList.get(societaList.size() - 1).getIdSocieta());
+            preparedStatement.setInt(1, societaList.get(societaList.size() - 1).getId());
             preparedStatement.setString(2, societaList.get(societaList.size() - 1).getIndirizzo());
             preparedStatement.setString(3, societaList.get(societaList.size() - 1).getLocalita());
             preparedStatement.setString(4, societaList.get(societaList.size() - 1).getProvincia());
@@ -706,13 +707,14 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondnome
+    // corrisponde nome
     public static void inserisciElementoUnitaLocali(Connection connection, List<UnitaLocale> unitaLocaleList)
             throws SQLException {
         String insertQuery = "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, unitaLocaleList.get(unitaLocaleList.size() - 1).getIdUnitaLocale());
+            //System.out.println(unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
+            preparedStatement.setInt(1, unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
             preparedStatement.setInt(2, unitaLocaleList.get(unitaLocaleList.size() - 1).getIdSocieta());
             preparedStatement.setString(3, unitaLocaleList.get(unitaLocaleList.size() - 1).getNome());
             preparedStatement.setString(4, unitaLocaleList.get(unitaLocaleList.size() - 1).getIndirizzo());
@@ -729,7 +731,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.reparti (id_reparto, id_unita_locale, nome, descrizione) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, repartoList.get(repartoList.size() - 1).getIdReparto());
+            preparedStatement.setInt(1, repartoList.get(repartoList.size() - 1).getId());
             preparedStatement.setInt(2, repartoList.get(repartoList.size() - 1).getIdUnitaLocale());
             preparedStatement.setString(3, repartoList.get(repartoList.size() - 1).getNome());
             preparedStatement.setString(4, repartoList.get(repartoList.size() - 1).getDescrizione());
@@ -744,7 +746,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.titoli (id_titolo, descrizione, id_reparto) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, titoloList.get(titoloList.size() - 1).getIdTitolo());
+            preparedStatement.setInt(1, titoloList.get(titoloList.size() - 1).getId());
             preparedStatement.setString(2, titoloList.get(titoloList.size() - 1).getDescrizione());
             preparedStatement.setInt(3, titoloList.get(titoloList.size() - 1).getIdReparto());
             preparedStatement.executeUpdate();
@@ -773,7 +775,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.oggetti (id_oggetto, nome, id_titolo) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, oggettoList.get(oggettoList.size() - 1).getIdOggetto());
+            preparedStatement.setInt(1, oggettoList.get(oggettoList.size() - 1).getId());
             preparedStatement.setString(2, oggettoList.get(oggettoList.size() - 1).getNome());
             preparedStatement.setInt(3, oggettoList.get(oggettoList.size() - 1).getIdTitolo());
             preparedStatement.executeUpdate();
@@ -788,7 +790,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.provvedimenti (id_provvedimento, nome, id_mansione, id_oggetto, id_elenco_rischi) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, provvedimentoList.get(provvedimentoList.size() - 1).getIdProvvedimento());
+            preparedStatement.setInt(1, provvedimentoList.get(provvedimentoList.size() - 1).getId());
             preparedStatement.setString(2, provvedimentoList.get(provvedimentoList.size() - 1).getNome());
             preparedStatement.setInt(3, provvedimentoList.get(provvedimentoList.size() - 1).getIdMansione());
             preparedStatement.setInt(4, provvedimentoList.get(provvedimentoList.size() - 1).getIdOggetto());
@@ -806,7 +808,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, rischioList.get(rischioList.size() - 1).getIdRischio());
+            preparedStatement.setInt(1, rischioList.get(rischioList.size() - 1).getId());
             preparedStatement.setString(2, rischioList.get(rischioList.size() - 1).getNome());
             preparedStatement.setInt(3, rischioList.get(rischioList.size() - 1).getP());
             preparedStatement.setInt(4, rischioList.get(rischioList.size() - 1).getD());

@@ -16,7 +16,7 @@ public class TestModelController {
 
         System.out.println("Lista Reparto:");
         for (Reparto reparto : ClassHelper.getListReparto()) {
-            System.out.println(reparto.getIdReparto() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
+            System.out.println(reparto.getId() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
         }
 
         Mansione mansione1 = new Mansione(1, "Mansione 1", "Responsabile 1");
@@ -44,7 +44,7 @@ public class TestModelController {
         // Visualizzazione della lista Reparto dopo le operazioni
         System.out.println("Lista Reparto:");
         for (Reparto reparto : ClassHelper.getListReparto()) {
-            System.out.println(reparto.getIdReparto() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
+            System.out.println(reparto.getId() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
         }
 
         System.out.println("\nLista Mansione:");

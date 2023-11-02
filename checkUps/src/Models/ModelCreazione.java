@@ -19,11 +19,17 @@ public class ModelCreazione {
     private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty discard = new SimpleBooleanProperty(false);
+    private final BooleanProperty isEnable = new SimpleBooleanProperty(true);
     private Societa societaTmp = null;
 
     // end initialize variables
 
     // initialize methods
+
+    public BooleanProperty isEnableProperty() {
+        return isEnable;
+    }
+
     public BooleanProperty societaSavedProperty() {
         return societySaved;
     }
@@ -42,6 +48,11 @@ public class ModelCreazione {
     // end initialize methods
 
     // ------------------ GETTER ------------------ //
+
+    public final boolean isEnable() {
+        return isEnableProperty().get();
+    }
+
     public final boolean isSocietySaved() {
         return societaSavedProperty().get();
     }
@@ -60,6 +71,10 @@ public class ModelCreazione {
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
+
+    public final void setEnable(boolean isEnable) {
+        isEnableProperty().set(isEnable);
+    }
 
     // * modifica anche lo stato del bottone unitaLocale
     public final void setSocietySaved(boolean societySaved) {
@@ -106,7 +121,7 @@ public class ModelCreazione {
         String txtProvincia = textFieldProvincia.getText();
         String txtTel = textFieldTel.getText();
 
-        boolean areAllDisabled = (txtSocieta.isEmpty() ||
+        boolean areAllEnable = (txtSocieta.isEmpty() ||
                 txtSocieta.trim().isEmpty() ||
                 txtIndirizzo.isEmpty() ||
                 txtIndirizzo.trim().isEmpty() ||
@@ -117,7 +132,7 @@ public class ModelCreazione {
                 txtTel.isEmpty() ||
                 txtTel.trim().isEmpty());
 
-        boolean isDisabled = (txtSocieta.isEmpty() &&
+        boolean isEnable = (txtSocieta.isEmpty() &&
                 txtSocieta.trim().isEmpty() &&
                 txtIndirizzo.isEmpty() &&
                 txtIndirizzo.trim().isEmpty() &&
@@ -128,8 +143,8 @@ public class ModelCreazione {
                 txtTel.isEmpty()
                 && txtTel.trim().isEmpty());
 
-        setSaved(!areAllDisabled);
-        setDiscard(!isDisabled);
+        setSaved(!areAllEnable);
+        setDiscard(!isEnable);
 
     }
     // ------------------ END ------------------ //
@@ -149,8 +164,8 @@ public class ModelCreazione {
             isTextFilled(textFieldSocieta,
                     textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
 
-            // model.setSaved(areDisabled[0]);
-            // setDiscard(areDisabled[1]);
+            // model.setSaved(areEnable[0]);
+            // setDiscard(areEnable[1]);
             // * ************************************************ //
         }
     }

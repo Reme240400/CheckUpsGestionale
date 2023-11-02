@@ -2,9 +2,8 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class Societa implements Serializable{
+public class Societa extends TablesId implements Serializable{
     
-    private int idSocieta;
     private String indirizzo;
     private String localita;
     private String provincia;
@@ -12,7 +11,8 @@ public class Societa implements Serializable{
     private String descrizione;
     private String nome;
 
-    public Societa( String nome, String indirizzo, String localita, String provincia, String telefono, String descrizione) {
+    public Societa( int idSocieta, String nome, String indirizzo, String localita, String provincia, String telefono, String descrizione) {
+        super(idSocieta);
         //this.idSocieta = idSocieta;
         this.indirizzo = indirizzo;
         this.localita = localita;
@@ -20,10 +20,6 @@ public class Societa implements Serializable{
         this.telefono = telefono;
         this.descrizione = descrizione;
         this.nome = nome;
-    }
-
-    public int getIdSocieta() {
-        return idSocieta;
     }
 
     public String getIndirizzo() {
@@ -48,10 +44,6 @@ public class Societa implements Serializable{
 
     public String getNome() {
         return nome;
-    }
-
-    public void setIdSocieta(int idSocieta) {
-        this.idSocieta = idSocieta;
     }
 
     public void setIndirizzo(String indirizzo) {

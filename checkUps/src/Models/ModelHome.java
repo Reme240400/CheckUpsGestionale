@@ -28,7 +28,7 @@ public class ModelHome {
 
             for (Societa societa : listSocieta) {
                 if (societa.getNome().equals(selectedSocieta)) {
-                    this.id = societa.getIdSocieta();
+                    this.id = societa.getId();
                     System.out.println("Societa selezionata: " + id);
                 }
             }
