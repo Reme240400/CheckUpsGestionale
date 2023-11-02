@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import Models.ModelCreazione;
+import Models.ModelPaths;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,8 +26,7 @@ public class Creazione implements Initializable {
     private StackPane stackPane;
 
     private ModelCreazione modelCreazione;
-    private FXMLLoader loaderSocieta;
-    private FXMLLoader loaderUnitaLocale;
+    static ModelPaths modelPaths = new ModelPaths();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,12 +36,7 @@ public class Creazione implements Initializable {
     // * cambia scena in UnitaLocale
     public void switchToSocieta() throws IOException {
 
-        loaderSocieta = new FXMLLoader(
-                getClass().getResource("/View/fxml/creazione_societa.fxml"));
-        Parent root = loaderSocieta.load();
-        CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
-
-        creazioneSocieta.setModel(modelCreazione);
+        Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -50,13 +45,7 @@ public class Creazione implements Initializable {
     // * cambia scena in UnitaLocale
     public void switchToUnitaLocali(javafx.event.ActionEvent event) throws IOException {
         
-        loaderUnitaLocale = new FXMLLoader(
-                getClass().getResource("/View/fxml/creazione_unitalocale.fxml"));
-        Parent root = loaderUnitaLocale.load();
-        CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
-
-        creazioneUnita.setModel(modelCreazione);
-        creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
+        Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

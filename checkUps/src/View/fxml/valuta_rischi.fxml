@@ -27,7 +27,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="83.0" layoutY="22.0" prefHeight="25.0" prefWidth="198.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                  <TextField fx:id="nomeSocieta" editable="false" layoutX="83.0" layoutY="22.0" prefHeight="25.0" prefWidth="198.0" styleClass="transparent" stylesheets="@../css/style.css" />
                </children>
             </Pane>
             <Pane layoutX="210.0" layoutY="10.0" prefHeight="66.0" prefWidth="398.0" HBox.hgrow="ALWAYS">
@@ -37,7 +37,7 @@
                         <Font name="Arial Bold" size="16.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="118.0" layoutY="24.0" prefHeight="25.0" prefWidth="182.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                  <TextField fx:id="nomeUnitaLocale" editable="false" layoutX="118.0" layoutY="24.0" prefHeight="25.0" prefWidth="182.0" styleClass="transparent" stylesheets="@../css/style.css" />
                </children>
             </Pane>
             <Pane layoutX="42.0" layoutY="10.0" minWidth="-Infinity" prefHeight="66.0" prefWidth="100.0" stylesheets="@../css/style.css" HBox.hgrow="NEVER" />
@@ -83,16 +83,16 @@
                                     <Image url="@../icons/filter_funnel_icon.png" />
                                  </image>
                               </ImageView>
-                              <TextField layoutX="115.0" layoutY="3.0" prefHeight="30.0" prefWidth="240.0" promptText="Filtra per nome..." styleClass="transparent" stylesheets="@../css/style.css" />
+                              <TextField fx:id="filterTextField" layoutX="115.0" layoutY="3.0" onKeyReleased="#filterTable" prefHeight="30.0" prefWidth="240.0" promptText="Filtra per nome..." styleClass="transparent" stylesheets="@../css/style.css" />
                            </children>
                         </Pane>
                      </children>
                   </HBox>
-                  <TableView prefHeight="407.0" prefWidth="681.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tableView" prefHeight="407.0" prefWidth="681.0" VBox.vgrow="ALWAYS">
                     <columns>
-                      <TableColumn editable="false" prefWidth="75.0" text="ID" />
-                      <TableColumn editable="false" maxWidth="1.7976931348623157E308" prefWidth="359.0" text="Reparto" />
-                        <TableColumn prefWidth="345.0" text="Descrizione" />
+                      <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="nameCol" editable="false" maxWidth="1.7976931348623157E308" prefWidth="359.0" text="Reparto" />
+                        <TableColumn fx:id="descriptionCol" prefWidth="345.0" text="Descrizione" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

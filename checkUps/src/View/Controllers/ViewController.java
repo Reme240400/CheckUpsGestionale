@@ -7,19 +7,19 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.ControllerDb;
 import Models.ModelCreazione;
 import Models.ModelHome;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
-import View.Controllers.Creazione.Creazione;
-import View.Controllers.Modifiche.Modifica;
+import Models.Tables.Societa;
+import Models.Tables.UnitaLocale;
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -51,6 +51,8 @@ public class ViewController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        ControllerDb.popolaListeDaDatabase();
 
         btnQuit.setOnAction(event -> {
             try {
@@ -95,8 +97,9 @@ public class ViewController implements Initializable{
         
     }
 
-    public void switchToValutaRischi() throws IOException{
-        Parent root = modelPaths.switchToValutaRischi(modelValutaRischi);
+    public void switchToValutaRischi(Societa societa, UnitaLocale unitaLocale) throws IOException{
+
+        Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);

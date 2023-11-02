@@ -10,8 +10,6 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Controllers.Controller;
-import Controllers.ControllerDb;
-import Models.ModelListe;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
 import View.Controllers.ViewController;
@@ -71,7 +69,6 @@ public class CreazioneSocieta extends Creazione {
     public void initialize(URL location, ResourceBundle resources) {
 
         // * *************** inizializza i campi *************** //
-        ControllerDb.popolaListaSocietaDaDb();
 
         listSocieta = ClassHelper.getListSocieta();
         ObservableList<String> items = FXCollections.observableArrayList();

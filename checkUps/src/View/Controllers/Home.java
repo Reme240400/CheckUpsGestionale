@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
-import Controllers.ControllerDb;
 import Models.ModelHome;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -41,8 +40,6 @@ public class Home extends ViewController {
     public void initialize(URL location, ResourceBundle resources) {
 
         // * *************** inizializza i campi *************** //
-        ControllerDb.popolaListaSocietaDaDb();
-        ControllerDb.popolaListaUnitaLocaleDaDb();
 
         ObservableList<String> societies = FXCollections.observableArrayList();
 
@@ -70,7 +67,15 @@ public class Home extends ViewController {
     public void goToValutaRischi() {
         if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null) {
             try {
-                controller.switchToValutaRischi();
+                Societa societa = listSocieta.stream()
+                                                .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                                                .findFirst().get();
+                    
+                UnitaLocale unitaLocale = listUnitaLocale.stream()
+                                                            .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
+                                                            .findFirst().get();
+
+                controller.switchToValutaRischi(societa, unitaLocale);
             } catch (IOException e) {
                 e.printStackTrace();
             } 
