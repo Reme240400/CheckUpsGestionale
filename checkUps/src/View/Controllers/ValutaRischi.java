@@ -6,15 +6,14 @@ import java.util.ResourceBundle;
 import Controllers.ClassHelper;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import Models.ModelValutaRischi;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -72,19 +71,7 @@ public class ValutaRischi implements Initializable{
     }
 
     public void filterTable(){
-        String filterText = filterTextField.getText().toLowerCase().trim();
-    
-        // Create a filtered list based on the original observableList
-        FilteredList<Reparto> filteredData = new FilteredList<>(observableList, reparto -> {
-            if (filterText.isEmpty()) {
-                return true; // Show all items when no filter is applied
-            }
-            // Check if the name contains the filter text (case-insensitive)
-            return reparto.getNome().toLowerCase().contains(filterText);
-        });
-
-        // Bind the filtered data to the TableView
-        tableView.setItems(filteredData);
+        modelValutaRischi.filterTable(filterTextField, tableView, observableList);
     }
 
     public void setSection(UnitaLocale unitaLocale, Societa societa) {
