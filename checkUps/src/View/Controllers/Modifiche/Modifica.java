@@ -11,27 +11,28 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 
 import Controllers.ClassHelper;
-import Controllers.ControllerDb;
 import Models.ModelModifica;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
+import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 public class Modifica implements Initializable {
 
+    // ----------------- Societa ----------------- //
     @FXML
     private JFXButton btnSaveS;
 
@@ -52,9 +53,30 @@ public class Modifica implements Initializable {
 
     @FXML
     private TextField textFieldNomeS;
+    // ----------------- Societa ----------------- //
+
+    // ----------------- Unita Locale ----------------- //
+    @FXML
+    private JFXComboBox<String> cercaRecordU;
+    
+    @FXML
+    private TextField textFieldNomeU;
 
     @FXML
-    private DialogPane dialogPane; // Inject your dialog pane
+    private TextField textFieldLocalitaU;
+
+    @FXML
+    private TextField textFieldIndirizzoU;
+
+    @FXML
+    private TextField textFieldProvinciaU;
+    // ----------------- Unita Locale ----------------- //
+
+    @FXML
+    private DialogPane dialogPane;
+
+    @FXML
+    private JFXComboBox<Societa> cercaSocieta;
 
     private ModelModifica modelModifica;
 
@@ -95,9 +117,17 @@ public class Modifica implements Initializable {
     }
 
     // --------------- Riempi i campi con i dati della societa selezionata --------------- //
-    public void fillTextField(KeyEvent event){
+    public void fillTextFieldS(KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
             modelModifica.fillTextField( cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+        }
+    }
+
+    // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
+    public void fillTextFieldU(KeyEvent event){
+        if (event.getCode().toString().equals("ENTER")){
+            int id = cercaSocieta.getSelectionModel().getSelectedItem().getId();
+            modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
         }
     }
 
@@ -118,11 +148,7 @@ public class Modifica implements Initializable {
 
         dialogController.setModel(modelModifica);
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogPane);
-
-        dialog.showAndWait();
-
+        
         return 0;
     }
     

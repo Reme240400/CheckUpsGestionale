@@ -13,18 +13,18 @@ import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonType;
 
 public class DialogPane1 implements Initializable {
 
     private ModelModifica modelModifica;
 
-    @FXML
-    private JFXComboBox<String> cercaSocieta;
-
-    @FXML
-    private JFXComboBox<String> cercaUnitaLocale;
+    @FXML 
+    JFXComboBox<String> cercaSocieta;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -40,9 +40,19 @@ public class DialogPane1 implements Initializable {
 
         FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, sItems);
 
-        
-
         cercaSocieta.setItems(filteredItems);
+
+        
+    }
+
+    @FXML
+    private void selectSocieta(){
+
+       
+    }
+
+    public void searchIdSocieta() {
+        modelModifica.setIdSocieta(cercaSocieta, ClassHelper.getListSocieta());
     }
 
     public void setModel(ModelModifica modelModifica) {
