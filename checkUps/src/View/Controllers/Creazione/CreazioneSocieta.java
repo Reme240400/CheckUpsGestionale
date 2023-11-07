@@ -110,7 +110,7 @@ public class CreazioneSocieta extends Creazione {
 
     // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
 
-    public void fillTextField(KeyEvent event ){
+    public void fillTextField(KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
             modelCreazione.setEnable(false);
             modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);

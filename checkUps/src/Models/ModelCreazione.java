@@ -24,7 +24,7 @@ public class ModelCreazione {
 
     // end initialize variables
 
-    // initialize methods
+    // --------------------- initialize methods --------------------- //
 
     public BooleanProperty isEnableProperty() {
         return isEnable;
@@ -45,7 +45,7 @@ public class ModelCreazione {
     public BooleanProperty unitaLocaleSavedProperty() {
         return unitaLocaleSaved;
     }
-    // end initialize methods
+    // -------------------- end initialize methods -------------------- //
 
     // ------------------ GETTER ------------------ //
 

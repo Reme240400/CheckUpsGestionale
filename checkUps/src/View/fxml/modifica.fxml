@@ -40,7 +40,7 @@
                                        </font>
                                     </Label>
                                     <Pane prefHeight="0.0" prefWidth="200.0" />
-                                    <JFXComboBox fx:id="cercaRecordS" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
+                                    <JFXComboBox fx:id="cercaRecordS" onKeyPressed="#fillTextField" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
                                  </children>
                               </HBox>
                               <GridPane alignment="CENTER" prefHeight="431.0" prefWidth="657.0">
@@ -56,13 +56,13 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label prefHeight="17.0" prefWidth="98.0" text="Unità Produttiva:" />
+                                    <Label prefHeight="17.0" prefWidth="98.0" text="Ragione Sociale" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
-                                    <TextField fx:id="textFieldTel" prefHeight="25.0" onKeyReleased="#keyReleasedProperty" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="textFieldTel" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="2" />
                                     <TextField fx:id="textFieldLocalita" accessibleText="INTEGER" prefHeight="25.0" prefWidth="56.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="4" />
-                                    <TextField fx:id="textUnitaProduttiva"  prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="textFieldNomeS" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
                                     <TextField fx:id="textFieldProvincia" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="textFieldIndirizzo" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="3" />
@@ -70,7 +70,7 @@
                               </GridPane>
                               <Pane prefHeight="115.0" prefWidth="653.0">
                                  <children>
-                                    <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="568.0" layoutY="3.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                                    <JFXButton fx:id="btnSaveS" contentDisplay="CENTER" ellipsisString="" layoutX="603.0" layoutY="1.0" onAction="#updateChanges" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                                        <graphic>
                                           <ImageView fx:id="saveChanges11" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -111,19 +111,19 @@
                                  <children>
                                     <Label prefHeight="17.0" prefWidth="98.0" text="Unità Produttiva:" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
-                                    <TextField fx:id="textFieldLocalita1" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="textFieldTelU" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="2" />
-                                    <TextField fx:id="textFieldProvincia1" accessibleText="INTEGER" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="56.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="textFieldLocalitaU" accessibleText="INTEGER" prefHeight="25.0" prefWidth="56.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="4" />
-                                    <TextField fx:id="textFieldTel1" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
-                                    <TextField fx:id="textFieldUnitaLocale" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="textFieldIndirizzo1" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="textNomeUnita" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="textFieldProvinciaU" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="textFieldIndirizzoU" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
                               <Pane prefHeight="281.0" prefWidth="642.0" VBox.vgrow="SOMETIMES">
                                  <children>
-                                    <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="568.0" layoutY="3.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                                    <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="608.0" layoutY="-2.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                                        <graphic>
                                           <ImageView fx:id="saveChanges1" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

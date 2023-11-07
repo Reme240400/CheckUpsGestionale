@@ -5,14 +5,11 @@ import com.jfoenix.controls.JFXComboBox;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 

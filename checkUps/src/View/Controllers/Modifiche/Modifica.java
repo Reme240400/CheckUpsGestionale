@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 
 import Controllers.ClassHelper;
@@ -22,22 +23,38 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 public class Modifica implements Initializable {
 
     @FXML
+    private JFXButton btnSaveS;
+
+    @FXML
     private JFXComboBox<String> cercaRecordS;
 
-    private DialogPane dialogPane; // Inject your dialog pane
+    @FXML
+    private TextField textFieldIndirizzo;
 
-    private int id = -1;
+    @FXML
+    private TextField textFieldLocalita;
+
+    @FXML
+    private TextField textFieldProvincia;
 
     @FXML
     private TextField textFieldTel;
+
+    @FXML
+    private TextField textFieldNomeS;
+
+    @FXML
+    private DialogPane dialogPane; // Inject your dialog pane
 
     private ModelModifica modelModifica;
 
@@ -92,12 +109,14 @@ public class Modifica implements Initializable {
         // * **************************************** //
     }
 
-    public void setModel(ModelModifica modelModifica) {
-        this.modelModifica = modelModifica;
+    public void fillTextField(KeyEvent event){
+        if (event.getCode().toString().equals("ENTER")){
+            modelModifica.fillTextField( cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+        }
     }
 
-    public void keyReleasedProperty() {
-        
+    public void updateChanges(){
+
     }
 
     public int showDialogPane() throws IOException {
@@ -117,6 +136,19 @@ public class Modifica implements Initializable {
         dialog.showAndWait();
 
         return 0;
+    }
+    
+    public void setModel(ModelModifica modelModifica) {
+        this.modelModifica = modelModifica;
+
+        this.btnSaveS.disableProperty().bind(modelModifica.savedProperty().not());
+
+        this.textFieldIndirizzo.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldLocalita.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldProvincia.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldNomeS.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldTel.editableProperty().bind(modelModifica.isEnableProperty());
+
     }
 
 }
