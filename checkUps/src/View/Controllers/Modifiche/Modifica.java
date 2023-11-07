@@ -58,36 +58,21 @@ public class Modifica implements Initializable {
 
     private ModelModifica modelModifica;
 
+    List<Societa> listSocieta = ClassHelper.getListSocieta();
+    List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // * *************** inizializza i campi *************** //
-        ControllerDb.popolaListaSocietaDaDb();
-        List<Societa> listSocieta = ClassHelper.getListSocieta();
-        List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+        
         ObservableList<String> sItems = FXCollections.observableArrayList();
         ObservableList<String> uItems = FXCollections.observableArrayList();
-
-        /*
-         * FilteredList<String> filteredItems =
-         * ViewController.filterComboBoxSocieta(cercaRecordS, sItems);
-         * 
-         * cercaRecordS.setItems(filteredItems);
-         * 
-         * FilteredList<String> filteredItems2 =
-         * ViewController.filterComboBoxById(cercaRecordU, uItems);
-         * 
-         * cercaRecordU.setItems(filteredItems2);
-         */
 
         // * *************** popola il combobox *************** //
         for (Societa societa : listSocieta) {
             cercaRecordS.getItems().add(societa.getNome());
             sItems.add(societa.getNome());
         }
-
-        // * filtra il Combobox
-
-        // * ************************************************ //
 
         // * controlla se vengono inseriti solo numeri
         UnaryOperator<TextFormatter.Change> filter = change -> {
@@ -109,16 +94,19 @@ public class Modifica implements Initializable {
         // * **************************************** //
     }
 
+    // --------------- Riempi i campi con i dati della societa selezionata --------------- //
     public void fillTextField(KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
             modelModifica.fillTextField( cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
         }
     }
 
+    // --------------- Salva le modifiche --------------- //
     public void updateChanges(){
 
     }
 
+    // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
     public int showDialogPane() throws IOException {
 
         // viene triggherato il metodo anche in uscita dalla tab
@@ -138,6 +126,7 @@ public class Modifica implements Initializable {
         return 0;
     }
     
+    // ----------------- Setta il model ----------------- //
     public void setModel(ModelModifica modelModifica) {
         this.modelModifica = modelModifica;
 
