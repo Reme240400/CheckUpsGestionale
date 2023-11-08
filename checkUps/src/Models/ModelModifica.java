@@ -1,19 +1,30 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Tables.Societa;
+import Models.Tables.UnitaLocale;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class ModelModifica {
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
     private final IntegerProperty idSocieta = new SimpleIntegerProperty(-1);
+    private final IntegerProperty idUnitaLocale = new SimpleIntegerProperty(-1);
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -26,6 +37,10 @@ public class ModelModifica {
 
     public IntegerProperty idSocietaProperty() {
         return idSocieta;
+    }
+
+    public IntegerProperty idUnitaLocaleProperty() {
+        return idUnitaLocale;
     }
 
     // ------------------ SETTER ------------------ //
@@ -41,6 +56,10 @@ public class ModelModifica {
         idSocietaProperty().set(idSocieta);
     }
 
+    public void setIdUnitaLocale(int idUnita) {
+        idUnitaLocaleProperty().set(idUnita);
+    }
+
     // ------------------ GETTER ------------------ //
     public final boolean isSaved() {
         return savedProperty().get();
@@ -52,6 +71,10 @@ public class ModelModifica {
 
     public final int getIdSocieta() {
         return idSocietaProperty().get();
+    }
+
+    public final int getIdUnitaLocale() {
+        return idUnitaLocaleProperty().get();
     }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
@@ -92,4 +115,42 @@ public class ModelModifica {
         }
     }
     
+    public void fillRepartiTable() {
+        
+    }
+
+    public void fillAllRepartiTable() {
+    }
+
+    public void onKeyPressedFilter(KeyEvent event, JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
+            List<Societa> listSocieta, List<UnitaLocale> listUnitaLocale) {
+
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            // Remove the previous listener, if any
+            String selectedSocieta = cercaSocieta.getValue();
+
+            for (Societa societa : listSocieta) {
+                if (societa.getNome().equals(selectedSocieta)) {
+                    setIdSocieta(societa.getId());
+                    System.out.println("Societa selezionata: " + idSocieta);
+                }
+            }
+
+            // Retrieve the list of UnitaLocale based on the selected Societa
+            List<String> filtroUnitaLocali = new ArrayList<>();
+
+            // Filter UnitaLocale based on the selected Societa
+            for (UnitaLocale unitaLocale : listUnitaLocale) {
+                if (unitaLocale.getIdSocieta() == getIdSocieta()) {
+                    System.out.println("aggiunte unita locali" + unitaLocale.getNome());
+                    filtroUnitaLocali.add(unitaLocale.getNome());
+                }
+            }
+
+            ObservableList<String> units = FXCollections.observableArrayList(filtroUnitaLocali);
+            cercaUnitaLocale.setItems(units);
+        }
+
+    }
+
 }

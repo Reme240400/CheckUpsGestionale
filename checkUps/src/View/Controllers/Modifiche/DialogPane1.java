@@ -20,8 +20,8 @@ import com.jfoenix.controls.JFXComboBox;
 
 public class DialogPane1 implements Initializable {
 
-    private ModelModifica modelModifica;
-    private List<Societa> listSocieta = ClassHelper.getListSocieta();
+    protected ModelModifica modelModifica;
+    protected List<Societa> listSocieta = ClassHelper.getListSocieta();
 
     @FXML 
     JFXComboBox<String> cercaSocieta;
@@ -38,7 +38,7 @@ public class DialogPane1 implements Initializable {
 
         FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, sItems);
 
-        cercaSocieta.setItems(filteredItems);        
+        cercaSocieta.setItems(filteredItems);
 
     }
 

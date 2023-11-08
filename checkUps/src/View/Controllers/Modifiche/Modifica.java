@@ -85,6 +85,15 @@ public class Modifica implements Initializable {
 
     // ----------------- Unita Locale ----------------- //
 
+    // ----------------- Reparti ----------------- //
+
+    @FXML
+    private Tab tabReparti;
+
+
+
+    // ----------------- Reparti ----------------- //
+
     @FXML
     private DialogPane dialogPane;
 
@@ -147,13 +156,23 @@ public class Modifica implements Initializable {
         }
     }
 
+    public void fillRepartiTable(){
+        if (modelModifica.getIdUnitaLocale() != -1 ) {
+            modelModifica.fillRepartiTable();
+        }
+
+        if(modelModifica.getIdSocieta() != -1){
+            modelModifica.fillAllRepartiTable();
+        }
+    }
+
     // --------------- Salva le modifiche --------------- //
     public void updateChanges(){
 
     }
 
     // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
-    public void showDialogPane() throws IOException {
+    public void showUnitaPane() throws IOException {
 
         // ------------------- Mostra il dialogPane ------------------- //
         if (tabUnitaLocale.isSelected()) {
@@ -168,6 +187,47 @@ public class Modifica implements Initializable {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Scegli la Società");
+            
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            if(clickedButton.get() == ButtonType.APPLY){
+                if (modelModifica.getIdSocieta() != -1) {
+                    // prende l'id della societa selezionata //
+                    this.idSocieta = modelModifica.getIdSocieta();
+
+                    for (UnitaLocale unitaLocale : listUnitaLocale) {
+                        if (unitaLocale.getIdSocieta() == idSocieta) {
+                            cercaRecordU.getItems().add(unitaLocale.getNome());
+                            uItems.add(unitaLocale.getNome());
+                        }
+                    }
+
+                    cercaRecordU.setItems(ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems));
+
+                } else{
+                    tabPane.getSelectionModel().select(0);
+                }          
+            } else{
+                tabPane.getSelectionModel().select(0);
+            }
+        }
+    }
+
+    public void showRepartoPane() throws IOException{
+        // ------------------- Mostra il dialogPane ------------------- //
+        if (tabReparti.isSelected()) {
+        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPane2 dialogController = loader.getController();
+
+            dialogController.setModel(modelModifica);
+            
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Scegli la Unità Locale");
             
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 

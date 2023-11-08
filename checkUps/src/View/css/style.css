@@ -84,5 +84,5 @@
 }
 
 .transparent {
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: rgba(187, 187, 187, 0.445);
 }

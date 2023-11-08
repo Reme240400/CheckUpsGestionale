@@ -12,6 +12,7 @@ import Controllers.ClassHelper;
 import Models.ModelHome;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

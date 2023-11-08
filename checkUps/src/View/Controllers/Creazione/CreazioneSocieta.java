@@ -16,6 +16,7 @@ import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -65,6 +66,7 @@ public class CreazioneSocieta extends Creazione {
     Controller controller = new Controller();
     // private String txtDesc;
 
+    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -112,12 +114,13 @@ public class CreazioneSocieta extends Creazione {
     public void fillTextField(KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
             modelCreazione.setEnable(false);
+            modelCreazione.setSaved(false);
             modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
         }
     }
 
     // * salva la societa
-    public void salvaSocieta(javafx.event.ActionEvent event) {
+    public void salvaSocieta(ActionEvent event) {
 
         int id = controller.getNewId(listSocieta);
 
