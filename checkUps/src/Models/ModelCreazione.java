@@ -4,11 +4,8 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Models.Tables.Societa;
-import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TextField;
 
 public class ModelCreazione {

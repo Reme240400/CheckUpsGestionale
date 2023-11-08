@@ -1,14 +1,10 @@
 package Models;
 
-import java.util.List;
-
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
-import Models.Tables.Societa;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.IntegerPropertyBase;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.TextField;

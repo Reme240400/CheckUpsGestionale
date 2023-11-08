@@ -11,8 +11,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
-import Controllers.Controller;
-import Models.Model;
 import Models.ModelModifica;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;

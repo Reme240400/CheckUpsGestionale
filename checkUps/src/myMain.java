@@ -1,10 +1,5 @@
 
-import java.util.List;
 
-
-import Controllers.ClassHelper;
-import Controllers.ControllerDb;
-import Models.Tables.TablesId;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+
 
 public class myMain extends Application{
     private double x = 0;

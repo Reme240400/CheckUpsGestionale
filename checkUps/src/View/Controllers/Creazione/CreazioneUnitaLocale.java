@@ -7,7 +7,6 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
 import Controllers.Controller;
-import Controllers.ControllerDb;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
