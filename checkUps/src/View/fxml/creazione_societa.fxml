@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="752.0" BorderPane.alignment="TOP_RIGHT">
          <children>
@@ -87,13 +87,13 @@
                   <Pane layoutX="10.0" layoutY="162.0" prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane prefHeight="55.0" prefWidth="674.0">
                      <children>
-                        <Label layoutX="21.0" layoutY="1.0" text="Cerca / Carica File">
+                        <Label layoutX="148.0" layoutY="1.0" text="Cerca / Carica File">
                            <font>
                               <Font name="Bell MT Bold" size="21.0" />
                            </font>
                         </Label>
-                        <JFXComboBox fx:id="cercaRecord" editable="true" layoutX="21.0" layoutY="25.0" onKeyPressed="#fillTextField" prefHeight="25.0" prefWidth="416.0" unFocusColor="BLACK" />
-                        <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="437.0" layoutY="22.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                        <JFXComboBox fx:id="cercaRecord" editable="true" layoutX="148.0" layoutY="25.0" onKeyPressed="#fillTextField" prefHeight="25.0" prefWidth="416.0" unFocusColor="BLACK" />
+                        <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="564.0" layoutY="22.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

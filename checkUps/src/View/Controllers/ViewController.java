@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ControllerDb;
+import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelHome;
 import Models.ModelModifica;
@@ -43,6 +44,7 @@ public class ViewController implements Initializable{
     @FXML
     private StackPane stackPane;
 
+    static Model model = new Model();
     static ModelPaths modelPaths = new ModelPaths();
     static ModelCreazione modelCreazione = new ModelCreazione();
     static ModelHome modelHome = new ModelHome();
@@ -123,17 +125,17 @@ public class ViewController implements Initializable{
 
     public static FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units) {
 
-        return modelCreazione.filterComboBoxSocieta(cercaItem, units);
+        return model.filterComboBoxSocieta(cercaItem, units);
     }
 
     public static FilteredList<String> filterComboBoxUnitaLocale(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
-        return modelCreazione.filterComboBoxById(cercaItem, id, units);
+        return model.filterComboBoxById(cercaItem, id, units);
     }
 
     public static FilteredList<String> filterComboBoxReparti(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
-        return modelCreazione.filterComboBoxById(cercaItem, id, units);
+        return model.filterComboBoxById(cercaItem, id, units);
     }
 
     

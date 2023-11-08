@@ -100,11 +100,10 @@ public class CreazioneSocieta extends Creazione {
 
         // * **************************************** //
 
-        // * filtra il Combobox
+        // --------------- filtra il Combobox --------------- //
         FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecord, items);
 
         cercaRecord.setItems(filteredItems);
-        // * ************************************************ //
 
     }
 

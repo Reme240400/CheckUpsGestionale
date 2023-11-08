@@ -21,7 +21,7 @@
 
 <BorderPane prefHeight="476.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.Modifica">
    <center>
-      <TabPane prefHeight="460.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="460.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab fx:id="tabSocieta" text="Società">
                <content>
@@ -40,7 +40,7 @@
                                        </font>
                                     </Label>
                                     <Pane prefHeight="0.0" prefWidth="200.0" />
-                                    <JFXComboBox fx:id="cercaRecordS" onKeyPressed="#fillTextFieldS" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
+                                    <JFXComboBox fx:id="cercaRecordS" editable="true" onKeyPressed="#fillTextFieldS" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
                                  </children>
                               </HBox>
                               <GridPane alignment="CENTER" prefHeight="431.0" prefWidth="657.0">
@@ -104,7 +104,7 @@
                                        </font>
                                     </Label>
                                     <HBox prefHeight="100.0" prefWidth="200.0" />
-                                    <JFXComboBox fx:id="cercaRecordU" onKeyPressed="#fillTextFieldU" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
+                                    <JFXComboBox fx:id="cercaRecordU" editable="true" onKeyPressed="#fillTextFieldU" prefHeight="25.0" prefWidth="245.0" promptText="Cerca..." />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="20.0" />
@@ -129,7 +129,7 @@
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="2" />
                                     <TextField fx:id="textFieldLocalitaU" accessibleText="INTEGER" prefHeight="25.0" prefWidth="56.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" visible="false" GridPane.rowIndex="4" />
-                                    <TextField fx:id="textNomeU" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="textFieldNomeU" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" />
                                     <TextField fx:id="textFieldProvinciaU" prefHeight="25.0" prefWidth="412.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="textFieldIndirizzoU" prefHeight="25.0" prefWidth="323.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="3" />
@@ -137,7 +137,7 @@
                               </GridPane>
                               <Pane prefHeight="281.0" prefWidth="642.0" VBox.vgrow="SOMETIMES">
                                  <children>
-                                    <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="608.0" layoutY="-3.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                                    <JFXButton fx:id="btnSaveU" contentDisplay="CENTER" ellipsisString="" layoutX="608.0" layoutY="-3.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                                        <graphic>
                                           <ImageView fx:id="saveChanges1" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

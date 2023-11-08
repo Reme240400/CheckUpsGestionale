@@ -160,83 +160,13 @@ public class ModelCreazione {
             textFieldProvincia.setText(getSocietaTmp().getProvincia());
             textFieldTel.setText(String.valueOf(getSocietaTmp().getTelefono()));
             // textFieldDesc.setText(societaTmp.getDescrizione());
-            // * ************ controlla se i campi sono vuoti ************ //
-            isTextFilled(textFieldSocieta,
-                    textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
 
-            // model.setSaved(areEnable[0]);
-            // setDiscard(areEnable[1]);
-            // * ************************************************ //
+            // * ************ controlla se i campi sono vuoti ************ //
+            isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+
         }
     }
     // ------------------ END ------------------ //
-
-    public FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units) {
-
-        FilteredList<String> filteredList = new FilteredList<String>(units, p -> true);
-
-        // Add a listener to the textProperty of the combobox editor. The
-        // listener will simply filter the list every time the input is changed
-        // as long as the user hasn't selected an item in the list.
-        cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            final TextField editor = cercaItem.getEditor();
-            final String selected = cercaItem.getSelectionModel().getSelectedItem();
-
-            Platform.runLater(() -> {
-                // If the no item in the list is selected or the selected item
-                // isn't equal to the current input, we refilter the list.
-                if (selected == null || !selected.equals(editor.getText())) {
-                    filteredList.setPredicate(item -> {
-                        // We return true for any items that starts with the
-                        // same letters as the input. We use toUpperCase to
-                        // avoid case sensitivity.
-                        if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    });
-                }
-            });
-        });
-
-        return filteredList;
-
-    }
-
-    public FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,
-            ObservableList<String> units) {
-
-        FilteredList<String> filteredUnita = new FilteredList<String>(units, p -> true);
-
-        // Add a listener to the textProperty of the combobox editor. The
-        // listener will simply filter the list every time the input is changed
-        // as long as the user hasn't selected an item in the list.
-        cercaItem.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-            final TextField editor = cercaItem.getEditor();
-            final String selected = cercaItem.getSelectionModel().getSelectedItem();
-
-            Platform.runLater(() -> {
-                // If the no item in the list is selected or the selected item
-                // isn't equal to the current input, we refilter the list.
-                if (selected == null || !selected.equals(editor.getText())) {
-                    filteredUnita.setPredicate(item -> {
-                        // We return true for any items that starts with the
-                        // same letters as the input. We use toUpperCase to
-                        // avoid case sensitivity.
-                        if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    });
-                }
-            });
-        });
-
-        return filteredUnita;
-
-    }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,

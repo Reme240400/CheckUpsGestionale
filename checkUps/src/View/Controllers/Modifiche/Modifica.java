@@ -3,34 +3,41 @@ package View.Controllers.Modifiche;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXButton.ButtonType;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
+import Models.Model;
 import Models.ModelModifica;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+import View.Controllers.ViewController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 public class Modifica implements Initializable {
+
+    @FXML
+    private TabPane tabPane;
 
     // ----------------- Societa ----------------- //
     @FXML
@@ -56,6 +63,10 @@ public class Modifica implements Initializable {
     // ----------------- Societa ----------------- //
 
     // ----------------- Unita Locale ----------------- //
+
+    @FXML
+    private Tab tabUnitaLocale;
+
     @FXML
     private JFXComboBox<String> cercaRecordU;
     
@@ -70,25 +81,27 @@ public class Modifica implements Initializable {
 
     @FXML
     private TextField textFieldProvinciaU;
+
+    @FXML
+    private JFXButton btnSaveU;
+
     // ----------------- Unita Locale ----------------- //
 
     @FXML
     private DialogPane dialogPane;
 
-    @FXML
-    private JFXComboBox<Societa> cercaSocieta;
-
     private ModelModifica modelModifica;
 
-    List<Societa> listSocieta = ClassHelper.getListSocieta();
-    List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+    private List<Societa> listSocieta = ClassHelper.getListSocieta();
+    private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+
+    private ObservableList<String> uItems = FXCollections.observableArrayList();
+    private ObservableList<String> sItems = FXCollections.observableArrayList();
+
+    private int idSocieta = -1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // * *************** inizializza i campi *************** //
-        
-        ObservableList<String> sItems = FXCollections.observableArrayList();
-        ObservableList<String> uItems = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
         for (Societa societa : listSocieta) {
@@ -114,6 +127,11 @@ public class Modifica implements Initializable {
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
         // * **************************************** //
+
+        // --------------- filtra il Combobox --------------- //
+        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecordS, sItems);
+
+        cercaRecordS.setItems(filteredItems);
     }
 
     // --------------- Riempi i campi con i dati della societa selezionata --------------- //
@@ -126,7 +144,7 @@ public class Modifica implements Initializable {
     // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
     public void fillTextFieldU(KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
-            int id = cercaSocieta.getSelectionModel().getSelectedItem().getId();
+            int id = modelModifica.getIdSocieta();
             modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
         }
     }
@@ -137,19 +155,46 @@ public class Modifica implements Initializable {
     }
 
     // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
-    public int showDialogPane() throws IOException {
+    public void showDialogPane() throws IOException {
 
-        // viene triggherato il metodo anche in uscita dalla tab
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
-        DialogPane dialogPane = loader.load();
-
-        DialogPane1 dialogController = loader.getController();
-
-        dialogController.setModel(modelModifica);
-
+        // ------------------- Mostra il dialogPane ------------------- //
+        if (tabUnitaLocale.isSelected()) {
         
-        return 0;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPane1 dialogController = loader.getController();
+
+            dialogController.setModel(modelModifica);
+            
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Scegli la Società");
+            
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            if(clickedButton.get() == ButtonType.APPLY){
+                if (modelModifica.getIdSocieta() != -1) {
+                    // prende l'id della societa selezionata //
+                    this.idSocieta = modelModifica.getIdSocieta();
+
+                    for (UnitaLocale unitaLocale : listUnitaLocale) {
+                        if (unitaLocale.getIdSocieta() == idSocieta) {
+                            cercaRecordU.getItems().add(unitaLocale.getNome());
+                            uItems.add(unitaLocale.getNome());
+                        }
+                    }
+
+                    cercaRecordU.setItems(ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems));
+
+                } else{
+                    tabPane.getSelectionModel().select(0);
+                }          
+            } else{
+                tabPane.getSelectionModel().select(0);
+            }
+        }
     }
     
     // ----------------- Setta il model ----------------- //
@@ -164,6 +209,13 @@ public class Modifica implements Initializable {
         this.textFieldNomeS.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldTel.editableProperty().bind(modelModifica.isEnableProperty());
 
+        this.textFieldIndirizzoU.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldLocalitaU.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldProvinciaU.editableProperty().bind(modelModifica.isEnableProperty());
+        this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
+        this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
+
+        this.idSocieta = modelModifica.getIdSocieta();
     }
 
 }

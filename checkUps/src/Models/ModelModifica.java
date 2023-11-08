@@ -8,6 +8,7 @@ import Controllers.ClassHelper;
 import Models.Tables.Societa;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.IntegerPropertyBase;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.TextField;
@@ -16,7 +17,7 @@ public class ModelModifica {
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
-    private int idSocieta = -1;
+    private final IntegerProperty idSocieta = new SimpleIntegerProperty(-1);
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -25,6 +26,10 @@ public class ModelModifica {
 
     public BooleanProperty isEnableProperty() {
         return isEnable;
+    }
+
+    public IntegerProperty idSocietaProperty() {
+        return idSocieta;
     }
 
     // ------------------ SETTER ------------------ //
@@ -36,6 +41,10 @@ public class ModelModifica {
         isEnableProperty().set(isEnable);
     }
 
+    public final void setIdSocieta(int idSocieta) {
+        idSocietaProperty().set(idSocieta);
+    }
+
     // ------------------ GETTER ------------------ //
     public final boolean isSaved() {
         return savedProperty().get();
@@ -43,6 +52,10 @@ public class ModelModifica {
 
     public final boolean isEnable() {
         return isEnableProperty().get();
+    }
+
+    public final int getIdSocieta() {
+        return idSocietaProperty().get();
     }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
@@ -82,14 +95,5 @@ public class ModelModifica {
             setEnable(true);
         }
     }
-
-    public void setIdSocieta(JFXComboBox<String> cercaSocieta, List<Societa> lista) {
-        
-        idSocieta = lista.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get().getId();
-
-    }
-
-    public int getIdSocieta() {
-        return idSocieta;
-    }
+    
 }

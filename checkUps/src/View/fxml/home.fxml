@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="321.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
+<BorderPane prefHeight="321.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
    <center>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -24,8 +25,10 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <JFXButton layoutX="480.0" layoutY="27.0" />
                      </children>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
                   </AnchorPane>
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="8.0" prefWidth="600.0" />
                   <AnchorPane prefHeight="72.0" prefWidth="600.0">
@@ -36,7 +39,6 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <JFXButton layoutX="483.0" layoutY="27.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -49,13 +51,13 @@
          <children>
             <AnchorPane prefHeight="100.0" prefWidth="147.0">
                <children>
-                  <JFXButton fx:id="btnValutaRischi" layoutX="25.0" layoutY="25.0" onAction="#goToValutaRischi" prefHeight="52.0" prefWidth="102.0" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
+                  <JFXButton fx:id="btnValutaRischi" layoutX="13.0" layoutY="24.0" onAction="#goToValutaRischi" prefHeight="52.0" prefWidth="102.0" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
                </children>
             </AnchorPane>
             <Pane prefHeight="100.0" prefWidth="260.0" HBox.hgrow="SOMETIMES" />
             <AnchorPane layoutX="304.0" layoutY="10.0" prefHeight="100.0" prefWidth="147.0">
                <children>
-                  <JFXButton fx:id="btnStampaPdf" layoutX="46.0" layoutY="38.0" text="Stampa" />
+                  <JFXButton fx:id="btnStampaPdf" layoutX="26.0" layoutY="38.0" text="Stampa" />
                </children>
             </AnchorPane>
          </children>
