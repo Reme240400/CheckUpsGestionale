@@ -55,6 +55,8 @@ public class DialogPane1 implements Initializable {
     public void setModel(ModelModifica modelModifica) {
         this.modelModifica = modelModifica;
 
+        modelModifica.setIdSocieta(-1);
+        modelModifica.setIdUnitaLocale(-1);
         
     }
 

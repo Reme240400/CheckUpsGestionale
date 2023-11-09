@@ -2,10 +2,12 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
@@ -15,6 +17,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -69,11 +73,11 @@ public class ModelModifica {
         return isEnableProperty().get();
     }
 
-    public final int getIdSocieta() {
+    public final int getIdSocietaTmp() {
         return idSocietaProperty().get();
     }
 
-    public final int getIdUnitaLocale() {
+    public final int getIdUnitaLocaleTmp() {
         return idUnitaLocaleProperty().get();
     }
 
@@ -115,11 +119,41 @@ public class ModelModifica {
         }
     }
     
-    public void fillRepartiTable() {
-        
+    public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
+        List<Reparto> specificList = listaReparti.stream()
+                                            .filter(reparto -> reparto.getIdUnitaLocale() == getIdUnitaLocaleTmp())
+                                            .toList();
+
+        return specificList;
     }
 
-    public void fillAllRepartiTable() {
+    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparti, List<UnitaLocale> listaUnita) {
+
+        List<UnitaLocale> allUnitaLocali = listaUnita.stream().filter( unita -> unita.getIdSocieta() == getIdSocietaTmp()).toList();
+
+        List<Reparto> allReparti = allUnitaLocali.stream()
+            .flatMap(unita -> unita.getReparti().stream())
+            .collect(Collectors.toList());
+
+        return allReparti;
+ 
+    }
+
+    public void filterTable( TextField filterTextField, TableView<Reparto> tableView, ObservableList<Reparto> observableList) {
+
+        String filterText = filterTextField.getText().toLowerCase().trim();
+    
+        // Create a filtered list based on the original observableList
+        FilteredList<Reparto> filteredData = new FilteredList<>(observableList, reparto -> {
+            if (filterText.isEmpty()) {
+                return true; // Show all items when no filter is applied
+            }
+            // Check if the name contains the filter text (case-insensitive)
+            return reparto.getNome().toLowerCase().contains(filterText);
+        });
+
+        // Bind the filtered data to the TableView
+        tableView.setItems(filteredData);
     }
 
     public void onKeyPressedFilter(KeyEvent event, JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
@@ -141,7 +175,7 @@ public class ModelModifica {
 
             // Filter UnitaLocale based on the selected Societa
             for (UnitaLocale unitaLocale : listUnitaLocale) {
-                if (unitaLocale.getIdSocieta() == getIdSocieta()) {
+                if (unitaLocale.getIdSocieta() == getIdSocietaTmp()) {
                     System.out.println("aggiunte unita locali" + unitaLocale.getNome());
                     filtroUnitaLocali.add(unitaLocale.getNome());
                 }

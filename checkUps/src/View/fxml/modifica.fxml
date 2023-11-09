@@ -170,16 +170,16 @@
                                     <Pane prefHeight="78.0" prefWidth="507.0">
                                        <children>
                                           <Label layoutX="57.0" layoutY="18.0" text="Filtra per nome" />
-                                          <TextField layoutX="163.0" layoutY="14.0" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
+                                          <TextField fx:id="filtraTabella" layoutX="163.0" layoutY="14.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
                                        </children>
                                     </Pane>
                                  </children>
                               </HBox>
                               <TableView fx:id="tableViewReparti" editable="true" prefHeight="420.0" prefWidth="746.0">
                                 <columns>
-                                  <TableColumn prefWidth="65.0" text="ID" />
-                                  <TableColumn prefWidth="318.0" text="Nome" />
-                                    <TableColumn prefWidth="399.0" text="ID" />
+                                  <TableColumn fx:id="idCol" prefWidth="65.0" text="ID" />
+                                  <TableColumn fx:id="nomeCol" prefWidth="318.0" text="Nome" />
+                                    <TableColumn fx:id="descriptionCol" prefWidth="399.0" text="Descrizione" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

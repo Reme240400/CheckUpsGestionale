@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
 import Models.ModelModifica;
+import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
@@ -27,8 +28,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -36,6 +40,9 @@ public class Modifica implements Initializable {
 
     @FXML
     private TabPane tabPane;
+
+    @FXML
+    private TextField filterTable;
 
     // ----------------- Societa ----------------- //
     @FXML
@@ -90,6 +97,17 @@ public class Modifica implements Initializable {
     @FXML
     private Tab tabReparti;
 
+    @FXML
+    private TableView<Reparto> tableViewReparti;
+
+    @FXML
+    private TableColumn<Reparto, Integer> idCol;
+
+    @FXML
+    private TableColumn<Reparto, String> nameCol;
+
+    @FXML
+    private TableColumn<Reparto, String> descriptionCol;
 
 
     // ----------------- Reparti ----------------- //
@@ -101,22 +119,31 @@ public class Modifica implements Initializable {
 
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+    private List<Reparto> listaReparto = ClassHelper.getListReparto();
 
     private ObservableList<String> uItems = FXCollections.observableArrayList();
     private ObservableList<String> sItems = FXCollections.observableArrayList();
+    private ObservableList<Reparto> observableList = FXCollections.observableArrayList();
 
     private int idSocieta = -1;
+    private int idUnitaLocale = -1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // * *************** popola il combobox *************** //
+        // --------------- inizializzo le colonne della tabella --------------- //
+        idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
+        descriptionCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
+
+
+        // ---------------- popola il combobox ---------------- //
         for (Societa societa : listSocieta) {
             cercaRecordS.getItems().add(societa.getNome());
             sItems.add(societa.getNome());
         }
 
-        // * controlla se vengono inseriti solo numeri
+        // --------------- controlla se vengono inseriti solo numeri --------------- //
         UnaryOperator<TextFormatter.Change> filter = change -> {
 
             // remove any non-digit characters from inserted text:
@@ -133,7 +160,7 @@ public class Modifica implements Initializable {
 
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
-        // * **************************************** //
+        // ------------------------------------------------------------------------- //
 
         // --------------- filtra il Combobox --------------- //
         FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecordS, sItems);
@@ -151,19 +178,31 @@ public class Modifica implements Initializable {
     // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
     public void fillTextFieldU(KeyEvent event){
         if (event.getCode().toString().equals("ENTER")){
-            int id = modelModifica.getIdSocieta();
+            int id = modelModifica.getIdSocietaTmp();
             modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
         }
     }
 
     public void fillRepartiTable(){
-        if (modelModifica.getIdUnitaLocale() != -1 ) {
-            modelModifica.fillRepartiTable();
+        List<Reparto> specificList = null;
+        if (modelModifica.getIdUnitaLocaleTmp() != -1 ) {
+            specificList = modelModifica.fillRepartiTable(listaReparto);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableViewReparti.setItems(observableList);
         }
 
-        if(modelModifica.getIdSocieta() != -1){
-            modelModifica.fillAllRepartiTable();
+        if(modelModifica.getIdSocietaTmp() != -1){
+            specificList = modelModifica.fillAllRepartiTable(listaReparto, listUnitaLocale);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableViewReparti.setItems(observableList);            
         }
+    }
+
+    // --------------- filtra la tabella in tempo reale, in base al nome --------------- //
+    public void filterTable(){
+        modelModifica.filterTable(filterTable, tableViewReparti, observableList);
     }
 
     // --------------- Salva le modifiche --------------- //
@@ -192,9 +231,9 @@ public class Modifica implements Initializable {
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
             if(clickedButton.get() == ButtonType.APPLY){
-                if (modelModifica.getIdSocieta() != -1) {
+                if (modelModifica.getIdSocietaTmp() != -1) {
                     // prende l'id della societa selezionata //
-                    this.idSocieta = modelModifica.getIdSocieta();
+                    this.idSocieta = modelModifica.getIdSocietaTmp();
 
                     for (UnitaLocale unitaLocale : listUnitaLocale) {
                         if (unitaLocale.getIdSocieta() == idSocieta) {
@@ -214,8 +253,9 @@ public class Modifica implements Initializable {
         }
     }
 
+    // ------------------- Mostra il dialogPane ------------------- //
     public void showRepartoPane() throws IOException{
-        // ------------------- Mostra il dialogPane ------------------- //
+        
         if (tabReparti.isSelected()) {
         
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
@@ -233,9 +273,9 @@ public class Modifica implements Initializable {
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
             if(clickedButton.get() == ButtonType.APPLY){
-                if (modelModifica.getIdSocieta() != -1) {
+                if (modelModifica.getIdSocietaTmp() != -1) {
                     // prende l'id della societa selezionata //
-                    this.idSocieta = modelModifica.getIdSocieta();
+                    this.idSocieta = modelModifica.getIdSocietaTmp();
 
                     for (UnitaLocale unitaLocale : listUnitaLocale) {
                         if (unitaLocale.getIdSocieta() == idSocieta) {
@@ -273,7 +313,9 @@ public class Modifica implements Initializable {
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
         this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
 
-        this.idSocieta = modelModifica.getIdSocieta();
+        this.idSocieta = modelModifica.getIdSocietaTmp();
+        this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
+        
     }
 
 }

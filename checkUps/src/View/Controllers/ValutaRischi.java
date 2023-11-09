@@ -63,7 +63,7 @@ public class ValutaRischi implements Initializable{
 
     public void fillTable(){
 
-        List<Reparto>  specificList = reparti.stream().filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId()).toList();
+        List<Reparto> specificList = reparti.stream().filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId()).toList();
 
         observableList = FXCollections.observableArrayList(specificList);
         tableView.setItems(observableList);
