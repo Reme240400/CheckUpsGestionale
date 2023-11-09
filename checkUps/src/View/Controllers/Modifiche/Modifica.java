@@ -104,7 +104,7 @@ public class Modifica implements Initializable {
     private TableColumn<Reparto, Integer> idCol;
 
     @FXML
-    private TableColumn<Reparto, String> nameCol;
+    private TableColumn<Reparto, String> nomeCol;
 
     @FXML
     private TableColumn<Reparto, String> descriptionCol;
@@ -133,7 +133,7 @@ public class Modifica implements Initializable {
 
         // --------------- inizializzo le colonne della tabella --------------- //
         idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
 
@@ -184,19 +184,22 @@ public class Modifica implements Initializable {
     }
 
     public void fillRepartiTable(){
+
         List<Reparto> specificList = null;
+
         if (modelModifica.getIdUnitaLocaleTmp() != -1 ) {
             specificList = modelModifica.fillRepartiTable(listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableViewReparti.setItems(observableList);
-        }
-
-        if(modelModifica.getIdSocietaTmp() != -1){
+            
+        } else if(modelModifica.getIdSocietaTmp() != -1){
             specificList = modelModifica.fillAllRepartiTable(listaReparto, listUnitaLocale);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableViewReparti.setItems(observableList);            
+        } else{
+            tabPane.getSelectionModel().select(0);
         }
     }
 
@@ -273,22 +276,9 @@ public class Modifica implements Initializable {
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
             if(clickedButton.get() == ButtonType.APPLY){
-                if (modelModifica.getIdSocietaTmp() != -1) {
-                    // prende l'id della societa selezionata //
-                    this.idSocieta = modelModifica.getIdSocietaTmp();
-
-                    for (UnitaLocale unitaLocale : listUnitaLocale) {
-                        if (unitaLocale.getIdSocieta() == idSocieta) {
-                            cercaRecordU.getItems().add(unitaLocale.getNome());
-                            uItems.add(unitaLocale.getNome());
-                        }
-                    }
-
-                    cercaRecordU.setItems(ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems));
-
-                } else{
-                    tabPane.getSelectionModel().select(0);
-                }          
+                
+                fillRepartiTable();
+                
             } else{
                 tabPane.getSelectionModel().select(0);
             }

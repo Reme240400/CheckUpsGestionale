@@ -1,8 +1,9 @@
 package Models.Tables;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
+
+import Controllers.ClassHelper;
 
 public class UnitaLocale extends TablesId implements Serializable{
     private int idSocieta;
@@ -10,7 +11,7 @@ public class UnitaLocale extends TablesId implements Serializable{
     private String indirizzo;
     private String localita;
     private String provincia;
-    private List<Reparto> listaReparti;
+    private List<Reparto> listaReparti = ClassHelper.getListReparto();
 
     public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, int idSocieta) {
         super(idUnitaLocale);
@@ -62,7 +63,7 @@ public class UnitaLocale extends TablesId implements Serializable{
         this.provincia = provincia.toUpperCase();
     }
 
-     public List<Reparto> getReparti() {
+    public List<Reparto> getReparti() {
         return listaReparti.stream().filter(reparto -> reparto.getIdUnitaLocale() == getId()).toList();
     }
 }

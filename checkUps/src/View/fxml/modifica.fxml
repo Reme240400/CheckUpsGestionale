@@ -21,9 +21,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="476.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.Modifica">
+<BorderPane prefHeight="497.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.Modifica">
    <center>
-      <TabPane fx:id="tabPane" prefHeight="460.0" prefWidth="755.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="499.0" prefWidth="828.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab fx:id="tabSocieta" text="Società">
                <content>
@@ -161,16 +161,16 @@
             </Tab>
             <Tab fx:id="tabReparti" onSelectionChanged="#showRepartoPane" text="Reparto">
                <content>
-                  <HBox>
+                  <HBox alignment="CENTER">
                      <children>
-                        <VBox prefHeight="476.0" prefWidth="784.0">
+                        <VBox alignment="CENTER" prefHeight="476.0" prefWidth="784.0">
                            <children>
                               <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="408.0" prefHeight="101.0" prefWidth="783.0">
                                  <children>
                                     <Pane prefHeight="78.0" prefWidth="507.0">
                                        <children>
                                           <Label layoutX="57.0" layoutY="18.0" text="Filtra per nome" />
-                                          <TextField fx:id="filtraTabella" layoutX="163.0" layoutY="14.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
+                                          <TextField fx:id="filterTable" layoutX="163.0" layoutY="14.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -185,7 +185,7 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="810.0">
                                  <children>
                                     <Pane prefHeight="78.0" prefWidth="507.0">
                                        <children>
@@ -199,6 +199,9 @@
                                              </graphic>
                                           </JFXButton>
                                        </children>
+                                       <HBox.margin>
+                                          <Insets top="15.0" />
+                                       </HBox.margin>
                                     </Pane>
                                  </children>
                               </HBox>

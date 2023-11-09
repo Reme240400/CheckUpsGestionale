@@ -58,8 +58,12 @@ public class DialogPane2 extends DialogPane1{
 
     public void onSelectedUnita(KeyEvent event) {
 
-        int id = listUnitaLocale.stream().filter(s -> s.getNome().equals(cercaUnitaLocaleR.getValue())).findFirst().get().getId();
-
+        int id = listUnitaLocale.stream()
+                                .filter(s -> s.getNome().equals(cercaUnitaLocaleR.getValue()))
+                                .findFirst().get()
+                                .getId();
+                                
+        System.out.println("Id unita locale: " + id);
         modelModifica.setIdUnitaLocale(id);
     }
 
