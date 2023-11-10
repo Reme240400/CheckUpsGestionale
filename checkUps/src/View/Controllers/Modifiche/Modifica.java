@@ -114,6 +114,7 @@ public class Modifica implements Initializable {
 
     // ----------------- Titoli ----------------- //
 
+    @FXML
     private Tab tabTitoli;
 
     @FXML
