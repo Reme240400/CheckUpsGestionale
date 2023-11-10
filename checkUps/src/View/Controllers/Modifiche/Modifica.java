@@ -220,6 +220,8 @@ public class Modifica implements Initializable {
     // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
     public void showUnitaPane() throws IOException {
 
+        System.out.println(tabUnitaLocale.isSelected());
+
         // ------------------- Mostra il dialogPane dell'Unita Locale ------------------- //
         if (tabUnitaLocale.isSelected()) {
         
