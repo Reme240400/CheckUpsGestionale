@@ -12,6 +12,7 @@ import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
+
 import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +21,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.input.KeyEvent;
 import javafx.util.converter.IntegerStringConverter;
 
 public class CreazioneSocieta extends Creazione {
@@ -52,7 +52,6 @@ public class CreazioneSocieta extends Creazione {
     @FXML
     private JFXComboBox<String> cercaRecord;
 
-    // private Creazione creazione;
     private ModelCreazione modelCreazione;
 
     private String txtSocieta;
@@ -111,15 +110,15 @@ public class CreazioneSocieta extends Creazione {
 
     // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
 
-    public void fillTextField(KeyEvent event){
-        if (event.getCode().toString().equals("ENTER")){
+    public void fillTextField(){
+        if (cercaRecord.getValue() != null){
             modelCreazione.setEnable(false);
             modelCreazione.setSaved(false);
             modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
         }
     }
 
-    // * salva la societa
+    // -------------------- salva la societa -------------------- //
     public void salvaSocieta(ActionEvent event) {
 
         int id = controller.getNewId(listSocieta);

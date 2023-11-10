@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Alerts;
 import Models.ModelHome;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -17,9 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyEvent;
+
 
 public class Home extends ViewController {
 
@@ -60,9 +59,9 @@ public class Home extends ViewController {
         // * ************************************************ //
     }
 
-    public void onSelectedSocieta(KeyEvent event) {
+    public void onSelectedSocieta() {
 
-        model.onKeyPressedFilter(event, cercaSocieta, cercaUnitaLocale, listSocieta, listUnitaLocale);
+        model.onKeyPressedFilter(cercaSocieta, cercaUnitaLocale, listSocieta, listUnitaLocale);
     }
 
     public void goToValutaRischi() {
@@ -81,11 +80,7 @@ public class Home extends ViewController {
                 e.printStackTrace();
             } 
         }else {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Errore");
-            alert.setHeaderText("Errore");
-            alert.setContentText("Seleziona una società e un'unità locale");
-            alert.showAndWait();
+            Alerts.errorAllert();
         }
         
     }

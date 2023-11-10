@@ -19,7 +19,7 @@
                <children>
                   <AnchorPane prefHeight="72.0" prefWidth="600.0">
                      <children>
-                        <JFXComboBox fx:id="cercaSocieta" editable="true" layoutX="146.0" layoutY="24.0" onKeyPressed="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" />
+                        <JFXComboBox fx:id="cercaSocieta" editable="true" layoutX="146.0" layoutY="24.0" onHiding="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" />
                         <Label layoutX="22.0" layoutY="28.0" text="Società - Ente">
                            <font>
                               <Font size="16.0" />

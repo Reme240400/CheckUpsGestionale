@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 public class CreazioneUnitaLocale implements Initializable {
 
     @FXML
-    private JFXButton btnSalva;
+    private JFXButton btnSalvaU;
 
     @FXML
     private JFXButton btnAnnulla;
@@ -130,7 +130,7 @@ public class CreazioneUnitaLocale implements Initializable {
     public void setModel(ModelCreazione model) {
         this.model = model;
 
-        this.btnSalva.disableProperty().bind(model.savedProperty().not());
+        this.btnSalvaU.disableProperty().bind(model.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(model.discardProperty().not());
 
     }

@@ -10,16 +10,14 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class ModelHome {
     private int id = -1;    
 
-    public void onKeyPressedFilter(KeyEvent event, JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
+    public void onKeyPressedFilter(JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
             List<Societa> listSocieta, List<UnitaLocale> listUnitaLocale) {
 
-        if (event.getCode().equals(KeyCode.ENTER)) {
+        if (cercaSocieta.getValue() != null) {
             // Remove the previous listener, if any
             String selectedSocieta = cercaSocieta.getValue();
 

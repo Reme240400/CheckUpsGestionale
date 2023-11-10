@@ -14,7 +14,7 @@
          <children>
             <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="283.0" prefWidth="578.0">
                <children>
-                  <JFXComboBox fx:id="cercaSocieta" editable="true" layoutX="292.0" layoutY="128.0" onKeyPressed="#searchIdSocieta" prefHeight="25.0" prefWidth="253.0" />
+                  <JFXComboBox fx:id="cercaSocieta" editable="true" layoutX="292.0" layoutY="128.0" onHiding="#searchIdSocieta" prefHeight="25.0" prefWidth="253.0" />
                   <Label layoutX="47.0" layoutY="123.0" text="Seleziona la Societa">
                      <font>
                         <Font size="24.0" />

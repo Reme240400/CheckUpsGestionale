@@ -42,9 +42,9 @@ public class DialogPane1 implements Initializable {
 
     }
 
-    public void searchIdSocieta(KeyEvent event) {
+    public void searchIdSocieta() {
         
-        if(event.getCode().toString().equals("ENTER")){
+        if(cercaSocieta.getValue() != null){
             int id = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get().getId();
             System.out.println(id);
             modelModifica.setIdSocieta(id);

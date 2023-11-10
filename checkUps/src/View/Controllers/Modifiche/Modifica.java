@@ -112,6 +112,10 @@ public class Modifica implements Initializable {
 
     // ----------------- Reparti ----------------- //
 
+    // ----------------- Titoli ----------------- //
+
+    private Tab tabTitoli;
+
     @FXML
     private DialogPane dialogPane;
 
@@ -126,7 +130,7 @@ public class Modifica implements Initializable {
     private ObservableList<Reparto> observableList = FXCollections.observableArrayList();
 
     private int idSocieta = -1;
-    private int idUnitaLocale = -1;
+    //private int idUnitaLocale = -1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -216,7 +220,7 @@ public class Modifica implements Initializable {
     // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
     public void showUnitaPane() throws IOException {
 
-        // ------------------- Mostra il dialogPane ------------------- //
+        // ------------------- Mostra il dialogPane dell'Unita Locale ------------------- //
         if (tabUnitaLocale.isSelected()) {
         
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
@@ -256,12 +260,41 @@ public class Modifica implements Initializable {
         }
     }
 
-    // ------------------- Mostra il dialogPane ------------------- //
+    // ------------------- Mostra il dialogPane dei Reparti ------------------- //
     public void showRepartoPane() throws IOException{
         
         if (tabReparti.isSelected()) {
         
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPane2 dialogController = loader.getController();
+
+            dialogController.setModel(modelModifica);
+            
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Scegli la Unità Locale");
+            
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            if(clickedButton.get() == ButtonType.APPLY){
+                
+                fillRepartiTable();
+                
+            } else{
+                tabPane.getSelectionModel().select(0);
+            }
+        }
+    }
+
+    // ------------------- Mostra il dialogPane dei Titoli ------------------- //
+    public void showTitoliPane() throws IOException{
+        
+        if (tabTitoli.isSelected()) {
+        
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_titoli_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
 
             DialogPane2 dialogController = loader.getController();
@@ -304,7 +337,7 @@ public class Modifica implements Initializable {
         this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
 
         this.idSocieta = modelModifica.getIdSocietaTmp();
-        this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
+        //this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
         
     }
 

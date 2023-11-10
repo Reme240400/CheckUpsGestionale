@@ -23,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class ModelModifica {
+public class ModelModifica extends ModelListe{
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
@@ -132,11 +132,11 @@ public class ModelModifica {
         List<UnitaLocale> allUnitaLocali = listaUnita.stream().filter( unita -> unita.getIdSocieta() == getIdSocietaTmp()).toList();
 
         List<Reparto> allReparti = allUnitaLocali.stream()
-            .flatMap(unita -> unita.getReparti().stream())
+            .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
             .collect(Collectors.toList());
 
         return allReparti;
- 
+
     }
 
     public void filterTable( TextField filterTextField, TableView<Reparto> tableView, ObservableList<Reparto> observableList) {
@@ -156,10 +156,10 @@ public class ModelModifica {
         tableView.setItems(filteredData);
     }
 
-    public void onKeyPressedFilter(KeyEvent event, JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
+    public void onKeyPressedFilter(JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
             List<Societa> listSocieta, List<UnitaLocale> listUnitaLocale) {
 
-        if (event.getCode().equals(KeyCode.ENTER)) {
+        if (cercaSocieta.getValue() != null) {
             // Remove the previous listener, if any
             String selectedSocieta = cercaSocieta.getValue();
 

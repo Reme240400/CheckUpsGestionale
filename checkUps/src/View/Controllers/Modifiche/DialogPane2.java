@@ -15,7 +15,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.scene.input.KeyEvent;
 
 public class DialogPane2 extends DialogPane1{
 
@@ -51,20 +50,23 @@ public class DialogPane2 extends DialogPane1{
         // * ************************************************ //
     }
 
-    public void onSelectedSocieta(KeyEvent event) {
+    public void onSelectedSocieta() {
 
-        modelModifica.onKeyPressedFilter(event, cercaSocietaR, cercaUnitaLocaleR, listSocieta, listUnitaLocale);
+        modelModifica.onKeyPressedFilter( cercaSocietaR, cercaUnitaLocaleR, listSocieta, listUnitaLocale);
     }
 
-    public void onSelectedUnita(KeyEvent event) {
+    public void onSelectedUnita() {
 
-        int id = listUnitaLocale.stream()
-                                .filter(s -> s.getNome().equals(cercaUnitaLocaleR.getValue()))
-                                .findFirst().get()
-                                .getId();
-                                
-        System.out.println("Id unita locale: " + id);
-        modelModifica.setIdUnitaLocale(id);
+        if (cercaUnitaLocaleR.getValue() != null && !cercaUnitaLocaleR.getValue().equals("") ) {
+            
+            int id = listUnitaLocale.stream()
+                                    .filter(s -> s.getNome().equals(cercaUnitaLocaleR.getValue()))
+                                    .findFirst().get()
+                                    .getId();
+                                    
+            //System.out.println("Id unita locale: " + id);
+            modelModifica.setIdUnitaLocale(id);
+        }
     }
 
 

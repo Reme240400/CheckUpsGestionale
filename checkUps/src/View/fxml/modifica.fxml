@@ -11,19 +11,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="497.0" prefWidth="825.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.Modifica">
+<BorderPane prefHeight="498.0" prefWidth="891.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.Modifica">
    <center>
-      <TabPane fx:id="tabPane" prefHeight="499.0" prefWidth="828.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" prefHeight="510.0" prefWidth="846.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="TOP_CENTER">
          <tabs>
             <Tab fx:id="tabSocieta" text="Società">
                <content>
@@ -165,12 +165,50 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="476.0" prefWidth="784.0">
                            <children>
-                              <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="408.0" prefHeight="101.0" prefWidth="783.0">
+                              <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="408.0" prefHeight="64.0" prefWidth="784.0">
                                  <children>
-                                    <Pane prefHeight="78.0" prefWidth="507.0">
+                                    <Pane prefHeight="55.0" prefWidth="507.0">
                                        <children>
                                           <Label layoutX="57.0" layoutY="18.0" text="Filtra per nome" />
                                           <TextField fx:id="filterTable" layoutX="163.0" layoutY="14.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="784.0">
+                                 <children>
+                                    <Pane prefHeight="63.0" prefWidth="784.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <children>
+                                          <JFXButton fx:id="btnSaveS1" contentDisplay="CENTER" ellipsisString="" layoutX="720.0" layoutY="1.0" onAction="#updateChanges" prefHeight="32.0" prefWidth="13.0" ripplerFill="#2baef0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                                             <graphic>
+                                                <ImageView fx:id="saveChanges111" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/upload_icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btnSaveS11" contentDisplay="CENTER" ellipsisString="" layoutX="9.0" layoutY="4.0" onAction="#updateChanges" prefHeight="34.0" prefWidth="67.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
+                                             <graphic>
+                                                <ImageView fx:id="saveChanges1111" fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/pencil.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btnSaveS111" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" layoutY="3.0" onAction="#updateChanges" prefHeight="36.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                                             <graphic>
+                                                <ImageView fx:id="saveChanges11111" fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/trash_icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
                                        </children>
                                     </Pane>
                                  </children>
@@ -185,35 +223,32 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <HBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="810.0">
-                                 <children>
-                                    <Pane prefHeight="78.0" prefWidth="507.0">
-                                       <children>
-                                          <JFXButton fx:id="btnSaveS1" contentDisplay="CENTER" ellipsisString="" layoutX="443.0" layoutY="5.0" onAction="#updateChanges" prefHeight="32.0" prefWidth="13.0" ripplerFill="#2baef0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
-                                             <graphic>
-                                                <ImageView fx:id="saveChanges111" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../icons/upload_icon.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                       </children>
-                                       <HBox.margin>
-                                          <Insets top="15.0" />
-                                       </HBox.margin>
-                                    </Pane>
-                                 </children>
-                              </HBox>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
                </content>
             </Tab>
-            <Tab fx:id="tabTitoli" text="Titolo">
+            <Tab fx:id="tabTitoli" onSelectionChanged="#showTItoliPane" text="Titolo">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="498.0" prefWidth="914.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0">
+                                 <children>
+                                    <JFXButton fx:id="btnReparti" alignment="CENTER" onAction="#switchToSocieta" text="Reparti" />
+                                    <Pane prefHeight="48.0" prefWidth="90.0" />
+                                    <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
+                                    <Pane prefHeight="48.0" prefWidth="90.0" />
+                                    <JFXButton fx:id="btnTitoli" alignment="CENTER" onAction="#switchToUnitaLocali" text="Titoli" />
+                                 </children>
+                              </HBox>
+                              <StackPane fx:id="titoliPane" prefHeight="458.0" prefWidth="862.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </content>
             </Tab>
          </tabs>
