@@ -8,9 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-   prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.SezioneTitoli_SelezioneReparti">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.SezioneTitoli_SelezioneReparti">
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="608.0">
          <children>
@@ -21,15 +19,14 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="filterReparto" prefHeight="25.0" prefWidth="196.0"
-                     promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
+                  <TextField fx:id="filterReparto" prefHeight="25.0" prefWidth="196.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
                </children>
             </HBox>
             <TableView prefHeight="358.0" prefWidth="600.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="ID" />
-                  <TableColumn prefWidth="350.0" text="Nome" />
-                  <TableColumn prefWidth="350.0" text="Descrizione" />
+                  <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="nomeCol" prefWidth="350.0" text="Nome" />
+                  <TableColumn fx:id="descCol" prefWidth="350.0" text="Descrizione" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

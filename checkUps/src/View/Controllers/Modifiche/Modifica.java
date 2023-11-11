@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.util.converter.IntegerStringConverter;
 
 public class Modifica implements Initializable {
@@ -118,6 +119,11 @@ public class Modifica implements Initializable {
     private Tab tabTitoli;
 
     @FXML
+    private StackPane titoliStackPane;
+
+    // ----------------- Titoli ----------------- //
+
+    @FXML
     private DialogPane dialogPane;
 
     private ModelModifica modelModifica;
@@ -174,15 +180,15 @@ public class Modifica implements Initializable {
     }
 
     // --------------- Riempi i campi con i dati della societa selezionata --------------- //
-    public void fillTextFieldS(KeyEvent event){
-        if (event.getCode().toString().equals("ENTER")){
+    public void fillTextFieldS(){
+        if (cercaRecordS.getValue() != null && !cercaRecordS.getValue().equals("")){
             modelModifica.fillTextField( cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
         }
     }
 
     // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
-    public void fillTextFieldU(KeyEvent event){
-        if (event.getCode().toString().equals("ENTER")){
+    public void fillTextFieldU(){
+        if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")){
             int id = modelModifica.getIdSocietaTmp();
             modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
         }
@@ -297,7 +303,7 @@ public class Modifica implements Initializable {
         
         if (tabTitoli.isSelected()) {
         
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_titoli_dialogPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
 
             DialogPane2 dialogController = loader.getController();
