@@ -6,8 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -27,7 +25,7 @@
          <tabs>
             <Tab fx:id="tabSocieta" text="Società">
                <content>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="476.0" prefWidth="653.0" spacing="10.0">
                            <children>
@@ -41,11 +39,11 @@
                                           <Font name="Calibri Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Pane prefHeight="0.0" prefWidth="200.0" />
+                                    <Pane prefHeight="25.0" prefWidth="85.0" />
                                     <JFXComboBox fx:id="cercaRecordS" editable="true" onHiding="#fillTextFieldS" prefHeight="25.0" prefWidth="245.0" />
                                  </children>
                               </HBox>
-                              <GridPane alignment="CENTER" prefHeight="431.0" prefWidth="657.0">
+                              <GridPane alignment="CENTER" prefHeight="431.0" prefWidth="657.0" VBox.vgrow="SOMETIMES">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -94,25 +92,25 @@
             </Tab>
             <Tab fx:id="tabUnitaLocale" onSelectionChanged="#showUnitaPane" text="Unità Locale">
                <content>
-                  <HBox alignment="CENTER" prefHeight="476.0" prefWidth="744.0">
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                      <children>
                         <VBox alignment="CENTER" prefHeight="476.0" prefWidth="658.0">
                            <children>
-                              <HBox alignment="CENTER">
+                              <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
                                  <children>
                                     <Label text="Scegli la Unità Locale">
                                        <font>
                                           <Font name="Calibri Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                                    <Pane prefHeight="25.0" prefWidth="101.0" />
                                     <JFXComboBox fx:id="cercaRecordU" editable="true" onHiding="#fillTextFieldU" prefHeight="25.0" prefWidth="245.0" />
                                  </children>
                                  <VBox.margin>
                                     <Insets top="20.0" />
                                  </VBox.margin>
                               </HBox>
-                              <GridPane alignment="CENTER" prefHeight="620.0" prefWidth="658.0">
+                              <GridPane alignment="CENTER" prefHeight="620.0" prefWidth="658.0" VBox.vgrow="SOMETIMES">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -159,92 +157,22 @@
                   </HBox>
                </content>
             </Tab>
-            <Tab fx:id="tabReparti" onSelectionChanged="#showRepartoPane" text="Reparto">
+            <Tab fx:id="tabReparti_Titoli" onSelectionChanged="#showRepartiTitoliDialogPane" text="Reparti / Titoli">
                <content>
                   <HBox alignment="CENTER">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="476.0" prefWidth="784.0">
+                        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="408.0" prefHeight="64.0" prefWidth="784.0">
+                              <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Pane prefHeight="55.0" prefWidth="507.0">
-                                       <children>
-                                          <Label layoutX="57.0" layoutY="18.0" text="Filtra per nome" />
-                                          <TextField fx:id="filterTable" layoutX="163.0" layoutY="14.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="TOP_CENTER" prefHeight="58.0" prefWidth="784.0">
-                                 <children>
-                                    <Pane prefHeight="63.0" prefWidth="784.0">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                       <children>
-                                          <JFXButton fx:id="btnSaveS1" contentDisplay="CENTER" ellipsisString="" layoutX="720.0" layoutY="1.0" onAction="#updateChanges" prefHeight="32.0" prefWidth="13.0" ripplerFill="#2baef0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
-                                             <graphic>
-                                                <ImageView fx:id="saveChanges111" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../icons/upload_icon.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                          <JFXButton fx:id="btnSaveS11" contentDisplay="CENTER" ellipsisString="" layoutX="9.0" layoutY="4.0" onAction="#updateChanges" prefHeight="34.0" prefWidth="67.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
-                                             <graphic>
-                                                <ImageView fx:id="saveChanges1111" fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../icons/pencil.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                          <JFXButton fx:id="btnSaveS111" contentDisplay="CENTER" ellipsisString="" layoutX="91.0" layoutY="3.0" onAction="#updateChanges" prefHeight="36.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
-                                             <graphic>
-                                                <ImageView fx:id="saveChanges11111" fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../icons/trash_icon.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </HBox>
-                              <TableView fx:id="tableViewReparti" editable="true" prefHeight="420.0" prefWidth="746.0">
-                                <columns>
-                                  <TableColumn fx:id="idCol" prefWidth="65.0" text="ID" />
-                                  <TableColumn fx:id="nomeCol" prefWidth="318.0" text="Nome" />
-                                    <TableColumn fx:id="descriptionCol" prefWidth="399.0" text="Descrizione" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </content>
-            </Tab>
-            <Tab fx:id="tabTitoli" onSelectionChanged="#showTitoliPane" text="Titolo">
-               <content>
-                  <HBox alignment="CENTER">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="498.0" prefWidth="914.0" HBox.hgrow="SOMETIMES">
-                           <children>
-                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0" VBox.vgrow="SOMETIMES">
-                                 <children>
-                                    <JFXButton fx:id="btnReparti" alignment="CENTER" text="Reparti" />
+                                    <JFXButton fx:id="btnReparti" alignment="CENTER" onAction="#showRepartoPane" text="Reparti" />
                                     <Pane prefHeight="48.0" prefWidth="90.0" />
                                     <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
                                     <Pane prefHeight="48.0" prefWidth="90.0" />
-                                    <JFXButton fx:id="btnTitoli" alignment="CENTER" text="Titoli" />
+                                    <JFXButton fx:id="btnTitoli" alignment="CENTER" onAction="#showTitoliPane" text="Titoli" />
                                  </children>
                               </HBox>
-                              <StackPane fx:id="titoliStackPane" prefHeight="458.0" prefWidth="862.0" />
+                              <StackPane fx:id="titoli_repartiStackPane" prefHeight="458.0" prefWidth="862.0" VBox.vgrow="SOMETIMES" />
                            </children>
                         </VBox>
                      </children>

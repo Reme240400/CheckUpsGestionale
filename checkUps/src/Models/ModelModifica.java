@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 import Controllers.ClassHelper;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
+import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
 import javafx.beans.property.BooleanProperty;
@@ -20,10 +21,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class ModelModifica extends ModelListe{
+
+    private boolean check = false;
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
@@ -139,17 +140,41 @@ public class ModelModifica extends ModelListe{
 
     }
 
-    public void filterTable( TextField filterTextField, TableView<Reparto> tableView, ObservableList<Reparto> observableList) {
+    public <T> void  filterTable( TextField filterTextField, TableView<T> tableView, ObservableList<T> observableList) {
 
         String filterText = filterTextField.getText().toLowerCase().trim();
-    
+        
         // Create a filtered list based on the original observableList
-        FilteredList<Reparto> filteredData = new FilteredList<>(observableList, reparto -> {
+        FilteredList<T> filteredData = new FilteredList<>(observableList, classe -> {
             if (filterText.isEmpty()) {
                 return true; // Show all items when no filter is applied
             }
             // Check if the name contains the filter text (case-insensitive)
-            return reparto.getNome().toLowerCase().contains(filterText);
+            switch (classe.getClass().getName()) {
+                case "Reparto":
+                    Reparto reparto = (Reparto) classe;
+                    check = reparto.getNome().toLowerCase().contains(filterText);
+                    break;
+
+                case "Societa":
+                    Societa societa = (Societa) classe;
+                    check = societa.getNome().toLowerCase().contains(filterText);
+                    break;
+
+                case "UnitaLocale":
+                    UnitaLocale unitaLocale = (UnitaLocale) classe;
+                    check = unitaLocale.getNome().toLowerCase().contains(filterText);
+                    break;
+                
+                case "Titolo":
+                    Titolo titolo = (Titolo) classe;
+                    check = (String.valueOf(titolo.getId())).contains(filterText);
+                
+                default:
+                    return check;
+            }
+            return check;
+
         });
 
         // Bind the filtered data to the TableView

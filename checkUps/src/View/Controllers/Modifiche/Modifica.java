@@ -12,7 +12,6 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
 import Models.ModelModifica;
-import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
@@ -23,17 +22,14 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -93,36 +89,12 @@ public class Modifica implements Initializable {
 
     // ----------------- Unita Locale ----------------- //
 
-    // ----------------- Reparti ----------------- //
+    @FXML
+    private Tab tabReparti_Titoli;
 
     @FXML
-    private Tab tabReparti;
-
-    @FXML
-    private TableView<Reparto> tableViewReparti;
-
-    @FXML
-    private TableColumn<Reparto, Integer> idCol;
-
-    @FXML
-    private TableColumn<Reparto, String> nomeCol;
-
-    @FXML
-    private TableColumn<Reparto, String> descriptionCol;
-
-
-    // ----------------- Reparti ----------------- //
-
-    // ----------------- Titoli ----------------- //
-
-    @FXML
-    private Tab tabTitoli;
-
-    @FXML
-    private StackPane titoliStackPane;
-
-    // ----------------- Titoli ----------------- //
-
+    private StackPane titoli_repartiStackPane;
+    
     @FXML
     private DialogPane dialogPane;
 
@@ -130,23 +102,15 @@ public class Modifica implements Initializable {
 
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
-    private List<Reparto> listaReparto = ClassHelper.getListReparto();
 
     private ObservableList<String> uItems = FXCollections.observableArrayList();
     private ObservableList<String> sItems = FXCollections.observableArrayList();
-    private ObservableList<Reparto> observableList = FXCollections.observableArrayList();
 
     private int idSocieta = -1;
     //private int idUnitaLocale = -1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        // --------------- inizializzo le colonne della tabella --------------- //
-        idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
-        nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
-
 
         // ---------------- popola il combobox ---------------- //
         for (Societa societa : listSocieta) {
@@ -192,32 +156,7 @@ public class Modifica implements Initializable {
             int id = modelModifica.getIdSocietaTmp();
             modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
         }
-    }
-
-    public void fillRepartiTable(){
-
-        List<Reparto> specificList = null;
-
-        if (modelModifica.getIdUnitaLocaleTmp() != -1 ) {
-            specificList = modelModifica.fillRepartiTable(listaReparto);
-
-            observableList = FXCollections.observableArrayList(specificList);
-            tableViewReparti.setItems(observableList);
-            
-        } else if(modelModifica.getIdSocietaTmp() != -1){
-            specificList = modelModifica.fillAllRepartiTable(listaReparto, listUnitaLocale);
-
-            observableList = FXCollections.observableArrayList(specificList);
-            tableViewReparti.setItems(observableList);            
-        } else{
-            tabPane.getSelectionModel().select(0);
-        }
-    }
-
-    // --------------- filtra la tabella in tempo reale, in base al nome --------------- //
-    public void filterTable(){
-        modelModifica.filterTable(filterTable, tableViewReparti, observableList);
-    }
+    }    
 
     // --------------- Salva le modifiche --------------- //
     public void updateChanges(){
@@ -269,12 +208,9 @@ public class Modifica implements Initializable {
         }
     }
 
-    // ------------------- Mostra il dialogPane dei Reparti ------------------- //
-    public void showRepartoPane() throws IOException{
+    public void showRepartiTitoliDialogPane() throws IOException{
         
-        if (tabReparti.isSelected()) {
-        
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
 
             DialogPane2 dialogController = loader.getController();
@@ -288,43 +224,43 @@ public class Modifica implements Initializable {
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
             if(clickedButton.get() == ButtonType.APPLY){
-                
-                fillRepartiTable();
-                
-            } else{
+                showRepartoPane();
+            }else{
                 tabPane.getSelectionModel().select(0);
             }
-        }
+
+    }
+
+    // ------------------- Mostra il dialogPane dei Reparti ------------------- //
+    public void showRepartoPane() throws IOException{
+                    
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/View/fxml/modifica_selezioneReparto.fxml"));
+
+        Parent root = loader2.load();
+        ModificaSelezioneReparti controller = loader2.getController();
+
+        controller.setModel(modelModifica);
+
+        titoli_repartiStackPane.getChildren().removeAll();
+        titoli_repartiStackPane.getChildren().setAll(root);       
+        
     }
 
     // ------------------- Mostra il dialogPane dei Titoli ------------------- //
     public void showTitoliPane() throws IOException{
-        
-        if (tabTitoli.isSelected()) {
-        
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
+    
+        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/View/fxml/modifica_selezioneTitolo.fxml"));
 
-            DialogPane2 dialogController = loader.getController();
+        Parent root = loader3.load();
+        ModificaSelezioneTitolo controller = loader3.getController();
 
-            dialogController.setModel(modelModifica);
-            
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Scegli la Unità Locale");
-            
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+        controller.setModel(modelModifica);
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
-            if(clickedButton.get() == ButtonType.APPLY){
-                
-                fillRepartiTable();
-                
-            } else{
-                tabPane.getSelectionModel().select(0);
-            }
-        }
+        titoli_repartiStackPane.getChildren().removeAll();
+        titoli_repartiStackPane.getChildren().setAll(root);
+
     }
     
     // ----------------- Setta il model ----------------- //

@@ -14,10 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import picocli.CommandLine.Command;
 
-public class SezioneTitoli_SelezioneReparti implements Initializable{
+public class ModificaSelezioneReparti implements Initializable{
 
     @FXML
     private TableView<Reparto> tableViewReparti;
@@ -31,6 +31,10 @@ public class SezioneTitoli_SelezioneReparti implements Initializable{
     @FXML
     private TableColumn<Reparto, String> descCol;
 
+    @FXML
+    private TextField filterTable;
+
+
     private List<Reparto> listaReparto = ClassHelper.getListReparto();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
 
@@ -41,12 +45,18 @@ public class SezioneTitoli_SelezioneReparti implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
             
+        // --------------- inizializzo le colonne della tabella --------------- //
         idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
 
 
+    }
+
+    // --------------- filtra la tabella in tempo reale, in base al nome --------------- //
+    public void filterTable(){
+        modelModifica.filterTable(filterTable, tableViewReparti, observableList);
     }
 
     public void fillRepartiTable(){
@@ -65,6 +75,21 @@ public class SezioneTitoli_SelezioneReparti implements Initializable{
             observableList = FXCollections.observableArrayList(specificList);
             tableViewReparti.setItems(observableList);            
         }
+    }
+
+    @FXML
+    private void updateChanges(){
+
+    }
+
+    @FXML
+    private void modify(){
+
+    }
+
+    @FXML
+    private void delate(){
+
     }
 
     public void setModel(ModelModifica modelModifica) {
