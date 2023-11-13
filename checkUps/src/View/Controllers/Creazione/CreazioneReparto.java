@@ -1,0 +1,170 @@
+package View.Controllers.Creazione;
+
+import java.util.List;
+
+import org.apache.pdfbox.jbig2.segments.Table;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+
+import Controllers.ClassHelper;
+import Models.ModelCreazione;
+import Models.Tables.Reparto;
+import Models.Tables.Societa;
+import Models.Tables.UnitaLocale;
+import View.Controllers.ViewController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class CreazioneReparto implements Initializable{
+
+    @FXML
+    private JFXComboBox<String> cercaSocieta;
+
+    @FXML
+    private JFXComboBox<String> cercaUnita;
+
+    @FXML
+    private TableView<Reparto> tableReparti;
+
+    @FXML
+    private TableColumn<Reparto, Integer> idCol;
+
+    @FXML
+    private TableColumn<Reparto, String> nomeCol;
+
+    @FXML
+    private TableColumn<Reparto, String> descCol;
+
+    // @FXML
+    // private TextField textFieldSocieta;
+
+    // @FXML
+    // private TextField textFieldUnita;
+
+    @FXML
+    private JFXButton btnAnnulla;
+
+    @FXML
+    private JFXButton btnSalva;
+
+    private ModelCreazione modelCreazione;
+    private List<Societa> listSocieta;
+    private List<UnitaLocale> listUnitaLocale;
+    private List<Reparto> listaReparto;
+
+    @Override
+    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
+        listSocieta = ClassHelper.getListSocieta();
+        listaReparto = ClassHelper.getListReparto();
+        listUnitaLocale = ClassHelper.getListUnitaLocale();
+
+        idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
+        descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+
+        // * *************** popola il combobox *************** //
+
+        for (Societa societa : listSocieta) {
+            cercaSocieta.getItems().add(societa.getNome());
+            items.add(societa.getNome());
+        }
+
+        // --------------- filtra il Combobox --------------- //
+        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, items);
+
+        cercaSocieta.setItems(filteredItems);
+    }
+
+    public void selectSocieta(){
+        List<UnitaLocale> specificList = null;
+        modelCreazione.resetUnitaLocaleTmp();
+        if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
+
+            modelCreazione.createSocietaTmp(listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get());
+            //textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+
+            fillTableView();
+
+            specificList = listUnitaLocale.stream()
+                                                .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
+                                                .toList();
+        
+
+            ObservableList<String> items = FXCollections.observableArrayList();
+
+            // * *************** popola il combobox *************** //
+
+            for (UnitaLocale unita : specificList) {
+                
+                items.add(unita.getNome());
+            }
+
+            // --------------- filtra il Combobox --------------- //
+            FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaUnita, items);
+
+            cercaUnita.setItems(filteredItems);
+        }
+    }
+
+    public void selectUnita(){
+        if(modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
+            modelCreazione.createUnitaLocaleTmp(listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaUnita.getValue())).findFirst().get());
+            //textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
+
+            fillTableView();
+        }
+    }
+
+    private void fillTableView() {
+        List<Reparto> specificList = null;
+        ObservableList<Reparto> observableList = null;
+            
+        if(modelCreazione.getSocietaTmp().getId() != -1 && modelCreazione.getUnitaLocaleTmp() == null){
+            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableReparti.setItems(observableList);
+    
+        }else{
+            specificList = modelCreazione.fillRepartiTable(listaReparto);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableReparti.setItems(observableList);
+        }
+    }
+
+    public void salvaReparto(javafx.event.ActionEvent event) {
+        // fare la call alla Query
+
+    }
+
+    @FXML
+    public void modify(){
+
+    }
+
+    @FXML
+    public void delete(){
+
+    }
+
+    @FXML
+    public void addReparto() {
+    
+    }
+
+
+    public void setModel(ModelCreazione modelCreazione) {
+        this.modelCreazione = modelCreazione;
+    }
+}

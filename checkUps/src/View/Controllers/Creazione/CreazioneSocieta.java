@@ -6,18 +6,12 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.ModelCreazione;
 import Models.Tables.Societa;
 
-import View.Controllers.ViewController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -30,6 +24,9 @@ public class CreazioneSocieta extends Creazione {
 
     @FXML
     private JFXButton btnSalva;
+
+    @FXML
+    private JFXButton btnSalvaAggiungi;
 
     @FXML
     private TextField textFieldSocieta;
@@ -49,9 +46,6 @@ public class CreazioneSocieta extends Creazione {
     // @FXML
     // private TextField textFieldDesc;
 
-    @FXML
-    private JFXComboBox<String> cercaRecord;
-
     private ModelCreazione modelCreazione;
 
     private String txtSocieta;
@@ -61,25 +55,13 @@ public class CreazioneSocieta extends Creazione {
     private String txtProvincia;
 
     Societa societaTmp = null;
-    List<Societa> listSocieta;
+    List<Societa> listSocieta = ClassHelper.getListSocieta();
     Controller controller = new Controller();
     // private String txtDesc;
 
     // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        // * *************** inizializza i campi *************** //
-
-        listSocieta = ClassHelper.getListSocieta();
-        ObservableList<String> items = FXCollections.observableArrayList();
-
-        // * *************** popola il combobox *************** //
-
-        for (Societa societa : listSocieta) {
-            cercaRecord.getItems().add(societa.getNome());
-            items.add(societa.getNome());
-        }
 
         // * controlla se vengono inseriti solo numeri
         UnaryOperator<TextFormatter.Change> filter = change -> {
@@ -101,35 +83,33 @@ public class CreazioneSocieta extends Creazione {
 
         // * **************************************** //
 
-        // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecord, items);
-
-        cercaRecord.setItems(filteredItems);
-
     }
-
     // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
 
-    public void fillTextField(){
-        if (cercaRecord.getValue() != null){
-            modelCreazione.setEnable(false);
-            modelCreazione.setSaved(false);
-            modelCreazione.fillTextField( cercaRecord, textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
-        }
-    }
-
     // -------------------- salva la societa -------------------- //
-    public void salvaSocieta(ActionEvent event) {
+    public void save_addSocieta() {
 
         int id = controller.getNewId(listSocieta);
 
-        Societa societaTmp = new Societa(id, txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel,
-                "");
+        Societa societaTmp = new Societa(id, txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel, "");
 
         modelCreazione.createSocietaTmp(societaTmp);
 
-        modelCreazione.setSocietySaved(true);
+        controller.inserisciNuovoRecord(societaTmp);
+
         modelCreazione.setSaved(false);
+
+    }
+
+    public void salvaSocieta() {
+
+        int id = controller.getNewId(listSocieta);
+
+        Societa societaTmp = new Societa(id, txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel, "");
+
+        controller.inserisciNuovoRecord(societaTmp);
+
+        eliminaSocieta();
 
     }
 
@@ -142,8 +122,6 @@ public class CreazioneSocieta extends Creazione {
         textFieldProvincia.clear();
         textFieldSocieta.clear();
         textFieldTel.clear();
-        
-        cercaRecord.getSelectionModel().clearSelection();
 
         modelCreazione.setEnable(true);
         modelCreazione.resetSocietaTmp();
@@ -172,6 +150,7 @@ public class CreazioneSocieta extends Creazione {
         this.modelCreazione = modelCreazione;
 
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnSalvaAggiungi.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
         
         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
@@ -182,7 +161,7 @@ public class CreazioneSocieta extends Creazione {
 
         // * ************ setta i campi come sono stati salvati ************ //
         modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
-                textFieldTel);
+            textFieldTel);
         // * ************************************************ //
     }
 

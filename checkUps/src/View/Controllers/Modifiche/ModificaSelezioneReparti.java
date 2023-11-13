@@ -50,8 +50,6 @@ public class ModificaSelezioneReparti implements Initializable{
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
-
-
     }
 
     // --------------- filtra la tabella in tempo reale, in base al nome --------------- //
@@ -88,7 +86,7 @@ public class ModificaSelezioneReparti implements Initializable{
     }
 
     @FXML
-    private void delate(){
+    private void delete(){
 
     }
 

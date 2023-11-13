@@ -1,23 +1,27 @@
 package Models;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Tables.Reparto;
 import Models.Tables.Societa;
+import Models.Tables.UnitaLocale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.TextField;
 
-public class ModelCreazione {
+public class ModelCreazione extends ModelListe{
 
     // initialize variables
 
-    private final BooleanProperty societySaved = new SimpleBooleanProperty(false);
-    private final BooleanProperty unitaLocaleSaved = new SimpleBooleanProperty(false);
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty discard = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(true);
     private Societa societaTmp = null;
+    private UnitaLocale unitaLocaleTmp = null;
 
     // end initialize variables
 
@@ -25,10 +29,6 @@ public class ModelCreazione {
 
     public BooleanProperty isEnableProperty() {
         return isEnable;
-    }
-
-    public BooleanProperty societaSavedProperty() {
-        return societySaved;
     }
 
     public BooleanProperty discardProperty() {
@@ -39,23 +39,12 @@ public class ModelCreazione {
         return saved;
     }
 
-    public BooleanProperty unitaLocaleSavedProperty() {
-        return unitaLocaleSaved;
-    }
     // -------------------- end initialize methods -------------------- //
 
     // ------------------ GETTER ------------------ //
 
     public final boolean isEnable() {
         return isEnableProperty().get();
-    }
-
-    public final boolean isSocietySaved() {
-        return societaSavedProperty().get();
-    }
-
-    public final boolean isUnitaLocaleSaved() {
-        return unitaLocaleSavedProperty().get();
     }
 
     public final boolean isSaved() {
@@ -71,15 +60,6 @@ public class ModelCreazione {
 
     public final void setEnable(boolean isEnable) {
         isEnableProperty().set(isEnable);
-    }
-
-    // * modifica anche lo stato del bottone unitaLocale
-    public final void setSocietySaved(boolean societySaved) {
-        societaSavedProperty().set(societySaved);
-    }
-
-    public final void setUnitaSaved(boolean unitaLocaleSaved) {
-        unitaLocaleSavedProperty().set(unitaLocaleSaved);
     }
 
     public final void setSaved(boolean saved) {
@@ -98,12 +78,24 @@ public class ModelCreazione {
 
     public void createSocietaTmp(Societa societaTmp) {
         this.societaTmp = societaTmp;
-        System.out.println("setSocietaTmp: " + societaTmp.getNome());
     }
 
     public void resetSocietaTmp() {
         this.societaTmp = null;
-        setSocietySaved(false);
+    }
+
+    public void createUnitaLocaleTmp(UnitaLocale unitaLocale) {
+        this.unitaLocaleTmp = unitaLocale;
+        System.out.println("UnitaLocaleTmp: " + unitaLocaleTmp.getNome());
+    }
+
+    public UnitaLocale getUnitaLocaleTmp() {
+        
+        return unitaLocaleTmp;
+    }
+
+    public void resetUnitaLocaleTmp() {
+        this.unitaLocaleTmp = null;
     }
     // ------------------ END SocietaTmp ------------------ //
 
@@ -146,7 +138,7 @@ public class ModelCreazione {
     }
     // ------------------ END ------------------ //
 
-    // ------------------ Setta i campi come sono stati salvati ------------------
+    // ------------------ Setta i campi come sono stati salvati ------------------ //
     // //
     public void setOldTextFields(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
@@ -182,13 +174,34 @@ public class ModelCreazione {
             });
 
             setDiscard(true);
-            setSocietySaved(true);
 
             createSocietaTmp(ClassHelper.getListSocieta().stream().filter(s -> s.getNome().equals(societa)).findFirst().get());
         } else {
             setDiscard(false);
-            setSocietySaved(false);
         }
+    }
+
+    public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
+        List<Reparto> specificList = listaReparti.stream()
+            .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
+            .toList();
+
+            System.out.println("SpecificList: " + specificList.size());
+        return specificList;
+    }
+
+    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale) {
+        List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
+            .filter( unita -> unita.getIdSocieta() == getSocietaTmp().getId())
+            .toList();
+
+        List<Reparto> allReparti = allUnitaLocali.stream()
+            .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
+            .collect(Collectors.toList());
+
+            System.out.println("AllReparti: " + allReparti.size());
+
+        return allReparti;
     }
 
 }

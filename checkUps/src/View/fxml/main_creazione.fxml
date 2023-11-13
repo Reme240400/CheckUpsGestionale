@@ -8,17 +8,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.Creazione">
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.Creazione">
    <children>
       <BorderPane prefHeight="503.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0" BorderPane.alignment="CENTER">
                <children>
                   <JFXButton fx:id="btnSocieta" alignment="CENTER" onAction="#switchToSocieta" text="Società / Ente" />
-                  <Pane prefHeight="48.0" prefWidth="90.0" />
+                  <Pane prefHeight="48.0" prefWidth="45.0" />
                   <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
-                  <Pane prefHeight="48.0" prefWidth="90.0" />
-                  <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" onAction="#switchToUnitaLocali" text="Unità locali" />
+                  <Pane prefHeight="48.0" prefWidth="45.0" />
+                  <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" onAction="#switchToUnitaLocali" text="Unità locale" />
+                  <Pane layoutX="273.0" layoutY="10.0" prefHeight="48.0" prefWidth="45.0" />
+                  <Label alignment="CENTER" layoutX="363.0" layoutY="28.0" prefHeight="17.0" text="&gt;&gt;" />
+                  <Pane layoutX="377.0" layoutY="10.0" prefHeight="48.0" prefWidth="45.0" />
+                  <JFXButton fx:id="btnRepato" alignment="CENTER" layoutX="370.0" layoutY="24.0" onAction="#switchToReparto" text="Reparto" />
                </children>
             </HBox>
          </top>

@@ -8,6 +8,7 @@ import View.Controllers.Home;
 import View.Controllers.ValutaRischi;
 import View.Controllers.ViewController;
 import View.Controllers.Creazione.Creazione;
+import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
 import View.Controllers.Modifiche.Modifica;
@@ -94,6 +95,18 @@ public class ModelPaths {
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
         creazioneSocieta.setModel(modelCreazione);
+
+        return root;
+    }
+
+    public Parent switchToCreazioneReparti(ModelCreazione modelCreazione) throws IOException{
+
+        FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
+        Parent root = loaderReparti.load();
+
+        CreazioneReparto creazioneReparto = loaderReparti.getController();
+
+        creazioneReparto.setModel(modelCreazione);
 
         return root;
     }
