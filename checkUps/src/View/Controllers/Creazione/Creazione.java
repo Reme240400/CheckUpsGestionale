@@ -27,6 +27,9 @@ public class Creazione implements Initializable {
     @FXML
     private StackPane stackPane;
 
+    @FXML
+    private StackPane modificaStackPane;
+
     private ModelCreazione modelCreazione;
     static ModelPaths modelPaths = new ModelPaths();
 
@@ -56,7 +59,7 @@ public class Creazione implements Initializable {
     // * cambia scena in Reparti
     public void switchToReparto(javafx.event.ActionEvent event) throws IOException {
 
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
+        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modificaStackPane, stackPane);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
@@ -72,6 +75,10 @@ public class Creazione implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    public void giveStackPane(StackPane stackPane2) {
+        modificaStackPane = stackPane2;
     }
 
 }

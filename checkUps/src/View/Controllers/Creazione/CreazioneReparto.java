@@ -1,14 +1,15 @@
 package View.Controllers.Creazione;
 
+import java.io.IOException;
 import java.util.List;
-
-import org.apache.pdfbox.jbig2.segments.Table;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Models.ModelCreazione;
+import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -18,10 +19,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.StackPane;
 
 public class CreazioneReparto implements Initializable{
 
@@ -55,7 +57,15 @@ public class CreazioneReparto implements Initializable{
     @FXML
     private JFXButton btnSalva;
 
+    @FXML
+    private StackPane changeScene;
+
+    @FXML
+    private StackPane changeScene2;
+
     private ModelCreazione modelCreazione;
+    private ModelPaths modelPaths;
+    private ModelModifica modelModifica;
     private List<Societa> listSocieta;
     private List<UnitaLocale> listUnitaLocale;
     private List<Reparto> listaReparto;
@@ -85,6 +95,7 @@ public class CreazioneReparto implements Initializable{
         cercaSocieta.setItems(filteredItems);
     }
 
+    // --------------- triggherato quando si seleziona una societa --------------- //
     public void selectSocieta(){
         List<UnitaLocale> specificList = null;
         modelCreazione.resetUnitaLocaleTmp();
@@ -116,6 +127,7 @@ public class CreazioneReparto implements Initializable{
         }
     }
 
+    // --------------- triggherato quando si seleziona un' unita locale --------------- //
     public void selectUnita(){
         if(modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
             modelCreazione.createUnitaLocaleTmp(listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaUnita.getValue())).findFirst().get());
@@ -125,6 +137,7 @@ public class CreazioneReparto implements Initializable{
         }
     }
 
+    // --------------- popola la tabella dei reparti --------------- //
     private void fillTableView() {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
@@ -149,8 +162,19 @@ public class CreazioneReparto implements Initializable{
     }
 
     @FXML
-    public void modify(){
+    public void modify() throws IOException{
+        Parent root = new Parent(){};
+        Parent root2 = new Parent(){};
+        modelModifica = new ModelModifica();
 
+        root = modelPaths.switchToModifica(modelModifica);
+        root2 = modelPaths.switchToModificaReparto(modelModifica);
+
+        changeScene.getChildren().removeAll();
+        changeScene2.getChildren().removeAll();
+
+        changeScene.getChildren().addAll(root);
+        changeScene2.getChildren().addAll(root2);
     }
 
     @FXML
@@ -163,8 +187,14 @@ public class CreazioneReparto implements Initializable{
     
     }
 
+    public void giveStackPane(StackPane stackPane, StackPane stackPane2){
+        this.changeScene2 = stackPane2;
+        this.changeScene = stackPane;
+    }
 
-    public void setModel(ModelCreazione modelCreazione) {
+    public void setModel(ModelCreazione modelCreazione, ModelPaths paths) {
         this.modelCreazione = modelCreazione;
+        this.modelPaths = paths;
+
     }
 }

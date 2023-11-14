@@ -84,7 +84,7 @@ public class ViewController implements Initializable{
 
     public void switchToCreazione(ActionEvent event) throws IOException{
         
-        Parent root = modelPaths.switchToCreazione(modelCreazione);
+        Parent root = modelPaths.switchToCreazione(modelCreazione, stackPane);
 
         stackPane.getChildren().removeAll();
         stackPane.getChildren().setAll(root);
