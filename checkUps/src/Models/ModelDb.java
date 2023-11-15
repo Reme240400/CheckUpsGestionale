@@ -243,9 +243,12 @@ public class ModelDb {
                         String rischio = resultSet.getString("rischio");
                         String soggettiEsposti = resultSet.getString("soggetti_esposti");
                         int stima = resultSet.getInt("stima");
+                        int stima_r = resultSet.getInt("stima_r");
+                        int stima_d = resultSet.getInt("stima_d");
+                        int stima_p = resultSet.getInt("stima_p");
 
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
-                                rischio, soggettiEsposti, stima);
+                                rischio, soggettiEsposti, stima, stima_r, stima_d, stima_p);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -301,7 +304,8 @@ public class ModelDb {
     }
 
     // Metodo generico per l'eliminazione di un record da qualsiasi tabella
-    public static void eliminaRecord(String tableName, int recordId) {
+    public static void eliminaRecord(Object obj, int recordId) {
+        String tableName = obj.getClass().getSimpleName();
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement()) {
@@ -707,7 +711,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            //System.out.println(unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
+            // System.out.println(unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
             preparedStatement.setInt(1, unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
             preparedStatement.setInt(2, unitaLocaleList.get(unitaLocaleList.size() - 1).getIdSocieta());
             preparedStatement.setString(3, unitaLocaleList.get(unitaLocaleList.size() - 1).getNome());

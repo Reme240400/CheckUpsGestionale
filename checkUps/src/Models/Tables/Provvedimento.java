@@ -2,26 +2,31 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class Provvedimento extends TablesId implements Serializable{
+public class Provvedimento extends TablesId implements Serializable {
 
     private String nome;
     private int idMansione;
     private int idOggetto;
-    private String Rischio;
+    private String rischio;
     private String soggettiEsposti;
     private int stima;
+    private int stima_r;
+    private int stima_d;
+    private int stima_p;
 
-    public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, String Rischio,
-            String soggettiEsposti, int stima) {
+    public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, String rischio,
+            String soggettiEsposti, int stima, int stima_r, int stima_d, int stima_p) {
         super(idProvvedimento);
-
 
         this.nome = nome;
         this.idMansione = idMansione;
         this.idOggetto = idOggetto;
-        this.Rischio = Rischio;
+        this.rischio = rischio;
         this.soggettiEsposti = soggettiEsposti;
         this.stima = stima;
+        this.stima_r = stima_r;
+        this.stima_d = stima_d;
+        this.stima_p = stima_p;
     }
 
     public String getNome() {
@@ -57,18 +62,43 @@ public class Provvedimento extends TablesId implements Serializable{
     }
 
     public String getRischio() {
-        return Rischio;
+        return rischio;
     }
 
     public void setRischio(String rischio) {
-        this.Rischio = rischio;
+        this.rischio = rischio;
     }
+
     public int getStima() {
         return stima;
     }
 
     public void setStima(int stima) {
         this.stima = stima;
+    }
+
+    public int getStimaR() {
+        return stima_r;
+    }
+
+    public void setStimaR(int stima_r) {
+        this.stima_r = stima_r;
+    }
+
+    public int getStimaD() {
+        return stima_d;
+    }
+
+    public void setStimaD(int stima_d) {
+        this.stima_d = stima_d;
+    }
+
+    public int getStimaP() {
+        return stima_p;
+    }
+
+    public void setStimaP(int stima_p) {
+        this.stima_p = stima_p;
     }
 
 }

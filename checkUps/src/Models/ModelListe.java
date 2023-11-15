@@ -270,6 +270,22 @@ public class ModelListe {
                                 Integer.parseInt(valore));
                         break;
 
+                    case "stima_r":
+                        ((Provvedimento) obj).setStimaR((Integer.parseInt(valore)));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
+                        break;
+                    case "stima_d":
+                        ((Provvedimento) obj).setStimaD((Integer.parseInt(valore)));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
+                        break;
+                    case "stima_p":
+                        ((Provvedimento) obj).setStimaP((Integer.parseInt(valore)));
+                        ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), id, campo,
+                                Integer.parseInt(valore));
+                        break;
+
                     default:
                         throw new IllegalArgumentException("Unexpected value: " + campo);
                 }
@@ -379,7 +395,10 @@ public class ModelListe {
                         ((Provvedimento) obj).getIdOggetto(),
                         ((Provvedimento) obj).getRischio(),
                         ((Provvedimento) obj).getSoggettiEsposti(),
-                        ((Provvedimento) obj).getStima());
+                        ((Provvedimento) obj).getStima(),
+                        ((Provvedimento) obj).getStimaR(),
+                        ((Provvedimento) obj).getStimaD(),
+                        ((Provvedimento) obj).getStimaP());
 
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;
@@ -408,6 +427,27 @@ public class ModelListe {
     public static List<Reparto> filtraRepartoDaUnita(int idUnitaLocale) {
 
         return ClassHelper.getListReparto().stream().filter(ul -> ul.getIdUnitaLocale() == idUnitaLocale)
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<Titolo> filtraTitoliDaReparto(int idReparto) {
+
+        return ClassHelper.getListTitolo().stream().filter(ul -> ul.getIdReparto() == idReparto)
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<Oggetto> filtraOggettiDaTitolo(int idTitolo) {
+
+        return ClassHelper.getListOggetto().stream().filter(ul -> ul.getIdTitolo() == idTitolo)
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<Provvedimento> filtraProvvedimentiDaOggetto(int idOggetto) {
+
+        return ClassHelper.getListProvvedimento().stream().filter(ul -> ul.getIdOggetto() == idOggetto)
                 .collect(Collectors.toList());
 
     }
