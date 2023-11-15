@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
 import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
@@ -99,6 +100,7 @@ public class Modifica implements Initializable {
     private DialogPane dialogPane;
 
     private ModelModifica modelModifica;
+    private ModelPaths modelPaths = new ModelPaths();
 
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
@@ -236,12 +238,7 @@ public class Modifica implements Initializable {
     // ------------------- Mostra il dialogPane dei Reparti ------------------- //
     public void showRepartoPane() throws IOException{
                     
-        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/View/fxml/modifica_selezioneReparto.fxml"));
-
-        Parent root = loader2.load();
-        ModificaSelezioneReparti controller = loader2.getController();
-
-        controller.setModel(modelModifica);
+        Parent root = modelPaths.switchToModificaReparto(modelModifica);
 
         titoli_repartiStackPane.getChildren().removeAll();
         titoli_repartiStackPane.getChildren().setAll(root);       
@@ -251,12 +248,7 @@ public class Modifica implements Initializable {
     // ------------------- Mostra il dialogPane dei Titoli ------------------- //
     public void showTitoliPane() throws IOException{
     
-        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("/View/fxml/modifica_selezioneTitolo.fxml"));
-
-        Parent root = loader3.load();
-        ModificaSelezioneTitolo controller = loader3.getController();
-
-        controller.setModel(modelModifica);
+        Parent root = modelPaths.switchToModificaTitoli(modelModifica);
 
         titoli_repartiStackPane.getChildren().removeAll();
         titoli_repartiStackPane.getChildren().setAll(root);

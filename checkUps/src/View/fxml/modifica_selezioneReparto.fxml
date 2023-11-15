@@ -23,15 +23,6 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <JFXButton fx:id="btnSave" contentDisplay="CENTER" ellipsisString="" layoutX="605.0" layoutY="6.0" onAction="#updateChanges" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2baef0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
-                           <graphic>
-                              <ImageView fitHeight="31.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/upload_icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
                         <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" layoutX="14.0" layoutY="9.0" onAction="#modify" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -41,7 +32,7 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton fx:id="btnDel" contentDisplay="CENTER" ellipsisString="" layoutX="93.0" layoutY="8.0" onAction="#delate" prefHeight="35.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                        <JFXButton fx:id="btnDel" contentDisplay="CENTER" ellipsisString="" layoutX="605.0" layoutY="8.0" onAction="#delete" prefHeight="35.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -50,11 +41,10 @@
                               </ImageView>
                            </graphic>
                         </JFXButton>
-                        <Label layoutX="259.0" layoutY="17.0" text="Filtra per nome" />
-                        <TextField fx:id="filterTable" layoutX="358.0" layoutY="14.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
+                        <Label layoutX="191.0" layoutY="21.0" text="Filtra per nome" />
+                        <TextField fx:id="filterTable" layoutX="290.0" layoutY="18.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
                         <Label layoutX="25.0" layoutY="38.0" text="Modifica" />
-                        <Label layoutX="104.0" layoutY="38.0" text="Cancella" />
-                        <Label layoutX="624.0" layoutY="38.0" text="Salva" />
+                        <Label layoutX="617.0" layoutY="38.0" text="Cancella" />
                      </children>
                   </Pane>
                </children>

@@ -27,8 +27,7 @@ public class ModificaSelezioneTitolo implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'initialize'");
+        
     }
 
     @FXML
@@ -42,7 +41,7 @@ public class ModificaSelezioneTitolo implements Initializable {
     }
 
     @FXML
-    private void delate(){
+    private void delete(){
 
     }
 

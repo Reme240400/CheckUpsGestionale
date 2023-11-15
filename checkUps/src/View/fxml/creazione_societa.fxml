@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -14,11 +13,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
    <bottom>
-      <HBox alignment="TOP_CENTER" prefHeight="60.0" prefWidth="752.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="752.0" BorderPane.alignment="CENTER">
          <children>
             <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#eliminaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
@@ -29,7 +27,20 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="500.0" />
+            <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Pane>
+            <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/angle-right.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Pane layoutX="106.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
             <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -40,6 +51,9 @@
                </graphic>
             </JFXButton>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="15.0" />
+         </BorderPane.margin>
       </HBox>
    </bottom>
    <center>
@@ -47,7 +61,7 @@
          <children>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="435.0" prefWidth="614.0">
                <children>
-                  <GridPane alignment="CENTER" prefHeight="364.0" prefWidth="710.0">
+                  <GridPane alignment="CENTER" prefHeight="439.0" prefWidth="614.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="261.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="62.0" />
@@ -75,28 +89,6 @@
                         <TextField fx:id="textFieldDesc" accessibleText="INTEGER" disable="true" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <Pane>
-                     <children>
-                        <JFXComboBox fx:id="cercaRecord" editable="true" layoutX="75.0" layoutY="28.0" onHiding="#fillTextField" prefHeight="25.0" prefWidth="416.0" unFocusColor="BLACK" />
-                        <JFXButton contentDisplay="CENTER" ellipsisString="" layoutX="500.0" layoutY="24.0" prefHeight="32.0" prefWidth="13.0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
-                           <graphic>
-                              <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/upload_icon.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </JFXButton>
-                        <Label layoutX="75.0" layoutY="1.0" text="Cerca / Carica File">
-                           <font>
-                              <Font name="Bell MT Bold" size="21.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="15.0" />
-                     </VBox.margin>
-                  </Pane>
                </children>
             </VBox>
          </children>

@@ -8,17 +8,20 @@ import View.Controllers.Home;
 import View.Controllers.ValutaRischi;
 import View.Controllers.ViewController;
 import View.Controllers.Creazione.Creazione;
+import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
 import View.Controllers.Modifiche.Modifica;
+import View.Controllers.Modifiche.ModificaSelezioneReparti;
+import View.Controllers.Modifiche.ModificaSelezioneTitolo;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
 
     // * *************** Cambia la scena a modifica *************** //
     public Parent switchToModifica( ModelModifica model) throws IOException{
-        
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica.fxml"));
 
@@ -29,6 +32,31 @@ public class ModelPaths {
 
         return root;
 
+    }
+
+    public Parent switchToModificaReparto(ModelModifica model) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_selezioneReparto.fxml"));
+
+        Parent root = loader.load();
+        ModificaSelezioneReparti modifica = loader.getController();
+
+        modifica.setModel(model);
+
+        return root;
+
+    }
+
+    public Parent switchToModificaTitoli(ModelModifica modelModifica) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_selezioneTitolo.fxml"));
+
+        Parent root = loader.load();
+        ModificaSelezioneTitolo controller = loader.getController();
+
+        controller.setModel(modelModifica);
+
+        return root;
     }
 
     // * *************** Cambia la scena a valuta rischi *************** //
@@ -49,12 +77,13 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a creazione *************** //
-    public Parent switchToCreazione(ModelCreazione modelCreazione) throws IOException {
+    public Parent switchToCreazione(ModelCreazione modelCreazione, StackPane stackPane) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
         Parent root = loader.load();
         Creazione creazione = loader.getController();
 
+        creazione.giveStackPane(stackPane);
         creazione.setModelCreazione(modelCreazione);
 
         return root;
@@ -97,4 +126,18 @@ public class ModelPaths {
 
         return root;
     }
+
+    public Parent switchToCreazioneReparti(ModelCreazione modelCreazione, StackPane stackPane1, StackPane stackPane2) throws IOException{
+
+        FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
+        Parent root = loaderReparti.load();
+
+        CreazioneReparto creazioneReparto = loaderReparti.getController();
+
+        creazioneReparto.setModel(modelCreazione, this);
+        creazioneReparto.giveStackPane(stackPane1, stackPane2);
+
+        return root;
+    }
+
 }
