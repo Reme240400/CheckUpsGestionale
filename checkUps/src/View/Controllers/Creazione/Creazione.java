@@ -25,44 +25,40 @@ public class Creazione implements Initializable {
     private JFXButton btnReparti;
 
     @FXML
-    private StackPane stackPane;
+    private StackPane stackPaneCreazione;
 
-    @FXML
     private StackPane modificaStackPane;
 
     private ModelCreazione modelCreazione;
     static ModelPaths modelPaths = new ModelPaths();
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     // * cambia scena in UnitaLocale
     public void switchToSocieta() throws IOException {
 
         Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
 
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        stackPaneCreazione.getChildren().removeAll();
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * cambia scena in UnitaLocale
-    public void switchToUnitaLocali(javafx.event.ActionEvent event) throws IOException {
+    public void switchToUnitaLocali() throws IOException {
         
+        stackPaneCreazione.getChildren().removeAll();
         Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * cambia scena in Reparti
-    public void switchToReparto(javafx.event.ActionEvent event) throws IOException {
+    public void switchToReparto() throws IOException {
+        System.out.println("StackPane 4: " + modificaStackPane.getChildren());
 
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modificaStackPane, stackPane);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        stackPaneCreazione.getChildren().removeAll();
+        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modificaStackPane, stackPaneCreazione);
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * setta il modello
@@ -77,8 +73,9 @@ public class Creazione implements Initializable {
 
     }
 
-    public void giveStackPane(StackPane stackPane2) {
-        modificaStackPane = stackPane2;
+    public void giveStackPane(StackPane stackPaneHome) {
+        this.modificaStackPane = stackPaneHome;
+        System.out.println("StackPane 3: " + modificaStackPane.getChildren());
     }
 
 }

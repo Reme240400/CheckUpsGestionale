@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Models.ModelModifica;
-import Models.Tables.Reparto;
 import Models.Tables.Titolo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

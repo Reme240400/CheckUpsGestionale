@@ -14,6 +14,7 @@ import View.Controllers.Creazione.CreazioneUnitaLocale;
 import View.Controllers.Modifiche.Modifica;
 import View.Controllers.Modifiche.ModificaSelezioneReparti;
 import View.Controllers.Modifiche.ModificaSelezioneTitolo;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
@@ -77,14 +78,16 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a creazione *************** //
-    public Parent switchToCreazione(ModelCreazione modelCreazione, StackPane stackPane) throws IOException {
+    public Parent switchToCreazione(ModelCreazione modelCreazione, StackPane stackPaneHome) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
 
         Parent root = loader.load();
         Creazione creazione = loader.getController();
 
-        creazione.giveStackPane(stackPane);
-        creazione.setModelCreazione(modelCreazione);
+        System.out.println("StackPaneHome : " + stackPaneHome.getChildren());
+
+        creazione.setModelCreazione(modelCreazione); 
+        creazione.giveStackPane(stackPaneHome);
 
         return root;
     }
@@ -127,15 +130,17 @@ public class ModelPaths {
         return root;
     }
 
-    public Parent switchToCreazioneReparti(ModelCreazione modelCreazione, StackPane stackPane1, StackPane stackPane2) throws IOException{
+    public Parent switchToCreazioneReparti(ModelCreazione modelCreazione, StackPane stackPaneHome, StackPane stackPaneCreazione) throws IOException{
 
         FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
         Parent root = loaderReparti.load();
 
         CreazioneReparto creazioneReparto = loaderReparti.getController();
 
+        System.out.println("StackPane 5: " + stackPaneHome.getChildren());
+
+        creazioneReparto.giveStackPane(stackPaneHome, stackPaneCreazione);
         creazioneReparto.setModel(modelCreazione, this);
-        creazioneReparto.giveStackPane(stackPane1, stackPane2);
 
         return root;
     }
