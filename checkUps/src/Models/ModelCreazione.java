@@ -12,6 +12,7 @@ import Models.Tables.UnitaLocale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 
 public class ModelCreazione extends ModelListe{
 
@@ -22,6 +23,7 @@ public class ModelCreazione extends ModelListe{
     private final BooleanProperty isEnable = new SimpleBooleanProperty(true);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
+    private StackPane stackPaneHome = new StackPane();
 
     // end initialize variables
 
@@ -202,6 +204,15 @@ public class ModelCreazione extends ModelListe{
             System.out.println("AllReparti: " + allReparti.size());
 
         return allReparti;
+    }
+
+    public void setStackPaneHome(StackPane stackPaneHome2) {
+        stackPaneHome = stackPaneHome2;
+        
+    }
+
+    public StackPane getStackPaneHome() {
+        return stackPaneHome;    
     }
 
 }

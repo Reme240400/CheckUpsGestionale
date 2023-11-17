@@ -1,6 +1,10 @@
 package Models;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -20,6 +24,8 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
+
+    private String loadedFXMLs = null;
 
     // * *************** Cambia la scena a modifica *************** //
     public Parent switchToModifica( ModelModifica model) throws IOException{
@@ -78,18 +84,52 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a creazione *************** //
+    // public Parent switchToCreazione(ModelCreazione modelCreazione, StackPane stackPaneHome) throws IOException {
+
+    //     System.out.println(stackPaneHome.getChildren().getClass().getClassLoader().getResource("View/fxml/main_creazione.fxml"));
+            
+    //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
+
+    //     System.out.println("Loader: " + loader.getRoot());
+
+    //     if (!stackPaneHome.getChildren().contains(loader.getRoot())) {
+
+    //     Parent root = loader.load();
+    //     Creazione creazione = loader.getController();
+
+    //     System.out.println("StackPaneHome : " + stackPaneHome.getChildren());
+
+    //     creazione.setModelCreazione(modelCreazione, stackPaneHome); 
+
+    //     return root;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
+    
+
+    // * *************** Cambia la scena a creazione *************** //
     public Parent switchToCreazione(ModelCreazione modelCreazione, StackPane stackPaneHome) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/main_creazione.fxml");
 
-        Parent root = loader.load();
-        Creazione creazione = loader.getController();
+        // Check if the stackPaneHome already contains the root of the new scene
+        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+            FXMLLoader loader = new FXMLLoader(fxmlURL);
+            Parent root = loader.load();
+            Creazione creazione = loader.getController();
 
-        System.out.println("StackPaneHome : " + stackPaneHome.getChildren());
+            System.out.println("StackPaneHome : " + stackPaneHome.getChildren());
 
-        creazione.setModelCreazione(modelCreazione); 
-        creazione.giveStackPane(stackPaneHome);
+            creazione.setModelCreazione(modelCreazione, stackPaneHome);
 
-        return root;
+            // Add the loaded FXML URL to the set
+            loadedFXMLs = fxmlURL.toString();
+
+            return root;
+        } else {
+            return null;
+        }
     }
 
     // * *************** Cambia la scena a home *************** //
@@ -143,6 +183,11 @@ public class ModelPaths {
         creazioneReparto.setModel(modelCreazione, this);
 
         return root;
+    }
+    
+    // ------------------ Verifica che il contenuto dello stackPane sia già stato caricato ------------------ //
+    private boolean isAlreadyLoaded(StackPane stackPane, String fxmlURL) {
+        return loadedFXMLs.equals(fxmlURL);
     }
 
 }

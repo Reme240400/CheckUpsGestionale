@@ -30,7 +30,7 @@ public class Creazione implements Initializable {
     private StackPane modificaStackPane;
 
     private ModelCreazione modelCreazione;
-    static ModelPaths modelPaths = new ModelPaths();
+    private ModelPaths modelPaths = new ModelPaths();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
@@ -54,28 +54,27 @@ public class Creazione implements Initializable {
 
     // * cambia scena in Reparti
     public void switchToReparto() throws IOException {
-        System.out.println("StackPane 4: " + modificaStackPane.getChildren());
+        System.out.println("StackPane 4: " + modelCreazione.getStackPaneHome().getChildren());
 
         stackPaneCreazione.getChildren().removeAll();
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modificaStackPane, stackPaneCreazione);
+        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modelCreazione.getStackPaneHome(), stackPaneCreazione);
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * setta il modello
-    public void setModelCreazione(ModelCreazione model) {
+    public void setModelCreazione(ModelCreazione model, StackPane stackPaneHome) {
         this.modelCreazione = model;
 
+        modelCreazione.setStackPaneHome(stackPaneHome);
+        modificaStackPane = modelCreazione.getStackPaneHome();
+
+        System.out.println("StackPane 3: " + modificaStackPane.getChildren());
         try {
             switchToSocieta();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
-
-    public void giveStackPane(StackPane stackPaneHome) {
-        this.modificaStackPane = stackPaneHome;
-        System.out.println("StackPane 3: " + modificaStackPane.getChildren());
     }
 
 }
