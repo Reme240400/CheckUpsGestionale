@@ -66,6 +66,7 @@ public class ViewController implements Initializable{
 
         try{
             switchToHome();
+            
             modelPaths.setStackPaneHome(stackPane);
         }catch (IOException e) {
             e.printStackTrace();
@@ -85,13 +86,14 @@ public class ViewController implements Initializable{
 
     public void switchToCreazione() throws IOException{
         
-        Parent root = modelPaths.switchToCreazione(modelCreazione); 
+        Parent root = modelPaths.switchToCreazione(modelCreazione, this); 
 
-        System.out.println("StackPane 1: " + stackPane.getChildren());
         if(root != null){
             stackPane.getChildren().removeAll();
             stackPane.getChildren().setAll(root);
         }
+
+        System.out.println("StackPane 1: " + stackPane.getChildren());
     }
 
     public void switchToModifica() throws IOException{
@@ -144,6 +146,11 @@ public class ViewController implements Initializable{
     public static FilteredList<String> filterComboBoxReparti(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
         return model.filterComboBoxById(cercaItem, id, units);
+    }
+
+    public void changePane(Parent root){
+        stackPane.getChildren().removeAll();
+        stackPane.getChildren().setAll(root);
     }
 
     

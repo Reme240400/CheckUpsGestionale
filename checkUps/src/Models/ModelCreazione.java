@@ -8,11 +8,11 @@ import com.jfoenix.controls.JFXComboBox;
 import Controllers.ClassHelper;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
+import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 
 public class ModelCreazione extends ModelListe{
 
@@ -23,7 +23,7 @@ public class ModelCreazione extends ModelListe{
     private final BooleanProperty isEnable = new SimpleBooleanProperty(true);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
-    private StackPane stackPaneHome = new StackPane();
+    private Reparto repartoTmp = null;
 
     // end initialize variables
 
@@ -56,6 +56,19 @@ public class ModelCreazione extends ModelListe{
     public final boolean isDiscard() {
         return discardProperty().get();
     }
+    
+    public Societa getSocietaTmp() {
+        return societaTmp;
+    } 
+    
+    public UnitaLocale getUnitaLocaleTmp() {
+        
+        return unitaLocaleTmp;
+    }
+
+    public Reparto getRepartoTmp() {
+        return repartoTmp;
+    }
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
@@ -70,39 +83,30 @@ public class ModelCreazione extends ModelListe{
 
     public final void setDiscard(boolean discard) {
         discardProperty().set(discard);
-    }
-    // ------------------ END SETTER ------------------ //
-
-    // ------------------ SocietaTmp ------------------ //
-    public Societa getSocietaTmp() {
-        return societaTmp;
-    }
-
+    } 
+    
     public void createSocietaTmp(Societa societaTmp) {
         this.societaTmp = societaTmp;
     }
+    
+    public void createUnitaLocaleTmp(UnitaLocale unitaLocale) {
+        this.unitaLocaleTmp = unitaLocale;
+    }
+
+    public void createRepartoTmp(Reparto reparto) {
+        this.repartoTmp = reparto;
+    }
+    // ------------------ END SETTER ------------------ //
 
     public void resetSocietaTmp() {
         this.societaTmp = null;
     }
 
-    public void createUnitaLocaleTmp(UnitaLocale unitaLocale) {
-        this.unitaLocaleTmp = unitaLocale;
-        System.out.println("UnitaLocaleTmp: " + unitaLocaleTmp.getNome());
-    }
-
-    public UnitaLocale getUnitaLocaleTmp() {
-        
-        return unitaLocaleTmp;
-    }
-
     public void resetUnitaLocaleTmp() {
         this.unitaLocaleTmp = null;
     }
-    // ------------------ END SocietaTmp ------------------ //
 
-    // ------------------ Controllo se i campi sono stati inseriti
-    // ------------------ //
+    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
     public void isTextFilled(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
 
@@ -206,13 +210,16 @@ public class ModelCreazione extends ModelListe{
         return allReparti;
     }
 
-    public void setStackPaneHome(StackPane stackPaneHome2) {
-        stackPaneHome = stackPaneHome2;
-        
+    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
+        List<Titolo> specificList = listaTitolo.stream()
+            .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
+            .toList();
+
+            System.out.println("SpecificList: " + specificList.size());
+        return specificList;
     }
 
-    public StackPane getStackPaneHome() {
-        return stackPaneHome;    
-    }
+    
+
 
 }

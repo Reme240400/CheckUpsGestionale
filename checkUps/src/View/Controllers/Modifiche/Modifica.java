@@ -100,7 +100,7 @@ public class Modifica implements Initializable {
     private DialogPane dialogPane;
 
     private ModelModifica modelModifica;
-    private ModelPaths modelPaths = new ModelPaths();
+    private ModelPaths modelPaths;
 
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
@@ -237,28 +237,32 @@ public class Modifica implements Initializable {
 
     // ------------------- Mostra il dialogPane dei Reparti ------------------- //
     public void showRepartoPane() throws IOException{
-                    
+    
         Parent root = modelPaths.switchToModificaReparto(modelModifica);
 
-        titoli_repartiStackPane.getChildren().removeAll();
-        titoli_repartiStackPane.getChildren().setAll(root);       
-        
+        if(root != null){
+            titoli_repartiStackPane.getChildren().removeAll();
+            titoli_repartiStackPane.getChildren().setAll(root);       
+        }
     }
 
     // ------------------- Mostra il dialogPane dei Titoli ------------------- //
     public void showTitoliPane() throws IOException{
-    
+        
         Parent root = modelPaths.switchToModificaTitoli(modelModifica);
 
-        titoli_repartiStackPane.getChildren().removeAll();
-        titoli_repartiStackPane.getChildren().setAll(root);
-
+        if(root != null){
+            titoli_repartiStackPane.getChildren().removeAll();
+            titoli_repartiStackPane.getChildren().setAll(root);
+        }
     }
     
     // ----------------- Setta il model ----------------- //
-    public void setModel(ModelModifica modelModifica) {
+    public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
+        this.modelPaths = modelPaths;
 
+        modelPaths.setStackPaneModifica(titoli_repartiStackPane);
         this.btnSaveS.disableProperty().bind(modelModifica.savedProperty().not());
 
         this.textFieldIndirizzo.editableProperty().bind(modelModifica.isEnableProperty());

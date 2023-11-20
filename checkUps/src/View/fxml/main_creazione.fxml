@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-
 <BorderPane prefHeight="503.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.Creazione">
    <top>
       <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0" BorderPane.alignment="CENTER">
@@ -24,7 +23,7 @@
             <Pane layoutX="441.0" layoutY="10.0" prefHeight="48.0" prefWidth="45.0" />
             <Label alignment="CENTER" layoutX="464.0" layoutY="28.0" prefHeight="17.0" text="&gt;&gt;" />
             <Pane layoutX="418.0" layoutY="10.0" prefHeight="48.0" prefWidth="45.0" />
-            <JFXButton fx:id="btnRepato1" alignment="CENTER" layoutX="523.0" layoutY="24.0" onAction="#switchToReparto" text="Titolo" />
+            <JFXButton fx:id="btnTitolo" alignment="CENTER" layoutX="523.0" layoutY="24.0" onAction="#switchToTitoli" text="Titolo" />
          </children>
       </HBox>
    </top>

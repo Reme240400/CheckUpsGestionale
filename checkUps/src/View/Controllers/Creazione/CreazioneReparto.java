@@ -24,7 +24,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.StackPane;
 
 public class CreazioneReparto implements Initializable{
 
@@ -58,11 +57,7 @@ public class CreazioneReparto implements Initializable{
     @FXML
     private JFXButton btnSalva;
 
-    
-    private StackPane changeScene;
-
-    
-    private StackPane changeScene2;
+    private ViewController viewController;
 
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
@@ -165,17 +160,11 @@ public class CreazioneReparto implements Initializable{
     public void modify() throws IOException{
 
         Parent root = new Parent(){};
-        Parent root2 = new Parent(){};
         modelModifica = new ModelModifica();
 
-        root = modelPaths.switchToModifica(modelModifica);
-        root2 = modelPaths.switchToModificaReparto(modelModifica);
+        root = modelPaths.switchToModificaReparto(modelModifica);
 
-        changeScene.getChildren().removeAll();
-        changeScene2.getChildren().removeAll();
-
-        changeScene.getChildren().addAll(root);
-        changeScene2.getChildren().addAll(root2);
+        viewController.changePane(root);
     }
 
     @FXML
@@ -184,16 +173,11 @@ public class CreazioneReparto implements Initializable{
     @FXML
     public void addReparto() {}
 
-    public void giveStackPane(StackPane stackPane, StackPane stackPane2){
-        this.changeScene2 = stackPane2;
-        this.changeScene = stackPane;
 
-        System.out.println("StackPane 6: " + changeScene.getChildren());
-    }
-
-    public void setModel(ModelCreazione modelCreazione, ModelPaths paths) {
+    public void setModel(ModelCreazione modelCreazione, ModelPaths paths, ViewController viewController) {
         this.modelCreazione = modelCreazione;
         this.modelPaths = paths;
+        this.viewController = viewController;
 
     }
 }

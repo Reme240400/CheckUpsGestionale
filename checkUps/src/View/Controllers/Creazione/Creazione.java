@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 
 import Models.ModelCreazione;
 import Models.ModelPaths;
+import View.Controllers.ViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -25,12 +26,14 @@ public class Creazione implements Initializable {
     private JFXButton btnReparti;
 
     @FXML
+    private JFXButton btnTitoli;
+
+    @FXML
     private StackPane stackPaneCreazione;
 
-    private StackPane modificaStackPane;
-
     private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths = new ModelPaths();
+    private ViewController viewController;
+    private ModelPaths modelPaths;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
@@ -54,21 +57,25 @@ public class Creazione implements Initializable {
 
     // * cambia scena in Reparti
     public void switchToReparto() throws IOException {
-        System.out.println("StackPane 4: " + modelCreazione.getStackPaneHome().getChildren());
 
         stackPaneCreazione.getChildren().removeAll();
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modelCreazione.getStackPaneHome(), stackPaneCreazione);
+        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, viewController);
+        stackPaneCreazione.getChildren().setAll(root);
+    }
+
+    public void switchToTitoli() throws IOException {
+
+        stackPaneCreazione.getChildren().removeAll();
+        Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione, viewController);
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * setta il modello
-    public void setModelCreazione(ModelCreazione model, StackPane stackPaneHome) {
+    public void setModelCreazione(ModelCreazione model, ModelPaths modelPaths, ViewController viewController) {
         this.modelCreazione = model;
+        this.modelPaths = modelPaths;
+        this.viewController = viewController;
 
-        modelCreazione.setStackPaneHome(stackPaneHome);
-        modificaStackPane = modelCreazione.getStackPaneHome();
-
-        System.out.println("StackPane 3: " + modificaStackPane.getChildren());
         try {
             switchToSocieta();
         } catch (IOException e) {
