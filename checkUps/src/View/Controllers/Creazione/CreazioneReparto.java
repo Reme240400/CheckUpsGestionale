@@ -14,6 +14,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -57,15 +58,16 @@ public class CreazioneReparto implements Initializable{
     @FXML
     private JFXButton btnSalva;
 
-    @FXML
+    
     private StackPane changeScene;
 
-    @FXML
+    
     private StackPane changeScene2;
 
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
+
     private List<Societa> listSocieta;
     private List<UnitaLocale> listUnitaLocale;
     private List<Reparto> listaReparto;
@@ -94,7 +96,6 @@ public class CreazioneReparto implements Initializable{
 
         cercaSocieta.setItems(filteredItems);
     }
-
     // --------------- triggherato quando si seleziona una societa --------------- //
     public void selectSocieta(){
         List<UnitaLocale> specificList = null;
@@ -116,7 +117,6 @@ public class CreazioneReparto implements Initializable{
             // * *************** popola il combobox *************** //
 
             for (UnitaLocale unita : specificList) {
-                
                 items.add(unita.getNome());
             }
 
@@ -163,6 +163,7 @@ public class CreazioneReparto implements Initializable{
 
     @FXML
     public void modify() throws IOException{
+
         Parent root = new Parent(){};
         Parent root2 = new Parent(){};
         modelModifica = new ModelModifica();
@@ -178,18 +179,16 @@ public class CreazioneReparto implements Initializable{
     }
 
     @FXML
-    public void delete(){
-
-    }
+    public void delete(){}
 
     @FXML
-    public void addReparto() {
-    
-    }
+    public void addReparto() {}
 
     public void giveStackPane(StackPane stackPane, StackPane stackPane2){
         this.changeScene2 = stackPane2;
         this.changeScene = stackPane;
+
+        System.out.println("StackPane 6: " + changeScene.getChildren());
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths paths) {

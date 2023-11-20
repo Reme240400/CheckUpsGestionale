@@ -66,7 +66,7 @@ public class ViewController implements Initializable{
 
         try{
             switchToHome();
-
+            modelPaths.setStackPaneHome(stackPane);
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,26 +76,32 @@ public class ViewController implements Initializable{
     public void switchToHome() throws IOException{
         
         Parent root = modelPaths.switchToHome(modelHome, this);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        if(root != null){
+            stackPane.getChildren().removeAll();
+            stackPane.getChildren().setAll(root);
+        }
 
     }
 
-    public void switchToCreazione(ActionEvent event) throws IOException{
+    public void switchToCreazione() throws IOException{
         
-        Parent root = modelPaths.switchToCreazione(modelCreazione, stackPane);
+        Parent root = modelPaths.switchToCreazione(modelCreazione); 
 
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        System.out.println("StackPane 1: " + stackPane.getChildren());
+        if(root != null){
+            stackPane.getChildren().removeAll();
+            stackPane.getChildren().setAll(root);
+        }
     }
 
     public void switchToModifica() throws IOException{
         
         Parent root = modelPaths.switchToModifica(modelModifica);
 
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        if(root != null){
+            stackPane.getChildren().removeAll();
+            stackPane.getChildren().setAll(root);
+        }
         
     }
 
@@ -103,8 +109,10 @@ public class ViewController implements Initializable{
 
         Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        if(root != null){
+            stackPane.getChildren().removeAll();
+            stackPane.getChildren().setAll(root);
+        }
     }
 
     public void logout(ActionEvent event) throws IOException{

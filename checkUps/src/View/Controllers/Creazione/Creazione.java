@@ -25,60 +25,56 @@ public class Creazione implements Initializable {
     private JFXButton btnReparti;
 
     @FXML
-    private StackPane stackPane;
+    private StackPane stackPaneCreazione;
 
-    @FXML
     private StackPane modificaStackPane;
 
     private ModelCreazione modelCreazione;
-    static ModelPaths modelPaths = new ModelPaths();
+    private ModelPaths modelPaths = new ModelPaths();
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
+    public void initialize(URL url, ResourceBundle rb) {}
 
     // * cambia scena in UnitaLocale
     public void switchToSocieta() throws IOException {
 
         Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
 
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        stackPaneCreazione.getChildren().removeAll();
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * cambia scena in UnitaLocale
-    public void switchToUnitaLocali(javafx.event.ActionEvent event) throws IOException {
+    public void switchToUnitaLocali() throws IOException {
         
+        stackPaneCreazione.getChildren().removeAll();
         Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * cambia scena in Reparti
-    public void switchToReparto(javafx.event.ActionEvent event) throws IOException {
+    public void switchToReparto() throws IOException {
+        System.out.println("StackPane 4: " + modelCreazione.getStackPaneHome().getChildren());
 
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modificaStackPane, stackPane);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        stackPaneCreazione.getChildren().removeAll();
+        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, modelCreazione.getStackPaneHome(), stackPaneCreazione);
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * setta il modello
-    public void setModelCreazione(ModelCreazione model) {
+    public void setModelCreazione(ModelCreazione model, StackPane stackPaneHome) {
         this.modelCreazione = model;
 
+        modelCreazione.setStackPaneHome(stackPaneHome);
+        modificaStackPane = modelCreazione.getStackPaneHome();
+
+        System.out.println("StackPane 3: " + modificaStackPane.getChildren());
         try {
             switchToSocieta();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
-
-    public void giveStackPane(StackPane stackPane2) {
-        modificaStackPane = stackPane2;
     }
 
 }
