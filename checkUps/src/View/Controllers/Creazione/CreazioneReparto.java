@@ -179,7 +179,13 @@ public class CreazioneReparto extends Controller implements Initializable{
     }
 
     @FXML
-    public void delete(){}
+    public void delete(){
+        if(tableReparti.getSelectionModel().getSelectedItem() != null){
+            Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
+            eliminaRecord(reparto, reparto.getId());
+            tableReparti.getItems().remove(reparto);
+        }
+    }
 
     @FXML
     public void addReparto() throws IOException{

@@ -17,7 +17,6 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -209,7 +208,13 @@ public class CreazioneTitolo extends Controller implements Initializable{
     }
 
     @FXML
-    public void delete(){}
+    public void delete(){
+        if(tableTitoli.getSelectionModel().getSelectedItem() != null){
+            Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
+            eliminaRecord(titolo, titolo.getId());
+            tableTitoli.getItems().remove(titolo);
+        }
+    }
 
     @FXML
     public void addTitolo() throws IOException{
