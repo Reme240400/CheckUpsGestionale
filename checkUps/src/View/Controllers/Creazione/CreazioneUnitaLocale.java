@@ -9,7 +9,9 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Controllers.Controller;
+import Models.Model;
 import Models.ModelCreazione;
+import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
@@ -20,7 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-public class CreazioneUnitaLocale implements Initializable {
+public class CreazioneUnitaLocale extends Controller implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaRecord;
@@ -29,7 +31,10 @@ public class CreazioneUnitaLocale implements Initializable {
     private JFXButton btnSalvaU;
 
     @FXML
-    private JFXButton btnAnnulla;
+    private JFXButton btnAnnullaU;
+
+    @FXML
+    private JFXButton btnSalvaAggiungiU;
 
     @FXML
     private TextField nomeSocieta;
@@ -50,7 +55,7 @@ public class CreazioneUnitaLocale implements Initializable {
     private TextField textFieldTel;
 
     private ModelCreazione modelCreazione;
-    private Controller controller;
+    private ModelPaths modelPaths;
 
     private String txtUnitaLocale;
     private String txtIndirizzo;
@@ -64,7 +69,6 @@ public class CreazioneUnitaLocale implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        controller = new Controller();
 
         listSocieta = ClassHelper.getListSocieta();
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -92,15 +96,9 @@ public class CreazioneUnitaLocale implements Initializable {
             
     }
 
-
     public void salvaUnitaLocale(javafx.event.ActionEvent event) {
 
-        if (societaTmp == null) {
-
-            controller.inserisciNuovoRecord(societaTmp);
-        }
-
-        int id = controller.getNewId(ClassHelper.getListUnitaLocale());
+        int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
         UnitaLocale unitaLocale = new UnitaLocale(  id, 
                                                     textFieldUnitaLocale.getText(),
@@ -109,11 +107,29 @@ public class CreazioneUnitaLocale implements Initializable {
                                                     textFieldProvincia.getText(),
                                                     societaTmp.getId());
 
-        controller.inserisciNuovoRecord(unitaLocale);
+        inserisciNuovoRecord(unitaLocale);
 
         modelCreazione.resetSocietaTmp();
         eliminaUnitaLocale();
         
+    }
+
+    public void save_addUnitaLocale(){
+
+        int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
+
+        UnitaLocale unitaLocale = new UnitaLocale(  id, 
+                                                    textFieldUnitaLocale.getText(),
+                                                    textFieldIndirizzo.getText(),
+                                                    textFieldLocalita.getText(),
+                                                    textFieldProvincia.getText(),
+                                                    societaTmp.getId());
+        
+        inserisciNuovoRecord(unitaLocale);
+
+        //modelCreazione.resetSocietaTmp();
+        modelCreazione.createUnitaLocaleTmp(unitaLocale);
+        modelCreazione.setSaved(false);
     }
 
     public void eliminaUnitaLocale() {
@@ -162,8 +178,9 @@ public class CreazioneUnitaLocale implements Initializable {
 
     }
 
-    public void setModel(ModelCreazione model) {
+    public void setModel(ModelCreazione model, ModelPaths modelPaths) {
         this.modelCreazione = model;
+        this.modelPaths = modelPaths;
 
         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty().not());
         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty().not());
@@ -172,7 +189,8 @@ public class CreazioneUnitaLocale implements Initializable {
         this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty().not());
 
         this.btnSalvaU.disableProperty().bind(model.savedProperty().not());
-        this.btnAnnulla.disableProperty().bind(model.discardProperty().not());
+        this.btnAnnullaU.disableProperty().bind(model.discardProperty().not());
+        this.btnSalvaAggiungiU.disableProperty().bind(model.savedProperty().not());
 
     }
 

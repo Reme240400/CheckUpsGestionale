@@ -1,5 +1,6 @@
 package View.Controllers.Creazione;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -10,14 +11,16 @@ import com.jfoenix.controls.JFXButton;
 import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.ModelCreazione;
+import Models.ModelPaths;
 import Models.Tables.Societa;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneSocieta extends Creazione {
+public class CreazioneSocieta extends Controller implements Initializable{
 
     @FXML
     private JFXButton btnAnnulla;
@@ -47,6 +50,7 @@ public class CreazioneSocieta extends Creazione {
     // private TextField textFieldDesc;
 
     private ModelCreazione modelCreazione;
+    private ModelPaths modelPaths;
 
     private String txtSocieta;
     private String txtIndirizzo;
@@ -99,6 +103,12 @@ public class CreazioneSocieta extends Creazione {
 
         modelCreazione.setSaved(false);
 
+        try {
+            modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void salvaSocieta() {
@@ -146,8 +156,9 @@ public class CreazioneSocieta extends Creazione {
     // * ------------------------------------------------------------------------------- //
 
     // * ************ setta il modelCreazionelo ************ //
-    public void setModel(ModelCreazione modelCreazione) {
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
         this.modelCreazione = modelCreazione;
+        this.modelPaths = modelPaths;
 
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnSalvaAggiungi.disableProperty().bind(modelCreazione.savedProperty().not());

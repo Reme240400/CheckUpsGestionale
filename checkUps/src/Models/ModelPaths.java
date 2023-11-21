@@ -206,7 +206,7 @@ public class ModelPaths {
         Parent root = loaderUnitaLocale.load();
         CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
-        creazioneUnita.setModel(modelCreazione);
+        creazioneUnita.setModel(modelCreazione, this);
         creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
 
         return root;
@@ -223,7 +223,7 @@ public class ModelPaths {
         Parent root = loaderSocieta.load();
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
-        creazioneSocieta.setModel(modelCreazione);
+        creazioneSocieta.setModel(modelCreazione, this);
 
         return root;
     }

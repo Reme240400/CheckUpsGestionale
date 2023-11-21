@@ -26,21 +26,14 @@
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
             </JFXButton>
-            <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0">
+            <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="40.0">
                <HBox.margin>
                   <Insets />
                </HBox.margin></Pane>
-            <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
-               <graphic>
-                  <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/angle-right.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <Pane layoutX="106.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
             <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -49,6 +42,19 @@
                      </image>
                   </ImageView>
                </graphic>
+            </JFXButton>
+            <Pane layoutX="106.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
+            <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/angle-right.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
             </JFXButton>
          </children>
          <BorderPane.margin>

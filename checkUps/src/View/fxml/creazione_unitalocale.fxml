@@ -72,34 +72,51 @@
       </HBox>
    </top>
    <bottom>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="641.0">
          <children>
-            <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#eliminaUnitaLocale" prefHeight="44.0" prefWidth="52.0" ripplerFill="#ee1f1f" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE">
+            <JFXButton fx:id="btnAnnullaU" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#eliminaUnitaLocale" prefHeight="45.0" prefWidth="0.0" ripplerFill="#f20000" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
-                  <ImageView fitHeight="28.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/cross.png" />
                      </image>
                   </ImageView>
                </graphic>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
             </JFXButton>
-            <Pane prefHeight="53.0" prefWidth="436.0">
+            <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="40.0">
                <HBox.margin>
                   <Insets />
-               </HBox.margin></Pane>
-            <JFXButton fx:id="btnSalvaU" contentDisplay="CENTER" ellipsisString="" onAction="#salvaUnitaLocale" prefHeight="38.0" prefWidth="46.0" ripplerFill="#6ed333" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE">
+               </HBox.margin>
+            </Pane>
+            <JFXButton fx:id="btnSalvaU" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaUnitaLocale" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
                <graphic>
-                  <ImageView fitHeight="36.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/save_icon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
+            <Pane layoutX="106.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
+            <JFXButton fx:id="btnSalvaAggiungiU" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addUnitaLocale" prefHeight="45.0" prefWidth="0.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/angle-right.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </JFXButton>
          </children>
-         <padding>
-            <Insets bottom="15.0" />
-         </padding>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
       </HBox>
    </bottom>
 </BorderPane>
