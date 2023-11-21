@@ -78,7 +78,6 @@
                   <TableView fx:id="tableTitoli" editable="true" prefHeight="520.0" prefWidth="500.0">
                      <columns>
                         <TableColumn fx:id="idColT" editable="false" prefWidth="57.0" text="ID" />
-                        <TableColumn fx:id="idR" prefWidth="294.0" text="Nome" />
                         <TableColumn fx:id="descColT" prefWidth="273.0" text="Descrizione" />
                      </columns>
                      <columnResizePolicy>

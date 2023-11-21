@@ -2,11 +2,13 @@ package View.Controllers.Creazione;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
@@ -15,18 +17,22 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
-
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo implements Initializable{
+public class CreazioneTitolo extends Controller implements Initializable{
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -51,9 +57,6 @@ public class CreazioneTitolo implements Initializable{
 
     @FXML
     private TableColumn<Titolo, Integer> idColT;
-
-    @FXML
-    private TableColumn<Titolo, String> idR;
 
     @FXML
     private TableColumn<Titolo, String> descColT;
@@ -87,7 +90,6 @@ public class CreazioneTitolo implements Initializable{
         descColR.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
         idColT.setCellValueFactory(new PropertyValueFactory<Titolo, Integer>("id"));
-        idR.setCellValueFactory(new PropertyValueFactory<Titolo, String>("idReparto"));
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
 
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -210,7 +212,38 @@ public class CreazioneTitolo implements Initializable{
     public void delete(){}
 
     @FXML
-    public void addTitolo() {}
+    public void addTitolo() throws IOException{
+        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null && modelCreazione.getRepartoTmp() != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaTitolo_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPaneAddT dialogController = loader.getController();
+
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(), modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+        
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Reparto");
+            
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
+            if(clickedButton.get() == ButtonType.APPLY){
+                if( dialogController.getNome() != null){
+                    int id = getNewId(listaTitolo);
+                    Titolo newTitolo = new Titolo( id,
+                                                    modelCreazione.getRepartoTmp().getId(),
+                                                    dialogController.getNome());
+                    modelCreazione.createTitoloTmp(newTitolo);
+                    inserisciNuovoRecord(newTitolo);
+
+                    tableTitoli.refresh();
+                }
+            }
+        }
+    }
 
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths paths, ViewController viewController) {

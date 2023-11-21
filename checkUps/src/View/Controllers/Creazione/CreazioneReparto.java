@@ -203,17 +203,19 @@ public class CreazioneReparto extends Controller implements Initializable{
 
             if(clickedButton.get() == ButtonType.APPLY){
                 if( dialogController.getNome() != null){
-                    Reparto newReparto = new Reparto( modelCreazione.getSocietaTmp().getId(),
+                    int id = getNewId(listaReparto);
+                    Reparto newReparto = new Reparto( id,
                                                         modelCreazione.getUnitaLocaleTmp().getId(), 
                                                         dialogController.getNome(), 
                                                         dialogController.getData());
                     modelCreazione.createRepartoTmp(newReparto);
                     inserisciNuovoRecord(newReparto);
-                }
 
+                    tableReparti.refresh();
+
+                }
             }
         }
-
     }
 
 

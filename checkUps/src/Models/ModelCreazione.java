@@ -220,6 +220,9 @@ public class ModelCreazione extends ModelListe{
         return specificList;
     }
 
+    public void createTitoloTmp(Titolo newReparto) {
+    }
+
     
 
 
