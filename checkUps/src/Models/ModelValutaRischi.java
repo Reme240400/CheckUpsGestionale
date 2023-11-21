@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 
 public class ModelValutaRischi {
 
-
     public void filterTable( TextField filterTextField, TableView<Reparto> tableView, ObservableList<Reparto> observableList) {
 
         String filterText = filterTextField.getText().toLowerCase().trim();

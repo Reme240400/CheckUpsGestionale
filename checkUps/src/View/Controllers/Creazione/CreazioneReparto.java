@@ -2,11 +2,13 @@ package View.Controllers.Creazione;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
@@ -19,13 +21,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneReparto implements Initializable{
+public class CreazioneReparto extends Controller implements Initializable{
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -125,7 +131,12 @@ public class CreazioneReparto implements Initializable{
     // --------------- triggherato quando si seleziona un' unita locale --------------- //
     public void selectUnita(){
         if(modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
-            modelCreazione.createUnitaLocaleTmp(listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaUnita.getValue())).findFirst().get());
+            // ! DA USARE SEMPRE IN QUESTO MODO
+            modelCreazione.createUnitaLocaleTmp(listUnitaLocale.stream()
+                                                .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
+                                                .filter(u -> u.getNome().equals(cercaUnita.getValue()))
+                                                .findFirst().get());
+
             //textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
 
             fillTableView();
@@ -171,7 +182,39 @@ public class CreazioneReparto implements Initializable{
     public void delete(){}
 
     @FXML
-    public void addReparto() {}
+    public void addReparto() throws IOException{
+
+        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaReparto_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPaneAddR dialogController = loader.getController();
+
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(), modelCreazione.getUnitaLocaleTmp().getNome());
+            
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Reparto");
+            
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
+            if(clickedButton.get() == ButtonType.APPLY){
+                if( dialogController.getNome() != null){
+                    Reparto newReparto = new Reparto( modelCreazione.getSocietaTmp().getId(),
+                                                        modelCreazione.getUnitaLocaleTmp().getId(), 
+                                                        dialogController.getNome(), 
+                                                        dialogController.getData());
+                    modelCreazione.createRepartoTmp(newReparto);
+                    inserisciNuovoRecord(newReparto);
+                }
+
+            }
+        }
+
+    }
 
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths paths, ViewController viewController) {

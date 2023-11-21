@@ -213,25 +213,25 @@ public class Modifica implements Initializable {
     public void showRepartiTitoliDialogPane() throws IOException{
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
+        DialogPane dialogPane = loader.load();
 
-            DialogPane2 dialogController = loader.getController();
+        DialogPane2 dialogController = loader.getController();
 
-            dialogController.setModel(modelModifica);
-            
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Scegli la Unità Locale");
-            
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+        dialogController.setModel(modelModifica);
+        
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Scegli la Unità Locale");
+        
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+        // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
-            if(clickedButton.get() == ButtonType.APPLY){
-                showRepartoPane();
-            }else{
-                tabPane.getSelectionModel().select(0);
-            }
+        if(clickedButton.get() == ButtonType.APPLY){
+            showRepartoPane();
+        }else{
+            tabPane.getSelectionModel().select(0);
+        }
 
     }
 

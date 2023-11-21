@@ -60,7 +60,8 @@ public class DialogPane2 extends DialogPane1{
         if (cercaUnitaLocaleR.getValue() != null && !cercaUnitaLocaleR.getValue().equals("") ) {
             
             int id = listUnitaLocale.stream()
-                                    .filter(s -> s.getNome().equals(cercaUnitaLocaleR.getValue()))
+                                    .filter(u -> u.getIdSocieta() == modelModifica.getIdSocietaTmp())
+                                    .filter(u -> u.getNome().equals(cercaUnitaLocaleR.getValue()))
                                     .findFirst().get()
                                     .getId();
                                     

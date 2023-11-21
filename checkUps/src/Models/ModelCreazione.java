@@ -188,6 +188,7 @@ public class ModelCreazione extends ModelListe{
     }
 
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
+        System.out.println("unitaId: " + getUnitaLocaleTmp().getId());
         List<Reparto> specificList = listaReparti.stream()
             .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
             .toList();
