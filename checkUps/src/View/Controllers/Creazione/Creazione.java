@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import View.Controllers.ViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -32,7 +31,6 @@ public class Creazione implements Initializable {
     private StackPane stackPaneCreazione;
 
     private ModelCreazione modelCreazione;
-    private ViewController viewController;
     private ModelPaths modelPaths;
 
     @Override
@@ -59,22 +57,21 @@ public class Creazione implements Initializable {
     public void switchToReparto() throws IOException {
 
         stackPaneCreazione.getChildren().removeAll();
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione, viewController);
+        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     public void switchToTitoli() throws IOException {
 
         stackPaneCreazione.getChildren().removeAll();
-        Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione, viewController);
+        Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * setta il modello
-    public void setModelCreazione(ModelCreazione model, ModelPaths modelPaths, ViewController viewController) {
+    public void setModelCreazione(ModelCreazione model, ModelPaths modelPaths) {
         this.modelCreazione = model;
         this.modelPaths = modelPaths;
-        this.viewController = viewController;
 
         try {
             switchToSocieta();

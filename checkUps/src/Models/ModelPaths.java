@@ -5,13 +5,9 @@ import java.net.URL;
 
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
-import View.Controllers.Home;
 import View.Controllers.ValutaRischi;
-import View.Controllers.ViewController;
 import View.Controllers.Creazione.Creazione;
-import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
-import View.Controllers.Creazione.CreazioneTitolo;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
 import View.Controllers.Modifiche.Modifica;
 import View.Controllers.Modifiche.ModificaSelezioneReparti;
@@ -126,33 +122,7 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a creazione *************** //
-    // public Parent switchToCreazione(ModelCreazione modelCreazione, StackPane
-    // stackPaneHome) throws IOException {
-
-    // System.out.println(stackPaneHome.getChildren().getClass().getClassLoader().getResource("View/fxml/main_creazione.fxml"));
-
-    // FXMLLoader loader = new
-    // FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
-
-    // System.out.println("Loader: " + loader.getRoot());
-
-    // if (!stackPaneHome.getChildren().contains(loader.getRoot())) {
-
-    // Parent root = loader.load();
-    // Creazione creazione = loader.getController();
-
-    // System.out.println("StackPaneHome : " + stackPaneHome.getChildren());
-
-    // creazione.setModelCreazione(modelCreazione, stackPaneHome);
-
-    // return root;
-    // } else {
-    // return null;
-    // }
-    // }
-
-    // * *************** Cambia la scena a creazione *************** //
-    public Parent switchToCreazione(ModelCreazione modelCreazione, ViewController controller) throws IOException {
+    public Parent switchToCreazione(ModelCreazione modelCreazione) throws IOException {
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/main_creazione.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
@@ -161,7 +131,7 @@ public class ModelPaths {
             Parent root = loader.load();
             Creazione creazione = loader.getController();
 
-            creazione.setModelCreazione(modelCreazione, this, controller);
+            creazione.setModelCreazione(modelCreazione, this);
 
             // Add the loaded FXML URL to the set
             loadedFXMLs = fxmlURL.toString();
@@ -173,7 +143,7 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a home *************** //
-    public Parent switchToHome(ModelHome modelHome, ViewController controller) throws IOException {
+    public Parent switchToHome(ModelHome modelHome) throws IOException {
 
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/home.fxml");
 
@@ -181,10 +151,7 @@ public class ModelPaths {
         if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
             FXMLLoader loader = new FXMLLoader(fxmlURL);
             Parent root = loader.load();
-            Home home = loader.getController();
-
-            home.setModel(modelHome);
-            home.setController(controller);
+            //Home home = loader.getController();
 
             loadedFXMLs = fxmlURL.toString();
 
@@ -194,25 +161,25 @@ public class ModelPaths {
         }
     }
 
+    // * *************** Cambia la scena a Creazione Unita Locale *************** //
     public Parent switchToCreazioneUnitaLocale(ModelCreazione modelCreazione) throws IOException {
 
-        // URL fxmlURL =
-        // getClass().getClassLoader().getResource("View/fxml/creazione_unitalocale.fxml");
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/creazione_unitalocale.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
-        // if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
-        FXMLLoader loaderUnitaLocale = new FXMLLoader(getClass().getResource("/View/fxml/creazione_unitalocale.fxml"));
+        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+            FXMLLoader loaderUnitaLocale = new FXMLLoader(getClass().getResource("/View/fxml/creazione_unitalocale.fxml"));
 
-        Parent root = loaderUnitaLocale.load();
-        CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
+            Parent root = loaderUnitaLocale.load();
+            CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
-        creazioneUnita.setModel(modelCreazione, this);
-        creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
+            creazioneUnita.setTextFields();
+            creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
 
-        return root;
-        // } else {
-        // return null;
-        // }
+            return root;
+        } else {
+            return null;
+        }
 
     }
 
@@ -223,19 +190,18 @@ public class ModelPaths {
         Parent root = loaderSocieta.load();
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
-        creazioneSocieta.setModel(modelCreazione, this);
+        creazioneSocieta.setTextFields();
 
         return root;
     }
 
-    public Parent switchToCreazioneReparti(ModelCreazione modelCreazione, ViewController viewController) throws IOException {
+    public Parent switchToCreazioneReparti(ModelCreazione modelCreazione) throws IOException {
 
         FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
         Parent root = loaderReparti.load();
 
-        CreazioneReparto creazioneReparto = loaderReparti.getController();
+       // CreazioneReparto creazioneReparto = loaderReparti.getController();
 
-        creazioneReparto.setModel(modelCreazione, this, viewController);
 
         return root;
     }
@@ -249,14 +215,13 @@ public class ModelPaths {
         return false;
     }
 
-    public Parent switchToCreazioneTitolo(ModelCreazione modelCreazione, ViewController viewController) throws IOException {
+    public Parent switchToCreazioneTitolo(ModelCreazione modelCreazione) throws IOException {
         
         FXMLLoader loaderTitoli = new FXMLLoader(getClass().getResource("/View/fxml/creazione_titoli.fxml"));
         Parent root = loaderTitoli.load();
 
-        CreazioneTitolo creazioneTitolo = loaderTitoli.getController();
+        //CreazioneTitolo creazioneTitolo = loaderTitoli.getController();
 
-        creazioneTitolo.setModel(modelCreazione, this, viewController);
 
         return root;
     }

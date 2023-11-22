@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.Controller;
 import Controllers.ControllerDb;
 import Models.Model;
 import Models.ModelCreazione;
@@ -27,7 +28,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class ViewController implements Initializable{
+public class ViewController extends Controller implements Initializable{
 
     @FXML
     private JFXButton btnQuit;
@@ -44,12 +45,12 @@ public class ViewController implements Initializable{
     @FXML
     private StackPane stackPane;
 
-    static Model model = new Model();
-    static ModelPaths modelPaths = new ModelPaths();
-    static ModelCreazione modelCreazione = new ModelCreazione();
-    static ModelHome modelHome = new ModelHome();
-    static ModelModifica modelModifica = new ModelModifica();
-    static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
+    protected static Model model = new Model();
+    protected static ModelPaths modelPaths = new ModelPaths();
+    protected static ModelCreazione modelCreazione = new ModelCreazione();
+    protected static ModelHome modelHome = new ModelHome();
+    protected static ModelModifica modelModifica = new ModelModifica();
+    protected static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,7 +77,7 @@ public class ViewController implements Initializable{
 
     public void switchToHome() throws IOException{
         
-        Parent root = modelPaths.switchToHome(modelHome, this);
+        Parent root = modelPaths.switchToHome(modelHome);
         if(root != null){
             stackPane.getChildren().removeAll();
             stackPane.getChildren().setAll(root);
@@ -86,7 +87,7 @@ public class ViewController implements Initializable{
 
     public void switchToCreazione() throws IOException{
         
-        Parent root = modelPaths.switchToCreazione(modelCreazione, this); 
+        Parent root = modelPaths.switchToCreazione(modelCreazione); 
 
         if(root != null){
             stackPane.getChildren().removeAll();

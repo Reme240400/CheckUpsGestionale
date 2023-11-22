@@ -2,6 +2,7 @@ package Models;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.jfoenix.controls.JFXComboBox;
 
@@ -107,39 +108,51 @@ public class ModelCreazione extends ModelListe{
     }
 
     // ------------------ Controllo se i campi sono stati inseriti ------------------ //
-    public void isTextFilled(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
+    public void isTextFilled(TextField textField, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
+            
+        boolean areAllEmpty = Stream.of(
+            textField.getText(),
+            textFieldIndirizzo.getText(),
+            textFieldLocalita.getText(),
+            textFieldProvincia.getText(),
+            textFieldTel.getText()
+        ).allMatch(String::isEmpty);
+    
+        boolean isAnyEmpty = Stream.of(
+                textField.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText(),
+                textFieldTel.getText()
+        ).anyMatch(String::isEmpty);
+    
+            setSaved(!isAnyEmpty);
+            setDiscard(!areAllEmpty);
 
-        String txtSocieta = textFieldSocieta.getText();
-        String txtIndirizzo = textFieldIndirizzo.getText();
-        String txtLocalita = textFieldLocalita.getText();
-        String txtProvincia = textFieldProvincia.getText();
-        String txtTel = textFieldTel.getText();
+    }
 
-        boolean areAllEnable = (txtSocieta.isEmpty() ||
-                txtSocieta.trim().isEmpty() ||
-                txtIndirizzo.isEmpty() ||
-                txtIndirizzo.trim().isEmpty() ||
-                txtLocalita.isEmpty() ||
-                txtLocalita.trim().isEmpty() ||
-                txtProvincia.isEmpty() ||
-                txtProvincia.trim().isEmpty() ||
-                txtTel.isEmpty() ||
-                txtTel.trim().isEmpty());
-
-        boolean isEnable = (txtSocieta.isEmpty() &&
-                txtSocieta.trim().isEmpty() &&
-                txtIndirizzo.isEmpty() &&
-                txtIndirizzo.trim().isEmpty() &&
-                txtLocalita.isEmpty() &&
-                txtLocalita.trim().isEmpty() &&
-                txtProvincia.isEmpty() &&
-                txtProvincia.trim().isEmpty() &&
-                txtTel.isEmpty()
-                && txtTel.trim().isEmpty());
-
-        setSaved(!areAllEnable);
-        setDiscard(!isEnable);
+    public void isTextFilled(TextField textField, TextField textFieldIndirizzo, TextField textFieldLocalita,
+            TextField textFieldProvincia) {                    // txtTel = textFieldTel.getText();
+            
+        boolean areAllEmpty = Stream.of(
+            textField.getText(),
+            textFieldIndirizzo.getText(),
+            textFieldLocalita.getText(),
+            textFieldProvincia.getText()
+            // textFieldTel.getText()
+        ).allMatch(String::isEmpty);
+    
+        boolean isAnyEmpty = Stream.of(
+                textField.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText()
+                // textFieldTel.getText()
+        ).anyMatch(String::isEmpty);
+    
+            setSaved(!isAnyEmpty);
+            setDiscard(!areAllEmpty);
 
     }
     // ------------------ END ------------------ //

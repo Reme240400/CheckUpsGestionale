@@ -1,5 +1,6 @@
 package View.Controllers.Creazione;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -8,21 +9,18 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
-import Controllers.Controller;
 import Models.Model;
-import Models.ModelCreazione;
-import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+
 import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-public class CreazioneUnitaLocale extends Controller implements Initializable {
+public class CreazioneUnitaLocale extends ViewController {
 
     @FXML
     private JFXComboBox<String> cercaRecord;
@@ -51,17 +49,8 @@ public class CreazioneUnitaLocale extends Controller implements Initializable {
     @FXML
     private TextField textFieldProvincia;
 
-    @FXML
-    private TextField textFieldTel;
-
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-
-    private String txtUnitaLocale;
-    private String txtIndirizzo;
-    private String txtLocalita;
-    // private String txtTel;
-    private String txtProvincia;
+    //@FXML
+    //private TextField textFieldTel;
 
     private Societa societaTmp;
     private List<Societa> listSocieta;
@@ -92,6 +81,7 @@ public class CreazioneUnitaLocale extends Controller implements Initializable {
         if (cercaRecord.getValue() != null && !cercaRecord.getValue().equals("")) {
             modelCreazione.createSocietaTmp(listSocieta.stream().filter(s -> s.getNome().equals(cercaRecord.getValue())).findFirst().get());
             setSocieta(modelCreazione.getSocietaTmp());
+            System.out.println("Societa settata");
         }
             
     }
@@ -130,6 +120,12 @@ public class CreazioneUnitaLocale extends Controller implements Initializable {
         //modelCreazione.resetSocietaTmp();
         modelCreazione.createUnitaLocaleTmp(unitaLocale);
         modelCreazione.setSaved(false);
+
+        try {
+            modelPaths.switchToCreazioneReparti(modelCreazione);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void eliminaUnitaLocale() {
@@ -146,51 +142,21 @@ public class CreazioneUnitaLocale extends Controller implements Initializable {
 
     public void keyReleasedProperty() {
 
-        txtUnitaLocale = textFieldUnitaLocale.getText();
-        txtIndirizzo = textFieldIndirizzo.getText();
-        txtLocalita = textFieldLocalita.getText();
-        txtProvincia = textFieldProvincia.getText();
-        // txtTel = textFieldTel.getText();
-
-        boolean areAllDisabled = (txtUnitaLocale.isEmpty() ||
-                txtUnitaLocale.trim().isEmpty() ||
-                txtIndirizzo.isEmpty() ||
-                txtIndirizzo.trim().isEmpty() ||
-                txtLocalita.isEmpty() ||
-                txtLocalita.trim().isEmpty() ||
-                txtProvincia.isEmpty() ||
-                txtProvincia.trim().isEmpty()
-        /*
-         * txtTel.isEmpty() ||
-         * txtTel.trim().isEmpty()
-         */);
-
-        boolean isDisabled = (txtUnitaLocale.isEmpty() &&
-                txtIndirizzo.isEmpty() &&
-                txtLocalita.isEmpty() &&
-                txtProvincia.isEmpty() /*
-                                        * &&
-                                        * txtTel.isEmpty()
-                                        */);
-
-        modelCreazione.setSaved(!areAllDisabled);
-        modelCreazione.setDiscard(!isDisabled);
+        modelCreazione.isTextFilled(textFieldUnitaLocale, textFieldIndirizzo, textFieldLocalita, textFieldProvincia);
 
     }
 
-    public void setModel(ModelCreazione model, ModelPaths modelPaths) {
-        this.modelCreazione = model;
-        this.modelPaths = modelPaths;
+    public void setTextFields() {
 
         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty().not());
         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty().not());
         this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty().not());
         this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty().not());
-        this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty().not());
+        //this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty().not());
 
-        this.btnSalvaU.disableProperty().bind(model.savedProperty().not());
-        this.btnAnnullaU.disableProperty().bind(model.discardProperty().not());
-        this.btnSalvaAggiungiU.disableProperty().bind(model.savedProperty().not());
+        this.btnSalvaU.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnAnnullaU.disableProperty().bind(modelCreazione.discardProperty().not());
+        this.btnSalvaAggiungiU.disableProperty().bind(modelCreazione.savedProperty().not());
 
     }
 
@@ -204,7 +170,7 @@ public class CreazioneUnitaLocale extends Controller implements Initializable {
             this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
             this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
             this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
-            this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
+            //this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
         } 
     }
 }

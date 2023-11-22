@@ -9,18 +9,15 @@ import java.util.function.UnaryOperator;
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
-import Controllers.Controller;
-import Models.ModelCreazione;
-import Models.ModelPaths;
 import Models.Tables.Societa;
 
+import View.Controllers.ViewController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneSocieta extends Controller implements Initializable{
+public class CreazioneSocieta extends ViewController {
 
     @FXML
     private JFXButton btnAnnulla;
@@ -49,18 +46,8 @@ public class CreazioneSocieta extends Controller implements Initializable{
     // @FXML
     // private TextField textFieldDesc;
 
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-
-    private String txtSocieta;
-    private String txtIndirizzo;
-    private String txtLocalita;
-    private String txtTel;
-    private String txtProvincia;
-
     Societa societaTmp = null;
     List<Societa> listSocieta = ClassHelper.getListSocieta();
-    Controller controller = new Controller();
     // private String txtDesc;
 
     // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
@@ -93,13 +80,19 @@ public class CreazioneSocieta extends Controller implements Initializable{
     // -------------------- salva la societa -------------------- //
     public void save_addSocieta() {
 
-        int id = controller.getNewId(listSocieta);
+        int id = getNewId(listSocieta);
 
-        Societa societaTmp = new Societa(id, txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel, "");
+        Societa societaTmp = new Societa(id, 
+                                        textFieldSocieta.getText(), 
+                                        textFieldIndirizzo.getText(), 
+                                        textFieldLocalita.getText(), 
+                                        textFieldProvincia.getText(), 
+                                        textFieldTel.getText(), 
+                                        "");
 
         modelCreazione.createSocietaTmp(societaTmp);
 
-        controller.inserisciNuovoRecord(societaTmp);
+        inserisciNuovoRecord(societaTmp);
 
         modelCreazione.setSaved(false);
 
@@ -113,11 +106,17 @@ public class CreazioneSocieta extends Controller implements Initializable{
 
     public void salvaSocieta() {
 
-        int id = controller.getNewId(listSocieta);
+        int id = getNewId(listSocieta);
 
-        Societa societaTmp = new Societa(id, txtSocieta, txtIndirizzo, txtLocalita, txtProvincia, txtTel, "");
+        Societa societaTmp = new Societa(id, 
+                                        textFieldSocieta.getText(), 
+                                        textFieldIndirizzo.getText(), 
+                                        textFieldLocalita.getText(), 
+                                        textFieldProvincia.getText(), 
+                                        textFieldTel.getText(), 
+                                        "");
 
-        controller.inserisciNuovoRecord(societaTmp);
+        inserisciNuovoRecord(societaTmp);
 
         eliminaSocieta();
 
@@ -143,11 +142,6 @@ public class CreazioneSocieta extends Controller implements Initializable{
 
     // * ---------------------- controlla se i campi sono vuoti ---------------------- //
     public void keyReleasedProperty() {
-        this.txtSocieta = textFieldSocieta.getText();
-        this.txtIndirizzo = textFieldIndirizzo.getText();
-        this.txtLocalita = textFieldLocalita.getText();
-        this.txtProvincia = textFieldProvincia.getText();
-        this.txtTel = textFieldTel.getText();
 
         modelCreazione.isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel);
@@ -156,9 +150,7 @@ public class CreazioneSocieta extends Controller implements Initializable{
     // * ------------------------------------------------------------------------------- //
 
     // * ************ setta il modelCreazionelo ************ //
-    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = modelPaths;
+    public void setTextFields() {
 
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnSalvaAggiungi.disableProperty().bind(modelCreazione.savedProperty().not());

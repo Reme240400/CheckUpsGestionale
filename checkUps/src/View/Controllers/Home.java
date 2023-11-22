@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
 import Models.Alerts;
-import Models.ModelHome;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
@@ -24,8 +23,6 @@ public class Home extends ViewController {
 
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
-    private ModelHome model;
-    private ViewController controller;
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -61,7 +58,7 @@ public class Home extends ViewController {
 
     public void onSelectedSocieta() {
 
-        model.onKeyPressedFilter(cercaSocieta, cercaUnitaLocale, listSocieta, listUnitaLocale);
+        modelHome.onKeyPressedFilter(cercaSocieta, cercaUnitaLocale, listSocieta, listUnitaLocale);
     }
 
     public void goToValutaRischi() {
@@ -75,7 +72,7 @@ public class Home extends ViewController {
                                                             .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
                                                             .findFirst().get();
 
-                controller.switchToValutaRischi(societa, unitaLocale);
+                modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
             } catch (IOException e) {
                 e.printStackTrace();
             } 
@@ -83,14 +80,6 @@ public class Home extends ViewController {
             Alerts.errorAllert();
         }
         
-    }
-
-    public void setModel(ModelHome model) {
-        this.model = model;
-    }
-
-    public void setController(ViewController controller) {
-        this.controller = controller;
     }
 
 }

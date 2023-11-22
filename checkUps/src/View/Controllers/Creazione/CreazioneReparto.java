@@ -8,10 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
-import Controllers.Controller;
-import Models.ModelCreazione;
 import Models.ModelModifica;
-import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -22,7 +19,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -31,7 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneReparto extends Controller implements Initializable{
+public class CreazioneReparto extends ViewController {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -62,12 +58,6 @@ public class CreazioneReparto extends Controller implements Initializable{
 
     @FXML
     private JFXButton btnSalva;
-
-    private ViewController viewController;
-
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-    private ModelModifica modelModifica;
 
     private List<Societa> listSocieta;
     private List<UnitaLocale> listUnitaLocale;
@@ -175,7 +165,7 @@ public class CreazioneReparto extends Controller implements Initializable{
 
         root = modelPaths.switchToModificaReparto(modelModifica);
 
-        viewController.changePane(root);
+        changePane(root);
     }
 
     @FXML
@@ -224,11 +214,4 @@ public class CreazioneReparto extends Controller implements Initializable{
         }
     }
 
-
-    public void setModel(ModelCreazione modelCreazione, ModelPaths paths, ViewController viewController) {
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = paths;
-        this.viewController = viewController;
-
-    }
 }
