@@ -14,7 +14,7 @@
 
 ## Issues
 
-* nella creazione dopo la selezione di una societa gia presente se s iprova a modificare qualsiasi cosa il bottone salva si abilita (non dovrebbe).
+* lo stackPane che devo usare per cambiare schermata è vuoto quindi devo provare a passargli quello che viene usato dal ViewController.
 
 [Entity Relationship Diagram.pdf](https://github.com/Reme240400/CheckUpsGestionale/files/12409121/Entity.Relationship.Diagram.pdf)
 ## Bozza grafica
