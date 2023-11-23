@@ -155,7 +155,7 @@ public class Modifica implements Initializable {
     // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
     public void fillTextFieldU(){
         if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")){
-            int id = modelModifica.getIdSocietaTmp();
+            int id = modelModifica.getSocietaTmp().getId();
             modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
         }
     }    
@@ -188,9 +188,9 @@ public class Modifica implements Initializable {
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
             if(clickedButton.get() == ButtonType.APPLY){
-                if (modelModifica.getIdSocietaTmp() != -1) {
+                if (modelModifica.getSocietaTmp() != null) {
                     // prende l'id della societa selezionata //
-                    this.idSocieta = modelModifica.getIdSocietaTmp();
+                    this.idSocieta = modelModifica.getSocietaTmp().getId();
 
                     for (UnitaLocale unitaLocale : listUnitaLocale) {
                         if (unitaLocale.getIdSocieta() == idSocieta) {
@@ -277,7 +277,6 @@ public class Modifica implements Initializable {
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
         this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
 
-        this.idSocieta = modelModifica.getIdSocietaTmp();
         //this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
         
     }

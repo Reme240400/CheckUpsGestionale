@@ -61,13 +61,13 @@ public class ModificaSelezioneReparti implements Initializable{
 
         List<Reparto> specificList = null;
         
-        if (modelModifica.getIdUnitaLocaleTmp() != -1 ) {
+        if (modelModifica.getUnitaLocaleTmp() != null) {
             specificList = modelModifica.fillRepartiTable(listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableViewReparti.setItems(observableList);
             
-        } else if(modelModifica.getIdSocietaTmp() != -1){
+        } else if(modelModifica.getSocietaTmp() != null){
             specificList = modelModifica.fillAllRepartiTable(listaReparto, listUnitaLocale);
 
             observableList = FXCollections.observableArrayList(specificList);

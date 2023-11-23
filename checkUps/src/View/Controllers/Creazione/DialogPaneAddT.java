@@ -30,10 +30,9 @@ public class DialogPaneAddT implements Initializable{
     }
 
     public String getNome(){
-        if(!creaNome.getText().isEmpty())
-            return creaNome.getText();
-        else
-            return null;
+    
+        return creaNome.getText();
+    
     }
 
     public void fillTextBox(String nomeSocieta, String nomeUnita, String nomeReparto ){

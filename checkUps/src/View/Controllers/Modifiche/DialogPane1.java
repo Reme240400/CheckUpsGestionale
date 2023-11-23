@@ -44,18 +44,15 @@ public class DialogPane1 implements Initializable {
     public void searchIdSocieta() {
         
         if(cercaSocieta.getValue() != null){
-            int id = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get().getId();
-            System.out.println(id);
-            modelModifica.setIdSocieta(id);
+            Societa societa = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get();
+    
+            modelModifica.setSocieta(societa);
         }
 
     }
 
     public void setModel(ModelModifica modelModifica) {
         this.modelModifica = modelModifica;
-
-        modelModifica.setIdSocieta(-1);
-        modelModifica.setIdUnitaLocale(-1);
         
     }
 

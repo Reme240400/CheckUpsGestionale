@@ -28,8 +28,9 @@ public class ModelModifica extends ModelListe{
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
-    private final IntegerProperty idSocieta = new SimpleIntegerProperty(-1);
-    private final IntegerProperty idUnitaLocale = new SimpleIntegerProperty(-1);
+    private Societa societaTmp = null;
+    private UnitaLocale unitaLocaleTmp = null;
+    private Reparto repartoTmp = null;
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -40,12 +41,16 @@ public class ModelModifica extends ModelListe{
         return isEnable;
     }
 
-    public IntegerProperty idSocietaProperty() {
-        return idSocieta;
+    public Societa societaProperty() {
+        return societaTmp;
     }
 
-    public IntegerProperty idUnitaLocaleProperty() {
-        return idUnitaLocale;
+    public UnitaLocale unitaLocaleProperty() {
+        return unitaLocaleTmp;
+    }
+
+    public Reparto repartoProperty() {
+        return repartoTmp;
     }
 
     // ------------------ SETTER ------------------ //
@@ -57,12 +62,17 @@ public class ModelModifica extends ModelListe{
         isEnableProperty().set(isEnable);
     }
 
-    public final void setIdSocieta(int idSocieta) {
-        idSocietaProperty().set(idSocieta);
+    public void setSocieta(Societa societa) {
+        this.societaTmp = societa;
     }
 
-    public void setIdUnitaLocale(int idUnita) {
-        idUnitaLocaleProperty().set(idUnita);
+    public final void setUnitaLocale(UnitaLocale unitaLocale) {
+        this.unitaLocaleTmp = unitaLocale;
+        
+    }
+
+    public final void setReparto(Reparto reparto) {
+        this.repartoTmp = reparto;
     }
 
     // ------------------ GETTER ------------------ //
@@ -74,14 +84,17 @@ public class ModelModifica extends ModelListe{
         return isEnableProperty().get();
     }
 
-    public final int getIdSocietaTmp() {
-        return idSocietaProperty().get();
+    public final Societa getSocietaTmp() {
+        return societaProperty();
     }
 
-    public final int getIdUnitaLocaleTmp() {
-        return idUnitaLocaleProperty().get();
+    public final UnitaLocale getUnitaLocaleTmp() {
+        return unitaLocaleProperty();
     }
 
+    public final Reparto getRepartoTmp() {
+        return repartoProperty();
+    }
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
@@ -122,7 +135,7 @@ public class ModelModifica extends ModelListe{
     
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
         List<Reparto> specificList = listaReparti.stream()
-                                            .filter(reparto -> reparto.getIdUnitaLocale() == getIdUnitaLocaleTmp())
+                                            .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
                                             .toList();
 
         return specificList;
@@ -130,7 +143,7 @@ public class ModelModifica extends ModelListe{
 
     public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparti, List<UnitaLocale> listaUnita) {
 
-        List<UnitaLocale> allUnitaLocali = listaUnita.stream().filter( unita -> unita.getIdSocieta() == getIdSocietaTmp()).toList();
+        List<UnitaLocale> allUnitaLocali = listaUnita.stream().filter( unita -> unita.getIdSocieta() == getSocietaTmp().getId()).toList();
 
         List<Reparto> allReparti = allUnitaLocali.stream()
             .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
@@ -190,8 +203,8 @@ public class ModelModifica extends ModelListe{
 
             for (Societa societa : listSocieta) {
                 if (societa.getNome().equals(selectedSocieta)) {
-                    setIdSocieta(societa.getId());
-                    System.out.println("Societa selezionata: " + idSocieta);
+                    setSocieta(societa);
+                    System.out.println("Societa selezionata: " + societa.getId());
                 }
             }
 
@@ -200,7 +213,7 @@ public class ModelModifica extends ModelListe{
 
             // Filter UnitaLocale based on the selected Societa
             for (UnitaLocale unitaLocale : listUnitaLocale) {
-                if (unitaLocale.getIdSocieta() == getIdSocietaTmp()) {
+                if (unitaLocale.getIdSocieta() == getSocietaTmp().getId()) {
                     System.out.println("aggiunte unita locali" + unitaLocale.getNome());
                     filtroUnitaLocali.add(unitaLocale.getNome());
                 }

@@ -59,14 +59,13 @@ public class DialogPane2 extends DialogPane1{
 
         if (cercaUnitaLocaleR.getValue() != null && !cercaUnitaLocaleR.getValue().equals("") ) {
             
-            int id = listUnitaLocale.stream()
-                                    .filter(u -> u.getIdSocieta() == modelModifica.getIdSocietaTmp())
+            UnitaLocale unita = listUnitaLocale.stream()
+                                    .filter(u -> u.getIdSocieta() == modelModifica.getSocietaTmp().getId())
                                     .filter(u -> u.getNome().equals(cercaUnitaLocaleR.getValue()))
-                                    .findFirst().get()
-                                    .getId();
+                                    .findFirst().get();
                                     
             //System.out.println("Id unita locale: " + id);
-            modelModifica.setIdUnitaLocale(id);
+            modelModifica.setUnitaLocale(unita);
         }
     }
 

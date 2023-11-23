@@ -1,6 +1,7 @@
 package View.Controllers.Creazione;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Alerts;
 import Models.ModelModifica;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
@@ -152,20 +154,19 @@ public class CreazioneReparto extends ViewController {
         }
     }
 
-    public void salvaReparto(javafx.event.ActionEvent event) {
-        // fare la call alla Query
-
-    }
-
     @FXML
     public void modify() throws IOException{
+        if(tableReparti.getSelectionModel().getSelectedItem() != null){
+            
+            Parent root = new Parent(){};
+            modelModifica = new ModelModifica();
 
-        Parent root = new Parent(){};
-        modelModifica = new ModelModifica();
+            modelModifica.setReparto(tableReparti.getSelectionModel().getSelectedItem());
 
-        root = modelPaths.switchToModificaReparto(modelModifica);
+            root = modelPaths.switchToModificaReparto(modelModifica);
 
-        changePane(root);
+            changePane(root);
+        }
     }
 
     @FXML
@@ -198,17 +199,22 @@ public class CreazioneReparto extends ViewController {
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
             if(clickedButton.get() == ButtonType.APPLY){
-                if( dialogController.getNome() != null){
+                if( dialogController.getNome() != null
+                    && dialogController.getNome().equals("")
+                    && dialogController.getData() != null){
+                        
                     int id = getNewId(listaReparto);
                     Reparto newReparto = new Reparto( id,
                                                         modelCreazione.getUnitaLocaleTmp().getId(), 
                                                         dialogController.getNome(), 
-                                                        dialogController.getData());
+                                                        dialogController.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                     modelCreazione.createRepartoTmp(newReparto);
                     inserisciNuovoRecord(newReparto);
 
                     tableReparti.refresh();
 
+                } else{
+                    Alerts.errorAllert();
                 }
             }
         }

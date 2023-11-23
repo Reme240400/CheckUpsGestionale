@@ -1,6 +1,7 @@
 package View.Controllers.Creazione;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
@@ -30,17 +31,15 @@ public class DialogPaneAddR implements Initializable{
     }
 
     public String getNome(){
-        if(!creaNomeReparto.getText().isEmpty())
-            return creaNomeReparto.getText();
-        else
-            return null;
+        
+        return creaNomeReparto.getText();
+    
     }
 
-    public String getData(){
-        if(!creaDescReparto.getPromptText().isEmpty())
-            return creaDescReparto.getPromptText();
-        else
-            return null;
+    public LocalDate getData(){
+
+        return creaDescReparto.getValue();    
+        
     }
 
     public void fillTextBox(String nomeSocieta, String nomeUnita){

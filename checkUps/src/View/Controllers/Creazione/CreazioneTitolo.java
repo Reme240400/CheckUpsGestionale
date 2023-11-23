@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Alerts;
 import Models.ModelModifica;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
@@ -182,11 +183,6 @@ public class CreazioneTitolo extends ViewController {
         }
     }
 
-    public void salvaTitolo(javafx.event.ActionEvent event) {
-        // fare la call alla Query
-
-    }
-
     @FXML
     public void modify() throws IOException{
 
@@ -227,7 +223,7 @@ public class CreazioneTitolo extends ViewController {
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
             if(clickedButton.get() == ButtonType.APPLY){
-                if( dialogController.getNome() != null){
+                if( dialogController.getNome() != null && dialogController.getNome().equals("")){
                     int id = getNewId(listaTitolo);
                     Titolo newTitolo = new Titolo( id,
                                                     modelCreazione.getRepartoTmp().getId(),
@@ -236,6 +232,8 @@ public class CreazioneTitolo extends ViewController {
                     inserisciNuovoRecord(newTitolo);
 
                     tableTitoli.refresh();
+                } else{
+                    Alerts.errorAllert();
                 }
             }
         }
