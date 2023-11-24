@@ -236,17 +236,18 @@ public class CreazioneTitolo extends Controller implements Initializable {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- // 
-            
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
-            if (clickedButton.get() == ButtonType.APPLY) {
-                if (dialogController.getNome() != null && !dialogController.getNome().equals("")) {
+            if(clickedButton.get() == ButtonType.APPLY){
+                if( dialogController.getNome() != null && !dialogController.getNome().equals("")){
                     int id = getNewId(listaTitolo);
                     Titolo newTitolo = new Titolo(id,
                             modelCreazione.getRepartoTmp().getId(),
                             dialogController.getNome());
                     modelCreazione.createTitoloTmp(newTitolo);
                     inserisciNuovoRecord(newTitolo);
+
+                    tableTitoli.getItems().add(newTitolo);
 
                     tableTitoli.refresh();
                 } else {
