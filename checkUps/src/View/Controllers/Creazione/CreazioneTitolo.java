@@ -239,6 +239,8 @@ public class CreazioneTitolo extends Controller implements Initializable {
                     modelCreazione.createTitoloTmp(newTitolo);
                     inserisciNuovoRecord(newTitolo);
 
+                    tableTitoli.getItems().add(newTitolo);
+
                     tableTitoli.refresh();
                 } else{
                     Alerts.errorAllert();
