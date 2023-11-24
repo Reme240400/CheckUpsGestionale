@@ -204,7 +204,6 @@ public class ModelModifica extends ModelListe{
             for (Societa societa : listSocieta) {
                 if (societa.getNome().equals(selectedSocieta)) {
                     setSocieta(societa);
-                    System.out.println("Societa selezionata: " + societa.getId());
                 }
             }
 
@@ -214,7 +213,6 @@ public class ModelModifica extends ModelListe{
             // Filter UnitaLocale based on the selected Societa
             for (UnitaLocale unitaLocale : listUnitaLocale) {
                 if (unitaLocale.getIdSocieta() == getSocietaTmp().getId()) {
-                    System.out.println("aggiunte unita locali" + unitaLocale.getNome());
                     filtroUnitaLocali.add(unitaLocale.getNome());
                 }
             }

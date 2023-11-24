@@ -26,16 +26,8 @@ public class TestModelController {
 
         System.out.println("\nLista Mansione:");
         for (Mansione mansione : ClassHelper.getListMansione()) {
-            System.out.println(mansione.getIdMansione() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
+            System.out.println(mansione.getId() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
         }
-        
-        // Modifica di un campo nella lista Reparto
-        Reparto repartoModificato = ClassHelper.getListReparto().get(0); // Prendi il primo elemento della lista
-        Controller.modificaCampo(repartoModificato, "nome", "Nuovo nome del Reparto 1", 1);
-
-        // Modifica di un campo in un'altra lista
-        Mansione mansioneModificata = ClassHelper.getListMansione().get(0); // Prendi il primo elemento della lista Mansione
-        Controller.modificaCampo(mansioneModificata, "nome", "Nuovo nome della Mansione 1", 1);
 
         // Rimozione di un oggetto dalla lista Reparto
         //Controller.rimuoviDaLista(reparto2, 0);
@@ -49,7 +41,7 @@ public class TestModelController {
 
         System.out.println("\nLista Mansione:");
         for (Mansione mansione : ClassHelper.getListMansione()) {
-            System.out.println(mansione.getIdMansione() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
+            System.out.println(mansione.getId() + " - " + mansione.getNome() + " - " + mansione.getResponsabile());
         }
     }
 }

@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Societa;
@@ -149,6 +150,9 @@ public class Modifica implements Initializable {
     public void fillTextFieldS(){
         if (cercaRecordS.getValue() != null && !cercaRecordS.getValue().equals("")){
             modelModifica.fillTextField( cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+
+            Societa societaTmp = listSocieta.stream().filter(s -> s.getNome().equals(cercaRecordS.getValue())).findFirst().get();
+            modelModifica.setSocieta(societaTmp);
         }
     }
 
@@ -157,18 +161,23 @@ public class Modifica implements Initializable {
         if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")){
             int id = modelModifica.getSocietaTmp().getId();
             modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
+
+            UnitaLocale unitaLocaleTmp = listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaRecordU.getValue())).findFirst().get();
+            modelModifica.setUnitaLocale(unitaLocaleTmp);
         }
     }    
 
     // --------------- Salva le modifiche --------------- //
     public void updateChanges(){
-
+        if (tabPane.getSelectionModel().getSelectedIndex() == 0 && modelModifica.getSocietaTmp() != null){
+            Controller.modificaCampo(modelModifica.getSocietaTmp());
+        } else if (tabPane.getSelectionModel().getSelectedIndex() == 1){
+            Controller.modificaCampo(modelModifica.getUnitaLocaleTmp());
+        }
     }
 
     // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
     public void showUnitaPane() throws IOException {
-
-        System.out.println(tabUnitaLocale.isSelected());
 
         // ------------------- Mostra il dialogPane dell'Unita Locale ------------------- //
         if (tabUnitaLocale.isSelected()) {
