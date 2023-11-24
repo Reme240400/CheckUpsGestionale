@@ -8,8 +8,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Models.Alerts;
+import Models.ModelCreazione;
 import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
@@ -21,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -29,7 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo extends ViewController {
+public class CreazioneTitolo extends Controller implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -64,6 +68,10 @@ public class CreazioneTitolo extends ViewController {
     @FXML
     private JFXButton btnSalva;
 
+    private ModelCreazione modelCreazione;
+    private ModelPaths modelPaths;
+    private ModelModifica modelModifica;
+    
     private List<Societa> listSocieta;
     private List<UnitaLocale> listUnitaLocale;
     private List<Reparto> listaReparto;
@@ -191,7 +199,7 @@ public class CreazioneTitolo extends ViewController {
 
         root = modelPaths.switchToModificaTitoli(modelModifica);
 
-        changePane(root);
+        Controller.changePane(modelPaths.getStackPaneHome(),root);
     }
 
     @FXML
@@ -237,6 +245,14 @@ public class CreazioneTitolo extends ViewController {
                 }
             }
         }
+    }
+
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica){
+
+        this.modelCreazione = modelCreazione;
+        this.modelPaths = modelPaths;
+        this.modelModifica = modelModifica;
+
     }
 
 }

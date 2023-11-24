@@ -6,6 +6,8 @@ import Models.Model;
 import Models.ModelDb;
 import Models.ModelListe;
 import Models.Tables.TablesId;
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
 
 public class Controller {
 
@@ -22,17 +24,20 @@ public class Controller {
     }
 
     // Metodo per inserire un nuovo record sia su DB sia nelle liste
-    public void inserisciNuovoRecord(Object obj) {
+    public static void inserisciNuovoRecord(Object obj) {
         ModelListe.inserisciRecordInLista(obj);
         ModelDb.inserisciRecord(obj);
         
     }
 
-    public <T extends TablesId> int getNewId(List<T> list)
+    public static <T extends TablesId> int getNewId(List<T> list)
     {
         return Model.autoSetId(list);
     }
 
-    //public
+    public static void changePane(StackPane stackPane, Parent root){
+        stackPane.getChildren().removeAll();
+        stackPane.getChildren().setAll(root);
+    }
 
 }
