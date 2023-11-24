@@ -7,7 +7,9 @@ import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ValutaRischi;
 import View.Controllers.Creazione.Creazione;
+import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
+import View.Controllers.Creazione.CreazioneTitolo;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
 import View.Controllers.Modifiche.Modifica;
 import View.Controllers.Modifiche.ModificaSelezioneReparti;
@@ -19,12 +21,18 @@ import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
 
+    private ModelModifica modelModifica = new ModelModifica();
+
     private String loadedFXMLs = null;
     private StackPane stackPaneHome = null;
     private StackPane stackPaneModifica = null;
 
     public void setStackPaneHome(StackPane stackPane) {
         this.stackPaneHome = stackPane;
+    }
+
+    public StackPane getStackPaneHome(){
+        return this.stackPaneHome;
     }
 
     public void setStackPaneModifica(StackPane stackPane) {
@@ -96,11 +104,10 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a valuta rischi *************** //
-    public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita)
-            throws IOException {
+    public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita) throws IOException {
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/valuta_rischi.fxml");
 
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+        //if (!isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
 
             FXMLLoader loader = new FXMLLoader(fxmlURL);
 
@@ -116,9 +123,9 @@ public class ModelPaths {
             loadedFXMLs = fxmlURL.toString();
 
             return root;
-        } else {
-            return null;
-        }
+        //} else {
+          //  return null;
+        //}
     }
 
     // * *************** Cambia la scena a creazione *************** //
@@ -173,6 +180,8 @@ public class ModelPaths {
             Parent root = loaderUnitaLocale.load();
             CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
+            creazioneUnita.setModel(modelCreazione, this);
+
             creazioneUnita.setTextFields();
             creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
 
@@ -190,8 +199,9 @@ public class ModelPaths {
         Parent root = loaderSocieta.load();
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
+        creazioneSocieta.setModel( modelCreazione, this);
         creazioneSocieta.setTextFields();
-
+    
         return root;
     }
 
@@ -200,19 +210,11 @@ public class ModelPaths {
         FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
         Parent root = loaderReparti.load();
 
-       // CreazioneReparto creazioneReparto = loaderReparti.getController();
+        CreazioneReparto creazioneReparto = loaderReparti.getController();
 
+        creazioneReparto.setModel( modelCreazione, this, modelModifica);
 
         return root;
-    }
-
-    // ------------------ Verifica che il contenuto dello stackPane sia già stato
-    // caricato ------------------ //
-    private boolean isAlreadyLoaded(StackPane stackPane, String fxmlURL) {
-        if (loadedFXMLs != null) {
-            return loadedFXMLs.equals(fxmlURL);
-        }
-        return false;
     }
 
     public Parent switchToCreazioneTitolo(ModelCreazione modelCreazione) throws IOException {
@@ -220,10 +222,18 @@ public class ModelPaths {
         FXMLLoader loaderTitoli = new FXMLLoader(getClass().getResource("/View/fxml/creazione_titoli.fxml"));
         Parent root = loaderTitoli.load();
 
-        //CreazioneTitolo creazioneTitolo = loaderTitoli.getController();
+        CreazioneTitolo creazioneTitolo = loaderTitoli.getController();
 
+        creazioneTitolo.setModel( modelCreazione, this, modelModifica);
 
         return root;
     }
 
+    // ------------------ Verifica che il contenuto dello stackPane sia già stato caricato ------------------ //
+    private boolean isAlreadyLoaded(StackPane stackPane, String fxmlURL) {
+        if (loadedFXMLs != null) {
+            return loadedFXMLs.equals(fxmlURL);
+        }
+        return false;
+    }
 }

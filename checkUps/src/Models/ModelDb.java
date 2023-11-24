@@ -328,8 +328,7 @@ public class ModelDb {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement()) {
-                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
-                            + " = ?";
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName + " = ?";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, nuovoValore);
                     preparedStatement.setInt(2, recordId);
@@ -759,7 +758,7 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            preparedStatement.setInt(1, mansioneList.get(mansioneList.size() - 1).getIdMansione());
+            preparedStatement.setInt(1, mansioneList.get(mansioneList.size() - 1).getId());
             preparedStatement.setString(2, mansioneList.get(mansioneList.size() - 1).getNome());
             preparedStatement.setString(3, mansioneList.get(mansioneList.size() - 1).getResponsabile());
             preparedStatement.executeUpdate();

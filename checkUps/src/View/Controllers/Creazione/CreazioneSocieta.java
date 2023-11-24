@@ -9,15 +9,20 @@ import java.util.function.UnaryOperator;
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
+import Models.ModelCreazione;
+import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Societa;
 
 import View.Controllers.ViewController;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneSocieta extends ViewController {
+public class CreazioneSocieta implements Initializable {
 
     @FXML
     private JFXButton btnAnnulla;
@@ -45,6 +50,10 @@ public class CreazioneSocieta extends ViewController {
 
     // @FXML
     // private TextField textFieldDesc;
+
+    private ModelCreazione modelCreazione;
+    private ModelPaths modelPaths;
+    private ModelModifica modelModifica;
 
     Societa societaTmp = null;
     List<Societa> listSocieta = ClassHelper.getListSocieta();
@@ -80,7 +89,7 @@ public class CreazioneSocieta extends ViewController {
     // -------------------- salva la societa -------------------- //
     public void save_addSocieta() {
 
-        int id = getNewId(listSocieta);
+        int id = Controller.getNewId(listSocieta);
 
         Societa societaTmp = new Societa(id, 
                                         textFieldSocieta.getText(), 
@@ -92,7 +101,7 @@ public class CreazioneSocieta extends ViewController {
 
         modelCreazione.createSocietaTmp(societaTmp);
 
-        inserisciNuovoRecord(societaTmp);
+        Controller.inserisciNuovoRecord(societaTmp);
 
         modelCreazione.setSaved(false);
 
@@ -106,7 +115,7 @@ public class CreazioneSocieta extends ViewController {
 
     public void salvaSocieta() {
 
-        int id = getNewId(listSocieta);
+        int id = Controller.getNewId(listSocieta);
 
         Societa societaTmp = new Societa(id, 
                                         textFieldSocieta.getText(), 
@@ -116,7 +125,7 @@ public class CreazioneSocieta extends ViewController {
                                         textFieldTel.getText(), 
                                         "");
 
-        inserisciNuovoRecord(societaTmp);
+        Controller.inserisciNuovoRecord(societaTmp);
 
         eliminaSocieta();
 
@@ -166,6 +175,12 @@ public class CreazioneSocieta extends ViewController {
         modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
             textFieldTel);
         // * ************************************************ //
+    }
+
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+
+        this.modelCreazione = modelCreazione;
+        this.modelPaths = modelPaths;
     }
 
 }

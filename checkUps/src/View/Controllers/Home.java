@@ -49,7 +49,7 @@ public class Home extends ViewController {
         // * **************************************** //
 
         // * filtra i Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, societies);
+        FilteredList<String> filteredItems = filterComboBoxSocieta(cercaSocieta, societies);
 
         cercaSocieta.setItems(filteredItems);
 
@@ -69,10 +69,13 @@ public class Home extends ViewController {
                                                 .findFirst().get();
                     
                 UnitaLocale unitaLocale = listUnitaLocale.stream()
+                                                            .filter(u -> u.getIdSocieta() == societa.getId())
                                                             .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
                                                             .findFirst().get();
 
-                modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
+                switchToValutaRischi( societa, unitaLocale);
+
+                
             } catch (IOException e) {
                 e.printStackTrace();
             } 

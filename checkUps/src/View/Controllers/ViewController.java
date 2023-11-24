@@ -17,6 +17,7 @@ import Models.ModelPaths;
 import Models.ModelValutaRischi;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,7 +29,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class ViewController extends Controller implements Initializable{
+public class ViewController implements Initializable{
 
     @FXML
     private JFXButton btnQuit;
@@ -79,8 +80,7 @@ public class ViewController extends Controller implements Initializable{
         
         Parent root = modelPaths.switchToHome(modelHome);
         if(root != null){
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
+            Controller.changePane(stackPane, root);
         }
 
     }
@@ -90,11 +90,9 @@ public class ViewController extends Controller implements Initializable{
         Parent root = modelPaths.switchToCreazione(modelCreazione); 
 
         if(root != null){
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
+            Controller.changePane(stackPane, root);
         }
 
-        System.out.println("StackPane 1: " + stackPane.getChildren());
     }
 
     public void switchToModifica() throws IOException{
@@ -102,8 +100,7 @@ public class ViewController extends Controller implements Initializable{
         Parent root = modelPaths.switchToModifica(modelModifica);
 
         if(root != null){
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
+            Controller.changePane(stackPane, root);
         }
         
     }
@@ -112,9 +109,10 @@ public class ViewController extends Controller implements Initializable{
 
         Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
+        stackPane = modelPaths.getStackPaneHome();
+
         if(root != null){
-            stackPane.getChildren().removeAll();
-            stackPane.getChildren().setAll(root);
+            Controller.changePane(stackPane,root);
         }
     }
 
@@ -149,10 +147,4 @@ public class ViewController extends Controller implements Initializable{
         return model.filterComboBoxById(cercaItem, id, units);
     }
 
-    public void changePane(Parent root){
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
-    }
-
-    
 }

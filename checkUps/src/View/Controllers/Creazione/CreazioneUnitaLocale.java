@@ -9,7 +9,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Models.Model;
+import Models.ModelCreazione;
+import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
@@ -18,9 +21,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-public class CreazioneUnitaLocale extends ViewController {
+public class CreazioneUnitaLocale implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaRecord;
@@ -52,6 +56,9 @@ public class CreazioneUnitaLocale extends ViewController {
     //@FXML
     //private TextField textFieldTel;
 
+    private ModelCreazione modelCreazione;
+    private ModelPaths modelPaths;
+
     private Societa societaTmp;
     private List<Societa> listSocieta;
 
@@ -76,7 +83,7 @@ public class CreazioneUnitaLocale extends ViewController {
         
     }
 
-    public void setSocietaId(){
+    public void setSocieta(){
 
         if (cercaRecord.getValue() != null && !cercaRecord.getValue().equals("")) {
             modelCreazione.createSocietaTmp(listSocieta.stream().filter(s -> s.getNome().equals(cercaRecord.getValue())).findFirst().get());
@@ -97,7 +104,7 @@ public class CreazioneUnitaLocale extends ViewController {
                                                     textFieldProvincia.getText(),
                                                     societaTmp.getId());
 
-        inserisciNuovoRecord(unitaLocale);
+        Controller.inserisciNuovoRecord(unitaLocale);
 
         modelCreazione.resetSocietaTmp();
         eliminaUnitaLocale();
@@ -115,7 +122,7 @@ public class CreazioneUnitaLocale extends ViewController {
                                                     textFieldProvincia.getText(),
                                                     societaTmp.getId());
         
-        inserisciNuovoRecord(unitaLocale);
+        Controller.inserisciNuovoRecord(unitaLocale);
 
         //modelCreazione.resetSocietaTmp();
         modelCreazione.createUnitaLocaleTmp(unitaLocale);
@@ -172,5 +179,11 @@ public class CreazioneUnitaLocale extends ViewController {
             this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
             //this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
         } 
+    }
+
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+
+        this.modelCreazione = modelCreazione;
+        this.modelPaths = modelPaths;
     }
 }

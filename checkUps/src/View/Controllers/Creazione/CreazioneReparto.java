@@ -9,8 +9,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Controllers.Controller;
 import Models.Alerts;
+import Models.ModelCreazione;
 import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -21,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -29,7 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneReparto extends ViewController {
+public class CreazioneReparto implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -60,6 +64,10 @@ public class CreazioneReparto extends ViewController {
 
     @FXML
     private JFXButton btnSalva;
+
+    private ModelCreazione modelCreazione;
+    private ModelPaths modelPaths;
+    private ModelModifica modelModifica;
 
     private List<Societa> listSocieta;
     private List<UnitaLocale> listUnitaLocale;
@@ -165,7 +173,7 @@ public class CreazioneReparto extends ViewController {
 
             root = modelPaths.switchToModificaReparto(modelModifica);
 
-            changePane(root);
+            Controller.changePane(modelPaths.getStackPaneHome(),root);
         }
     }
 
@@ -173,7 +181,7 @@ public class CreazioneReparto extends ViewController {
     public void delete(){
         if(tableReparti.getSelectionModel().getSelectedItem() != null){
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
-            eliminaRecord(reparto, reparto.getId());
+            Controller.eliminaRecord(reparto, reparto.getId());
             tableReparti.getItems().remove(reparto);
         }
     }
@@ -203,13 +211,15 @@ public class CreazioneReparto extends ViewController {
                     && dialogController.getNome().equals("")
                     && dialogController.getData() != null){
                         
-                    int id = getNewId(listaReparto);
+                    int id = Controller.getNewId(listaReparto);
                     Reparto newReparto = new Reparto( id,
                                                         modelCreazione.getUnitaLocaleTmp().getId(), 
                                                         dialogController.getNome(), 
                                                         dialogController.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                     modelCreazione.createRepartoTmp(newReparto);
-                    inserisciNuovoRecord(newReparto);
+                    Controller.inserisciNuovoRecord(newReparto);
+
+                    tableReparti.getItems().add(newReparto);
 
                     tableReparti.refresh();
 
@@ -218,6 +228,14 @@ public class CreazioneReparto extends ViewController {
                 }
             }
         }
+    }
+
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica){
+
+        this.modelCreazione = modelCreazione;
+        this.modelPaths = modelPaths;
+        this.modelModifica = modelModifica;
+
     }
 
 }
