@@ -208,7 +208,7 @@ public class CreazioneReparto implements Initializable {
 
             if(clickedButton.get() == ButtonType.APPLY){
                 if( dialogController.getNome() != null
-                    && dialogController.getNome().equals("")
+                    && !dialogController.getNome().equals("")
                     && dialogController.getData() != null){
                         
                     int id = Controller.getNewId(listaReparto);
@@ -224,7 +224,7 @@ public class CreazioneReparto implements Initializable {
                     tableReparti.refresh();
 
                 } else{
-                    Alerts.errorAllert();
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento", "Qualcosa non è stato inserito correttamente");
                 }
             }
         }
