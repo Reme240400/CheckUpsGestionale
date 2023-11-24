@@ -59,35 +59,41 @@ public class ModelListe {
     }
 
     // Metodo per modificare il valore di una campo sia nella lista che nel db
-    public static void modificaCampo(Object obj/*, String campo, String valore, int id*/) {
+    public static void modificaCampo(Object obj/* , String campo, String valore, int id */) {
 
         switch (obj.getClass().getSimpleName()) {
 
             case "Mansione":
                 Mansione mansione = ((Mansione) obj);
-            
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), mansione.getId(), "id_mansione",
+
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), mansione.getId(),
+                        "id_mansione",
                         mansione.getId());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), mansione.getId(), "nome",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), mansione.getId(),
+                        "nome",
                         ((Mansione) obj).getNome());
-            
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), mansione.getId(), "responsabile",
+
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), mansione.getId(),
+                        "responsabile",
                         mansione.getResponsabile());
-                
+
                 break;
 
             case "Titolo":
-            
+
                 Titolo titolo = ((Titolo) obj);
-                    
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), titolo.getId(), "id_titolo",
+
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), titolo.getId(),
+                        "id_titolo",
                         titolo.getId());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), titolo.getId(), "descrizione",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), titolo.getId(),
+                        "descrizione",
                         titolo.getDescrizione());
-                
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), titolo.getId(), "id_reparto",
+
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), titolo.getId(),
+                        "id_reparto",
                         titolo.getIdReparto());
 
                 break;
@@ -95,22 +101,25 @@ public class ModelListe {
             case "Reparto":
                 Reparto reparto = ((Reparto) obj);
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), reparto.getId(), "id_reparto",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), reparto.getId(),
+                        "id_reparto",
                         reparto.getId());
 
                 ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), reparto.getId(), "nome",
                         reparto.getNome());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), reparto.getId(), "descrizione", 
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), reparto.getId(),
+                        "descrizione",
                         reparto.getDescrizione());
 
                 break;
 
             case "Rischio":
-                
+
                 Rischio rischio = ((Rischio) obj);
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), rischio.getId(), "id_rischio",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), rischio.getId(),
+                        "id_rischio",
                         rischio.getId());
 
                 ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), rischio.getId(), "nome",
@@ -125,7 +134,8 @@ public class ModelListe {
                 ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), rischio.getId(), "r",
                         rischio.getR());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), rischio.getId(), "id_reparto",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), rischio.getId(),
+                        "id_reparto",
                         rischio.getIdReparto());
 
                 break;
@@ -133,39 +143,48 @@ public class ModelListe {
             case "Societa":
                 Societa societa = ((Societa) obj);
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "id_societa",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), societa.getId(),
+                        "id_societa",
                         societa.getId());
 
                 ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "nome",
                         societa.getNome());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "indirizzo",   
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(),
+                        "indirizzo",
                         societa.getIndirizzo());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "localita",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(),
+                        "localita",
                         societa.getLocalita());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "provincia",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(),
+                        "provincia",
                         societa.getProvincia());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "telefono",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(),
+                        "telefono",
                         societa.getTelefono());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(), "descrizione",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), societa.getId(),
+                        "descrizione",
                         societa.getDescrizione());
 
+                ControllerDb.popolaListeDaDatabase();
                 break;
 
             case "Oggetto":
                 Oggetto oggetto = ((Oggetto) obj);
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), oggetto.getId(), "id_oggetto",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), oggetto.getId(),
+                        "id_oggetto",
                         oggetto.getId());
 
                 ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), oggetto.getId(), "nome",
                         oggetto.getNome());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), oggetto.getId(), "id_titolo",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), oggetto.getId(),
+                        "id_titolo",
                         oggetto.getIdTitolo());
 
                 break;
@@ -173,34 +192,44 @@ public class ModelListe {
             case "Provvedimento":
                 Provvedimento provvedimento = ((Provvedimento) obj);
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "id_provvedimento",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "id_provvedimento",
                         provvedimento.getId());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "nome",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "nome",
                         provvedimento.getNome());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "id_mansione",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "id_mansione",
                         provvedimento.getIdMansione());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "id_oggetto",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "id_oggetto",
                         provvedimento.getIdOggetto());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "rischio",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "rischio",
                         provvedimento.getRischio());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "soggetti_esposti",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "soggetti_esposti",
                         provvedimento.getSoggettiEsposti());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "stima",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "stima",
                         provvedimento.getStima());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "stima_r",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "stima_r",
                         provvedimento.getStimaR());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "stima_d",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "stima_d",
                         provvedimento.getStimaD());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(), "stima_p",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), provvedimento.getId(),
+                        "stima_p",
                         provvedimento.getStimaP());
 
                 break;
@@ -208,22 +237,28 @@ public class ModelListe {
             case "UnitaLocale":
                 UnitaLocale unitaLocale = ((UnitaLocale) obj);
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(), "id_unita_locale",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(),
+                        "id_unita_locale",
                         unitaLocale.getId());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(), "nome",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(),
+                        "nome",
                         unitaLocale.getNome());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(), "indirizzo",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(),
+                        "indirizzo",
                         unitaLocale.getIndirizzo());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(), "localita",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(),
+                        "localita",
                         unitaLocale.getLocalita());
 
-                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(), "provincia",
+                ControllerDb.modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(),
+                        "provincia",
                         unitaLocale.getProvincia());
 
-                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(), "id_societa",
+                ControllerDb.modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(), unitaLocale.getId(),
+                        "id_societa",
                         unitaLocale.getIdSocieta());
 
                 break;
