@@ -31,7 +31,7 @@ public class CreatePdfExample {
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
                     new File(
-                            "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
+                            "C:\\dev\\ProgettoCheckUp\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
 
             // stampaSocieta(document, font);
 
@@ -59,7 +59,7 @@ public class CreatePdfExample {
     public static void stampaValutazioneRischi(PDDocument document, PDType0Font font) {
 
         // popolo tutte le liste
-        ControllerDb.popolaListeDaDatabase();
+        //ControllerDb.popolaListeDaDatabase();
         // le filtro
         // queste due righe vanno standardizzate
         int idSocieta = 240;

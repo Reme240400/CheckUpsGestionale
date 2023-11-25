@@ -17,7 +17,7 @@ import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
-
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -73,7 +73,7 @@ public class Modifica implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaRecordU;
-    
+
     @FXML
     private TextField textFieldNomeU;
 
@@ -96,7 +96,7 @@ public class Modifica implements Initializable {
 
     @FXML
     private StackPane titoli_repartiStackPane;
-    
+
     @FXML
     private DialogPane dialogPane;
 
@@ -110,17 +110,10 @@ public class Modifica implements Initializable {
     private ObservableList<String> sItems = FXCollections.observableArrayList();
 
     private int idSocieta = -1;
-    //private int idUnitaLocale = -1;
+    // private int idUnitaLocale = -1;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        // ---------------- popola il combobox ---------------- //
-        for (Societa societa : listSocieta) {
-            cercaRecordS.getItems().add(societa.getNome());
-            sItems.add(societa.getNome());
-        }
-
         // --------------- controlla se vengono inseriti solo numeri --------------- //
         UnaryOperator<TextFormatter.Change> filter = change -> {
 
@@ -134,11 +127,21 @@ public class Modifica implements Initializable {
             }
 
             return change;
-        };
-
+        }; 
+        
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
         // ------------------------------------------------------------------------- //
+        popolaComboBoxS();
+    }
+
+    private void popolaComboBoxS() {
+        // ---------------- popola il combobox ---------------- //
+        for (Societa societa : listSocieta) {
+            sItems.add(societa.getNome());
+        }
+
+        cercaRecordS.setItems(sItems);
 
         // --------------- filtra il Combobox --------------- //
         FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecordS, sItems);
@@ -146,43 +149,70 @@ public class Modifica implements Initializable {
         cercaRecordS.setItems(filteredItems);
     }
 
-    // --------------- Riempi i campi con i dati della societa selezionata --------------- //
-    public void fillTextFieldS(){
-        if (cercaRecordS.getValue() != null && !cercaRecordS.getValue().equals("")){
-            modelModifica.fillTextField( cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
+    private void popolaComboBoxU() {
+        // ---------------- popola il combobox ---------------- //
+        for (UnitaLocale unitaLocale : listUnitaLocale) {
+            if (unitaLocale.getIdSocieta() == idSocieta) {
+                uItems.add(unitaLocale.getNome());
+            }
+        }
 
-            Societa societaTmp = listSocieta.stream().filter(s -> s.getNome().equals(cercaRecordS.getValue())).findFirst().get();
+        cercaRecordU.setItems(ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems));
+
+        // --------------- filtra il Combobox --------------- //
+        FilteredList<String> filteredItems = ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems);
+
+        cercaRecordU.setItems(filteredItems);
+    }
+
+    // --------------- Riempi i campi con i dati della societa selezionata
+    // --------------- //
+    public void fillTextFieldS() {
+        if (cercaRecordS.getValue() != null && !cercaRecordS.getValue().equals("")) {
+            modelModifica.fillTextField(cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita,
+                    textFieldProvincia, textFieldTel);
+
+            Societa societaTmp = listSocieta.stream().filter(s -> s.getNome().equals(cercaRecordS.getValue()))
+                    .findFirst().get();
             modelModifica.setSocieta(societaTmp);
         }
     }
 
-    // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
-    public void fillTextFieldU(){
-        if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")){
+    // --------------- Riempi i campi con i dati dell'unita locale selezionata
+    // --------------- //
+    public void fillTextFieldU() {
+        if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")) {
             int id = modelModifica.getSocietaTmp().getId();
-            modelModifica.fillTextField( cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU, textFieldProvinciaU);
+            modelModifica.fillTextField(cercaRecordU, id, textFieldNomeU, textFieldIndirizzoU, textFieldLocalitaU,
+                    textFieldProvinciaU);
 
-            UnitaLocale unitaLocaleTmp = listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaRecordU.getValue())).findFirst().get();
+            UnitaLocale unitaLocaleTmp = listUnitaLocale.stream()
+                    .filter(u -> u.getNome().equals(cercaRecordU.getValue())).findFirst().get();
             modelModifica.setUnitaLocale(unitaLocaleTmp);
         }
-    }    
+    }
 
     // --------------- Salva le modifiche --------------- //
-    public void updateChanges(){
-        
-        if (tabPane.getSelectionModel().getSelectedIndex() == 0 && modelModifica.getSocietaTmp() != null){
+    public void updateChanges() {
+
+        if (tabPane.getSelectionModel().getSelectedIndex() == 0 && modelModifica.getSocietaTmp() != null) {
             modelModifica.getSocietaTmp().setNome(textFieldNomeS.getText());
             modelModifica.getSocietaTmp().setIndirizzo(textFieldIndirizzo.getText());
             modelModifica.getSocietaTmp().setLocalita(textFieldLocalita.getText());
             modelModifica.getSocietaTmp().setProvincia(textFieldProvincia.getText());
             modelModifica.getSocietaTmp().setTelefono(textFieldTel.getText());
+
             Controller.modificaCampo(modelModifica.getSocietaTmp());
-        } else if (tabPane.getSelectionModel().getSelectedIndex() == 1 && modelModifica.getUnitaLocaleTmp() != null){
+            popolaComboBoxS();
+
+        } else if (tabPane.getSelectionModel().getSelectedIndex() == 1 && modelModifica.getUnitaLocaleTmp() != null) {
             modelModifica.getUnitaLocaleTmp().setNome(textFieldNomeU.getText());
             modelModifica.getUnitaLocaleTmp().setIndirizzo(textFieldIndirizzoU.getText());
             modelModifica.getUnitaLocaleTmp().setLocalita(textFieldLocalitaU.getText());
             modelModifica.getUnitaLocaleTmp().setProvincia(textFieldProvinciaU.getText());
+            
             Controller.modificaCampo(modelModifica.getUnitaLocaleTmp());
+            popolaComboBoxU();
         }
     }
 
@@ -191,91 +221,86 @@ public class Modifica implements Initializable {
 
         // ------------------- Mostra il dialogPane dell'Unita Locale ------------------- //
         if (tabUnitaLocale.isSelected()) {
-        
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
 
             DialogPane1 dialogController = loader.getController();
 
             dialogController.setModel(modelModifica);
-            
+
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Scegli la Società");
-            
+
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
-            if(clickedButton.get() == ButtonType.APPLY){
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
+            if (clickedButton.get() == ButtonType.APPLY) {
                 if (modelModifica.getSocietaTmp() != null) {
                     // prende l'id della societa selezionata //
                     this.idSocieta = modelModifica.getSocietaTmp().getId();
 
-                    for (UnitaLocale unitaLocale : listUnitaLocale) {
-                        if (unitaLocale.getIdSocieta() == idSocieta) {
-                            cercaRecordU.getItems().add(unitaLocale.getNome());
-                            uItems.add(unitaLocale.getNome());
-                        }
-                    }
+                    popolaComboBoxU();
 
-                    cercaRecordU.setItems(ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems));
-
-                } else{
+                } else {
                     tabPane.getSelectionModel().select(0);
-                }          
-            } else{
+                }
+            } else {
                 tabPane.getSelectionModel().select(0);
             }
         }
     }
 
-    public void showRepartiTitoliDialogPane() throws IOException{
-        
+    public void showRepartiTitoliDialogPane() throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
         DialogPane dialogPane = loader.load();
 
         DialogPane2 dialogController = loader.getController();
 
         dialogController.setModel(modelModifica);
-        
+
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
         dialog.setTitle("Scegli la Unità Locale");
-        
+
         Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+        // ------------------- Se viene premuto il tasto "Applica" -------------------
+        // //
 
-        if(clickedButton.get() == ButtonType.APPLY){
+        if (clickedButton.get() == ButtonType.APPLY) {
             showRepartoPane();
-        }else{
+        } else {
             tabPane.getSelectionModel().select(0);
         }
 
     }
 
     // ------------------- Mostra il dialogPane dei Reparti ------------------- //
-    public void showRepartoPane() throws IOException{
-    
+    public void showRepartoPane() throws IOException {
+
         Parent root = modelPaths.switchToModificaReparto(modelModifica);
 
-        if(root != null){
-            titoli_repartiStackPane.getChildren().removeAll();
-            titoli_repartiStackPane.getChildren().setAll(root);       
-        }
-    }
-
-    // ------------------- Mostra il dialogPane dei Titoli ------------------- //
-    public void showTitoliPane() throws IOException{
-        
-        Parent root = modelPaths.switchToModificaTitoli(modelModifica);
-
-        if(root != null){
+        if (root != null) {
             titoli_repartiStackPane.getChildren().removeAll();
             titoli_repartiStackPane.getChildren().setAll(root);
         }
     }
-    
+
+    // ------------------- Mostra il dialogPane dei Titoli ------------------- //
+    public void showTitoliPane() throws IOException {
+
+        Parent root = modelPaths.switchToModificaTitoli(modelModifica);
+
+        if (root != null) {
+            titoli_repartiStackPane.getChildren().removeAll();
+            titoli_repartiStackPane.getChildren().setAll(root);
+        }
+    }
+
     // ----------------- Setta il model ----------------- //
     public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
@@ -296,8 +321,8 @@ public class Modifica implements Initializable {
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
         this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
 
-        //this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
-        
+        // this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
+
     }
 
 }

@@ -1,9 +1,17 @@
 package View.Controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+
+import com.jfoenix.controls.JFXButton;
+
 import Controllers.ClassHelper;
+import Helpers.PdfHelpers.CreatePdfExample;
 
 import java.util.List;
 
@@ -43,6 +51,9 @@ public class ValutaRischi implements Initializable{
 
     @FXML
     private TextField filterTextField;
+
+    @FXML
+    private JFXButton btnSelect;
 
     private List<Reparto> reparti = ClassHelper.getListReparto();
 
@@ -87,6 +98,19 @@ public class ValutaRischi implements Initializable{
     public void setModel(ModelValutaRischi modelValutaRischi) {
         this.modelValutaRischi = modelValutaRischi;
 
+    }
+
+    public void createPDF() throws IOException {
+        if(tableView.getSelectionModel().getSelectedItem() != null){
+            Reparto reparto = tableView.getSelectionModel().getSelectedItem();
+            
+        }
+        PDDocument document = new PDDocument();
+            PDType0Font font = PDType0Font.load(document,
+                    new File(
+                            "C:\\dev\\ProgettoCheckUp\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
+
+        CreatePdfExample.stampaValutazioneRischi(document, font);
     }
 
 

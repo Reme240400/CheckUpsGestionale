@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ValutaRischi">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ValutaRischi">
    <top>
       <HBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -51,7 +51,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="681.0" styleClass="bordered_style" stylesheets="@../css/style.css">
                      <children>
-                        <JFXButton prefHeight="25.0" prefWidth="115.0" ripplerFill="#7ec948" styleClass="bordered" stylesheets="@../css/style.css" text="Seleziona">
+                        <JFXButton fx:id="btnSelect" onAction="#createPDF" prefHeight="25.0" prefWidth="115.0" ripplerFill="#7ec948" styleClass="bordered" stylesheets="@../css/style.css" text="Seleziona">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
