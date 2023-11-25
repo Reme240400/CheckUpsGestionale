@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
-import Helpers.PdfHelpers.CreatePdfExample;
+import Helpers.PdfHelpers.pdfGenerator;
 import Models.ModelValutaRischi;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
@@ -135,7 +135,7 @@ public class ValutaRischi implements Initializable {
     public void createPDF() throws IOException {
         if (tableView.getSelectionModel().getSelectedItem() != null) {
             List<Reparto> reparti = tableView.getSelectionModel().getSelectedItems();
-            CreatePdfExample.stampaValutazioneRischi(societa, unitaLocale, reparti, "prova.pdf");
+            pdfGenerator.stampaValutazioneRischi(societa, unitaLocale, reparti, "prova.pdf");
         }
 
     }

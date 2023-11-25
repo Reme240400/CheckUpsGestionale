@@ -22,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class CreatePdfExample {
+public class CreatePdfExample_old {
 
     private static int calculateMaxRowsPerPage(PDPage page, float margin) {
         PDRectangle mediaBox = page.getMediaBox();
