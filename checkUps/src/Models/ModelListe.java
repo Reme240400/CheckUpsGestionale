@@ -277,10 +277,10 @@ public class ModelListe {
 
         }
 
-        public static List<Titolo> filtraTitoliDaReparto(int idReparto) {
+        public static List<Titolo> filtraTitoliDaReparto(List<Reparto> reparti) {
 
-                return ClassHelper.getListTitolo().stream().filter(ul -> ul.getIdReparto() == idReparto)
-                                .collect(Collectors.toList());
+                return ClassHelper.getListTitolo().stream().filter(t -> reparti.stream()
+                                .anyMatch(r -> r.getId() == t.getIdReparto())).collect(Collectors.toList());
 
         }
 

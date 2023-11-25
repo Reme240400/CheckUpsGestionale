@@ -15,6 +15,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+import javafx.scene.text.Font;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -29,24 +30,24 @@ public class CreatePdfExample {
         return (int) ((mediaBox.getHeight() - 2 * margin) / rowHeight);
     }
 
-    public static void stampaValutazioneRischi(int idSocieta, int idUnitaLocale, int idReparto, String nomeFile) {
+    public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti, String nomeFile) {
 
         // le filtro
-        Societa societa = ClassHelper.getListSocieta().stream().filter(s -> s.getId() == idSocieta).findFirst().get();
-        UnitaLocale unitaLocale = ClassHelper.getListUnitaLocale().stream().filter(s -> s.getId() == idUnitaLocale)
-                .findFirst().get();
-        Reparto reparto = ClassHelper.getListReparto().stream().filter(r -> r.getId() == idReparto).findFirst().get();
+        // Societa societa = ClassHelper.getListSocieta().stream().filter(s -> s.getId() == idSocieta).findFirst().get();
+        // UnitaLocale unitaLocale = ClassHelper.getListUnitaLocale().stream().filter(s -> s.getId() == idUnitaLocale)
+        //         .findFirst().get();
+        // reparti reparti = ClassHelper.getListreparti().stream().filter(r -> r.getId() == idreparti).findFirst().get();
 
-        List<Titolo> titoli = ModelListe.filtraTitoliDaReparto(idReparto);
+        List<Titolo> titoli = ModelListe.filtraTitoliDaReparto(reparti);
 
-        System.out.println("ID_SOCIETA: " + idSocieta);
-        System.out.println("ID UNITA_LOCALE: " + idUnitaLocale);
-        System.out.println("ID REPARTO: " + reparto.getId());
+        System.out.println("ID_SOCIETA: " + societa.getId());
+        System.out.println("ID UNITA_LOCALE: " + unitaLocale.getId());
+        System.out.println("ID reparti: " + reparti.get(0).getId());
         try {
             PDDocument document = new PDDocument();
             PDType0Font font = PDType0Font.load(document,
                     new File(
-                            "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
+                            "C:\\dev\\ProgettoCheckUp\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
@@ -61,7 +62,7 @@ public class CreatePdfExample {
 
             yPosition = yPosition + 10;
             // costruisco le prime due righe della tabella
-            // queste celle conterranno società, unità locale e reparto
+            // queste celle conterranno società, unità locale e reparti
             // riga superiore
             contentStream.moveTo(10, yPosition + 5);
             contentStream.lineTo(575, yPosition + 5);
@@ -95,7 +96,7 @@ public class CreatePdfExample {
 
             contentStream.beginText();
             contentStream.newLineAtOffset(385, yPosition - 5);
-            contentStream.showText("Reparto:  " + reparto.getNome());
+            contentStream.showText("reparti:  " + reparti.get(0).getNome());
             contentStream.endText();
 
             contentStream.moveTo(575, yPosition + 5);
@@ -299,11 +300,11 @@ public class CreatePdfExample {
                 }
 
             }
+            
+            contentStream.close();
             // Visualizzazione del PDF
             document.save(nomeFile);
             document.close();
-
-            contentStream.close();
             // Apertura del PDF con l'applicazione predefinita per la visualizzazione
             Desktop.getDesktop().open(new File(nomeFile));
         } catch (IOException e) {
