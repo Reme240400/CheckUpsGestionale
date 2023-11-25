@@ -93,7 +93,7 @@
       <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
             <Pane layoutX="10.0" layoutY="62.0" prefHeight="24.0" prefWidth="69.0" />
-            <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#modify" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" text="Button" textAlignment="CENTER" textOverrun="CLIP">
+            <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#modify" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

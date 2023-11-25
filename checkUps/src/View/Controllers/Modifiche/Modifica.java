@@ -169,9 +169,19 @@ public class Modifica implements Initializable {
 
     // --------------- Salva le modifiche --------------- //
     public void updateChanges(){
+        
         if (tabPane.getSelectionModel().getSelectedIndex() == 0 && modelModifica.getSocietaTmp() != null){
+            modelModifica.getSocietaTmp().setNome(textFieldNomeS.getText());
+            modelModifica.getSocietaTmp().setIndirizzo(textFieldIndirizzo.getText());
+            modelModifica.getSocietaTmp().setLocalita(textFieldLocalita.getText());
+            modelModifica.getSocietaTmp().setProvincia(textFieldProvincia.getText());
+            modelModifica.getSocietaTmp().setTelefono(textFieldTel.getText());
             Controller.modificaCampo(modelModifica.getSocietaTmp());
-        } else if (tabPane.getSelectionModel().getSelectedIndex() == 1){
+        } else if (tabPane.getSelectionModel().getSelectedIndex() == 1 && modelModifica.getUnitaLocaleTmp() != null){
+            modelModifica.getUnitaLocaleTmp().setNome(textFieldNomeU.getText());
+            modelModifica.getUnitaLocaleTmp().setIndirizzo(textFieldIndirizzoU.getText());
+            modelModifica.getUnitaLocaleTmp().setLocalita(textFieldLocalitaU.getText());
+            modelModifica.getUnitaLocaleTmp().setProvincia(textFieldProvinciaU.getText());
             Controller.modificaCampo(modelModifica.getUnitaLocaleTmp());
         }
     }

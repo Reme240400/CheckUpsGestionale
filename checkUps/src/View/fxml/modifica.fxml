@@ -137,7 +137,7 @@
                               </GridPane>
                               <Pane prefHeight="281.0" prefWidth="642.0" VBox.vgrow="SOMETIMES">
                                  <children>
-                                    <JFXButton fx:id="btnSaveU" contentDisplay="CENTER" ellipsisString="" layoutX="608.0" layoutY="-3.0" prefHeight="32.0" prefWidth="13.0" ripplerFill="#2baef0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                                    <JFXButton fx:id="btnSaveU" contentDisplay="CENTER" ellipsisString="" layoutX="608.0" layoutY="-3.0" onAction="#updateChanges" prefHeight="32.0" prefWidth="13.0" ripplerFill="#2baef0" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                                        <graphic>
                                           <ImageView fx:id="saveChanges1" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
