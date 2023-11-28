@@ -112,11 +112,14 @@ public class CreazioneTitolo extends Controller implements Initializable {
         });
     }
 
-    // --------------- triggherato quando si seleziona una societa ---------------
-    // //
+    // --------------- triggherato quando si seleziona una societa --------------- //
     public void selectSocieta() {
         List<UnitaLocale> specificList = null;
+        
         modelCreazione.resetUnitaLocaleTmp();
+        modelCreazione.resetRepartoTmp();
+        modelCreazione.resetTitoloTmp();
+
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
 
             modelCreazione.createSocietaTmp(
@@ -145,7 +148,7 @@ public class CreazioneTitolo extends Controller implements Initializable {
     }
 
     // --------------- triggherato quando si seleziona un' unita locale --------------- // 
- 
+
     public void selectUnita() {
         if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
                 && !cercaUnita.getValue().isEmpty()) {
