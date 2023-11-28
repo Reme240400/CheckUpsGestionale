@@ -27,9 +27,11 @@ public class ModelModifica extends ModelListe{
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
     private final BooleanProperty selectedReparto = new SimpleBooleanProperty(false);
+    private final BooleanProperty selectedTitolo = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
+    private Titolo titoloTmp = null;
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -44,6 +46,10 @@ public class ModelModifica extends ModelListe{
         return selectedReparto;
     }
 
+    public BooleanProperty selectedTitoloProperty() {
+        return selectedTitolo;
+    }
+
     public Societa societaProperty() {
         return societaTmp;
     }
@@ -54,6 +60,10 @@ public class ModelModifica extends ModelListe{
 
     public Reparto repartoProperty() {
         return repartoTmp;
+    }
+
+    public Titolo titoloProperty() {
+        return titoloTmp;
     }
 
     // ------------------ SETTER ------------------ //
@@ -69,6 +79,10 @@ public class ModelModifica extends ModelListe{
         selectedRepartoProperty().set(selectedReparto);
     }
 
+    public final void setSelectedTitolo(boolean selectedTitolo) {
+        selectedTitoloProperty().set(selectedTitolo);
+    }
+
     public void setSocieta(Societa societa) {
         this.societaTmp = societa;
     }
@@ -80,6 +94,10 @@ public class ModelModifica extends ModelListe{
 
     public final void setReparto(Reparto reparto) {
         this.repartoTmp = reparto;
+    }
+
+    public final void setTitolo(Titolo titolo) {
+        this.titoloTmp = titolo;
     }
 
     // ------------------ GETTER ------------------ //
@@ -95,6 +113,10 @@ public class ModelModifica extends ModelListe{
         return selectedRepartoProperty().get();
     }
 
+    public final boolean isSelectedTitolo() {
+        return selectedTitoloProperty().get();
+    }
+
     public final Societa getSocietaTmp() {
         return societaProperty();
     }
@@ -106,6 +128,11 @@ public class ModelModifica extends ModelListe{
     public final Reparto getRepartoTmp() {
         return repartoProperty();
     }
+
+    public final Titolo getTitoloTmp() {
+        return titoloProperty();
+    }
+
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,

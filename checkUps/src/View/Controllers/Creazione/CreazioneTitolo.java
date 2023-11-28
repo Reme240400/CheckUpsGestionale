@@ -33,7 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo extends Controller implements Initializable {
+public class CreazioneTitolo implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -215,7 +215,7 @@ public class CreazioneTitolo extends Controller implements Initializable {
     public void delete() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
-            eliminaRecord(titolo, titolo.getId());
+            Controller.eliminaRecord(titolo, titolo.getId());
             tableTitoli.getItems().remove(titolo);
         }
     }
@@ -243,12 +243,12 @@ public class CreazioneTitolo extends Controller implements Initializable {
 
             if(clickedButton.get() == ButtonType.APPLY){
                 if( dialogController.getNome() != null && !dialogController.getNome().equals("")){
-                    int id = getNewId(listaTitolo);
+                    int id = Controller.getNewId(listaTitolo);
                     Titolo newTitolo = new Titolo(id,
                             modelCreazione.getRepartoTmp().getId(),
                             dialogController.getNome());
                     modelCreazione.createTitoloTmp(newTitolo);
-                    inserisciNuovoRecord(newTitolo);
+                    Controller.inserisciNuovoRecord(newTitolo);
 
                     tableTitoli.getItems().add(newTitolo);
 

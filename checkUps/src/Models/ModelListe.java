@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import Controllers.ClassHelper;
-import Controllers.ControllerDb;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
@@ -26,7 +25,6 @@ public class ModelListe {
         // Metodo per eliminare un elemento sia da db che nelle liste
         public static void rimuoviDaLista(Object obj, int id) {
 
-                ControllerDb.eliminaRecordDaId(obj.getClass().getSimpleName().toLowerCase(), id);
                 switch (obj.getClass().getSimpleName()) {
 
                         case "Mansione":

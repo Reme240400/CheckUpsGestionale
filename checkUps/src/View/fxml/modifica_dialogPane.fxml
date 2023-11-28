@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane prefHeight="335.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPane1">
+<DialogPane prefHeight="335.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneUnita">
    <header>
       <AnchorPane prefHeight="281.0" prefWidth="578.0">
          <children>

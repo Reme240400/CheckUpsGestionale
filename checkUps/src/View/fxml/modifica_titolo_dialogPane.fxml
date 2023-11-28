@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaReparto">
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaTitolo">
    <buttonTypes>
       <ButtonType fx:constant="APPLY" />
       <ButtonType fx:constant="CANCEL" />
@@ -25,7 +24,7 @@
                <children>
                   <Pane prefHeight="58.0" prefWidth="355.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="12.0" text="Modifica Reparto">
+                        <Label layoutX="14.0" layoutY="12.0" text="Modifica Titolo">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -40,13 +39,10 @@
                      <rowConstraints>
                         <RowConstraints />
                         <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Label text="Nome" GridPane.rowIndex="1" />
-                        <TextField fx:id="modificaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Descrizione" GridPane.rowIndex="2" />
-                        <DatePicker fx:id="modificaDescReparto" editable="false" prefHeight="25.0" prefWidth="280.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="modificaNomeTitolo" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

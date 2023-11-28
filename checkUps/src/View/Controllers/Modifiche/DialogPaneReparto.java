@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 
-public class DialogPane2 extends DialogPane1{
+public class DialogPaneReparto extends DialogPaneUnita{
 
     @FXML
     private JFXComboBox<String> cercaSocietaR;
