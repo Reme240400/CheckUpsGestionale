@@ -35,10 +35,6 @@ public class ModelPaths {
         return this.stackPaneHome;
     }
 
-    public void setStackPaneModifica(StackPane stackPane) {
-        this.stackPaneModifica = stackPane;
-    }
-
     // * *************** Cambia la scena a modifica *************** //
     public Parent switchToModifica(ModelModifica model) throws IOException {
 
