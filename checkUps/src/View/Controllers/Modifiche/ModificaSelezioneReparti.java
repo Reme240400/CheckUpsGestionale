@@ -50,6 +50,12 @@ public class ModificaSelezioneReparti implements Initializable{
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
+        tableViewReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectReparto(); // Chiama il metodo quando viene selezionato un elemento
+            }
+        });
+
     }
 
     // --------------- filtra la tabella in tempo reale, in base al nome --------------- //
@@ -88,6 +94,14 @@ public class ModificaSelezioneReparti implements Initializable{
     @FXML
     private void delete(){
 
+    }
+
+    public void selectReparto(){
+        System.out.println("Reparto selezionato");
+        Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
+        modelModifica.setReparto(reparto);
+        modelModifica.setSelectedReparto(true);
+        
     }
 
     public void setModel(ModelModifica modelModifica) {
