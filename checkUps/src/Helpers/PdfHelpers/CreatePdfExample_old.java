@@ -15,40 +15,14 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+import javafx.scene.text.Font;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class CreatePdfExample {
-    public static void main(String[] args) {
-        // Creazione di un documento PDF
-        String nomeFile = "prova.pdf";
-
-        try {
-
-            PDDocument document = new PDDocument();
-            PDType0Font font = PDType0Font.load(document,
-                    new File(
-                            "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
-
-            // stampaSocieta(document, font);
-
-            // stampaProvvedimenti(document, font);
-
-            stampaValutazioneRischi(document, font);
-
-            // Visualizzazione del PDF
-            document.save(nomeFile);
-            document.close();
-
-            // Apertura del PDF con l'applicazione predefinita per la visualizzazione
-            Desktop.getDesktop().open(new File(nomeFile));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+public class CreatePdfExample_old {
 
     private static int calculateMaxRowsPerPage(PDPage page, float margin) {
         PDRectangle mediaBox = page.getMediaBox();
@@ -56,22 +30,24 @@ public class CreatePdfExample {
         return (int) ((mediaBox.getHeight() - 2 * margin) / rowHeight);
     }
 
-    public static void stampaValutazioneRischi(PDDocument document, PDType0Font font) {
+    public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti, String nomeFile) {
 
-        // popolo tutte le liste
-        ControllerDb.popolaListeDaDatabase();
         // le filtro
-        // queste due righe vanno standardizzate
-        int idSocieta = 240;
-        int idUnitaLocale = 47;
-        List<UnitaLocale> unita = ModelListe.filtraListaUnitaDaSocieta(idSocieta);
-        List<Reparto> reparto = ModelListe.filtraRepartoDaUnita(unita.get(0).getId());
-        List<Titolo> titoli = ModelListe.filtraTitoliDaReparto(reparto.get(0).getId());
+        // Societa societa = ClassHelper.getListSocieta().stream().filter(s -> s.getId() == idSocieta).findFirst().get();
+        // UnitaLocale unitaLocale = ClassHelper.getListUnitaLocale().stream().filter(s -> s.getId() == idUnitaLocale)
+        //         .findFirst().get();
+        // reparti reparti = ClassHelper.getListreparti().stream().filter(r -> r.getId() == idreparti).findFirst().get();
 
-        System.out.println("ID_SOCIETA: " + idSocieta);
-        System.out.println("ID UNITA_LOCALE: " + idUnitaLocale);
-        System.out.println("ID REPARTO: " + reparto.get(0).getId());
+        List<Titolo> titoli = ModelListe.filtraTitoliDaReparto(reparti);
+
+        System.out.println("ID_SOCIETA: " + societa.getId());
+        System.out.println("ID UNITA_LOCALE: " + unitaLocale.getId());
+        System.out.println("ID reparti: " + reparti.get(0).getId());
         try {
+            PDDocument document = new PDDocument();
+            PDType0Font font = PDType0Font.load(document,
+                    new File(
+                            "C:\\dev\\ProgettoCheckUp\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\Helvetica-Bold-Font.ttf"));
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
@@ -84,9 +60,9 @@ public class CreatePdfExample {
             float yPosition = page.getMediaBox().getHeight() - 50;
             yPosition = page.getMediaBox().getHeight() - 50;
 
-            yPosition= yPosition+10;
+            yPosition = yPosition + 10;
             // costruisco le prime due righe della tabella
-            // queste celle conterranno società, unità locale e reparto
+            // queste celle conterranno società, unità locale e reparti
             // riga superiore
             contentStream.moveTo(10, yPosition + 5);
             contentStream.lineTo(575, yPosition + 5);
@@ -102,7 +78,7 @@ public class CreatePdfExample {
 
             contentStream.beginText();
             contentStream.newLineAtOffset(15, yPosition - 5);
-            contentStream.showText("Società:  " + ClassHelper.getListSocieta().get(1).getNome());
+            contentStream.showText("Società:  " + societa.getNome());
             contentStream.endText();
 
             contentStream.moveTo(190, yPosition + 5);
@@ -111,7 +87,7 @@ public class CreatePdfExample {
 
             contentStream.beginText();
             contentStream.newLineAtOffset(195, yPosition - 5);
-            contentStream.showText("Unità Locale:  " + ClassHelper.getListUnitaLocale().get(2).getNome());
+            contentStream.showText("Unità Locale:  " + unitaLocale.getNome());
             contentStream.endText();
 
             contentStream.moveTo(380, yPosition + 5);
@@ -120,7 +96,7 @@ public class CreatePdfExample {
 
             contentStream.beginText();
             contentStream.newLineAtOffset(385, yPosition - 5);
-            contentStream.showText("Reparto:  " + ClassHelper.getListReparto().get(1).getNome());
+            contentStream.showText("reparti:  " + reparti.get(0).getNome());
             contentStream.endText();
 
             contentStream.moveTo(575, yPosition + 5);
@@ -128,18 +104,17 @@ public class CreatePdfExample {
             contentStream.stroke();
 
             contentStream.setFont(font, 6);
-            yPosition = yPosition - 15;
-            
+
             int n = 1;
             // ciclo titoli
             for (Titolo titolo : titoli) {
                 // stampo il titolo
+                yPosition = yPosition - 20;
                 contentStream.setFont(font, 8);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(220, yPosition - 5);
                 contentStream.showText("TITOLO: " + n + " " + titolo.getDescrizione());
                 contentStream.endText();
-                
 
                 yPosition = yPosition - 20;
                 n++;
@@ -150,7 +125,7 @@ public class CreatePdfExample {
                     contentStream.setFont(font, 8);
                     contentStream.beginText();
                     contentStream.newLineAtOffset(20, yPosition - 5);
-                    contentStream.showText("OGGETTO: "+oggetto.getNome());
+                    contentStream.showText("OGGETTO: " + oggetto.getNome());
                     contentStream.endText();
                     contentStream.beginText();
                     contentStream.newLineAtOffset(405, yPosition - 5);
@@ -223,7 +198,8 @@ public class CreatePdfExample {
 
                             contentStream.beginText();
                             contentStream.newLineAtOffset(15, yPosition);
-                            contentStream.showText("MISURE DI PREVENZIONE E DI PROTEZIONE: "+firstPart.replace("\n", "").replace("\r", ""));
+                            contentStream.showText("MISURE DI PREVENZIONE E DI PROTEZIONE: "
+                                    + firstPart.replace("\n", "").replace("\r", ""));
                             contentStream.endText();
 
                             contentStream.beginText();
@@ -237,10 +213,10 @@ public class CreatePdfExample {
                             contentStream.endText();
                             contentStream.beginText();
                             contentStream.newLineAtOffset(405, yPosition);
-                            contentStream.showText(provvedimento.getStimaP()+" x "+provvedimento.getStimaD()+" = "+provvedimento.getStimaR());
+                            contentStream.showText(provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
+                                    + provvedimento.getStimaR());
                             contentStream.endText();
 
-                            
                             contentStream.beginText();
                             contentStream.newLineAtOffset(455, yPosition);
                             contentStream.showText("MANSIONI ESPOSTE: " + provvedimento.getSoggettiEsposti());
@@ -294,7 +270,8 @@ public class CreatePdfExample {
                             contentStream.beginText();
                             contentStream.newLineAtOffset(15, yPosition);
                             contentStream.showText(
-                                    "MISURE DI PREVENZIONE E DI PROTEZIONE: "+provvedimento.getNome().replace("\n", "").replace("\r", "").replace("€", " euro"));
+                                    "MISURE DI PREVENZIONE E DI PROTEZIONE: " + provvedimento.getNome()
+                                            .replace("\n", "").replace("\r", "").replace("€", " euro"));
 
                             contentStream.endText();
                             contentStream.beginText();
@@ -303,7 +280,8 @@ public class CreatePdfExample {
                             contentStream.endText();
                             contentStream.beginText();
                             contentStream.newLineAtOffset(405, yPosition);
-                            contentStream.showText(provvedimento.getStimaP()+" x "+provvedimento.getStimaD()+" = "+provvedimento.getStimaR());
+                            contentStream.showText(provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
+                                    + provvedimento.getStimaR());
                             contentStream.endText();
                             contentStream.beginText();
                             contentStream.newLineAtOffset(455, yPosition);
@@ -322,7 +300,13 @@ public class CreatePdfExample {
                 }
 
             }
+            
             contentStream.close();
+            // Visualizzazione del PDF
+            document.save(nomeFile);
+            document.close();
+            // Apertura del PDF con l'applicazione predefinita per la visualizzazione
+            Desktop.getDesktop().open(new File(nomeFile));
         } catch (IOException e) {
             System.out.println(e);
         }

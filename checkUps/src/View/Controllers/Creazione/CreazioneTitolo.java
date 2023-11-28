@@ -71,7 +71,7 @@ public class CreazioneTitolo extends Controller implements Initializable {
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
-    
+
     private List<Societa> listSocieta;
     private List<UnitaLocale> listUnitaLocale;
     private List<Reparto> listaReparto;
@@ -111,21 +111,23 @@ public class CreazioneTitolo extends Controller implements Initializable {
             }
         });
     }
-    // --------------- triggherato quando si seleziona una societa --------------- //
-    public void selectSocieta(){
+
+    // --------------- triggherato quando si seleziona una societa ---------------
+    // //
+    public void selectSocieta() {
         List<UnitaLocale> specificList = null;
         modelCreazione.resetUnitaLocaleTmp();
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
 
-            modelCreazione.createSocietaTmp(listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get());
-            //textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+            modelCreazione.createSocietaTmp(
+                    listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get());
+            // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
 
             fillTableViewReparti();
 
             specificList = listUnitaLocale.stream()
-                                                .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
-                                                .toList();
-        
+                    .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
+                    .toList();
 
             ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -142,18 +144,21 @@ public class CreazioneTitolo extends Controller implements Initializable {
         }
     }
 
-    // --------------- triggherato quando si seleziona un' unita locale --------------- //
-    public void selectUnita(){
-        if(modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
-            modelCreazione.createUnitaLocaleTmp(listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaUnita.getValue())).findFirst().get());
-            //textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
+    // --------------- triggherato quando si seleziona un' unita locale --------------- // 
+ 
+    public void selectUnita() {
+        if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
+                && !cercaUnita.getValue().isEmpty()) {
+            modelCreazione.createUnitaLocaleTmp(
+                    listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaUnita.getValue())).findFirst().get());
+            // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
 
             fillTableViewReparti();
         }
     }
 
-    public void selectReparto(){
-        if( tableReparti.getSelectionModel().getSelectedItem() != null){
+    public void selectReparto() {
+        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             modelCreazione.createRepartoTmp(tableReparti.getSelectionModel().getSelectedItem());
             fillTableViewTitoli();
         }
@@ -163,14 +168,14 @@ public class CreazioneTitolo extends Controller implements Initializable {
     private void fillTableViewReparti() {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
-            
-        if(modelCreazione.getSocietaTmp().getId() != -1 && modelCreazione.getUnitaLocaleTmp() == null){
+
+        if (modelCreazione.getSocietaTmp().getId() != -1 && modelCreazione.getUnitaLocaleTmp() == null) {
             specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
-    
-        }else{
+
+        } else {
             specificList = modelCreazione.fillRepartiTable(listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
@@ -179,11 +184,11 @@ public class CreazioneTitolo extends Controller implements Initializable {
     }
 
     // --------------- popola la tabella dei titoli --------------- //
-    private void fillTableViewTitoli(){
+    private void fillTableViewTitoli() {
         List<Titolo> specificList = null;
         ObservableList<Titolo> observableList = null;
 
-        if(modelCreazione.getRepartoTmp() != null){
+        if (modelCreazione.getRepartoTmp() != null) {
             specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
@@ -192,19 +197,20 @@ public class CreazioneTitolo extends Controller implements Initializable {
     }
 
     @FXML
-    public void modify() throws IOException{
+    public void modify() throws IOException {
 
-        Parent root = new Parent(){};
+        Parent root = new Parent() {
+        };
         modelModifica = new ModelModifica();
 
         root = modelPaths.switchToModificaTitoli(modelModifica);
 
-        Controller.changePane(modelPaths.getStackPaneHome(),root);
+        Controller.changePane(modelPaths.getStackPaneHome(), root);
     }
 
     @FXML
-    public void delete(){
-        if(tableTitoli.getSelectionModel().getSelectedItem() != null){
+    public void delete() {
+        if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
             eliminaRecord(titolo, titolo.getId());
             tableTitoli.getItems().remove(titolo);
@@ -212,42 +218,46 @@ public class CreazioneTitolo extends Controller implements Initializable {
     }
 
     @FXML
-    public void addTitolo() throws IOException{
-        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null && modelCreazione.getRepartoTmp() != null) {
+    public void addTitolo() throws IOException {
+        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null
+                && modelCreazione.getRepartoTmp() != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaTitolo_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
 
             DialogPaneAddT dialogController = loader.getController();
 
             dialogController.setModel(modelCreazione);
-            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(), modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
-        
+            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                    modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Crea Reparto");
-            
+
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
             if(clickedButton.get() == ButtonType.APPLY){
-                if( dialogController.getNome() != null && dialogController.getNome().equals("")){
+                if( dialogController.getNome() != null && !dialogController.getNome().equals("")){
                     int id = getNewId(listaTitolo);
-                    Titolo newTitolo = new Titolo( id,
-                                                    modelCreazione.getRepartoTmp().getId(),
-                                                    dialogController.getNome());
+                    Titolo newTitolo = new Titolo(id,
+                            modelCreazione.getRepartoTmp().getId(),
+                            dialogController.getNome());
                     modelCreazione.createTitoloTmp(newTitolo);
                     inserisciNuovoRecord(newTitolo);
 
+                    tableTitoli.getItems().add(newTitolo);
+
                     tableTitoli.refresh();
-                } else{
+                } else {
                     Alerts.errorAllert();
                 }
             }
         }
     }
 
-    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica){
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
 
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
@@ -256,4 +266,3 @@ public class CreazioneTitolo extends Controller implements Initializable {
     }
 
 }
-

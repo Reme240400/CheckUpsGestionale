@@ -52,7 +52,7 @@
                         <Label text="Nome" />
                         <TextField fx:id="creaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" />
                         <Label text="Descrizione" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="creaDescReparto" prefHeight="25.0" prefWidth="280.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="creaDescReparto" editable="false" prefHeight="25.0" prefWidth="280.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                </children>

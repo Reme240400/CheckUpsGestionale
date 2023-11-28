@@ -62,7 +62,7 @@ public class Home extends ViewController {
     }
 
     public void goToValutaRischi() {
-        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null) {
+        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null && !cercaSocieta.getValue().isEmpty() && !cercaUnitaLocale.getValue().isEmpty()) {
             try {
                 Societa societa = listSocieta.stream()
                                                 .filter(s -> s.getNome().equals(cercaSocieta.getValue()))

@@ -25,6 +25,7 @@ public class ModelCreazione extends ModelListe{
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
+    private Titolo titoloTmp = null;
 
     // end initialize variables
 
@@ -70,6 +71,10 @@ public class ModelCreazione extends ModelListe{
     public Reparto getRepartoTmp() {
         return repartoTmp;
     }
+
+    public Titolo getTitoloTmp() {
+        return titoloTmp;
+    }
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
@@ -97,6 +102,11 @@ public class ModelCreazione extends ModelListe{
     public void createRepartoTmp(Reparto reparto) {
         this.repartoTmp = reparto;
     }
+
+    public void createTitoloTmp(Titolo newTitolo) {
+        this.titoloTmp = newTitolo;
+    }
+
     // ------------------ END SETTER ------------------ //
 
     public void resetSocietaTmp() {
@@ -105,6 +115,21 @@ public class ModelCreazione extends ModelListe{
 
     public void resetUnitaLocaleTmp() {
         this.unitaLocaleTmp = null;
+    }
+
+    public void resetRepartoTmp() {
+        this.repartoTmp = null;
+    }
+
+    public void resetTitoloTmp() {
+        this.titoloTmp = null;
+    }
+
+    public void resetAllTmp() {
+        resetSocietaTmp();
+        resetUnitaLocaleTmp();
+        resetRepartoTmp();
+        resetTitoloTmp();
     }
 
     // ------------------ Controllo se i campi sono stati inseriti ------------------ //
@@ -233,8 +258,7 @@ public class ModelCreazione extends ModelListe{
         return specificList;
     }
 
-    public void createTitoloTmp(Titolo newReparto) {
-    }
+   
 
     
 

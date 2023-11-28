@@ -15,7 +15,6 @@ import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Societa;
 
-import View.Controllers.ViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -50,7 +49,7 @@ public class CreazioneSocieta implements Initializable {
 
     // @FXML
     // private TextField textFieldDesc;
-
+ 
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
