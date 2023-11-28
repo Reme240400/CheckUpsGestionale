@@ -43,6 +43,12 @@ public class Modifica implements Initializable {
     @FXML
     private TextField filterTable;
 
+    @FXML
+    private JFXButton btnTitoli;
+
+    @FXML
+    private JFXButton btnReparti;
+
     // ----------------- Societa ----------------- //
     @FXML
     private JFXButton btnSaveS;
@@ -271,8 +277,9 @@ public class Modifica implements Initializable {
         this.modelModifica = modelModifica;
         this.modelPaths = modelPaths;
 
-        modelPaths.setStackPaneModifica(titoli_repartiStackPane);
         this.btnSaveS.disableProperty().bind(modelModifica.savedProperty().not());
+        this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
+        this.btnTitoli.disableProperty().bind(modelModifica.savedProperty().not());
 
         this.textFieldIndirizzo.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldLocalita.editableProperty().bind(modelModifica.isEnableProperty());
@@ -284,9 +291,6 @@ public class Modifica implements Initializable {
         this.textFieldLocalitaU.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldProvinciaU.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
-        this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
-
-        //this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
         
     }
 
