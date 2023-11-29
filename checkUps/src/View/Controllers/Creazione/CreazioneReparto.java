@@ -104,7 +104,7 @@ public class CreazioneReparto implements Initializable {
     // --------------- triggherato quando si seleziona una societa --------------- //
     public void selectSocieta() {
         List<UnitaLocale> specificList = null;
-        modelCreazione.resetUnitaLocaleTmp();
+
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
 
             localSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get();
@@ -133,6 +133,7 @@ public class CreazioneReparto implements Initializable {
 
     // --------------- triggherato quando si seleziona un' unita locale --------------- //
     public void selectUnita() {
+
         if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
                 && !cercaUnita.getValue().isEmpty()) {
             // ! DA USARE SEMPRE IN QUESTO MODO
@@ -152,7 +153,7 @@ public class CreazioneReparto implements Initializable {
 
             fillTableView();
         } else {
-            Alerts.errorAllert("Errore", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
+            Alerts.errorAllert("Errore1", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
         }
     }
 
@@ -161,19 +162,23 @@ public class CreazioneReparto implements Initializable {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
 
-        if (modelCreazione.getSocietaTmp().getId() != -1 && modelCreazione.getUnitaLocaleTmp() == null) {
-            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale);
+        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() == null || 
+            localSocieta != null && localUnita == null) {
+            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale, localSocieta);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
 
-        } else {
-            specificList = modelCreazione.fillRepartiTable(listaReparto);
+        } else if(modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null ||
+                localSocieta != null && localUnita != null ){
+            specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
             modelCreazione.setEnable(true);
-        }
+        } else 
+            Alerts.errorAllert("Errore2", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
+
 
     }
 
