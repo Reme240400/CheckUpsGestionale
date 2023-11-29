@@ -184,7 +184,6 @@ public class CreazioneSocieta implements Initializable {
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
     
-        modelModifica.resetAllTmp();
     }
 
 }
