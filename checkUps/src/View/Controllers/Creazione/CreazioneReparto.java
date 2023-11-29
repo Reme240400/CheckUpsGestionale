@@ -65,6 +65,9 @@ public class CreazioneReparto implements Initializable {
     @FXML
     private JFXButton btnSalva;
 
+    @FXML
+    private JFXButton btnSalvaAggiungi;
+
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
@@ -186,11 +189,13 @@ public class CreazioneReparto implements Initializable {
     public void modify() throws IOException {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
 
-            Parent root = new Parent() {
-            };
+            Parent root = new Parent() {};
             modelModifica = new ModelModifica();
 
-            modelModifica.setReparto(tableReparti.getSelectionModel().getSelectedItem());
+            if(modelCreazione.getUnitaLocaleTmp() != null)
+                modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
+            else if(localUnita != null)
+                modelModifica.setUnitaLocale(localUnita);
 
             root = modelPaths.switchToModificaReparto(modelModifica);
 
@@ -226,8 +231,7 @@ public class CreazioneReparto implements Initializable {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" -------------------
-            // //
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null
@@ -252,6 +256,24 @@ public class CreazioneReparto implements Initializable {
                 }
             }
         }
+    }
+
+    public void save_addReparto() {
+        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
+            Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
+
+            modelCreazione.createRepartoTmp(reparto);
+
+            try {
+                Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);
+    
+                Controller.changePane(modelPaths.getStackPaneCrea(), root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else
+            Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
+                    "Non è stato selezionato nessun reparto");
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {

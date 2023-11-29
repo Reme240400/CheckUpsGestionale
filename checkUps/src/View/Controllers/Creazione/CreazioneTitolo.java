@@ -151,14 +151,11 @@ public class CreazioneTitolo implements Initializable {
     public void selectUnita() {
 
         if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
-        && !cercaUnita.getValue().isEmpty()) {
-    // ! DA USARE SEMPRE IN QUESTO MODO
+            && !cercaUnita.getValue().isEmpty()) {
             localUnita = listUnitaLocale.stream()
                     .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
                     .filter(u -> u.getNome().equals(cercaUnita.getValue()))
                     .findFirst().get();
-
-            // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
 
             fillTableViewReparti();
         }else if(localSocieta != null && localSocieta.getNome() != ""){
@@ -185,22 +182,33 @@ public class CreazioneTitolo implements Initializable {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
 
-        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() == null || 
-            localSocieta != null && localUnita == null) {
-            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale, localSocieta);
+        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() == null) {
+            
+            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
 
-        } else if(modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null ||
-                localSocieta != null && localUnita != null ){
-            specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
+        } else if(modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null){
+            specificList = modelCreazione.fillRepartiTable(listaReparto, modelCreazione.getUnitaLocaleTmp());
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
             modelCreazione.setEnable(true);
-        } else 
-            Alerts.errorAllert("Errore2", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
+        }
+
+        if(localSocieta != null && localUnita == null) {
+            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale, localSocieta);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableReparti.setItems(observableList);
+        } else if(localSocieta != null && localUnita != null){
+            specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableReparti.setItems(observableList);
+        }
+    
     }
 
     // --------------- popola la tabella dei titoli --------------- //
@@ -291,7 +299,11 @@ public class CreazioneTitolo implements Initializable {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-        modelCreazione.resetAllTmp();
+        if(modelCreazione.getSocietaTmp() != null)
+            this.cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
+
+        if(modelCreazione.getUnitaLocaleTmp() != null)
+            this.cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
     }
 
 }

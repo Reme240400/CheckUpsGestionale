@@ -111,12 +111,35 @@ public class ModelModifica extends ModelListe{
     }
 
     public final Reparto getRepartoTmp() {
-        System.out.println(repartoTmp.getNome());
         return repartoTmp;
     }
 
     public final Titolo getTitoloTmp() {
         return titoloTmp;
+    }
+
+    // ------------------ RESETTER ------------------ //
+    public void resetSocietaTmp() {
+        this.societaTmp = null;
+    }
+
+    public void resetUnitaLocaleTmp() {
+        this.unitaLocaleTmp = null;
+    }
+
+    public void resetRepartoTmp() {
+        this.repartoTmp = null;
+    }
+
+    public void resetTitoloTmp() {
+        this.titoloTmp = null;
+    }
+
+    public void resetAllTmp() {
+        resetSocietaTmp();
+        resetUnitaLocaleTmp();
+        resetRepartoTmp();
+        resetTitoloTmp();
     }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
