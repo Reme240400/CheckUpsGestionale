@@ -12,12 +12,13 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.ClassHelper;
 import Controllers.Controller;
+import Models.Alerts;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
-import javafx.application.Platform;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -42,6 +43,12 @@ public class Modifica implements Initializable {
 
     @FXML
     private TextField filterTable;
+
+    @FXML
+    private JFXButton btnTitoli;
+
+    @FXML
+    private JFXButton btnReparti;
 
     // ----------------- Societa ----------------- //
     @FXML
@@ -165,8 +172,7 @@ public class Modifica implements Initializable {
         cercaRecordU.setItems(filteredItems);
     }
 
-    // --------------- Riempi i campi con i dati della societa selezionata
-    // --------------- //
+    // --------------- Riempi i campi con i dati della societa selezionata --------------- //
     public void fillTextFieldS() {
         if (cercaRecordS.getValue() != null && !cercaRecordS.getValue().equals("")) {
             modelModifica.fillTextField(cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita,
@@ -178,8 +184,7 @@ public class Modifica implements Initializable {
         }
     }
 
-    // --------------- Riempi i campi con i dati dell'unita locale selezionata
-    // --------------- //
+    // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
     public void fillTextFieldU() {
         if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")) {
             int id = modelModifica.getSocietaTmp().getId();
@@ -225,7 +230,7 @@ public class Modifica implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
 
-            DialogPane1 dialogController = loader.getController();
+            DialogPaneUnita dialogController = loader.getController();
 
             dialogController.setModel(modelModifica);
 
@@ -235,8 +240,7 @@ public class Modifica implements Initializable {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" -------------------
-            // //
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (modelModifica.getSocietaTmp() != null) {
                     // prende l'id della societa selezionata //
@@ -253,12 +257,13 @@ public class Modifica implements Initializable {
         }
     }
 
+    // ------------------- Mostra il dialogPane per filtrare i Reparti ------------------- //
     public void showRepartiTitoliDialogPane() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
         DialogPane dialogPane = loader.load();
 
-        DialogPane2 dialogController = loader.getController();
+        DialogPaneReparto dialogController = loader.getController();
 
         dialogController.setModel(modelModifica);
 
@@ -268,11 +273,15 @@ public class Modifica implements Initializable {
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        // ------------------- Se viene premuto il tasto "Applica" -------------------
-        // //
+        // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
         if (clickedButton.get() == ButtonType.APPLY) {
-            showRepartoPane();
+            if(modelModifica.getUnitaLocaleTmp() != null){
+                showRepartoPane();
+            } else {
+                Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
+                tabPane.getSelectionModel().select(0);
+            }
         } else {
             tabPane.getSelectionModel().select(0);
         }
@@ -306,8 +315,9 @@ public class Modifica implements Initializable {
         this.modelModifica = modelModifica;
         this.modelPaths = modelPaths;
 
-        modelPaths.setStackPaneModifica(titoli_repartiStackPane);
         this.btnSaveS.disableProperty().bind(modelModifica.savedProperty().not());
+        this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
+        this.btnTitoli.disableProperty().bind(modelModifica.selectedRepartoProperty().not());
 
         this.textFieldIndirizzo.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldLocalita.editableProperty().bind(modelModifica.isEnableProperty());
@@ -319,10 +329,7 @@ public class Modifica implements Initializable {
         this.textFieldLocalitaU.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldProvinciaU.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
-        this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
-
-        // this.idUnitaLocale = modelModifica.getIdUnitaLocaleTmp();
-
+        
     }
 
 }

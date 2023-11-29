@@ -26,9 +26,12 @@ public class ModelModifica extends ModelListe{
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
+    private final BooleanProperty selectedReparto = new SimpleBooleanProperty(false);
+    private final BooleanProperty selectedTitolo = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
+    private Titolo titoloTmp = null;
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -37,6 +40,14 @@ public class ModelModifica extends ModelListe{
 
     public BooleanProperty isEnableProperty() {
         return isEnable;
+    }
+
+    public BooleanProperty selectedRepartoProperty() {
+        return selectedReparto;
+    }
+
+    public BooleanProperty selectedTitoloProperty() {
+        return selectedTitolo;
     }
 
     public Societa societaProperty() {
@@ -51,6 +62,10 @@ public class ModelModifica extends ModelListe{
         return repartoTmp;
     }
 
+    public Titolo titoloProperty() {
+        return titoloTmp;
+    }
+
     // ------------------ SETTER ------------------ //
     public final void setSaved(boolean saved) {
         savedProperty().set(saved);
@@ -58,6 +73,14 @@ public class ModelModifica extends ModelListe{
 
     public final void setEnable(boolean isEnable) {
         isEnableProperty().set(isEnable);
+    }
+
+    public final void setSelectedReparto(boolean selectedReparto) {
+        selectedRepartoProperty().set(selectedReparto);
+    }
+
+    public final void setSelectedTitolo(boolean selectedTitolo) {
+        selectedTitoloProperty().set(selectedTitolo);
     }
 
     public void setSocieta(Societa societa) {
@@ -73,6 +96,10 @@ public class ModelModifica extends ModelListe{
         this.repartoTmp = reparto;
     }
 
+    public final void setTitolo(Titolo titolo) {
+        this.titoloTmp = titolo;
+    }
+
     // ------------------ GETTER ------------------ //
     public final boolean isSaved() {
         return savedProperty().get();
@@ -80,6 +107,14 @@ public class ModelModifica extends ModelListe{
 
     public final boolean isEnable() {
         return isEnableProperty().get();
+    }
+
+    public final boolean isSelectedReparto() {
+        return selectedRepartoProperty().get();
+    }
+
+    public final boolean isSelectedTitolo() {
+        return selectedTitoloProperty().get();
     }
 
     public final Societa getSocietaTmp() {
@@ -93,6 +128,11 @@ public class ModelModifica extends ModelListe{
     public final Reparto getRepartoTmp() {
         return repartoProperty();
     }
+
+    public final Titolo getTitoloTmp() {
+        return titoloProperty();
+    }
+
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
@@ -151,6 +191,14 @@ public class ModelModifica extends ModelListe{
 
     }
 
+    public List<Titolo> fillTitoliTable(List<Titolo> listaTitoli) {
+        List<Titolo> specificList = listaTitoli.stream()
+                                            .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
+                                            .toList();
+        
+        return specificList;  
+    }
+
     public <T> void  filterTable( TextField filterTextField, TableView<T> tableView, ObservableList<T> observableList) {
 
         String filterText = filterTextField.getText().toLowerCase().trim();
@@ -179,7 +227,7 @@ public class ModelModifica extends ModelListe{
                 
                 case "Titolo":
                     Titolo titolo = (Titolo) classe;
-                    check = (String.valueOf(titolo.getId())).contains(filterText);
+                    check = titolo.getDescrizione().contains(filterText);
                 
                 default:
                     return check;

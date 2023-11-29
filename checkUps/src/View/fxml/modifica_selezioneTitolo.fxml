@@ -13,22 +13,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.ModificaSelezioneTitolo">
    <center>
-      <HBox alignment="CENTER" prefHeight="388.0" prefWidth="722.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="487.0" prefWidth="626.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="358.0" prefWidth="681.0" HBox.hgrow="SOMETIMES">
+            <VBox alignment="CENTER" prefHeight="487.0" prefWidth="657.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <TableView fx:id="titoliTableView" prefHeight="407.0" prefWidth="681.0">
+                  <TableView fx:id="tableViewTitoli" prefHeight="407.0" prefWidth="681.0">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="ID" />
-                        <TableColumn prefWidth="350.0" text="Nome Reparto" />
-                        <TableColumn prefWidth="350.0" text="Descrizione" />
+                        <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="nomeColR" prefWidth="350.0" text="Nome Reparto" />
+                        <TableColumn fx:id="descCol" prefWidth="350.0" text="Descrizione" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
                   </TableView>
                </children>
             </VBox>
@@ -36,13 +38,13 @@
       </HBox>
    </center>
    <top>
-      <HBox alignment="CENTER" prefHeight="56.0" prefWidth="722.0" BorderPane.alignment="CENTER">
+      <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="688.0" BorderPane.alignment="CENTER">
          <children>
             <Pane>
                <children>
                   <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#modify" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                      <graphic>
-                        <ImageView fx:id="saveChanges1111" fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/pencil.png" />
                            </image>
@@ -55,26 +57,26 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Pane>
-            <Pane prefHeight="56.0" prefWidth="112.0" HBox.hgrow="SOMETIMES" />
-            <Pane>
+            <Pane prefHeight="56.0" prefWidth="115.0" HBox.hgrow="SOMETIMES" />
+            <Pane prefHeight="56.0" prefWidth="331.0" HBox.hgrow="SOMETIMES">
                <children>
-                  <Label layoutY="20.0" text="Filtra per nome" />
-                  <TextField fx:id="filterTable" layoutX="99.0" layoutY="16.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
+                  <Label layoutY="17.0" text="Filtra per nome" />
+                  <TextField fx:id="filterTable" layoutX="97.0" layoutY="13.0" onKeyReleased="#filterTable" prefHeight="25.0" prefWidth="208.0" promptText="Filtra..." styleClass="transparent" stylesheets="@../css/style.css" />
                </children>
             </Pane>
-            <Pane prefHeight="56.0" prefWidth="126.0" HBox.hgrow="SOMETIMES" />
-            <Pane>
+            <Pane prefHeight="56.0" prefWidth="99.0" HBox.hgrow="SOMETIMES" />
+            <Pane HBox.hgrow="SOMETIMES">
                <children>
                   <JFXButton fx:id="btnDel" contentDisplay="CENTER" ellipsisString="" onAction="#delete" prefHeight="35.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                      <graphic>
-                        <ImageView fx:id="saveChanges11111" fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/trash_icon.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Label layoutX="11.0" layoutY="30.0" text="Cancella" />
+                  <Label layoutX="12.0" layoutY="30.0" text="Cancella" />
                </children>
                <HBox.margin>
                   <Insets right="20.0" />

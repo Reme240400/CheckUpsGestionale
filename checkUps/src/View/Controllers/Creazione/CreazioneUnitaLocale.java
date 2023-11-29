@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 
 public class CreazioneUnitaLocale implements Initializable {
@@ -129,7 +130,9 @@ public class CreazioneUnitaLocale implements Initializable {
         modelCreazione.setSaved(false);
 
         try {
-            modelPaths.switchToCreazioneReparti(modelCreazione);
+            Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
+
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,6 +146,7 @@ public class CreazioneUnitaLocale implements Initializable {
         textFieldUnitaLocale.clear();
         // textFieldTel.clear();
 
+        modelCreazione.resetUnitaLocaleTmp();
         modelCreazione.setSaved(false);
         modelCreazione.setDiscard(false);
     }
@@ -185,5 +189,6 @@ public class CreazioneUnitaLocale implements Initializable {
 
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
+
     }
 }

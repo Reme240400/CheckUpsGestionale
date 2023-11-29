@@ -225,6 +225,16 @@ public class ModelCreazione extends ModelListe{
         }
     }
 
+    public List<Reparto> fillRepartiTable(List<Reparto> listaReparti, UnitaLocale unitaLocale) {
+        System.out.println("unitaId: " + unitaLocale.getId());
+        List<Reparto> specificList = listaReparti.stream()
+            .filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId())
+            .toList();
+
+            System.out.println("SpecificList: " + specificList.size());
+        return specificList;
+    }
+
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
         System.out.println("unitaId: " + getUnitaLocaleTmp().getId());
         List<Reparto> specificList = listaReparti.stream()
@@ -233,6 +243,20 @@ public class ModelCreazione extends ModelListe{
 
             System.out.println("SpecificList: " + specificList.size());
         return specificList;
+    }
+
+    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale, Societa societa) {
+        List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
+            .filter( unita -> unita.getIdSocieta() == societa.getId())
+            .toList();
+
+        List<Reparto> allReparti = allUnitaLocali.stream()
+            .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
+            .collect(Collectors.toList());
+
+            System.out.println("AllReparti: " + allReparti.size());
+
+        return allReparti;
     }
 
     public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale) {
@@ -249,18 +273,23 @@ public class ModelCreazione extends ModelListe{
         return allReparti;
     }
 
-    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
+    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto, Reparto reparto) {
+        List<Titolo> specificList = listaTitolo.stream()
+            .filter(titolo -> titolo.getIdReparto() == reparto.getId())
+            .toList();
+
+            System.out.println("SpecificList: " + specificList.size());
+        return specificList;
+    }
+    
+     public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
         List<Titolo> specificList = listaTitolo.stream()
             .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
             .toList();
 
             System.out.println("SpecificList: " + specificList.size());
         return specificList;
-    }
-
-   
-
-    
+    }  
 
 
 }

@@ -33,7 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo extends Controller implements Initializable {
+public class CreazioneTitolo implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -77,6 +77,10 @@ public class CreazioneTitolo extends Controller implements Initializable {
     private List<Reparto> listaReparto;
     private List<Titolo> listaTitolo;
 
+    private Reparto localReparto;
+    private UnitaLocale localUnita;
+    private Societa localSocieta;
+
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         listSocieta = ClassHelper.getListSocieta();
@@ -112,21 +116,19 @@ public class CreazioneTitolo extends Controller implements Initializable {
         });
     }
 
-    // --------------- triggherato quando si seleziona una societa ---------------
-    // //
+    // --------------- triggherato quando si seleziona una societa --------------- //
     public void selectSocieta() {
         List<UnitaLocale> specificList = null;
         modelCreazione.resetUnitaLocaleTmp();
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
 
-            modelCreazione.createSocietaTmp(
-                    listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get());
+            localSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get();
             // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
 
             fillTableViewReparti();
 
             specificList = listUnitaLocale.stream()
-                    .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
+                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
                     .toList();
 
             ObservableList<String> items = FXCollections.observableArrayList();
@@ -145,21 +147,35 @@ public class CreazioneTitolo extends Controller implements Initializable {
     }
 
     // --------------- triggherato quando si seleziona un' unita locale --------------- // 
- 
+
     public void selectUnita() {
+
         if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
-                && !cercaUnita.getValue().isEmpty()) {
-            modelCreazione.createUnitaLocaleTmp(
-                    listUnitaLocale.stream().filter(u -> u.getNome().equals(cercaUnita.getValue())).findFirst().get());
+        && !cercaUnita.getValue().isEmpty()) {
+    // ! DA USARE SEMPRE IN QUESTO MODO
+            localUnita = listUnitaLocale.stream()
+                    .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
+                    .filter(u -> u.getNome().equals(cercaUnita.getValue()))
+                    .findFirst().get();
+
             // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
 
             fillTableViewReparti();
+        }else if(localSocieta != null && localSocieta.getNome() != ""){
+            localUnita = listUnitaLocale.stream()
+                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                    .filter(u -> u.getNome().equals(cercaUnita.getValue()))
+                    .findFirst().get();
+
+            fillTableViewReparti();
+        } else {
+            Alerts.errorAllert("Errore", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
         }
     }
 
     public void selectReparto() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
-            modelCreazione.createRepartoTmp(tableReparti.getSelectionModel().getSelectedItem());
+            localReparto = tableReparti.getSelectionModel().getSelectedItem();
             fillTableViewTitoli();
         }
     }
@@ -169,18 +185,24 @@ public class CreazioneTitolo extends Controller implements Initializable {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
 
-        if (modelCreazione.getSocietaTmp().getId() != -1 && modelCreazione.getUnitaLocaleTmp() == null) {
-            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale);
+        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() == null || 
+            localSocieta != null && localUnita == null) {
+            specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale, localSocieta);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
 
-        } else {
-            specificList = modelCreazione.fillRepartiTable(listaReparto);
+        } else if(modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null ||
+                localSocieta != null && localUnita != null ){
+            specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
-        }
+            modelCreazione.setEnable(true);
+        } else 
+            Alerts.errorAllert("Errore2", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
+
+
     }
 
     // --------------- popola la tabella dei titoli --------------- //
@@ -188,22 +210,25 @@ public class CreazioneTitolo extends Controller implements Initializable {
         List<Titolo> specificList = null;
         ObservableList<Titolo> observableList = null;
 
-        if (modelCreazione.getRepartoTmp() != null) {
+        if (modelCreazione.getRepartoTmp() != null || localReparto != null) {
             specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableTitoli.setItems(observableList);
-        }
+        }else
+            Alerts.errorAllert("Errore", "Reparto non selezionata", "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
+
     }
 
     @FXML
     public void modify() throws IOException {
 
-        Parent root = new Parent() {
-        };
+        Parent root = new Parent() {};
         modelModifica = new ModelModifica();
 
         root = modelPaths.switchToModificaTitoli(modelModifica);
+
+        modelModifica.setReparto(localReparto);
 
         Controller.changePane(modelPaths.getStackPaneHome(), root);
     }
@@ -212,7 +237,7 @@ public class CreazioneTitolo extends Controller implements Initializable {
     public void delete() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
-            eliminaRecord(titolo, titolo.getId());
+            Controller.eliminaRecord(titolo, titolo.getId());
             tableTitoli.getItems().remove(titolo);
         }
     }
@@ -240,12 +265,12 @@ public class CreazioneTitolo extends Controller implements Initializable {
 
             if(clickedButton.get() == ButtonType.APPLY){
                 if( dialogController.getNome() != null && !dialogController.getNome().equals("")){
-                    int id = getNewId(listaTitolo);
+                    int id = Controller.getNewId(listaTitolo);
                     Titolo newTitolo = new Titolo(id,
                             modelCreazione.getRepartoTmp().getId(),
                             dialogController.getNome());
                     modelCreazione.createTitoloTmp(newTitolo);
-                    inserisciNuovoRecord(newTitolo);
+                    Controller.inserisciNuovoRecord(newTitolo);
 
                     tableTitoli.getItems().add(newTitolo);
 
@@ -263,6 +288,7 @@ public class CreazioneTitolo extends Controller implements Initializable {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
+        modelCreazione.resetAllTmp();
     }
 
 }

@@ -17,7 +17,7 @@ import javafx.fxml.Initializable;
 
 import com.jfoenix.controls.JFXComboBox;
 
-public class DialogPane1 implements Initializable {
+public class DialogPaneUnita implements Initializable {
 
     protected ModelModifica modelModifica;
     protected List<Societa> listSocieta = ClassHelper.getListSocieta();

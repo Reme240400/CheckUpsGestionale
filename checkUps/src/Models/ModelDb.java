@@ -306,11 +306,26 @@ public class ModelDb {
 
     // Metodo generico per l'eliminazione di un record da qualsiasi tabella
     public static void eliminaRecord(Object obj, int recordId) {
-        String tableName = obj.getClass().getSimpleName();
+        String objName = obj.getClass().getSimpleName();
+        String tableName = objName;
+
+        switch (objName) {
+            case "Titolo":
+                tableName = "titoli";
+                break;
+        
+            case "Reparto":
+                tableName = "reparti";
+                break;
+            
+            default:
+                break;
+        }
+
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement()) {
-                    String query = "DELETE FROM public." + tableName + " WHERE id_" + tableName + " = ?";
+                    String query = "DELETE FROM public." + tableName + " WHERE id_" + objName + " = ?";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setInt(1, recordId);
                     preparedStatement.executeUpdate();
