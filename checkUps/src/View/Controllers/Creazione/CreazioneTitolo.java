@@ -201,8 +201,6 @@ public class CreazioneTitolo implements Initializable {
             modelCreazione.setEnable(true);
         } else 
             Alerts.errorAllert("Errore2", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
-
-
     }
 
     // --------------- popola la tabella dei titoli --------------- //
@@ -210,12 +208,17 @@ public class CreazioneTitolo implements Initializable {
         List<Titolo> specificList = null;
         ObservableList<Titolo> observableList = null;
 
-        if (modelCreazione.getRepartoTmp() != null || localReparto != null) {
+        if(localReparto != null){
+            specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto, localReparto);
+
+            observableList = FXCollections.observableArrayList(specificList);
+            tableTitoli.setItems(observableList);
+        }else if (modelCreazione.getRepartoTmp() != null) {
             specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableTitoli.setItems(observableList);
-        }else
+        } else
             Alerts.errorAllert("Errore", "Reparto non selezionata", "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
 
     }
@@ -226,9 +229,9 @@ public class CreazioneTitolo implements Initializable {
         Parent root = new Parent() {};
         modelModifica = new ModelModifica();
 
-        root = modelPaths.switchToModificaTitoli(modelModifica);
-
         modelModifica.setReparto(localReparto);
+
+        root = modelPaths.switchToModificaTitoli(modelModifica);
 
         Controller.changePane(modelPaths.getStackPaneHome(), root);
     }

@@ -50,22 +50,6 @@ public class ModelModifica extends ModelListe{
         return selectedTitolo;
     }
 
-    public Societa societaProperty() {
-        return societaTmp;
-    }
-
-    public UnitaLocale unitaLocaleProperty() {
-        return unitaLocaleTmp;
-    }
-
-    public Reparto repartoProperty() {
-        return repartoTmp;
-    }
-
-    public Titolo titoloProperty() {
-        return titoloTmp;
-    }
-
     // ------------------ SETTER ------------------ //
     public final void setSaved(boolean saved) {
         savedProperty().set(saved);
@@ -118,19 +102,21 @@ public class ModelModifica extends ModelListe{
     }
 
     public final Societa getSocietaTmp() {
-        return societaProperty();
+        
+        return societaTmp;
     }
 
     public final UnitaLocale getUnitaLocaleTmp() {
-        return unitaLocaleProperty();
+        return unitaLocaleTmp;
     }
 
     public final Reparto getRepartoTmp() {
-        return repartoProperty();
+        System.out.println(repartoTmp.getNome());
+        return repartoTmp;
     }
 
     public final Titolo getTitoloTmp() {
-        return titoloProperty();
+        return titoloTmp;
     }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
