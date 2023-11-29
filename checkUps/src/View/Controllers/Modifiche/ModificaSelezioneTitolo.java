@@ -119,7 +119,11 @@ public class ModificaSelezioneTitolo implements Initializable {
 
     @FXML
     private void delete(){
-
+        if (tableViewTitoli.getSelectionModel().getSelectedItem() != null) {
+            Titolo titolo = tableViewTitoli.getSelectionModel().getSelectedItem();
+            Controller.eliminaRecord(titolo, titolo.getId());
+            tableViewTitoli.getItems().remove(titolo);
+        }
     }
 
     public void filterTable(){

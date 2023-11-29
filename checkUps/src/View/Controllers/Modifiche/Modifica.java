@@ -71,6 +71,10 @@ public class Modifica implements Initializable {
 
     @FXML
     private TextField textFieldNomeS;
+
+    @FXML
+    private JFXButton btnDelS;
+    
     // ----------------- Societa ----------------- //
 
     // ----------------- Unita Locale ----------------- //
@@ -95,6 +99,9 @@ public class Modifica implements Initializable {
 
     @FXML
     private JFXButton btnSaveU;
+
+    @FXML
+    private JFXButton btnDelU;
 
     // ----------------- Unita Locale ----------------- //
 
@@ -221,6 +228,26 @@ public class Modifica implements Initializable {
         }
     }
 
+    // --------------- Elimina la societa --------------- //
+    public void deleteS() {
+
+        if (modelModifica.getSocietaTmp() != null) {
+            Controller.eliminaRecord(modelModifica.getSocietaTmp(), modelModifica.getSocietaTmp().getId());
+            modelModifica.resetSocietaTmp();
+            popolaComboBoxS();
+        }
+    }
+
+    // --------------- Elimina l'unita locale --------------- //
+    public void deleteU() {
+
+        if (modelModifica.getUnitaLocaleTmp() != null) {
+            Controller.eliminaRecord(modelModifica.getUnitaLocaleTmp(), modelModifica.getUnitaLocaleTmp().getId());
+            modelModifica.resetUnitaLocaleTmp();
+            popolaComboBoxU();
+        }
+    }
+
     // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
     public void showUnitaPane() throws IOException {
 
@@ -260,32 +287,33 @@ public class Modifica implements Initializable {
     // ------------------- Mostra il dialogPane per filtrare i Reparti ------------------- //
     public void showRepartiTitoliDialogPane() throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
-        DialogPane dialogPane = loader.load();
+        if (tabReparti_Titoli.isSelected()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
 
-        DialogPaneReparto dialogController = loader.getController();
+            DialogPaneReparto dialogController = loader.getController();
 
-        dialogController.setModel(modelModifica);
+            dialogController.setModel(modelModifica);
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogPane);
-        dialog.setTitle("Scegli la Unità Locale");
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Scegli la Unità Locale");
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
-        if (clickedButton.get() == ButtonType.APPLY) {
-            if(modelModifica.getUnitaLocaleTmp() != null){
-                showRepartoPane();
+            if (clickedButton.get() == ButtonType.APPLY) {
+                if(modelModifica.getUnitaLocaleTmp() != null){
+                    showRepartoPane();
+                } else {
+                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
+                    tabPane.getSelectionModel().select(0);
+                }
             } else {
-                Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
                 tabPane.getSelectionModel().select(0);
             }
-        } else {
-            tabPane.getSelectionModel().select(0);
         }
-
     }
 
     // ------------------- Mostra il dialogPane dei Reparti ------------------- //
@@ -329,6 +357,8 @@ public class Modifica implements Initializable {
         this.textFieldLocalitaU.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldProvinciaU.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
+
+        modelModifica.resetAllTmp();
         
     }
 

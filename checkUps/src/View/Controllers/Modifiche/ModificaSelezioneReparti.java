@@ -136,7 +136,11 @@ public class ModificaSelezioneReparti implements Initializable{
 
     @FXML
     private void delete(){
-
+        if (tableViewReparti.getSelectionModel().getSelectedItem() != null) {
+            Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
+            Controller.eliminaRecord(reparto, reparto.getId());
+            tableViewReparti.getItems().remove(reparto);
+        }
     }
 
     public void selectReparto(){
