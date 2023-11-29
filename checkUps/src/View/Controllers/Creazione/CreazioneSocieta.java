@@ -17,6 +17,7 @@ import Models.Tables.Societa;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
@@ -105,7 +106,9 @@ public class CreazioneSocieta implements Initializable {
         modelCreazione.setSaved(false);
 
         try {
-            modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
+            Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
+
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -180,6 +183,7 @@ public class CreazioneSocieta implements Initializable {
 
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
+    
     }
 
 }

@@ -73,6 +73,7 @@ public class Creazione implements Initializable {
         this.modelCreazione = model;
         this.modelPaths = modelPaths;
 
+        modelPaths.setStackPaneCrea(stackPaneCreazione);
         try {
             switchToSocieta();
         } catch (IOException e) {

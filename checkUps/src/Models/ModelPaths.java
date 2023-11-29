@@ -26,6 +26,7 @@ public class ModelPaths {
     private String loadedFXMLs = null;
     private StackPane stackPaneHome = null;
     private StackPane stackPaneModifica = null;
+    private StackPane stackPaneCrea = null;
 
     public void setStackPaneHome(StackPane stackPane) {
         this.stackPaneHome = stackPane;
@@ -33,6 +34,14 @@ public class ModelPaths {
 
     public StackPane getStackPaneHome(){
         return this.stackPaneHome;
+    }
+
+    public void setStackPaneCrea(StackPane stackPane) {
+        this.stackPaneCrea = stackPane;
+    }
+
+    public StackPane getStackPaneCrea(){
+        return this.stackPaneCrea;
     }
 
     // * *************** Cambia la scena a modifica *************** //

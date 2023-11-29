@@ -266,6 +266,7 @@ public class CreazioneTitolo implements Initializable {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
+        modelCreazione.resetAllTmp();
     }
 
 }
