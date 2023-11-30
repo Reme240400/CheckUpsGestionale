@@ -130,6 +130,11 @@ public class CreazioneOggetto implements Initializable {
 
             cercaUnita.setItems(filteredItems);
         }
+
+        cercaUnita.setValue(null);
+        cercaReparto.setValue(null);
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
     }
 
     // --------------- triggherato quando si seleziona un' unita locale --------------- //
@@ -163,6 +168,9 @@ public class CreazioneOggetto implements Initializable {
                 cercaReparto.setItems(filteredItems);
             }
         }
+        cercaReparto.setValue(null);
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
     }
 
     // --------------- triggherato quando si seleziona un' reparto --------------- //
@@ -195,7 +203,10 @@ public class CreazioneOggetto implements Initializable {
 
             cercaTitolo.setItems(filteredItems);
         }
-        
+
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
+
     }
 
     // --------------- triggherato quando si seleziona un' titolo --------------- //
@@ -214,17 +225,24 @@ public class CreazioneOggetto implements Initializable {
     }
 
     private void fillTableView() {
+
+        List<Oggetto> specificList = null;
+
         if (localTitolo != null) {
             oggettoList = ClassHelper.getListOggetto().stream()
                     .filter(o -> o.getIdTitolo() == localTitolo.getId())
                     .toList();
         }
 
+        specificList = oggettoList.stream()
+                                    .filter(o -> o.getIdTitolo() == localTitolo.getId())
+                                    .toList();
+
         ObservableList<Oggetto> items = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
 
-        for (Oggetto oggetto : oggettoList) {
+        for (Oggetto oggetto : specificList) {
             items.add(oggetto);
         }
 
