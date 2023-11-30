@@ -18,6 +18,8 @@ import com.itextpdf.awt.geom.Rectangle;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -30,7 +32,7 @@ public class pdfGenerator {
             String nomeFile) {
 
         // Creare un nuovo documento
-        Document document = new Document();
+        Document document = new Document(PageSize.A4.rotate());
         // Imposta l'altezza massima della pagina
 
         // Specificare il percorso del file PDF che si desidera creare
@@ -45,10 +47,25 @@ public class pdfGenerator {
             PdfPTable table = new PdfPTable(3);
             table.setWidthPercentage(100);
 
-            // Add Societa, Unità Locale, and Reparti information
-            addTableCell(table, "Società:", societa.getNome());
-            addTableCell(table, "Unità Locale:", unitaLocale.getNome());
-            addTableCell(table, "Reparti:", reparti.get(0).getNome());
+            // Add Societa information
+            PdfPTable societaTable = new PdfPTable(1);
+            societaTable.addCell(createCell("Società:", 1));
+            societaTable.addCell(createCell(societa.getNome(), 1));
+            table.addCell(societaTable);
+
+            // Add Unità Locale information
+            PdfPTable unitaLocaleTable = new PdfPTable(1);
+            unitaLocaleTable.addCell(createCell("Unità Locale:", 1));
+            unitaLocaleTable.addCell(createCell(unitaLocale.getNome(), 1));
+            table.addCell(unitaLocaleTable);
+
+            // Add Reparti information
+            PdfPTable repartiTable = new PdfPTable(1);
+            repartiTable.addCell(createCell("Reparti:", 1));
+            repartiTable.addCell(createCell(reparti.get(0).getNome(), 1));
+            table.addCell(repartiTable);
+
+            table.setSpacingAfter(10f); // Imposta la spaziatura dopo il titolo a 10 punti
 
             // Add table to document
             document.add(table);
@@ -58,56 +75,78 @@ public class pdfGenerator {
             int n = 1;
             // Loop sui titoli
             for (Titolo titolo : titoli) {
-                document.add(Chunk.NEWLINE);
-
-                // Add Titolo information
-                Paragraph titoloParagraph = new Paragraph();
-                titoloParagraph.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-                titoloParagraph.add(new Phrase("TITOLO: " + n + " " + titolo.getDescrizione()));
-                document.add(titoloParagraph);
-                n++;
-
                 List<Oggetto> oggetti = ModelListe.filtraOggettiDaTitolo(titolo.getId());
+                document.add(Chunk.NEWLINE);
+                if (oggetti.size() == 0) {
+                    continue;
+                }
 
+                int k = 0;
                 // Loop sugli oggetti
                 for (Oggetto oggetto : oggetti) {
-                    // Loop sui provvedimenti
+
                     List<Provvedimento> provvedimenti = ModelListe.filtraProvvedimentiDaOggetto(oggetto.getId());
                     // Create a table for each Oggetto
-                    if(provvedimenti.size()==0){
+                    if (provvedimenti.size() == 0) {
                         continue;
                     }
-                    PdfPTable oggettoTable = new PdfPTable(1);
-                    oggettoTable.setWidthPercentage(100);
+                    if (k == 0) {
+                        // Add Titolo information
+                        Paragraph titoloParagraph = new Paragraph();
+                        titoloParagraph.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                        titoloParagraph.add(new Phrase("TITOLO: " + n + " " + titolo.getDescrizione()));
+                        titoloParagraph.setSpacingAfter(10f); // Imposta la spaziatura dopo il titolo a 10 punti
+                        document.add(titoloParagraph);
+                        n++;
+                    }
+                    k++;
 
-                    oggettoTable.addCell(createCell("OGGETTO: " + oggetto.getNome(), 1));
+                    // Add Oggetto information
+                    Paragraph oggettoParagraph = new Paragraph();
+                    oggettoParagraph.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+                    oggettoParagraph.setFont(FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12));
+                    oggettoParagraph.add(new Phrase("OGGETTO: " + oggetto.getNome()));
+                    oggettoParagraph.setSpacingAfter(10f); // Imposta la spaziatura dopo il titolo a 10 punti
+                    document.add(oggettoParagraph);
 
-                    
+                    int j = 0;
                     for (Provvedimento provvedimento : provvedimenti) {
-                        PdfPTable provvedimentoTable = new PdfPTable(2);
+
+                        PdfPTable provvedimentoTable = new PdfPTable(6);
+                        if (j == 0) {
+
+                            provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3));
+                            provvedimentoTable.addCell(createCell("RISCHIO ", 1));
+                            provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1));
+                            provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1));
+                        }
+                        j++;
+
                         provvedimentoTable.setWidthPercentage(100);
 
                         // Add Misure di Prevenzione
-                        provvedimentoTable.addCell(createCell("Misure di Prevenzione", 1));
+
                         provvedimentoTable.addCell(createCell(provvedimento.getNome()
-                                .replace("\n", "").replace("\r", "").replace("€", " euro"), 1));
+                                .replace("\n", "").replace("\r", "").replace("€", " euro"), 3));
 
                         // Add Rischio
-                        provvedimentoTable.addCell(createCell("Rischio", 1));
+
                         provvedimentoTable.addCell(createCell(provvedimento.getRischio(), 1));
 
+                        // Add Stima
+                        String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
+                                + provvedimento.getStimaR());
+                        provvedimentoTable.addCell(createCell(stima, 1));
+
                         // Add Mansioni Esposte
-                        provvedimentoTable.addCell(createCell("Mansioni Esposte", 1));
+
                         provvedimentoTable.addCell(createCell(provvedimento.getSoggettiEsposti(), 1));
 
-                        // Add the Provvedimento table to the Oggetto table
-                        oggettoTable.addCell(createCell("", 1)); // Empty cell for spacing
-                        oggettoTable.addCell(provvedimentoTable);
+                        // Add the Provvedimento table to the document
+                        document.add(provvedimentoTable);
                     }
-
-                    // Add the Oggetto table to the document
-                    document.add(oggettoTable);
                 }
+
             }
         } catch (DocumentException e) {
             e.printStackTrace();
