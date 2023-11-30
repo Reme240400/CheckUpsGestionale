@@ -8,8 +8,8 @@ import java.util.function.UnaryOperator;
 
 import com.jfoenix.controls.JFXButton;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;

@@ -1,7 +1,7 @@
 package test.java;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Tables.Mansione;
 import Models.Tables.Reparto;
 

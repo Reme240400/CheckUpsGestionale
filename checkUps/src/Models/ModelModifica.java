@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;

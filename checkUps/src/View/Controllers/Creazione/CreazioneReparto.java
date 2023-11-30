@@ -8,8 +8,8 @@ import java.util.Optional;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;

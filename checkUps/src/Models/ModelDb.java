@@ -8,8 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import Controllers.ClassHelper;
-import Controllers.ControllerDb;
+import Helpers.ClassHelper;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;

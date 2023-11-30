@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
 import Models.Model;
 import Models.ModelModifica;
 import Models.Tables.Societa;

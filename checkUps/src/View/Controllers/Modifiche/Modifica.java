@@ -10,8 +10,8 @@ import java.util.function.UnaryOperator;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXButton;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelModifica;

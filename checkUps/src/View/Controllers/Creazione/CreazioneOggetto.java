@@ -5,7 +5,7 @@ import java.util.List;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;

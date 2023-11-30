@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.ModelModifica;
 import Models.ModelPaths;
