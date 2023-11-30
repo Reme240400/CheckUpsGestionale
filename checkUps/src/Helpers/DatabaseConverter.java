@@ -14,7 +14,6 @@ import java.sql.Types;
 
 import com.healthmarketscience.jackcess.*;
 
-
 public class DatabaseConverter {
 
     private static final String connectionUrl = "jdbc:postgresql://localhost:5432/checkups_db";
