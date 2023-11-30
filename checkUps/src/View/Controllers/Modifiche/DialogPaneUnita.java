@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Controllers.ClassHelper;
+import Models.Model;
 import Models.ModelModifica;
 import Models.Tables.Societa;
 import View.Controllers.ViewController;
@@ -35,7 +36,7 @@ public class DialogPaneUnita implements Initializable {
             sItems.add(societa.getNome());
         }
 
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, sItems);
+        FilteredList<String> filteredItems = Model.filterComboBox(cercaSocieta, sItems);
 
         cercaSocieta.setItems(filteredItems);
 

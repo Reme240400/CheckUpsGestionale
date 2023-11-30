@@ -8,6 +8,7 @@ import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ValutaRischi;
 import View.Controllers.Creazione.Creazione;
+import View.Controllers.Creazione.CreazioneOggetto;
 import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneTitolo;
@@ -252,6 +253,19 @@ public class ModelPaths {
 
         return root;
     }
+    
+    // ------------------ Cambia la scena a Creazione Oggetto ------------------ //
+    public Parent switchToCreazioneOggetto(ModelCreazione modelCreazione) throws IOException{
+        
+        FXMLLoader loaderOggetto = new FXMLLoader(getClass().getResource("/View/fxml/creazione_oggetti.fxml"));
+        Parent root = loaderOggetto.load();
+        
+        CreazioneOggetto creazioneOggetto = loaderOggetto.getController();
+
+        creazioneOggetto.setModel( modelCreazione, this, modelModifica);
+
+        return root;
+    }
 
     public ButtonType showUnitaDialogPane(ModelModifica modelModifica) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
@@ -295,6 +309,8 @@ public class ModelPaths {
         }
         return false;
     }
+
+    
 
     
 }

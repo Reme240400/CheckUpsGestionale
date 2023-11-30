@@ -46,7 +46,6 @@ public class ViewController implements Initializable{
     @FXML
     private StackPane stackPane;
 
-    protected static Model model = new Model();
     protected static ModelPaths modelPaths = new ModelPaths();
     protected static ModelCreazione modelCreazione = new ModelCreazione();
     protected static ModelHome modelHome = new ModelHome();
@@ -132,19 +131,14 @@ public class ViewController implements Initializable{
         }
     }
 
-    public static FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
 
-        return model.filterComboBoxSocieta(cercaItem, units);
+        return Model.filterComboBox(cercaItem, units);
     }
 
-    public static FilteredList<String> filterComboBoxUnitaLocale(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
-        return model.filterComboBoxById(cercaItem, id, units);
-    }
-
-    public static FilteredList<String> filterComboBoxReparti(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
-
-        return model.filterComboBoxById(cercaItem, id, units);
+        return Model.filterComboBoxById(cercaItem, id, units);
     }
 
 }

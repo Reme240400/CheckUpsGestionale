@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.Model;
 import Models.ModelModifica;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -46,7 +47,7 @@ public class DialogPaneReparto extends DialogPaneUnita{
         // * **************************************** //
 
         // * filtra i Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocietaR, societies);
+        FilteredList<String> filteredItems = Model.filterComboBox(cercaSocietaR, societies);
 
         cercaSocietaR.setItems(filteredItems);
 

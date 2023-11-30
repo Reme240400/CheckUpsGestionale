@@ -44,7 +44,7 @@ public class Model {
 
     }
 
-    public FilteredList<String> filterComboBoxSocieta(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
 
         FilteredList<String> filteredList = new FilteredList<String>(units, p -> true);
 
@@ -77,10 +77,9 @@ public class Model {
 
     }
 
-    public FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,
-            ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
 
-        FilteredList<String> filteredUnita = new FilteredList<String>(units, p -> true);
+        FilteredList<String> filteredList = new FilteredList<String>(units, p -> true);
 
         // Add a listener to the textProperty of the combobox editor. The
         // listener will simply filter the list every time the input is changed
@@ -93,11 +92,11 @@ public class Model {
                 // If the no item in the list is selected or the selected item
                 // isn't equal to the current input, we refilter the list.
                 if (selected == null || !selected.equals(editor.getText())) {
-                    filteredUnita.setPredicate(item -> {
+                    filteredList.setPredicate(item -> {
                         // We return true for any items that starts with the
                         // same letters as the input. We use toUpperCase to
                         // avoid case sensitivity.
-                        if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
+                        if (item.toUpperCase().startsWith(newValue.toUpperCase()) && item.contains(String.valueOf(id))) {
                             return true;
                         } else {
                             return false;
@@ -107,7 +106,7 @@ public class Model {
             });
         });
 
-        return filteredUnita;
+        return filteredList;
 
     }
 }

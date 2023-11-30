@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXButton;
 import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.Alerts;
+import Models.Model;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Societa;
@@ -159,7 +160,7 @@ public class Modifica implements Initializable {
         cercaRecordS.setItems(sItems);
 
         // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecordS, sItems);
+        FilteredList<String> filteredItems = Model.filterComboBox(cercaRecordS, sItems);
 
         cercaRecordS.setItems(filteredItems);
     }
@@ -172,10 +173,10 @@ public class Modifica implements Initializable {
             }
         }
 
-        cercaRecordU.setItems(ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems));
+        cercaRecordU.setItems(Model.filterComboBoxById(cercaRecordU, idSocieta, uItems));
 
         // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = ViewController.filterComboBoxUnitaLocale(cercaRecordU, idSocieta, uItems);
+        FilteredList<String> filteredItems = Model.filterComboBoxById(cercaRecordU, idSocieta, uItems);
 
         cercaRecordU.setItems(filteredItems);
     }

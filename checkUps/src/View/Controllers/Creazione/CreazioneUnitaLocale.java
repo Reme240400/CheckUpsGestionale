@@ -78,7 +78,7 @@ public class CreazioneUnitaLocale implements Initializable {
         }
 
         // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaRecord, items);
+        FilteredList<String> filteredItems = Model.filterComboBox(cercaRecord, items);
 
         cercaRecord.setItems(filteredItems);
         

@@ -68,6 +68,13 @@ public class Creazione implements Initializable {
         stackPaneCreazione.getChildren().setAll(root);
     }
 
+    public void switchToOggetti() throws IOException {
+
+        stackPaneCreazione.getChildren().removeAll();
+        Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
+        stackPaneCreazione.getChildren().setAll(root);
+    }
+
     // * setta il modello
     public void setModelCreazione(ModelCreazione model, ModelPaths modelPaths) {
         this.modelCreazione = model;

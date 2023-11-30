@@ -49,7 +49,7 @@ public class Home extends ViewController {
         // * **************************************** //
 
         // * filtra i Combobox
-        FilteredList<String> filteredItems = filterComboBoxSocieta(cercaSocieta, societies);
+        FilteredList<String> filteredItems = filterComboBox(cercaSocieta, societies);
 
         cercaSocieta.setItems(filteredItems);
 

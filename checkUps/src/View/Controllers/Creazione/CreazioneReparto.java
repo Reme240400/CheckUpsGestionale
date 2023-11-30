@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXComboBox;
 import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.Alerts;
+import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
@@ -99,7 +100,7 @@ public class CreazioneReparto implements Initializable {
         }
 
         // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaSocieta, items);
+        FilteredList<String> filteredItems = Model.filterComboBox(cercaSocieta, items);
 
         cercaSocieta.setItems(filteredItems);
     }
@@ -128,7 +129,7 @@ public class CreazioneReparto implements Initializable {
             }
 
             // --------------- filtra il Combobox --------------- //
-            FilteredList<String> filteredItems = ViewController.filterComboBoxSocieta(cercaUnita, items);
+            FilteredList<String> filteredItems = Model.filterComboBox(cercaUnita, items);
 
             cercaUnita.setItems(filteredItems);
         }

@@ -107,6 +107,8 @@ public class ModelCreazione extends ModelListe{
         this.titoloTmp = newTitolo;
     }
 
+    
+
     // ------------------ END SETTER ------------------ //
 
     public void resetSocietaTmp() {
