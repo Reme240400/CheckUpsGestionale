@@ -304,6 +304,8 @@ public class CreazioneTitolo implements Initializable {
 
         if(modelCreazione.getUnitaLocaleTmp() != null)
             this.cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
+
+        tableReparti.getItems().add(modelCreazione.getRepartoTmp());
     }
 
 }

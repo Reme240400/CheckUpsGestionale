@@ -2,6 +2,7 @@ package Models;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -11,12 +12,17 @@ import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneTitolo;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
+import View.Controllers.Modifiche.DialogPaneReparto;
+import View.Controllers.Modifiche.DialogPaneUnita;
 import View.Controllers.Modifiche.Modifica;
 import View.Controllers.Modifiche.ModificaSelezioneReparti;
 import View.Controllers.Modifiche.ModificaSelezioneTitolo;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
@@ -44,6 +50,14 @@ public class ModelPaths {
         return this.stackPaneCrea;
     }
 
+    public void setStackPaneModifica(StackPane stackPane) {
+        this.stackPaneModifica = stackPane;
+    }
+
+    public StackPane getStackPaneModifica(){
+        return this.stackPaneModifica;
+    }
+
     // * *************** Cambia la scena a modifica *************** //
     public Parent switchToModifica(ModelModifica model) throws IOException {
 
@@ -66,6 +80,7 @@ public class ModelPaths {
 
     }
 
+    // * *************** Cambia la scena a modifica reparti *************** //
     public Parent switchToModificaReparto(ModelModifica model) throws IOException {
 
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_selezioneReparto.fxml");
@@ -77,7 +92,7 @@ public class ModelPaths {
             Parent root = loader.load();
             ModificaSelezioneReparti modifica = loader.getController();
 
-            modifica.setModel(model);
+            modifica.setModel(model, this);
 
             loadedFXMLs = fxmlURL.toString();
 
@@ -87,6 +102,7 @@ public class ModelPaths {
         }
     }
 
+    // * *************** Cambia la scena a modifica titoli *************** //
     public Parent switchToModificaTitoli(ModelModifica modelModifica) throws IOException {
 
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_selezioneTitolo.fxml");
@@ -98,7 +114,7 @@ public class ModelPaths {
             Parent root = loader.load();
             ModificaSelezioneTitolo controller = loader.getController();
 
-            controller.setModel(modelModifica);
+            controller.setModel(modelModifica, this);
 
             loadedFXMLs = fxmlURL.toString();
 
@@ -197,6 +213,7 @@ public class ModelPaths {
 
     }
 
+    // ------------------ Cambia la scena a Creazione Societa ------------------ //
     public Parent switchToCreazioneSocieta(ModelCreazione modelCreazione) throws IOException {
 
         FXMLLoader loaderSocieta = new FXMLLoader(getClass().getResource("/View/fxml/creazione_societa.fxml"));
@@ -210,6 +227,7 @@ public class ModelPaths {
         return root;
     }
 
+    // ------------------ Cambia la scena a Creazione Reparti ------------------ //
     public Parent switchToCreazioneReparti(ModelCreazione modelCreazione) throws IOException {
 
         FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
@@ -222,6 +240,7 @@ public class ModelPaths {
         return root;
     }
 
+    // ------------------ Cambia la scena a Creazione Titoli ------------------ //
     public Parent switchToCreazioneTitolo(ModelCreazione modelCreazione) throws IOException {
         
         FXMLLoader loaderTitoli = new FXMLLoader(getClass().getResource("/View/fxml/creazione_titoli.fxml"));
@@ -234,6 +253,41 @@ public class ModelPaths {
         return root;
     }
 
+    public ButtonType showUnitaDialogPane(ModelModifica modelModifica) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
+        DialogPane dialogPane = loader.load();
+
+        DialogPaneUnita dialogController = loader.getController();
+
+        dialogController.setModel(modelModifica);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Scegli la Società");
+
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+        return clickedButton.get();
+    }
+
+    public ButtonType showRepartiTitoliDialogPane(ModelModifica modelModifica) throws IOException{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
+        DialogPane dialogPane = loader.load();
+
+        DialogPaneReparto dialogController = loader.getController();
+
+        dialogController.setModel(modelModifica);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("Scegli la Unità Locale");
+
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+        return clickedButton.get();
+    }
+
     // ------------------ Verifica che il contenuto dello stackPane sia già stato caricato ------------------ //
     private boolean isAlreadyLoaded(StackPane stackPane, String fxmlURL) {
         if (loadedFXMLs != null) {
@@ -241,4 +295,6 @@ public class ModelPaths {
         }
         return false;
     }
+
+    
 }

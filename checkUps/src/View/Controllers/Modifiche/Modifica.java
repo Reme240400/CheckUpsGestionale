@@ -147,6 +147,7 @@ public class Modifica implements Initializable {
         textFieldTel.setTextFormatter(formatter);
         // ------------------------------------------------------------------------- //
         popolaComboBoxS();
+
     }
 
     private void popolaComboBoxS() {
@@ -254,21 +255,10 @@ public class Modifica implements Initializable {
         // ------------------- Mostra il dialogPane dell'Unita Locale ------------------- //
         if (tabUnitaLocale.isSelected()) {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
-
-            DialogPaneUnita dialogController = loader.getController();
-
-            dialogController.setModel(modelModifica);
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Scegli la Società");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
+            ButtonType clickedButton = modelPaths.showUnitaDialogPane(modelModifica);
+            System.out.println(clickedButton== ButtonType.APPLY);
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
-            if (clickedButton.get() == ButtonType.APPLY) {
+            if (clickedButton == ButtonType.APPLY) {
                 if (modelModifica.getSocietaTmp() != null) {
                     // prende l'id della societa selezionata //
                     this.idSocieta = modelModifica.getSocietaTmp().getId();
@@ -276,6 +266,7 @@ public class Modifica implements Initializable {
                     popolaComboBoxU();
 
                 } else {
+                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona una società");
                     tabPane.getSelectionModel().select(0);
                 }
             } else {
@@ -288,22 +279,12 @@ public class Modifica implements Initializable {
     public void showRepartiTitoliDialogPane() throws IOException {
 
         if (tabReparti_Titoli.isSelected()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
-
-            DialogPaneReparto dialogController = loader.getController();
-
-            dialogController.setModel(modelModifica);
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Scegli la Unità Locale");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+        
+            ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
 
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
-            if (clickedButton.get() == ButtonType.APPLY) {
+            if (clickedButton == ButtonType.APPLY) {
                 if(modelModifica.getUnitaLocaleTmp() != null){
                     showRepartoPane();
                 } else {
@@ -359,6 +340,8 @@ public class Modifica implements Initializable {
         this.textFieldNomeU.editableProperty().bind(modelModifica.isEnableProperty());
 
         modelModifica.resetAllTmp();
+
+        modelPaths.setStackPaneModifica(titoli_repartiStackPane);
         
     }
 

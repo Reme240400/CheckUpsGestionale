@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+
 import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.Alerts;
 import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.Titolo;
 
@@ -19,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -44,10 +48,13 @@ public class ModificaSelezioneTitolo implements Initializable {
     @FXML
     private TableColumn<Titolo, String> nomeColR;
 
+    @FXML
+    private JFXButton btnRefresh;
 
     private ObservableList<Titolo> observableList = FXCollections.observableArrayList();
 
     private ModelModifica modelModifica;
+    private ModelPaths modelPaths;
 
     private List<Titolo> listaTitoli = ClassHelper.getListTitolo();
     private List<Reparto> listaReparto = ClassHelper.getListReparto();
@@ -71,8 +78,6 @@ public class ModificaSelezioneTitolo implements Initializable {
             }
         });
     }
-
-    
 
     private void updateChanges(DialogPaneModificaTitolo dialogController) throws IOException{
 
@@ -126,6 +131,27 @@ public class ModificaSelezioneTitolo implements Initializable {
         }
     }
 
+    @FXML
+    private void refreshT(){
+        try {
+            modelModifica.resetAllTmp();
+            ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
+        
+            if (clickedButton == ButtonType.APPLY) {
+                if(modelModifica.getUnitaLocaleTmp() != null){
+                    modelModifica.setSelectedReparto(false);
+
+                    Parent root = modelPaths.switchToModificaReparto(modelModifica);
+                    Controller.changePane(modelPaths.getStackPaneModifica(), root);
+                } else {
+                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void filterTable(){
         
         modelModifica.filterTable(filterTable, tableViewTitoli , observableList);
@@ -134,18 +160,17 @@ public class ModificaSelezioneTitolo implements Initializable {
 
     private void selectTitolo() {
         
-        System.out.println("Titolo selezionato");
         Titolo titolo = tableViewTitoli.getSelectionModel().getSelectedItem();
         modelModifica.setTitolo(titolo);
         modelModifica.setSelectedTitolo(true);
-        System.out.println(titolo.getDescrizione());
 
     }
 
-    public void setModel(ModelModifica modelModifica) {
+    public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
-        observableList = FXCollections.observableArrayList(modelModifica.fillTitoliTable(listaTitoli));
+        this.modelPaths = modelPaths;
 
+        observableList = FXCollections.observableArrayList(modelModifica.fillTitoliTable(listaTitoli));
         tableViewTitoli.setItems(observableList);
     }  
     

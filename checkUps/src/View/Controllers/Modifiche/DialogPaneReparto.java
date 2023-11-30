@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.ClassHelper;
+import Models.ModelModifica;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
@@ -26,6 +27,8 @@ public class DialogPaneReparto extends DialogPaneUnita{
 
 
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+
+    private ModelModifica modelModifica;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,6 +70,10 @@ public class DialogPaneReparto extends DialogPaneUnita{
             //System.out.println("Id unita locale: " + id);
             modelModifica.setUnitaLocale(unita);
         }
+    }
+
+    public void setModel(ModelModifica modelModifica){
+        this.modelModifica = modelModifica;
     }
 
 

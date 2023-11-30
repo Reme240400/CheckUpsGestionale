@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+
 import Controllers.ClassHelper;
 import Controllers.Controller;
 import Models.Alerts;
 import Models.ModelModifica;
+import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.UnitaLocale;
 import javafx.collections.FXCollections;
@@ -42,6 +45,9 @@ public class ModificaSelezioneReparti implements Initializable{
     @FXML
     private TextField filterTable;
 
+    @FXML
+    private JFXButton btnRefresh;
+
 
     private List<Reparto> listaReparto = ClassHelper.getListReparto();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
@@ -49,6 +55,7 @@ public class ModificaSelezioneReparti implements Initializable{
     private ObservableList<Reparto> observableList = FXCollections.observableArrayList();
 
     private ModelModifica modelModifica;
+    private ModelPaths modelPaths;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -143,6 +150,24 @@ public class ModificaSelezioneReparti implements Initializable{
         }
     }
 
+    @FXML
+    private void refreshR(){
+        try {
+            modelModifica.resetAllTmp();
+            ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
+
+            if (clickedButton == ButtonType.APPLY) {
+                if(modelModifica.getUnitaLocaleTmp() != null){
+                    fillRepartiTable();
+                } else {
+                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void selectReparto(){
         System.out.println("Reparto selezionato");
         Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
@@ -151,8 +176,9 @@ public class ModificaSelezioneReparti implements Initializable{
         
     }
 
-    public void setModel(ModelModifica modelModifica) {
+    public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
+        this.modelPaths = modelPaths;
 
         fillRepartiTable();  
 
