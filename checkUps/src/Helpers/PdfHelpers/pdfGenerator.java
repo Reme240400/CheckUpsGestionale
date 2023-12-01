@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+
 import com.itextpdf.awt.geom.Rectangle;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -28,8 +29,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class pdfGenerator {
 
-    public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
-            String nomeFile) {
+    public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti, String nomeFile) {
 
         // Creare un nuovo documento
         Document document = new Document(PageSize.A4.rotate());

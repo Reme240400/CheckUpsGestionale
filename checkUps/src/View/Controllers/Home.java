@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;

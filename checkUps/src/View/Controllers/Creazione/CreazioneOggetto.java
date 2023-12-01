@@ -1,11 +1,14 @@
 package View.Controllers.Creazione;
 
 import java.util.List;
+import java.io.IOException;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
+import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
@@ -16,15 +19,20 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-
-import View.Controllers.ViewController;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreazioneOggetto implements Initializable {
 
@@ -88,6 +96,17 @@ public class CreazioneOggetto implements Initializable {
         repartoList = ClassHelper.getListReparto();
         titoloList = ClassHelper.getListTitolo();
 
+        idCol.setCellValueFactory(new PropertyValueFactory<Oggetto, Integer>("id"));
+        nomeColT.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(titoloList.stream()
+                                                        .filter(reparto -> reparto.getId() == cellData.getValue().getIdTitolo())
+                                                        .findFirst().get()
+                                                        .getDescrizione());
+        });
+
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Oggetto, String>("nome"));
+
+
         ObservableList<String> items = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
@@ -104,6 +123,7 @@ public class CreazioneOggetto implements Initializable {
 
     }
 
+    // --------------- triggherato quando si seleziona un' societa --------------- //
     public void selectSocieta() {
         List<UnitaLocale> specificList = null;
 
@@ -131,35 +151,18 @@ public class CreazioneOggetto implements Initializable {
 
             cercaUnita.setItems(filteredItems);
         }
+
+        cercaUnita.setValue(null);
+        cercaReparto.setValue(null);
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
     }
 
     // --------------- triggherato quando si seleziona un' unita locale --------------- //
     public void selectUnita() {
+        List<Reparto> specificList = null;
 
         if(cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
-            if (modelCreazione.getSocietaTmp() != null ) {
-
-                localUnita = unitaLocaleList.stream()
-                        .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
-                        .filter(u -> u.getNome().equals(cercaUnita.getValue()))
-                        .findFirst().get();
-
-                // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
-
-                ObservableList<String> items = FXCollections.observableArrayList();
-
-                // * *************** popola il combobox *************** //
-
-                for (Reparto reparto : repartoList) {
-                    items.add(reparto.getNome());
-                }
-
-                // --------------- filtra il Combobox --------------- //
-                FilteredList<String> filteredItems = ViewController.filterComboBoxById(cercaReparto, modelCreazione.getUnitaLocaleTmp().getId(),items);
-
-                cercaReparto.setItems(filteredItems);
-
-            }
 
             if(localSocieta != null){
                 localUnita = unitaLocaleList.stream()
@@ -168,12 +171,15 @@ public class CreazioneOggetto implements Initializable {
                         .findFirst().get();
 
                 // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
+                specificList = repartoList.stream()
+                    .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
+                    .toList();
 
                 ObservableList<String> items = FXCollections.observableArrayList();
 
                 // * *************** popola il combobox *************** //
 
-                for (Reparto reparto : repartoList) {
+                for (Reparto reparto : specificList) {
                     items.add(reparto.getNome());
                 }
 
@@ -183,99 +189,81 @@ public class CreazioneOggetto implements Initializable {
                 cercaReparto.setItems(filteredItems);
             }
         }
+        cercaReparto.setValue(null);
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
     }
 
     // --------------- triggherato quando si seleziona un' reparto --------------- //
     public void selectReparto() {
 
-        if (cercaReparto.getValue() != null && !cercaReparto.getValue().isEmpty()) {
-            
-            if (modelCreazione.getUnitaLocaleTmp() != null) {
-                localReparto = repartoList.stream()
-                        .filter(u -> u.getIdUnitaLocale() == modelCreazione.getUnitaLocaleTmp().getId())
-                        .filter(u -> u.getNome().equals(cercaReparto.getValue()))
-                        .findFirst().get();
+        List<Titolo> specificList = null;
 
-                // textFieldReparto.setText(modelCreazione.getRepartoTmp().getNome());
+        if(localUnita != null){
+            localReparto = repartoList.stream()
+                    .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
+                    .filter(r -> r.getNome().equals(cercaReparto.getValue()))
+                    .findFirst().get();
 
-                ObservableList<String> items = FXCollections.observableArrayList();
+            // textFieldReparto.setText(modelCreazione.getRepartoTmp().getNome());
 
-                // * *************** popola il combobox *************** //
+            specificList = titoloList.stream()
+                                    .filter(t -> t.getIdReparto() == localReparto.getId())
+                                    .toList();
 
-                for (Titolo titolo : titoloList) {
-                    items.add(titolo.getDescrizione());
-                }
+            ObservableList<String> items = FXCollections.observableArrayList();
 
-                // --------------- filtra il Combobox --------------- //
-                FilteredList<String> filteredItems = Model.filterComboBoxById(cercaTitolo, modelCreazione.getUnitaLocaleTmp().getId(), items);
+            // * *************** popola il combobox *************** //
 
-                cercaTitolo.setItems(filteredItems);
-            } 
-
-            if(localUnita != null){
-                localReparto = repartoList.stream()
-                        .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
-                        .filter(r -> r.getNome().equals(cercaReparto.getValue()))
-                        .findFirst().get();
-
-                // textFieldReparto.setText(modelCreazione.getRepartoTmp().getNome());
-
-                ObservableList<String> items = FXCollections.observableArrayList();
-
-                // * *************** popola il combobox *************** //
-
-                for (Titolo titolo : titoloList) {
-                    items.add(titolo.getDescrizione());
-                }
-
-                // --------------- filtra il Combobox --------------- //
-                FilteredList<String> filteredItems = Model.filterComboBoxById(cercaTitolo, localUnita.getId(), items);
-
-                cercaTitolo.setItems(filteredItems);
+            for (Titolo titolo : specificList) {
+                items.add(titolo.getDescrizione());
             }
+
+            // --------------- filtra il Combobox --------------- //
+            FilteredList<String> filteredItems = Model.filterComboBoxById(cercaTitolo, localUnita.getId(), items);
+
+            cercaTitolo.setItems(filteredItems);
         }
+
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
+
     }
 
     // --------------- triggherato quando si seleziona un' titolo --------------- //
     public void selectTitolo() {
         
-        if (cercaTitolo.getValue() != null && !cercaTitolo.getValue().isEmpty()) {
-            if (modelCreazione.getRepartoTmp() != null) {
-                localTitolo = titoloList.stream()
-                        .filter(u -> u.getIdReparto() == modelCreazione.getRepartoTmp().getId())
-                        .filter(u -> u.getDescrizione().equals(cercaTitolo.getValue()))
-                        .findFirst().get();
+        if(localReparto != null){
+            localTitolo = titoloList.stream()
+                    .filter(u -> u.getIdReparto() == localReparto.getId())
+                    .filter(u -> u.getDescrizione().equals(cercaTitolo.getValue()))
+                    .findFirst().get();
 
-                // textFieldTitolo.setText(modelCreazione.getTitoloTmp().getDescrizione());
+            // textFieldTitolo.setText(modelCreazione.getTitoloTmp().getDescrizione());
 
-                fillTableView();
-            }
-
-            if(localReparto != null){
-                localTitolo = titoloList.stream()
-                        .filter(u -> u.getIdReparto() == localReparto.getId())
-                        .filter(u -> u.getDescrizione().equals(cercaTitolo.getValue()))
-                        .findFirst().get();
-
-                // textFieldTitolo.setText(modelCreazione.getTitoloTmp().getDescrizione());
-
-                fillTableView();
-            }
+            fillTableView();
         }
     }
 
     private void fillTableView() {
+
+        List<Oggetto> specificList = null;
+
         if (localTitolo != null) {
             oggettoList = ClassHelper.getListOggetto().stream()
                     .filter(o -> o.getIdTitolo() == localTitolo.getId())
                     .toList();
         }
 
+        specificList = oggettoList.stream()
+                                    .filter(o -> o.getIdTitolo() == localTitolo.getId())
+                                    .toList();
+
         ObservableList<Oggetto> items = FXCollections.observableArrayList();
 
         // * *************** popola il combobox *************** //
 
-        for (Oggetto oggetto : oggettoList) {
+        for (Oggetto oggetto : specificList) {
             items.add(oggetto);
         }
 
@@ -285,22 +273,98 @@ public class CreazioneOggetto implements Initializable {
 
     @FXML
     public void delete() {
-
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+            Oggetto reparto = tableOggetti.getSelectionModel().getSelectedItem();
+            Controller.eliminaRecord(reparto, reparto.getId());
+            tableOggetti.getItems().remove(reparto);
+        }
     }
 
     @FXML
     public void modify() {
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
 
+            Parent root = new Parent() {};
+            modelModifica = new ModelModifica();
+
+            if(modelCreazione.getUnitaLocaleTmp() != null)
+                modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
+            else if(localUnita != null)
+                modelModifica.setUnitaLocale(localUnita);
+
+            root = modelPaths.switchToModificaOggetti(modelModifica);
+
+            Controller.changePane(modelPaths.getStackPaneHome(), root);
+        }
     }
 
     @FXML
-    public void addOggetto() {
+    public void addOggetto() throws IOException{
+        if (modelCreazione.getSocietaTmp() != null && 
+            modelCreazione.getUnitaLocaleTmp() != null && 
+            modelCreazione.getRepartoTmp() != null && 
+            modelCreazione.getTitoloTmp() != null) {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaOggetto_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPaneAddO dialogController = loader.getController();
+
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                    modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome(), modelCreazione.getTitoloTmp().getDescrizione());
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Oggetto");
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
+            if (clickedButton.get() == ButtonType.APPLY) {
+                /*if (dialogController.getNome() != null
+                        && !dialogController.getNome().equals("")
+                        && dialogController.getData() != null) {
+
+                    int id = Controller.getNewId(listaReparto);
+                    Reparto newReparto = new Reparto(id,
+                            modelCreazione.getUnitaLocaleTmp().getId(),
+                            dialogController.getNome(),
+                            dialogController.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    modelCreazione.createRepartoTmp(newReparto);
+                    Controller.inserisciNuovoRecord(newReparto);
+
+                    tableReparti.getItems().add(newReparto);
+
+                    tableReparti.refresh();
+
+                } else {
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente");
+                }*/
+            }
+        }
     }
 
     @FXML
     public void save_addOggetto() {
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+            Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
 
+            modelCreazione.createOggettoTmp(oggetto);
+
+            try {
+                Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
+    
+                Controller.changePane(modelPaths.getStackPaneCrea(), root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else
+            Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
+                    "Non è stato selezionato nessun reparto");
+    
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {

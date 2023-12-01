@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Controllers.ClassHelper;
 import Models.Model;
 import Models.ModelModifica;
 import Models.Tables.Societa;
@@ -17,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import com.jfoenix.controls.JFXComboBox;
+
+import Helpers.ClassHelper;
 
 public class DialogPaneUnita implements Initializable {
 

@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
 import Helpers.PdfHelpers.pdfGenerator;
 import Models.ModelValutaRischi;
 import Models.Tables.Reparto;

@@ -6,7 +6,8 @@ import java.util.stream.Stream;
 
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
+import Models.Tables.Oggetto;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
@@ -26,6 +27,7 @@ public class ModelCreazione extends ModelListe{
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
     private Titolo titoloTmp = null;
+    private Oggetto oggettoTmp = null;
 
     // end initialize variables
 
@@ -75,6 +77,10 @@ public class ModelCreazione extends ModelListe{
     public Titolo getTitoloTmp() {
         return titoloTmp;
     }
+
+    public Oggetto getOggettoTmp(){
+        return oggettoTmp;
+    }
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
@@ -107,7 +113,9 @@ public class ModelCreazione extends ModelListe{
         this.titoloTmp = newTitolo;
     }
 
-    
+    public void createOggettoTmp(Oggetto oggetto) {
+        this.oggettoTmp = oggetto;
+    }  
 
     // ------------------ END SETTER ------------------ //
 
@@ -127,11 +135,16 @@ public class ModelCreazione extends ModelListe{
         this.titoloTmp = null;
     }
 
+    public void resetOggettoTmp(){
+        this.oggettoTmp = null;
+    }
+
     public void resetAllTmp() {
         resetSocietaTmp();
         resetUnitaLocaleTmp();
         resetRepartoTmp();
         resetTitoloTmp();
+        resetOggettoTmp();
     }
 
     // ------------------ Controllo se i campi sono stati inseriti ------------------ //
@@ -291,7 +304,6 @@ public class ModelCreazione extends ModelListe{
 
             System.out.println("SpecificList: " + specificList.size());
         return specificList;
-    }  
-
+    }
 
 }

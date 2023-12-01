@@ -3,32 +3,28 @@ package View.Controllers.Modifiche;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXButton;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
-import View.Controllers.ViewController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -50,6 +46,12 @@ public class Modifica implements Initializable {
 
     @FXML
     private JFXButton btnReparti;
+
+    @FXML
+    private JFXButton btnOggetti;
+
+    @FXML
+    private JFXButton btnProvvedimenti;    
 
     // ----------------- Societa ----------------- //
     @FXML
@@ -106,11 +108,25 @@ public class Modifica implements Initializable {
 
     // ----------------- Unita Locale ----------------- //
 
+    // ----------------- Reparti / Titoli ----------------- //
+
     @FXML
     private Tab tabReparti_Titoli;
 
     @FXML
     private StackPane titoli_repartiStackPane;
+
+    // ----------------- Reparti / Titoli ----------------- //
+
+    // ----------------- Oggetti / Provvedimenti ----------------- //
+
+    @FXML
+    private Tab tabOggetti_Provvedimenti;
+
+    @FXML
+    private StackPane oggetti_provvedimentiStackPane;
+
+
 
     @FXML
     private DialogPane dialogPane;
@@ -298,7 +314,7 @@ public class Modifica implements Initializable {
         }
     }
 
-    // ------------------- Mostra il dialogPane dei Reparti ------------------- //
+    // ------------------- Mostra il pannello dei Reparti ------------------- //
     public void showRepartoPane() throws IOException {
 
         Parent root = modelPaths.switchToModificaReparto(modelModifica);
@@ -309,7 +325,7 @@ public class Modifica implements Initializable {
         }
     }
 
-    // ------------------- Mostra il dialogPane dei Titoli ------------------- //
+    // ------------------- Mostra il pannello dei Titoli ------------------- //
     public void showTitoliPane() throws IOException {
 
         Parent root = modelPaths.switchToModificaTitoli(modelModifica);
@@ -318,6 +334,26 @@ public class Modifica implements Initializable {
             titoli_repartiStackPane.getChildren().removeAll();
             titoli_repartiStackPane.getChildren().setAll(root);
         }
+    }
+
+    // ------------------- Mostra il dialogPane per filtrare gli Oggetti ------------------- //
+    public void showOggettiDialogPane() throws IOException{
+        
+    }
+
+    // ------------------- Mostra il pannello degli Oggetti ------------------- //
+    public void showOggettiPane() throws IOException{
+        Parent root = modelPaths.switchToModificaOggetti(modelModifica);
+
+        if (root != null) {
+            oggetti_provvedimentiStackPane.getChildren().removeAll();
+            oggetti_provvedimentiStackPane.getChildren().setAll(root);
+        }
+    }
+
+    // ------------------- Mostra il dialogPane per filtrare i Provvedimenti ------------------- //
+    public void showProvvedimentiPane() throws IOException{
+        
     }
 
     // ----------------- Setta il model ----------------- //

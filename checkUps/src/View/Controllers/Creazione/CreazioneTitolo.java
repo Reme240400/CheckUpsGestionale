@@ -7,8 +7,8 @@ import java.util.Optional;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.ClassHelper;
 import Controllers.Controller;
+import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
@@ -292,6 +292,26 @@ public class CreazioneTitolo implements Initializable {
                 }
             }
         }
+    }
+
+    @FXML
+    public void save_addTitolo(){
+        if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
+            Titolo reparto = tableTitoli.getSelectionModel().getSelectedItem();
+
+            modelCreazione.createTitoloTmp(reparto);
+
+            try {
+                Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
+    
+                Controller.changePane(modelPaths.getStackPaneCrea(), root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else
+            Alerts.errorAllert("Errore", "Errore nella Selezione del Titolo",
+                    "Non è stato selezionato nessun titolo");
+    
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {

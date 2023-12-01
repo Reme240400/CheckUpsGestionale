@@ -6,8 +6,8 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 
-import Controllers.ClassHelper;
 import Controllers.ControllerDb;
+import Helpers.ClassHelper;
 import Models.ModelListe;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;

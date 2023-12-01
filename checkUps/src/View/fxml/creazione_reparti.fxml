@@ -103,7 +103,10 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="20.0" layoutY="153.0" text="Salva" />
+            <Label layoutX="20.0" layoutY="153.0" text="Titoli">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Label>
          </children>
       </VBox>
    </right>

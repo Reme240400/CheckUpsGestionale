@@ -3,7 +3,7 @@ package Models.Tables;
 import java.io.Serializable;
 import java.util.List;
 
-import Controllers.ClassHelper;
+import Helpers.ClassHelper;
 
 public class UnitaLocale extends TablesId implements Serializable{
     private int idSocieta;

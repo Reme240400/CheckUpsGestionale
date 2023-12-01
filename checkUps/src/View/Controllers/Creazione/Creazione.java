@@ -48,30 +48,30 @@ public class Creazione implements Initializable {
     // * cambia scena in UnitaLocale
     public void switchToUnitaLocali() throws IOException {
         
-        stackPaneCreazione.getChildren().removeAll();
         Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
+        stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     // * cambia scena in Reparti
     public void switchToReparto() throws IOException {
 
-        stackPaneCreazione.getChildren().removeAll();
         Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
+        stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     public void switchToTitoli() throws IOException {
 
-        stackPaneCreazione.getChildren().removeAll();
         Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);
+        stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);
     }
 
     public void switchToOggetti() throws IOException {
 
-        stackPaneCreazione.getChildren().removeAll();
         Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
+        stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);
     }
 
