@@ -49,20 +49,29 @@ public class pdfGenerator {
 
             // Add Societa information
             PdfPTable societaTable = new PdfPTable(1);
-            societaTable.addCell(createCell("Società:", 1));
-            societaTable.addCell(createCell(societa.getNome(), 1));
+            PdfPCell societaCell = createCell("Società:", 1);
+            societaCell.setPhrase(new Phrase("Società:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+            societaTable.addCell(societaCell);
+            PdfPCell societaValueCell = createCell(societa.getNome(), 1);
+            societaTable.addCell(societaValueCell);
             table.addCell(societaTable);
 
             // Add Unità Locale information
             PdfPTable unitaLocaleTable = new PdfPTable(1);
-            unitaLocaleTable.addCell(createCell("Unità Locale:", 1));
-            unitaLocaleTable.addCell(createCell(unitaLocale.getNome(), 1));
+            PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1);
+            unitaLocaleCell.setPhrase(new Phrase("Unità Locale:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+            unitaLocaleTable.addCell(unitaLocaleCell);
+            PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1);
+            unitaLocaleTable.addCell(unitaLocaleValueCell);
             table.addCell(unitaLocaleTable);
 
             // Add Reparti information
             PdfPTable repartiTable = new PdfPTable(1);
-            repartiTable.addCell(createCell("Reparti:", 1));
-            repartiTable.addCell(createCell(reparti.get(0).getNome(), 1));
+            PdfPCell repartiCell = createCell("Reparti:", 1);
+            repartiCell.setPhrase(new Phrase("Reparti:", FontFactory.getFont(FontFactory.TIMES_BOLD, 12)));
+            repartiTable.addCell(repartiCell);
+            PdfPCell repartiValueCell = createCell(reparti.get(0).getNome(), 1);
+            repartiTable.addCell(repartiValueCell);
             table.addCell(repartiTable);
 
             table.setSpacingAfter(10f); // Imposta la spaziatura dopo il titolo a 10 punti
@@ -94,8 +103,10 @@ public class pdfGenerator {
                         // Add Titolo information
                         Paragraph titoloParagraph = new Paragraph();
                         titoloParagraph.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-                        titoloParagraph.add(new Phrase("TITOLO: " + n + " " + titolo.getDescrizione()));
-                        titoloParagraph.setSpacingAfter(10f); // Imposta la spaziatura dopo il titolo a 10 punti
+                        Chunk titoloChunk = new Chunk("TITOLO: " + n + " " + titolo.getDescrizione(),
+                                FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12));
+                        titoloParagraph.add(titoloChunk);
+                        titoloParagraph.setSpacingAfter(10f);
                         document.add(titoloParagraph);
                         n++;
                     }
