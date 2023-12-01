@@ -19,7 +19,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,6 +32,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreazioneOggetto implements Initializable {
 
@@ -94,6 +95,17 @@ public class CreazioneOggetto implements Initializable {
         oggettoList = ClassHelper.getListOggetto();
         repartoList = ClassHelper.getListReparto();
         titoloList = ClassHelper.getListTitolo();
+
+        idCol.setCellValueFactory(new PropertyValueFactory<Oggetto, Integer>("id"));
+        nomeColT.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(titoloList.stream()
+                                                        .filter(reparto -> reparto.getId() == cellData.getValue().getIdTitolo())
+                                                        .findFirst().get()
+                                                        .getDescrizione());
+        });
+
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Oggetto, String>("nome"));
+
 
         ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -280,7 +292,7 @@ public class CreazioneOggetto implements Initializable {
             else if(localUnita != null)
                 modelModifica.setUnitaLocale(localUnita);
 
-            root = modelPaths.switchToModificaOggetto(modelModifica);
+            root = modelPaths.switchToModificaOggetti(modelModifica);
 
             Controller.changePane(modelPaths.getStackPaneHome(), root);
         }

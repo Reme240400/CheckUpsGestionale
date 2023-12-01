@@ -181,12 +181,11 @@ public class CreazioneReparto implements Initializable {
             tableReparti.setItems(observableList);
             modelCreazione.setEnable(true);
         } else 
-            Alerts.errorAllert("Errore2", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
-
-
+            Alerts.errorAllert("Errore2", "Societa non selezionata", 
+                        "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
     }
 
-    @FXML
+    // --------------- va alla schermata di modifica --------------- //
     public void modify() throws IOException {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
 
@@ -204,7 +203,7 @@ public class CreazioneReparto implements Initializable {
         }
     }
 
-    @FXML
+    // --------------- elimina il reparto selezionato --------------- //
     public void delete() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
@@ -213,7 +212,7 @@ public class CreazioneReparto implements Initializable {
         }
     }
 
-    @FXML
+    // --------------- apre un dialog Pane per creare il Reparto --------------- //
     public void addReparto() throws IOException {
 
         if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null) {
@@ -259,6 +258,7 @@ public class CreazioneReparto implements Initializable {
         }
     }
 
+    // --------------- va alla schermata di creazione Titolo --------------- //
     public void save_addReparto() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();

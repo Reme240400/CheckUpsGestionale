@@ -310,11 +310,11 @@ public class ModelPaths {
         return false;
     }
 
-    public Parent switchToModificaOggetto(ModelModifica modelModifica2) {
+    public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException{
         return null;
     }
 
-    public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException{
+    public Parent switchToModificaOggetti(ModelModifica modelModifica2) {
         return null;
     }
 
