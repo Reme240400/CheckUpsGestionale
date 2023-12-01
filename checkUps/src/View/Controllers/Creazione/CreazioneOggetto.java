@@ -1,11 +1,15 @@
 package View.Controllers.Creazione;
 
 import java.util.List;
+import java.io.IOException;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.Controller;
 import Helpers.ClassHelper;
+import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
@@ -20,7 +24,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -252,22 +261,98 @@ public class CreazioneOggetto implements Initializable {
 
     @FXML
     public void delete() {
-
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+            Oggetto reparto = tableOggetti.getSelectionModel().getSelectedItem();
+            Controller.eliminaRecord(reparto, reparto.getId());
+            tableOggetti.getItems().remove(reparto);
+        }
     }
 
     @FXML
     public void modify() {
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
 
+            Parent root = new Parent() {};
+            modelModifica = new ModelModifica();
+
+            if(modelCreazione.getUnitaLocaleTmp() != null)
+                modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
+            else if(localUnita != null)
+                modelModifica.setUnitaLocale(localUnita);
+
+            root = modelPaths.switchToModificaOggetto(modelModifica);
+
+            Controller.changePane(modelPaths.getStackPaneHome(), root);
+        }
     }
 
     @FXML
-    public void addOggetto() {
+    public void addOggetto() throws IOException{
+        if (modelCreazione.getSocietaTmp() != null && 
+            modelCreazione.getUnitaLocaleTmp() != null && 
+            modelCreazione.getRepartoTmp() != null && 
+            modelCreazione.getTitoloTmp() != null) {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaOggetto_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
+
+            DialogPaneAddO dialogController = loader.getController();
+
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                    modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome(), modelCreazione.getTitoloTmp().getDescrizione());
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Oggetto");
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
+            if (clickedButton.get() == ButtonType.APPLY) {
+                /*if (dialogController.getNome() != null
+                        && !dialogController.getNome().equals("")
+                        && dialogController.getData() != null) {
+
+                    int id = Controller.getNewId(listaReparto);
+                    Reparto newReparto = new Reparto(id,
+                            modelCreazione.getUnitaLocaleTmp().getId(),
+                            dialogController.getNome(),
+                            dialogController.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    modelCreazione.createRepartoTmp(newReparto);
+                    Controller.inserisciNuovoRecord(newReparto);
+
+                    tableReparti.getItems().add(newReparto);
+
+                    tableReparti.refresh();
+
+                } else {
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente");
+                }*/
+            }
+        }
     }
 
     @FXML
     public void save_addOggetto() {
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+            Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
 
+            modelCreazione.createOggettoTmp(oggetto);
+
+            try {
+                Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
+    
+                Controller.changePane(modelPaths.getStackPaneCrea(), root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else
+            Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
+                    "Non è stato selezionato nessun reparto");
+    
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {

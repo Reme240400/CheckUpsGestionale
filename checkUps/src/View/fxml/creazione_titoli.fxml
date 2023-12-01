@@ -43,7 +43,7 @@
          <children>
             <VBox>
                <children>
-                  <Pane prefHeight="90.0" prefWidth="396.0">
+                  <Pane>
                      <children>
                         <Label layoutX="14.0" layoutY="4.0" text="Reparti">
                            <font>
@@ -52,7 +52,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="tableReparti" prefHeight="520.0" prefWidth="500.0">
+                  <TableView fx:id="tableReparti" prefHeight="461.0" prefWidth="564.0">
                      <columns>
                         <TableColumn fx:id="idColR" prefWidth="57.0" text="ID" />
                         <TableColumn fx:id="nomeColR" prefWidth="294.0" text="Nome" />
@@ -66,16 +66,16 @@
             </VBox>
             <VBox layoutX="184.0" layoutY="10.0">
                <children>
-                  <Pane prefHeight="90.0" prefWidth="397.0">
+                  <Pane prefHeight="90.0" prefWidth="365.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="4.0" text="Titoli">
+                        <Label layoutX="14.0" layoutY="4.0" text="Reparti">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="tableTitoli" editable="true" prefHeight="520.0" prefWidth="500.0">
+                  <TableView fx:id="tableTitoli" prefHeight="520.0" prefWidth="500.0">
                      <columns>
                         <TableColumn fx:id="idColT" editable="false" prefWidth="57.0" text="ID" />
                         <TableColumn fx:id="descColT" prefWidth="273.0" text="Descrizione" />
@@ -125,6 +125,21 @@
                </graphic>
             </JFXButton>
             <Label layoutX="21.0" layoutY="45.0" text="Elimina" />
+            <Pane prefHeight="199.0" prefWidth="0.0" VBox.vgrow="SOMETIMES" />
+            <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" onAction="#save_addTitolo" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/angle-right.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label text="Oggetti">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
    </right>
