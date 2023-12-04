@@ -7,21 +7,16 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-
-import java.awt.Desktop;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
-import com.itextpdf.awt.geom.Rectangle;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -47,16 +42,18 @@ public class pdfGenerator {
 
             PdfPCell societaCell = createCell("Società:", 1, Font.BOLD);
             table.addCell(societaCell);
+            PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD);
+            table.addCell(unitaLocaleCell);
+            PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD);
+            table.addCell(repartiCell);
             PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD);
             table.addCell(societaValueCell);
 
-            PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD);
-            table.addCell(unitaLocaleCell);
+            
             PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD);
             table.addCell(unitaLocaleValueCell);
 
-            PdfPCell repartiCell = createCell("Reparti:", 1, Font.BOLD);
-            table.addCell(repartiCell);
+            
             PdfPCell repartiValueCell = createCell(reparti.get(0).getNome(), 1, Font.BOLD);
             table.addCell(repartiValueCell);
 
@@ -151,10 +148,13 @@ public class pdfGenerator {
     private static class PdfFooter extends PdfPageEventHelper {
         public void onEndPage(PdfWriter writer, Document document) {
             PdfPTable table = new PdfPTable(1);
+            // Crea una data formattata
+SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+String formattedDate = dateFormat.format(new Date());
             table.setTotalWidth(document.right() - document.left());
             table.getDefaultCell().setFixedHeight(20);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(new Phrase("Il tuo piè di pagina qui: da mettere data, logo e bho"));
+            table.addCell(new Phrase("DATA "+formattedDate));
             table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
         }
     }
