@@ -1,12 +1,13 @@
 package Models;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXComboBox;
 
 import Helpers.ClassHelper;
+import Models.Tables.Oggetto;
+import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
@@ -14,11 +15,11 @@ import Models.Tables.UnitaLocale;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 
 public class ModelModifica extends ModelListe{
 
@@ -32,6 +33,7 @@ public class ModelModifica extends ModelListe{
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
     private Titolo titoloTmp = null;
+    private Oggetto oggettoTmp = null;
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -84,6 +86,11 @@ public class ModelModifica extends ModelListe{
         this.titoloTmp = titolo;
     }
 
+    public void setOggetto(Oggetto oggetto) {
+        this.oggettoTmp = oggetto;
+    }
+
+
     // ------------------ GETTER ------------------ //
     public final boolean isSaved() {
         return savedProperty().get();
@@ -118,6 +125,10 @@ public class ModelModifica extends ModelListe{
         return titoloTmp;
     }
 
+    public final Oggetto getOggettoTmp() {
+        return oggettoTmp;
+    }
+
     // ------------------ RESETTER ------------------ //
     public void resetSocietaTmp() {
         this.societaTmp = null;
@@ -135,11 +146,16 @@ public class ModelModifica extends ModelListe{
         this.titoloTmp = null;
     }
 
+    public void resetOggettoTmp() {
+        this.oggettoTmp = null;
+    }
+
     public void resetAllTmp() {
         resetSocietaTmp();
         resetUnitaLocaleTmp();
         resetRepartoTmp();
         resetTitoloTmp();
+        resetOggettoTmp();
     }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
@@ -208,6 +224,22 @@ public class ModelModifica extends ModelListe{
         return specificList;  
     }
 
+    public List<Oggetto> fillOggettiTable(List<Oggetto> listaOggetti) {
+        List<Oggetto> specificList = listaOggetti.stream()
+                                            .filter(o -> o.getIdTitolo() == getTitoloTmp().getId())
+                                            .toList();
+        
+        return specificList;  
+    }
+    
+    public List<Provvedimento> fillProvvedimentiTable(List<Provvedimento> listaProvvedimenti) {
+        List<Provvedimento> specificList = listaProvvedimenti.stream()
+                                            .filter(p -> p.getIdOggetto() == getOggettoTmp().getId())
+                                            .toList();
+        
+        return specificList;  
+    }
+
     public <T> void  filterTable( TextField filterTextField, TableView<T> tableView, ObservableList<T> observableList) {
 
         String filterText = filterTextField.getText().toLowerCase().trim();
@@ -249,33 +281,8 @@ public class ModelModifica extends ModelListe{
         tableView.setItems(filteredData);
     }
 
-    public void onKeyPressedFilter(JFXComboBox<String> cercaSocieta, JFXComboBox<String> cercaUnitaLocale,
-            List<Societa> listSocieta, List<UnitaLocale> listUnitaLocale) {
-
-        if (cercaSocieta.getValue() != null) {
-            // Remove the previous listener, if any
-            String selectedSocieta = cercaSocieta.getValue();
-
-            for (Societa societa : listSocieta) {
-                if (societa.getNome().equals(selectedSocieta)) {
-                    setSocieta(societa);
-                }
-            }
-
-            // Retrieve the list of UnitaLocale based on the selected Societa
-            List<String> filtroUnitaLocali = new ArrayList<>();
-
-            // Filter UnitaLocale based on the selected Societa
-            for (UnitaLocale unitaLocale : listUnitaLocale) {
-                if (unitaLocale.getIdSocieta() == getSocietaTmp().getId()) {
-                    filtroUnitaLocali.add(unitaLocale.getNome());
-                }
-            }
-
-            ObservableList<String> units = FXCollections.observableArrayList(filtroUnitaLocali);
-            cercaUnitaLocale.setItems(units);
-        }
-
+    public void setProvvedimento(Provvedimento provvedimento) {
     }
 
+    
 }

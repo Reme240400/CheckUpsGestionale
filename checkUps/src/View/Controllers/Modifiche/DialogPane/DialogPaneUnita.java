@@ -1,4 +1,4 @@
-package View.Controllers.Modifiche;
+package View.Controllers.Modifiche.DialogPane;
 
 import java.net.URL;
 import java.util.List;

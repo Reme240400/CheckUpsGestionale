@@ -1,4 +1,4 @@
-package View.Controllers.Modifiche;
+package View.Controllers.Modifiche.DialogPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,7 +28,6 @@ public class DialogPaneModificaTitolo implements Initializable {
 
     public void setModel(ModelModifica modelModifica) {
         this.modelModifica = modelModifica;
-        System.out.println(modelModifica.getTitoloTmp().getDescrizione());
 
         modificaNomeTitolo.setText(modelModifica.getTitoloTmp().getDescrizione());
 

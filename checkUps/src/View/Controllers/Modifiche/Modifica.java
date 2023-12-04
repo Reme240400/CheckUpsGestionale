@@ -127,7 +127,6 @@ public class Modifica implements Initializable {
     private StackPane oggetti_provvedimentiStackPane;
 
 
-
     @FXML
     private DialogPane dialogPane;
 
@@ -339,6 +338,23 @@ public class Modifica implements Initializable {
     // ------------------- Mostra il dialogPane per filtrare gli Oggetti ------------------- //
     public void showOggettiDialogPane() throws IOException{
         
+        if (tabOggetti_Provvedimenti.isSelected()) {
+            
+            ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
+            if (clickedButton == ButtonType.APPLY) {
+                if(modelModifica.getTitoloTmp() != null){
+                    showOggettiPane();
+                } else {
+                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un Titolo");
+                    tabPane.getSelectionModel().select(0);
+                }
+            } else {
+                tabPane.getSelectionModel().select(0);
+            }
+        }
     }
 
     // ------------------- Mostra il pannello degli Oggetti ------------------- //
@@ -353,7 +369,12 @@ public class Modifica implements Initializable {
 
     // ------------------- Mostra il dialogPane per filtrare i Provvedimenti ------------------- //
     public void showProvvedimentiPane() throws IOException{
-        
+        Parent root = modelPaths.switchToModificaProvvedimenti(modelModifica);
+
+        if (root != null) {
+            oggetti_provvedimentiStackPane.getChildren().removeAll();
+            oggetti_provvedimentiStackPane.getChildren().setAll(root);
+        }
     }
 
     // ----------------- Setta il model ----------------- //
@@ -378,7 +399,9 @@ public class Modifica implements Initializable {
 
         modelModifica.resetAllTmp();
 
-        modelPaths.setStackPaneModifica(titoli_repartiStackPane);
+        modelPaths.setStackPaneModificaR(titoli_repartiStackPane);
+        modelPaths.setStackPaneModificaO(oggetti_provvedimentiStackPane);
+        
         
     }
 

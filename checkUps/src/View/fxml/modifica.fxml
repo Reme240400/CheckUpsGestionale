@@ -198,7 +198,7 @@
                   </BorderPane>
                </content>
             </Tab>
-            <Tab fx:id="tabOggetti" onSelectionChanged="#showOggettiDialogPane" text="Oggetti / Provvedimenti">
+            <Tab fx:id="tabOggetti_Provvedimenti" onSelectionChanged="#showOggettiDialogPane" text="Oggetti / Provvedimenti">
                <content>
                   <BorderPane>
                      <center>

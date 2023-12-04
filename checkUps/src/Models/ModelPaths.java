@@ -13,12 +13,14 @@ import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneTitolo;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
-import View.Controllers.Modifiche.DialogPaneReparto;
-import View.Controllers.Modifiche.DialogPaneUnita;
 import View.Controllers.Modifiche.Modifica;
-import View.Controllers.Modifiche.ModificaSelezioneReparti;
-import View.Controllers.Modifiche.ModificaSelezioneTitolo;
-
+import View.Controllers.Modifiche.ModificaSezioneOggetti;
+import View.Controllers.Modifiche.ModificaSezioneProvvedimenti;
+import View.Controllers.Modifiche.ModificaSezioneReparti;
+import View.Controllers.Modifiche.ModificaSezioneTitolo;
+import View.Controllers.Modifiche.DialogPane.DialogPaneOggetto;
+import View.Controllers.Modifiche.DialogPane.DialogPaneReparto;
+import View.Controllers.Modifiche.DialogPane.DialogPaneUnita;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
@@ -32,7 +34,8 @@ public class ModelPaths {
 
     private String loadedFXMLs = null;
     private StackPane stackPaneHome = null;
-    private StackPane stackPaneModifica = null;
+    private StackPane stackPaneModificaR = null;
+    private StackPane stackPaneModificaO = null;
     private StackPane stackPaneCrea = null;
 
     public void setStackPaneHome(StackPane stackPane) {
@@ -51,12 +54,20 @@ public class ModelPaths {
         return this.stackPaneCrea;
     }
 
-    public void setStackPaneModifica(StackPane stackPane) {
-        this.stackPaneModifica = stackPane;
+    public void setStackPaneModificaR(StackPane stackPane) {
+        this.stackPaneModificaR = stackPane;
     }
 
-    public StackPane getStackPaneModifica(){
-        return this.stackPaneModifica;
+    public StackPane getStackPaneModificaR(){
+        return this.stackPaneModificaR;
+    }
+
+    public void setStackPaneModificaO(StackPane stackPane) {
+        this.stackPaneModificaO = stackPane;
+    }
+
+    public StackPane getStackPaneModificaO() {
+        return stackPaneModificaO;
     }
 
     // * *************** Cambia la scena a modifica *************** //
@@ -82,18 +93,18 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a modifica reparti *************** //
-    public Parent switchToModificaReparto(ModelModifica model) throws IOException {
+    public Parent switchToModificaReparto(ModelModifica modelModifica) throws IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_selezioneReparto.fxml");
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneReparto.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModifica, fxmlURL.toString())) {
+        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaR, fxmlURL.toString())) {
             FXMLLoader loader = new FXMLLoader(fxmlURL);
 
             Parent root = loader.load();
-            ModificaSelezioneReparti modifica = loader.getController();
+            ModificaSezioneReparti modifica = loader.getController();
 
-            modifica.setModel(model, this);
+            modifica.setModel(modelModifica, this);
 
             loadedFXMLs = fxmlURL.toString();
 
@@ -106,14 +117,14 @@ public class ModelPaths {
     // * *************** Cambia la scena a modifica titoli *************** //
     public Parent switchToModificaTitoli(ModelModifica modelModifica) throws IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_selezioneTitolo.fxml");
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneTitolo.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModifica, fxmlURL.toString())) {
+        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaR, fxmlURL.toString())) {
             FXMLLoader loader = new FXMLLoader(fxmlURL);
-
             Parent root = loader.load();
-            ModificaSelezioneTitolo controller = loader.getController();
+        
+            ModificaSezioneTitolo controller = loader.getController();
 
             controller.setModel(modelModifica, this);
 
@@ -125,29 +136,68 @@ public class ModelPaths {
         }
     }
 
-    // * *************** Cambia la scena a valuta rischi *************** //
-    public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita) throws IOException {
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/valuta_rischi.fxml");
+    // *************** Cambia la scena a Modifica Oggetti *************** //
+    public Parent switchToModificaOggetti(ModelModifica modelModifica) throws IOException{
 
-        //if (!isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneOggetto.fxml");
 
+        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaO, fxmlURL.toString())) {
             FXMLLoader loader = new FXMLLoader(fxmlURL);
-
             Parent root = loader.load();
-            ValutaRischi rischiController = loader.getController();
 
-            System.out.println("Societa: " + societa.getNome());
-            System.out.println("Unita: " + unita.getNome());
+            ModificaSezioneOggetti controller = loader.getController();
 
-            rischiController.setSection(unita, societa);
-            rischiController.setModel(modelValutaRischi);
+            controller.setModel(modelModifica, this);
 
             loadedFXMLs = fxmlURL.toString();
 
             return root;
-        //} else {
-          //  return null;
-        //}
+        } else {
+            return null;
+        }
+    }
+
+    // *************** Cambia la scena a Modifica Provvedimenti *************** //
+    public Parent switchToModificaProvvedimenti(ModelModifica modelModifica) throws IOException{
+        
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneProvvedimento.fxml");
+
+        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaO, fxmlURL.toString())) {
+            FXMLLoader loader = new FXMLLoader(fxmlURL);
+            Parent root = loader.load();
+
+            ModificaSezioneProvvedimenti controller = loader.getController();
+
+            controller.setModel(modelModifica, this);
+
+            loadedFXMLs = fxmlURL.toString();
+
+            return root;
+        } else {
+            return null;
+        }
+        
+    }
+
+    // *************** Cambia la scena a valuta rischi *************** //
+    public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita) throws IOException {
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/valuta_rischi.fxml");
+
+        FXMLLoader loader = new FXMLLoader(fxmlURL);
+        Parent root = loader.load();
+        
+        ValutaRischi rischiController = loader.getController();
+
+        System.out.println("Societa: " + societa.getNome());
+        System.out.println("Unita: " + unita.getNome());
+
+        rischiController.setSection(unita, societa);
+        rischiController.setModel(modelValutaRischi);
+
+        loadedFXMLs = fxmlURL.toString();
+
+        return root;
+
     }
 
     // * *************** Cambia la scena a creazione *************** //
@@ -211,7 +261,6 @@ public class ModelPaths {
         } else {
             return null;
         }
-
     }
 
     // ------------------ Cambia la scena a Creazione Societa ------------------ //
@@ -267,8 +316,14 @@ public class ModelPaths {
         return root;
     }
 
+    // ------------------ Cambia la scena a Creazione Provvedimento ------------------ //
+    public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException{
+        return null;
+    }
+
+    // ------------------  ------------------ //
     public ButtonType showUnitaDialogPane(ModelModifica modelModifica) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_dialogPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_unitaLocale_dialogPane.fxml"));
         DialogPane dialogPane = loader.load();
 
         DialogPaneUnita dialogController = loader.getController();
@@ -284,6 +339,7 @@ public class ModelPaths {
         return clickedButton.get();
     }
 
+    // ------------------ Cambia la scena a Creazione Reparti ------------------ //
     public ButtonType showRepartiTitoliDialogPane(ModelModifica modelModifica) throws IOException{
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
@@ -295,7 +351,25 @@ public class ModelPaths {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setDialogPane(dialogPane);
-        dialog.setTitle("Scegli la Unità Locale");
+        dialog.setTitle("");
+
+        Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+        return clickedButton.get();
+    }
+    
+    public ButtonType showOggettiDialogPane(ModelModifica modelModifica) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_oggetto_dialogPane.fxml"));
+        DialogPane dialogPane = loader.load();
+
+        DialogPaneOggetto dialogController = loader.getController();
+
+        dialogController.setModel(modelModifica);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setDialogPane(dialogPane);
+        dialog.setTitle("");
 
         Optional<ButtonType> clickedButton = dialog.showAndWait();
 
@@ -308,14 +382,6 @@ public class ModelPaths {
             return loadedFXMLs.equals(fxmlURL);
         }
         return false;
-    }
-
-    public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException{
-        return null;
-    }
-
-    public Parent switchToModificaOggetti(ModelModifica modelModifica2) {
-        return null;
     }
 
     

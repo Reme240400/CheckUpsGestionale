@@ -1,4 +1,4 @@
-package View.Controllers.Modifiche;
+package View.Controllers.Modifiche.DialogPane;
 
 import java.net.URL;
 import java.util.List;
@@ -26,8 +26,9 @@ public class DialogPaneReparto extends DialogPaneUnita{
     @FXML
     private JFXComboBox<String> cercaUnitaLocaleR;
 
-
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
+
+    private Societa localSocieta;
 
     private ModelModifica modelModifica;
 
@@ -56,7 +57,25 @@ public class DialogPaneReparto extends DialogPaneUnita{
 
     public void onSelectedSocieta() {
 
-        modelModifica.onKeyPressedFilter( cercaSocietaR, cercaUnitaLocaleR, listSocieta, listUnitaLocale);
+        if(cercaSocietaR.getSelectionModel().getSelectedItem() != null){
+            
+            localSocieta = listSocieta.stream()
+                                        .filter(s -> s.getNome().equals(cercaSocietaR.getSelectionModel().getSelectedItem()))
+                                        .findFirst().get();
+
+            ObservableList<String> unitaLocali = FXCollections.observableArrayList();
+
+            for (UnitaLocale unitaLocale : listUnitaLocale) {
+                if (unitaLocale.getIdSocieta() == localSocieta.getId()) {
+                    unitaLocali.add(unitaLocale.getNome());
+                }
+            }
+
+            // * filtra i Combobox
+            FilteredList<String> filteredItems = Model.filterComboBox(cercaUnitaLocaleR, unitaLocali);
+
+            cercaUnitaLocaleR.setItems(filteredItems);
+        }
     }
 
     public void onSelectedUnita() {
@@ -64,11 +83,11 @@ public class DialogPaneReparto extends DialogPaneUnita{
         if (cercaUnitaLocaleR.getValue() != null && !cercaUnitaLocaleR.getValue().equals("") ) {
             
             UnitaLocale unita = listUnitaLocale.stream()
-                                    .filter(u -> u.getIdSocieta() == modelModifica.getSocietaTmp().getId())
+                                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
                                     .filter(u -> u.getNome().equals(cercaUnitaLocaleR.getValue()))
                                     .findFirst().get();
                                     
-            //System.out.println("Id unita locale: " + id);
+            modelModifica.setSocieta(localSocieta);
             modelModifica.setUnitaLocale(unita);
         }
     }

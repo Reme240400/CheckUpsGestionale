@@ -15,7 +15,7 @@ import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.Titolo;
-
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaTitolo;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ModificaSelezioneTitolo implements Initializable {
+public class ModificaSezioneTitolo implements Initializable {
 
     @FXML
     private TableView<Titolo> tableViewTitoli;
@@ -132,7 +132,7 @@ public class ModificaSelezioneTitolo implements Initializable {
     }
 
     @FXML
-    private void refreshT(){
+    private void refresh(){
         try {
             modelModifica.resetAllTmp();
             ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
@@ -142,7 +142,7 @@ public class ModificaSelezioneTitolo implements Initializable {
                     modelModifica.setSelectedReparto(false);
 
                     Parent root = modelPaths.switchToModificaReparto(modelModifica);
-                    Controller.changePane(modelPaths.getStackPaneModifica(), root);
+                    Controller.changePane(modelPaths.getStackPaneModificaR(), root);
                 } else {
                     Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
                 }

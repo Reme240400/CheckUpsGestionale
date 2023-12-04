@@ -316,6 +316,10 @@ public class ModelDb {
             case "Reparto":
                 tableName = "reparti";
                 break;
+
+            case "Oggetto":
+                tableName = "oggetti";
+                break;
             
             default:
                 break;
@@ -1118,7 +1122,7 @@ public class ModelDb {
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
     public static void inserisciElementoOggetti(Connection connection, List<Oggetto> oggettoList) throws SQLException {
-        String insertQuery = "INSERT INTO public.oggetti (id_oggetto, nome, id_titolo) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO public.oggetti (id, nome, id_titolo) VALUES (?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
             preparedStatement.setInt(1, oggettoList.get(oggettoList.size() - 1).getId());

@@ -15,6 +15,7 @@ import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Reparto;
 import Models.Tables.UnitaLocale;
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaReparto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ModificaSelezioneReparti implements Initializable{
+public class ModificaSezioneReparti implements Initializable{
 
     @FXML
     private TableView<Reparto> tableViewReparti;
@@ -151,7 +152,7 @@ public class ModificaSelezioneReparti implements Initializable{
     }
 
     @FXML
-    private void refreshR(){
+    private void refresh(){
         try {
             modelModifica.resetAllTmp();
             ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
