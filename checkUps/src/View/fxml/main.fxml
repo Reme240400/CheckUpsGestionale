@@ -95,25 +95,27 @@
    <top>
       <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane layoutX="1406.0" layoutY="10.0" minWidth="-Infinity" prefHeight="70.0" prefWidth="30.0" />
-            <ImageView fitHeight="51.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="bordered">
-               <image>
-                  <Image url="@../images/logo%20con%20sfondo%20transpartente.png" />
-               </image>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </ImageView>
-            <Label prefHeight="43.0" prefWidth="223.0" text="Home Page" textFill="#c90000">
-               <font>
-                  <Font name="Berlin Sans FB" size="39.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="40.0" />
-               </HBox.margin>
-            </Label>
-            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="310.0" />
-            <Pane prefHeight="70.0" prefWidth="23.0" />
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="171.0">
+               <children>
+                  <ImageView fitHeight="51.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="bordered">
+                     <image>
+                        <Image url="@../images/logo%20con%20sfondo%20transpartente.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+            <Pane prefHeight="70.0" prefWidth="925.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="351.0" layoutY="14.0" prefHeight="43.0" prefWidth="223.0" text="Home Page" textFill="#c90000">
+                     <font>
+                        <Font name="Berlin Sans FB" size="39.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
       </HBox>
    </top>
