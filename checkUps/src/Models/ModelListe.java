@@ -144,11 +144,9 @@ public class ModelListe {
                                 ClassHelper.getListProvvedimento().stream()
                                                 .filter(p -> p.getId() == provvedimento.getId()).forEach(p -> {
                                                         p.setNome(provvedimento.getNome());
-                                                        //p.setIdMansione(provvedimento.getIdMansione());
                                                         p.setIdOggetto(provvedimento.getIdOggetto());
                                                         p.setRischio(provvedimento.getRischio());
                                                         p.setSoggettiEsposti(provvedimento.getSoggettiEsposti());
-                                                      
                                                         p.setStimaR(provvedimento.getStimaR());
                                                         p.setStimaD(provvedimento.getStimaD());
                                                         p.setStimaP(provvedimento.getStimaP());
@@ -233,12 +231,11 @@ public class ModelListe {
                                 break;
                         case "Provvedimento":
                                 Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
-                                                ((Provvedimento) obj).getNome(),
-                                                //((Provvedimento) obj).getIdMansione(),
+
                                                 ((Provvedimento) obj).getIdOggetto(),
                                                 ((Provvedimento) obj).getRischio(),
+                                                ((Provvedimento) obj).getNome(),
                                                 ((Provvedimento) obj).getSoggettiEsposti(),
-                                        
                                                 ((Provvedimento) obj).getStimaR(),
                                                 ((Provvedimento) obj).getStimaD(),
                                                 ((Provvedimento) obj).getStimaP());
