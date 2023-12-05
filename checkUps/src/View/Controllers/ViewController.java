@@ -73,15 +73,14 @@ public class ViewController implements Initializable{
             modelPaths.setStackPaneHome(stackPane);
         }catch (IOException e) {
             e.printStackTrace();
-        }
-        
+        }        
     }
 
     public void switchToHome() throws IOException{
         
         titoloScena.setText("Home Page");
 
-        Parent root = modelPaths.switchToHome(modelHome);
+        Parent root = modelPaths.switchToHome(modelHome, titoloScena);
         if(root != null){
             Controller.changePane(stackPane, root);
         }
@@ -112,19 +111,7 @@ public class ViewController implements Initializable{
         
     }
 
-    // public void switchToValutaRischi(Societa societa, UnitaLocale unitaLocale) throws IOException{
-
-    //     Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
-
-    //     stackPane = modelPaths.getStackPaneHome();
-
-    //     if(root != null){
-    //         Controller.changePane(stackPane,root);
-    //     }
-    // }
-
     public void logout(ActionEvent event) throws IOException{
-        System.out.println("Logout");
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
         alert.setTitle("Esci");
@@ -134,7 +121,6 @@ public class ViewController implements Initializable{
 
         if(alert.showAndWait().get().getText().equals("OK")){
             Stage stage = (Stage) btnQuit.getScene().getWindow();
-            System.out.println("Salvataggio in corso...");
             stage.close();
         }
     }

@@ -16,6 +16,11 @@
     -fx-border-radius: 20px 20px 20px 20px;
 }
 
+.half_bordered {
+    -fx-background-radius: 20px 0px 0px 20px;
+    -fx-border-radius: 20px 0px 0px 20px;
+}
+
 .bordered_style{
     -fx-border-width: 2px 2px 2px 2px;
     -fx-border-style: solid;

@@ -129,7 +129,6 @@ public class ValutaRischi implements Initializable {
 
     public void setModel(ModelValutaRischi modelValutaRischi) {
         this.modelValutaRischi = modelValutaRischi;
-    
     }
 
     public void createPDF() throws IOException {

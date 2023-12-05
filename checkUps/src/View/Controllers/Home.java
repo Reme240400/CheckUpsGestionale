@@ -23,6 +23,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 
@@ -41,6 +42,8 @@ public class Home implements Initializable{
     private JFXButton btnValutaRischi;
 
     private StackPane stackPane;
+
+    private Label title;
 
     private ModelHome modelHome;
     private ModelPaths modelPaths;
@@ -91,6 +94,7 @@ public class Home implements Initializable{
                 stackPane = modelPaths.getStackPaneHome();
 
                 if(root != null){
+                    title.setText("Valuta Rischi");
                     Controller.changePane(stackPane,root);
                 }
                 
@@ -109,5 +113,9 @@ public class Home implements Initializable{
         this.modelValutaRischi = modelValutaRischi;
 
 
+    }
+
+    public void setTitleValuta(Label title) {
+        this.title = title;
     }
 }

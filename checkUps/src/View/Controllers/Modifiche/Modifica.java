@@ -272,7 +272,6 @@ public class Modifica implements Initializable {
         if (tabUnitaLocale.isSelected()) {
 
             ButtonType clickedButton = modelPaths.showUnitaDialogPane(modelModifica);
-            System.out.println(clickedButton== ButtonType.APPLY);
             // ------------------- Se viene premuto il tasto "Applica" ------------------- //
             if (clickedButton == ButtonType.APPLY) {
                 if (modelModifica.getSocietaTmp() != null) {

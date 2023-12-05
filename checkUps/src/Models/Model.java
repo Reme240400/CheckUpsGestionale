@@ -34,12 +34,11 @@ public class Model {
                 }
             }
     
-            if (!idExists) {System.out.println("Nuovo id: " + i);
+            if (!idExists) {
                 return i;
                 
             }
         }
-        System.out.println("Nuovo id: " + (maxId + 1));
         return maxId + 1;
 
     }

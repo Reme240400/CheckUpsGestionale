@@ -256,22 +256,18 @@ public class ModelCreazione extends ModelListe{
     }
 
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti, UnitaLocale unitaLocale) {
-        System.out.println("unitaId: " + unitaLocale.getId());
         List<Reparto> specificList = listaReparti.stream()
             .filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId())
             .toList();
 
-            System.out.println("SpecificList: " + specificList.size());
         return specificList;
     }
 
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
-        System.out.println("unitaId: " + getUnitaLocaleTmp().getId());
         List<Reparto> specificList = listaReparti.stream()
             .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
             .toList();
 
-            System.out.println("SpecificList: " + specificList.size());
         return specificList;
     }
 
@@ -284,7 +280,6 @@ public class ModelCreazione extends ModelListe{
             .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
             .collect(Collectors.toList());
 
-            System.out.println("AllReparti: " + allReparti.size());
 
         return allReparti;
     }
@@ -298,7 +293,6 @@ public class ModelCreazione extends ModelListe{
             .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
             .collect(Collectors.toList());
 
-            System.out.println("AllReparti: " + allReparti.size());
 
         return allReparti;
     }
@@ -308,7 +302,6 @@ public class ModelCreazione extends ModelListe{
             .filter(titolo -> titolo.getIdReparto() == reparto.getId())
             .toList();
 
-            System.out.println("SpecificList: " + specificList.size());
         return specificList;
     }
     
@@ -317,7 +310,6 @@ public class ModelCreazione extends ModelListe{
             .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
             .toList();
 
-            System.out.println("SpecificList: " + specificList.size());
         return specificList;
     }
 

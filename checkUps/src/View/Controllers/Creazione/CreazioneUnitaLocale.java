@@ -89,7 +89,6 @@ public class CreazioneUnitaLocale implements Initializable {
         if (cercaRecord.getValue() != null && !cercaRecord.getValue().equals("")) {
             modelCreazione.createSocietaTmp(listSocieta.stream().filter(s -> s.getNome().equals(cercaRecord.getValue())).findFirst().get());
             setSocieta(modelCreazione.getSocietaTmp());
-            System.out.println("Societa settata");
         }
             
     }

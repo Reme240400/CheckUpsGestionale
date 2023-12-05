@@ -28,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
@@ -231,7 +232,7 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a home *************** //
-    public Parent switchToHome(ModelHome modelHome) throws IOException {
+    public Parent switchToHome(ModelHome modelHome, Label title) throws IOException {
 
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/home.fxml");
 
@@ -243,6 +244,7 @@ public class ModelPaths {
             Home home = loader.getController();
 
             home.setModel(modelHome, modelValutaRischi, this);
+            home.setTitleValuta(title);
 
             loadedFXMLs = fxmlURL.toString();
 

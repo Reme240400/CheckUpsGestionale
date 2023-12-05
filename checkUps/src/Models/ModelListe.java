@@ -299,7 +299,6 @@ public class ModelListe {
                         for (List<?> list : lists) {
                                 oos.writeObject(list);
                         }
-                        System.out.println("Liste salvate con successo in " + fileName);
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
@@ -308,7 +307,6 @@ public class ModelListe {
         public static List<?> caricaListaDaFile(String fileName) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
                         List<?> loadedList = (List<?>) ois.readObject();
-                        System.out.println("Lista caricata con successo da " + fileName);
                         return loadedList;
                 } catch (EOFException e) {
                         System.out.println("Fine del file");
@@ -329,7 +327,6 @@ public class ModelListe {
                                         break; // Fine del file
                                 }
                         }
-                        System.out.println("Liste caricate con successo da " + fileName);
                 } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                 }

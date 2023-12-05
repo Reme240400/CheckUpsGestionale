@@ -1048,7 +1048,6 @@ public class ModelDb {
         String insertQuery = "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
-            // System.out.println(unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
             preparedStatement.setInt(1, unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
             preparedStatement.setInt(2, unitaLocaleList.get(unitaLocaleList.size() - 1).getIdSocieta());
             preparedStatement.setString(3, unitaLocaleList.get(unitaLocaleList.size() - 1).getNome());

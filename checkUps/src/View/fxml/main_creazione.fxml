@@ -81,6 +81,6 @@
       </HBox>
    </top>
    <center>
-      <StackPane fx:id="stackPaneCreazione" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="352.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="stackPaneCreazione" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="352.0" prefWidth="600.0" styleClass="half_bordered" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

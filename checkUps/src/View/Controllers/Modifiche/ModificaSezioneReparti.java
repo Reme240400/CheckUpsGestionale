@@ -170,7 +170,6 @@ public class ModificaSezioneReparti implements Initializable{
     }
 
     public void selectReparto(){
-        System.out.println("Reparto selezionato");
         Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
         modelModifica.setReparto(reparto);
         modelModifica.setSelectedReparto(true);

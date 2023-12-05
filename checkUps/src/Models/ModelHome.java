@@ -24,7 +24,6 @@ public class ModelHome {
             for (Societa societa : listSocieta) {
                 if (societa.getNome().equals(selectedSocieta)) {
                     this.id = societa.getId();
-                    System.out.println("Societa selezionata: " + id);
                 }
             }
 
@@ -34,7 +33,6 @@ public class ModelHome {
             // Filter UnitaLocale based on the selected Societa
             for (UnitaLocale unitaLocale : listUnitaLocale) {
                 if (unitaLocale.getIdSocieta() == this.id) {
-                    System.out.println("aggiunte unita locali" + unitaLocale.getNome());
                     filtroUnitaLocali.add(unitaLocale.getNome());
                 }
             }
