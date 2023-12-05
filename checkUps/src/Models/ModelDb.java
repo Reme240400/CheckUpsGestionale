@@ -1098,7 +1098,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondnome
+    // corrispondente
     public static void inserisciElementoMansioni(Connection connection, List<Mansione> mansioneList)
             throws SQLException {
         String insertQuery = "INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)";
@@ -1140,7 +1140,7 @@ public class ModelDb {
             preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getSoggettiEsposti());
             preparedStatement.setInt(6, provvedimentoList.get(provvedimentoList.size() - 1).getStimaR());
             preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimaD());
-            preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimap());
+            preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimaP());
             preparedStatement.executeUpdate();
 
         }
@@ -1163,67 +1163,4 @@ public class ModelDb {
         }
     }
 
-    /*
-     * 
-     * 
-     * public static List<UnitaLocale> filtraUnitaDaSocieta(int idSocieta) throws
-     * SQLException {
-     * 
-     * String filterQuery = "SELECT * FROM public.unita_locali WHERE id_societa = "
-     * + idSocieta + "";
-     * List<UnitaLocale> unitaLocaleList = new ArrayList<>();
-     * 
-     * try (Connection connection = connessioneDb()) {
-     * 
-     * Statement statement = connection.createStatement();
-     * 
-     * ResultSet resultSet = statement.executeQuery(filterQuery);
-     * 
-     * while (resultSet.next()) {
-     * int idUnitaLocale = resultSet.getInt("id_unita_locale");
-     * String nome = resultSet.getString("nome");
-     * String indirizzo = resultSet.getString("indirizzo");
-     * String localita = resultSet.getString("localita");
-     * String provincia = resultSet.getString("provincia");
-     * 
-     * UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia,
-     * indirizzo, localita,
-     * idSocieta);
-     * unitaLocaleList.add(unitaLocale);
-     * 
-     * }
-     * 
-     * return unitaLocaleList;
-     * 
-     * }
-     * }
-     * 
-     * public static List<Reparto> filtraRepartoDaUnita(int idUnitaLocale) throws
-     * SQLException {
-     * 
-     * String filterQuery = "SELECT * FROM public.reparti WHERE id_unita_locale = "
-     * + idUnitaLocale + "";
-     * List<Reparto> repartiList = new ArrayList<>();
-     * 
-     * try (Connection connection = connessioneDb()) {
-     * 
-     * Statement statement = connection.createStatement();
-     * 
-     * ResultSet resultSet = statement.executeQuery(filterQuery);
-     * 
-     * while (resultSet.next()) {
-     * int idReparto = resultSet.getInt("id_reparto");
-     * String nome = resultSet.getString("nome");
-     * String descrizione = resultSet.getString("descrizione");
-     * 
-     * Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
-     * repartiList.add(reparto);
-     * 
-     * }
-     * 
-     * return repartiList;
-     * 
-     * }
-     * }
-     */
 }
