@@ -1140,7 +1140,7 @@ public class ModelDb {
             preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getSoggettiEsposti());
             preparedStatement.setInt(6, provvedimentoList.get(provvedimentoList.size() - 1).getStimaR());
             preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimaD());
-            preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimap());
+            preparedStatement.setInt(8, provvedimentoList.get(provvedimentoList.size() - 1).getStimaP());
             preparedStatement.executeUpdate();
 
         }
