@@ -49,7 +49,6 @@ public class ModificaSezioneReparti implements Initializable{
     @FXML
     private JFXButton btnRefresh;
 
-
     private List<Reparto> listaReparto = ClassHelper.getListReparto();
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
 
@@ -144,6 +143,7 @@ public class ModificaSezioneReparti implements Initializable{
 
     @FXML
     private void delete(){
+        
         if (tableViewReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
             Controller.eliminaRecord(reparto, reparto.getId());

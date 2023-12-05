@@ -12,7 +12,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-
+import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
@@ -29,6 +29,7 @@ public class ModelModifica extends ModelListe{
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
     private final BooleanProperty selectedReparto = new SimpleBooleanProperty(false);
     private final BooleanProperty selectedTitolo = new SimpleBooleanProperty(false);
+    private final BooleanProperty selectedOggetto = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
@@ -52,6 +53,9 @@ public class ModelModifica extends ModelListe{
         return selectedTitolo;
     }
 
+    public BooleanProperty selectedOggettoProperty() {
+        return selectedOggetto;
+    }
     // ------------------ SETTER ------------------ //
     public final void setSaved(boolean saved) {
         savedProperty().set(saved);
@@ -68,6 +72,11 @@ public class ModelModifica extends ModelListe{
     public final void setSelectedTitolo(boolean selectedTitolo) {
         selectedTitoloProperty().set(selectedTitolo);
     }
+ 
+    public final void setSelectedOggetto(boolean selectedOggetto){
+        selectedOggettoProperty().set(selectedOggetto);
+    }
+
 
     public void setSocieta(Societa societa) {
         this.societaTmp = societa;
@@ -283,6 +292,5 @@ public class ModelModifica extends ModelListe{
 
     public void setProvvedimento(Provvedimento provvedimento) {
     }
-
     
 }

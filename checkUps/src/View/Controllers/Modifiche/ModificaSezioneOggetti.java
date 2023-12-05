@@ -75,6 +75,7 @@ public class ModificaSezioneOggetti implements Initializable{
     private void selectOggetto() {
 
         Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
+        modelModifica.setSelectedOggetto(true);
         modelModifica.setOggetto(oggetto);
 
     }
@@ -142,7 +143,7 @@ public class ModificaSezioneOggetti implements Initializable{
         
             if (clickedButton == ButtonType.APPLY) {
                 if(modelModifica.getTitoloTmp() != null){
-                    modelModifica.setSelectedReparto(false);
+                    modelModifica.setSelectedOggetto(false);
 
                     Parent root = modelPaths.switchToModificaOggetti(modelModifica);
                     Controller.changePane(modelPaths.getStackPaneModificaO(), root);

@@ -385,6 +385,7 @@ public class Modifica implements Initializable {
         this.btnSaveS.disableProperty().bind(modelModifica.savedProperty().not());
         this.btnSaveU.disableProperty().bind(modelModifica.savedProperty().not());
         this.btnTitoli.disableProperty().bind(modelModifica.selectedRepartoProperty().not());
+        this.btnProvvedimenti.disableProperty().bind(modelModifica.selectedOggettoProperty().not());
 
         this.textFieldIndirizzo.editableProperty().bind(modelModifica.isEnableProperty());
         this.textFieldLocalita.editableProperty().bind(modelModifica.isEnableProperty());
