@@ -71,7 +71,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
         soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("stima"));
+        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("stima_r"));
 
         tableProvvedimenti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

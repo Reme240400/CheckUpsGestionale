@@ -384,6 +384,7 @@ public class CreazioneOggetto implements Initializable {
                     Oggetto newOggetto = new Oggetto(id,
                                                     dialogController.getNome(),
                                                     localTitolo.getId());
+                                                    
                     modelCreazione.createOggettoTmp(newOggetto);
                     Controller.inserisciNuovoRecord(newOggetto);
 

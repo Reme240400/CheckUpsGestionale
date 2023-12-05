@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Helpers.ClassHelper;
 import Models.Tables.Oggetto;
+import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
@@ -28,6 +29,7 @@ public class ModelCreazione extends ModelListe{
     private Reparto repartoTmp = null;
     private Titolo titoloTmp = null;
     private Oggetto oggettoTmp = null;
+    private Provvedimento provvedimentoTmp = null;
 
     // end initialize variables
 
@@ -81,6 +83,10 @@ public class ModelCreazione extends ModelListe{
     public Oggetto getOggettoTmp(){
         return oggettoTmp;
     }
+
+    public Provvedimento getProvvedimentoTmp(){
+        return provvedimentoTmp;
+    }
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
@@ -117,6 +123,10 @@ public class ModelCreazione extends ModelListe{
         this.oggettoTmp = oggetto;
     }  
 
+    public void createProvvedimentoTmp(Provvedimento provvedimento) {
+        this.provvedimentoTmp = provvedimento;
+    }
+
     // ------------------ END SETTER ------------------ //
 
     public void resetSocietaTmp() {
@@ -139,12 +149,17 @@ public class ModelCreazione extends ModelListe{
         this.oggettoTmp = null;
     }
 
+    public void resetProvvedimentoTmp(){
+        this.provvedimentoTmp = null;
+    }
+
     public void resetAllTmp() {
         resetSocietaTmp();
         resetUnitaLocaleTmp();
         resetRepartoTmp();
         resetTitoloTmp();
         resetOggettoTmp();
+        resetProvvedimentoTmp();
     }
 
     // ------------------ Controllo se i campi sono stati inseriti ------------------ //
@@ -297,7 +312,7 @@ public class ModelCreazione extends ModelListe{
         return specificList;
     }
     
-     public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
+    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
         List<Titolo> specificList = listaTitolo.stream()
             .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
             .toList();
@@ -305,5 +320,6 @@ public class ModelCreazione extends ModelListe{
             System.out.println("SpecificList: " + specificList.size());
         return specificList;
     }
+
 
 }
