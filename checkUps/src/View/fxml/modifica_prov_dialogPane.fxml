@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
@@ -26,7 +25,7 @@
          <children>
             <VBox prefHeight="460.0" prefWidth="688.0">
                <children>
-                  <Pane prefHeight="128.0" prefWidth="688.0">
+                  <Pane prefHeight="129.0" prefWidth="688.0">
                      <children>
                         <Label layoutX="41.0" layoutY="36.0" text="Modifica Provvedimento">
                            <font>
@@ -45,36 +44,33 @@
                         <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Nome" GridPane.rowIndex="2" />
-                        <TextField fx:id="modificaNomeOggetto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="1" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="modificaNomeOggetto1" alignment="CENTER" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Nome" GridPane.rowIndex="1" />
+                        <TextField fx:id="modificaNomeProv" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="rischio" layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="2" />
+                        <TextArea fx:id="modificaRischio" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="modificaSoggettiEsposti" alignment="CENTER" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label layoutX="84.0" layoutY="36.0" text="Soggetti Esposti" GridPane.rowIndex="3" />
-                        <JFXComboBox prefHeight="25.0" prefWidth="401.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Mansione" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                   <GridPane>
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Stima R" />
-                        <Label layoutX="82.0" layoutY="17.0" text="Stima P" GridPane.columnIndex="1" />
-                        <Label layoutX="254.0" layoutY="17.0" text="Stima D" GridPane.columnIndex="2" />
-                        <Spinner editable="true" prefHeight="25.0" prefWidth="58.0" GridPane.rowIndex="1" />
-                        <Spinner editable="true" layoutX="67.0" layoutY="43.0" prefHeight="25.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Spinner editable="true" layoutX="239.0" layoutY="43.0" prefHeight="25.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="Stima R" GridPane.columnIndex="2" />
+                        <Label layoutX="82.0" layoutY="17.0" text="Stima P" />
+                        <Label layoutX="254.0" layoutY="17.0" text="Stima D" GridPane.columnIndex="1" />
+                        <Spinner fx:id="valStimaR" editable="true" prefHeight="25.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Spinner fx:id="valStimaP" editable="true" layoutX="67.0" layoutY="43.0" prefHeight="25.0" prefWidth="58.0" GridPane.rowIndex="1" />
+                        <Spinner fx:id="valStimaD" editable="true" layoutX="239.0" layoutY="43.0" prefHeight="25.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                      </children>
                      <VBox.margin>
                         <Insets top="15.0" />

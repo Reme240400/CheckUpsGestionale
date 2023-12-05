@@ -976,13 +976,12 @@ public class ModelDb {
                 while (resultSet.next()) {
                     int idProvvedimento = resultSet.getInt("id_provvedimento");
                     String nome = resultSet.getString("nome");
-                    int idMansione = resultSet.getInt("id_mansione");
+                    //int idMansione = resultSet.getInt("id_mansione");
                     int idOggetto = resultSet.getInt("id_oggetto");
                     int idElencoRischi = resultSet.getInt("id_elenco_rischi");
 
                     System.out.println("ID Provvedimento: " + idProvvedimento);
                     System.out.println("Nome: " + nome);
-                    System.out.println("ID Mansione: " + idMansione);
                     System.out.println("ID Oggetto: " + idOggetto);
                     System.out.println("ID Elenco Rischi: " + idElencoRischi);
                     System.out.println();

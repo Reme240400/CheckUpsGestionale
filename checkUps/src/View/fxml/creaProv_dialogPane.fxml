@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane expanded="true" prefHeight="529.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.DialogPaneAddP">
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <content>
+      <HBox alignment="CENTER" prefHeight="474.0" prefWidth="708.0">
+         <children>
+            <VBox prefHeight="460.0" prefWidth="688.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="164.0" prefWidth="688.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="241.0" text="Crea Provvedimento">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <GridPane alignment="CENTER" prefHeight="123.0" prefWidth="310.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Pane>
+                                 <children>
+                                    <TextField fx:id="textFieldSocieta" editable="false" layoutX="3.0" layoutY="24.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <Label layoutX="3.0" layoutY="6.0" text="Società" />
+                                 </children>
+                              </Pane>
+                              <Pane GridPane.columnIndex="1">
+                                 <children>
+                                    <TextField fx:id="textFieldUnitaLocale" editable="false" layoutX="3.0" layoutY="25.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <Label layoutX="3.0" layoutY="7.0" text="Unità Locale" />
+                                 </children>
+                              </Pane>
+                              <Pane GridPane.rowIndex="1">
+                                 <children>
+                                    <TextField fx:id="textFieldOggetto" editable="false" layoutX="3.0" layoutY="27.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <Label layoutX="3.0" layoutY="6.0" text="Oggetto" />
+                                 </children>
+                              </Pane>
+                              <Pane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <TextField fx:id="textFieldTitolo" editable="false" layoutX="2.0" layoutY="27.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <Label layoutX="2.0" layoutY="10.0" text="Titolo" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </GridPane>
+                        <VBox alignment="BASELINE_LEFT" prefHeight="149.0" prefWidth="145.0">
+                           <children>
+                              <Label text="Reparto" />
+                              <TextField fx:id="textFieldReparto" editable="false" styleClass="transparent" stylesheets="@../css/style.css" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <GridPane alignment="CENTER" prefHeight="205.0" prefWidth="688.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="119.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="507.0" minWidth="10.0" prefWidth="506.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Nome" GridPane.rowIndex="1" />
+                        <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="2" />
+                        <TextArea fx:id="creaRischio" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="creaSoggettiEsposti" alignment="CENTER" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label layoutX="84.0" layoutY="36.0" text="Soggetti Esposti" GridPane.rowIndex="3" />
+                     </children>
+                  </GridPane>
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Stima R" GridPane.columnIndex="2" />
+                        <Label layoutX="82.0" layoutY="17.0" text="Stima P" />
+                        <Label layoutX="254.0" layoutY="17.0" text="Stima D" GridPane.columnIndex="1" />
+                        <Spinner fx:id="setStimaR" editable="true" prefHeight="25.0" prefWidth="58.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Spinner fx:id="setStimaP" editable="true" layoutX="67.0" layoutY="43.0" prefHeight="25.0" prefWidth="58.0" GridPane.rowIndex="1" />
+                        <Spinner fx:id="setStimaD" editable="true" layoutX="239.0" layoutY="43.0" prefHeight="25.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </GridPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </content>
+</DialogPane>
