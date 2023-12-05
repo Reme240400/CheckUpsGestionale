@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="714.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
    <left>
-      <VBox prefHeight="405.0" prefWidth="263.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="554.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
             <GridPane alignment="CENTER" prefHeight="257.0" prefWidth="263.0" VBox.vgrow="SOMETIMES">
                <columnConstraints>
@@ -49,8 +49,8 @@
                <children>
                   <TableView fx:id="tableOggetti" prefHeight="286.0" prefWidth="263.0" HBox.hgrow="SOMETIMES">
                      <columns>
-                        <TableColumn fx:id="idCol" prefWidth="58.0" text="ID" />
-                        <TableColumn fx:id="nomeCol" prefWidth="184.0" text="Nome" />
+                        <TableColumn fx:id="idColO" prefWidth="58.0" text="ID" />
+                        <TableColumn fx:id="nomeColO" prefWidth="184.0" text="Nome" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -66,7 +66,7 @@
          <children>
             <HBox prefHeight="47.0" prefWidth="451.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="54.0" prefWidth="92.0">
+                  <VBox alignment="CENTER" prefHeight="54.0" prefWidth="67.0">
                      <children>
                         <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#modify" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                            <graphic>
@@ -79,9 +79,12 @@
                         </JFXButton>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="61.0" text="Modifica" />
                      </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
                   </VBox>
-                  <Pane prefHeight="47.0" prefWidth="71.0" HBox.hgrow="SOMETIMES" />
-                  <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
+                  <Pane prefHeight="54.0" prefWidth="24.0" />
+                  <VBox alignment="CENTER">
                      <children>
                         <JFXButton fx:id="btnAdd" contentDisplay="CENTER" ellipsisString="" onAction="#addProv" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
                            <graphic>
@@ -96,7 +99,7 @@
                      </children>
                   </VBox>
                   <Pane layoutX="88.0" layoutY="10.0" prefHeight="47.0" prefWidth="82.0" HBox.hgrow="SOMETIMES" />
-                  <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
+                  <VBox alignment="CENTER">
                      <children>
                         <JFXButton fx:id="btnDel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" onAction="#delete" prefHeight="35.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP" VBox.vgrow="SOMETIMES">
                            <graphic>
@@ -109,13 +112,19 @@
                         </JFXButton>
                         <Label alignment="CENTER" text="Elimina" VBox.vgrow="SOMETIMES" />
                      </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
             </HBox>
-            <TableView fx:id="tableProv" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+            <TableView fx:id="tableProvvedimenti" editable="true" prefHeight="487.0" prefWidth="745.0">
                <columns>
-                  <TableColumn fx:id="idCol1" prefWidth="58.0" text="ID" />
-                  <TableColumn fx:id="nomeCol1" prefWidth="184.0" text="Nome" />
+                  <TableColumn fx:id="idColP" prefWidth="85.0" text="ID" />
+                  <TableColumn fx:id="rischioCol" prefWidth="140.0" text="Rischio" />
+                  <TableColumn fx:id="nomeColP" prefWidth="444.0" text="Nome" />
+                  <TableColumn fx:id="soggetiCol" prefWidth="241.0" text="Soggetti Esposti" />
+                  <TableColumn fx:id="stimaCol" prefWidth="241.0" text="Stima" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

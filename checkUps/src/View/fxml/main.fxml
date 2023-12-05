@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
    <left>
       <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="633.0" prefWidth="170.0" styleClass="VBox_options" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -113,25 +112,7 @@
                   <Insets left="40.0" />
                </HBox.margin>
             </Label>
-            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="310.0">
-               <children>
-                  <AnchorPane prefHeight="70.0" prefWidth="295.0" HBox.hgrow="SOMETIMES" />
-               </children>
-            </HBox>
-            <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="0.0" HBox.hgrow="SOMETIMES" />
-            <AnchorPane prefHeight="70.0" prefWidth="80.0">
-               <children>
-                  <JFXButton contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="17.0" layoutY="15.0" prefHeight="40.0" prefWidth="40.0" ripplerFill="BLACK" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/settings.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
+            <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="70.0" prefWidth="310.0" />
             <Pane prefHeight="70.0" prefWidth="23.0" />
          </children>
       </HBox>

@@ -1,10 +1,4 @@
 
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOExceptionList;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,8 +52,12 @@ public class myMain extends Application{
         }
     }
 
+    public static void verificaScadenze(){
+    
+    }
+
     public static void main(String[] args) { 
-        
+        verificaScadenze();
         launch(args);
         
     }
