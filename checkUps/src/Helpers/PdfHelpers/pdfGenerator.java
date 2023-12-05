@@ -27,10 +27,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
-
 public class pdfGenerator {
 
     public static int currentPage = 0;
+
     public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
             String nomeFile) {
         Document document = new Document(PageSize.A4.rotate());
@@ -68,6 +68,7 @@ public class pdfGenerator {
                 int n = 1;
 
                 for (Titolo titolo : titoli) {
+
                     List<Oggetto> oggetti = ModelListe.filtraOggettiDaTitolo(titolo.getId());
                     document.add(Chunk.NEWLINE);
 
@@ -79,8 +80,12 @@ public class pdfGenerator {
                         if (provvedimenti.size() == 0) {
                             continue;
                         }
-
+                        //ciclo per fare in modo che il titolo sia stampato solo dopo che ho controllato che abbia degli oggetti e dei provvedimenti
                         if (k == 0) {
+                            //se sono al primo giro non metto una pagina uova prima di titolo
+                            if (n != 1) {
+                                document.newPage();
+                            }
                             Paragraph titoloParagraph = new Paragraph();
                             titoloParagraph.setAlignment(Element.ALIGN_CENTER);
                             Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
@@ -113,8 +118,9 @@ public class pdfGenerator {
 
                             provvedimentoTable.setWidthPercentage(100);
 
-                            provvedimentoTable.addCell(createCell(provvedimento.getNome().replace("\n", "")
-                                    .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
+                            provvedimentoTable.addCell(
+                                    createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
+                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
                             provvedimentoTable.addCell(createCell(provvedimento.getRischio(), 1, Font.BOLD));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
@@ -165,5 +171,14 @@ public class pdfGenerator {
             table.addCell("Pagina " + currentPage);
             table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
         }
+    }
+
+    private static String replaceInvalidCharacters(String text) {
+        // Sostituisci caratteri non validi con un punto interrogativo
+        text = text.replaceAll("&apos;", "' ");
+
+        // Aggiungi ulteriori operazioni di sostituzione se necessario
+
+        return text;
     }
 }
