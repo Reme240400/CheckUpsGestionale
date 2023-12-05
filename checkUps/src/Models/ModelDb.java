@@ -242,13 +242,12 @@ public class ModelDb {
                         int idOggetto = resultSet.getInt("id_oggetto");
                         String rischio = resultSet.getString("rischio");
                         String soggettiEsposti = resultSet.getString("soggetti_esposti");
-                        int stima = resultSet.getInt("stima");
                         int stima_r = resultSet.getInt("stima_r");
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
 
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
-                                rischio, soggettiEsposti, stima, stima_r, stima_d, stima_p);
+                                rischio, soggettiEsposti, stima_r, stima_d, stima_p);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -312,7 +311,7 @@ public class ModelDb {
             case "Titolo":
                 tableName = "titoli";
                 break;
-        
+
             case "Reparto":
                 tableName = "reparti";
                 break;
@@ -320,7 +319,7 @@ public class ModelDb {
             case "Oggetto":
                 tableName = "oggetti";
                 break;
-            
+
             default:
                 break;
         }
@@ -616,11 +615,6 @@ public class ModelDb {
 
                 modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
                         provvedimento.getId(),
-                        "stima",
-                        provvedimento.getStima());
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        provvedimento.getId(),
                         "stima_r",
                         provvedimento.getStimaR());
 
@@ -739,7 +733,6 @@ public class ModelDb {
                         ((Provvedimento) obj).getIdOggetto(),
                         ((Provvedimento) obj).getRischio(),
                         ((Provvedimento) obj).getSoggettiEsposti(),
-                        ((Provvedimento) obj).getStima(),
                         ((Provvedimento) obj).getStimaR(),
                         ((Provvedimento) obj).getStimaD(),
                         ((Provvedimento) obj).getStimaP());
@@ -1137,16 +1130,17 @@ public class ModelDb {
     // corrispondnome
     public static void inserisciElementoProvvedimenti(Connection connection, List<Provvedimento> provvedimentoList)
             throws SQLException {
-        String insertQuery = "INSERT INTO public.provvedimenti (id_provvedimento, nome, id_mansione, id_oggetto, id_elenco_rischi) VALUES (?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p) VALUES (?, ?, ?, ?, ?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
             preparedStatement.setInt(1, provvedimentoList.get(provvedimentoList.size() - 1).getId());
-            preparedStatement.setString(2, provvedimentoList.get(provvedimentoList.size() - 1).getNome());
-            preparedStatement.setInt(3, provvedimentoList.get(provvedimentoList.size() - 1).getIdMansione());
-            preparedStatement.setInt(4, provvedimentoList.get(provvedimentoList.size() - 1).getIdOggetto());
-            preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getRischio());
+            preparedStatement.setInt(2, provvedimentoList.get(provvedimentoList.size() - 1).getIdOggetto());
+            preparedStatement.setString(3, provvedimentoList.get(provvedimentoList.size() - 1).getRischio());
+            preparedStatement.setString(4, provvedimentoList.get(provvedimentoList.size() - 1).getNome());
             preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getSoggettiEsposti());
-            preparedStatement.setInt(4, provvedimentoList.get(provvedimentoList.size() - 1).getStima());
+            preparedStatement.setInt(6, provvedimentoList.get(provvedimentoList.size() - 1).getStimaR());
+            preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimaD());
+            preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimap());
             preparedStatement.executeUpdate();
 
         }
