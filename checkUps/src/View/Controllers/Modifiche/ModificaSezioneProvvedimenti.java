@@ -49,7 +49,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     private TableColumn<Provvedimento, String> rischioCol;
 
     @FXML
-    private TableColumn<Provvedimento, String> soggetiCol;
+    private TableColumn<Provvedimento, String> soggettiCol;
 
     @FXML
     private TableColumn<Provvedimento, String> stimaCol;
@@ -70,7 +70,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
         idCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("id"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
-        soggetiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggetti"));
+        soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
         stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("stima"));
 
         tableProvvedimenti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

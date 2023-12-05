@@ -148,7 +148,7 @@ public class ModelListe {
                                                         p.setIdOggetto(provvedimento.getIdOggetto());
                                                         p.setRischio(provvedimento.getRischio());
                                                         p.setSoggettiEsposti(provvedimento.getSoggettiEsposti());
-                                                        p.setStima(provvedimento.getStima());
+                                                      
                                                         p.setStimaR(provvedimento.getStimaR());
                                                         p.setStimaD(provvedimento.getStimaD());
                                                         p.setStimaP(provvedimento.getStimaP());
@@ -238,7 +238,7 @@ public class ModelListe {
                                                 ((Provvedimento) obj).getIdOggetto(),
                                                 ((Provvedimento) obj).getRischio(),
                                                 ((Provvedimento) obj).getSoggettiEsposti(),
-                                                ((Provvedimento) obj).getStima(),
+                                        
                                                 ((Provvedimento) obj).getStimaR(),
                                                 ((Provvedimento) obj).getStimaD(),
                                                 ((Provvedimento) obj).getStimaP());

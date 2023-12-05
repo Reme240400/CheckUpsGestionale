@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
+   <left>
+      <VBox prefHeight="554.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane alignment="CENTER" prefHeight="257.0" prefWidth="263.0" VBox.vgrow="SOMETIMES">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="84.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="159.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#selectSocieta" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" />
+                  <JFXComboBox fx:id="cercaUnita" editable="true" onHiding="#selectUnita" prefHeight="25.0" prefWidth="242.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXComboBox fx:id="cercaReparto" editable="true" onHiding="#selectReparto" prefHeight="25.0" prefWidth="206.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Societa" />
+                  <Label text="Unita Locale" GridPane.rowIndex="1" />
+                  <Label text="Reparto" GridPane.rowIndex="2" />
+                  <JFXComboBox fx:id="cercaTitolo" editable="true" onHiding="#selectTitolo" prefHeight="25.0" prefWidth="206.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Titolo" GridPane.rowIndex="3" />
+               </children>
+               <VBox.margin>
+                  <Insets right="20.0" />
+               </VBox.margin>
+            </GridPane>
+            <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
+               <children>
+                  <TableView fx:id="tableOggetti" prefHeight="286.0" prefWidth="263.0" HBox.hgrow="SOMETIMES">
+                     <columns>
+                        <TableColumn fx:id="idColO" prefWidth="58.0" text="ID" />
+                        <TableColumn fx:id="nomeColO" prefWidth="184.0" text="Nome" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="47.0" prefWidth="451.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="54.0" prefWidth="67.0">
+                     <children>
+                        <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#modify" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
+                           <graphic>
+                              <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/pencil.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="61.0" text="Modifica" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <Pane prefHeight="54.0" prefWidth="24.0" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnAdd" contentDisplay="CENTER" ellipsisString="" onAction="#addProv" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP">
+                           <graphic>
+                              <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/plus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Label text="Aggiungi" />
+                     </children>
+                  </VBox>
+                  <Pane layoutX="88.0" layoutY="10.0" prefHeight="47.0" prefWidth="82.0" HBox.hgrow="SOMETIMES" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnDel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" onAction="#delete" prefHeight="35.0" prefWidth="69.0" ripplerFill="#f02b2b" styleClass="bordered" stylesheets="@../css/style.css" textOverrun="CLIP" VBox.vgrow="SOMETIMES">
+                           <graphic>
+                              <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/trash_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Label alignment="CENTER" text="Elimina" VBox.vgrow="SOMETIMES" />
+                     </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <TableView fx:id="tableProvvedimenti" editable="true" prefHeight="487.0" prefWidth="745.0">
+               <columns>
+                  <TableColumn fx:id="idColP" prefWidth="85.0" text="ID" />
+                  <TableColumn fx:id="rischioCol" prefWidth="140.0" text="Rischio" />
+                  <TableColumn fx:id="nomeColP" prefWidth="444.0" text="Nome" />
+                  <TableColumn fx:id="soggettiCol" prefWidth="241.0" text="Soggetti Esposti" />
+                  <TableColumn fx:id="stimaCol" prefWidth="241.0" text="Stima" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
