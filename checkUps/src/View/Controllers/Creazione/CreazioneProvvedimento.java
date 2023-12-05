@@ -29,6 +29,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -118,7 +119,7 @@ public class CreazioneProvvedimento implements Initializable {
         nomeColP.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
         soggetiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stima_r"));
+        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
 
         ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -137,6 +138,12 @@ public class CreazioneProvvedimento implements Initializable {
         tableOggetti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 selectOggetto(); // Chiama il metodo quando viene selezionato un elemento
+            }
+        });
+
+        tableProvvedimenti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectProv(); // Chiama il metodo quando viene selezionato un elemento
             }
         });
     }
@@ -276,6 +283,13 @@ public class CreazioneProvvedimento implements Initializable {
         }
     }
 
+    public void selectProv() {
+        if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
+            Provvedimento provvedimento = tableProvvedimenti.getSelectionModel().getSelectedItem();
+            modelCreazione.createProvvedimentoTmp(provvedimento);
+        }
+    }
+
     private void fillTableViewO() {
 
         List<Oggetto> specificList = null;
@@ -365,8 +379,8 @@ public class CreazioneProvvedimento implements Initializable {
 
                     int id = Controller.getNewId(provList);
                     Provvedimento newProvvedimento = new Provvedimento(id,
-                                                                        dialogController.getNome(),
                                                                         localOggetto.getId(),
+                                                                        dialogController.getNome(),
                                                                         dialogController.getRischio(),
                                                                         dialogController.getSoggettiEsposti(),
                                                                         dialogController.getStimaR(),
@@ -426,8 +440,8 @@ public class CreazioneProvvedimento implements Initializable {
 
                     int id = Controller.getNewId(provList);
                     Provvedimento newProvvedimento = new Provvedimento(id,
-                                                                        dialogController.getNome(),
                                                                         localOggetto.getId(),
+                                                                        dialogController.getNome(),
                                                                         dialogController.getRischio(),
                                                                         dialogController.getSoggettiEsposti(),
                                                                         dialogController.getStimaR(),
@@ -459,7 +473,24 @@ public class CreazioneProvvedimento implements Initializable {
 
     @FXML
     public void modify() {
+        if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
 
+            Parent root = new Parent() {};
+            modelModifica = new ModelModifica();
+
+            if(modelCreazione.getOggettoTmp() != null)
+                modelModifica.setOggetto(modelCreazione.getOggettoTmp());
+            else if(localOggetto != null)
+                modelModifica.setOggetto(localOggetto);
+
+            try {
+                root = modelPaths.switchToModificaProvvedimenti(modelModifica);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Controller.changePane(modelPaths.getStackPaneHome(), root);
+        }
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {

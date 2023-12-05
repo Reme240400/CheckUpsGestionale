@@ -120,11 +120,11 @@
             </HBox>
             <TableView fx:id="tableProvvedimenti" editable="true" prefHeight="487.0" prefWidth="745.0">
                <columns>
-                  <TableColumn fx:id="idColP" prefWidth="85.0" text="ID" />
-                  <TableColumn fx:id="rischioCol" prefWidth="140.0" text="Rischio" />
-                  <TableColumn fx:id="nomeColP" prefWidth="444.0" text="Nome" />
-                  <TableColumn fx:id="soggetiCol" prefWidth="241.0" text="Soggetti Esposti" />
-                  <TableColumn fx:id="stimaCol" prefWidth="241.0" text="Stima" />
+                  <TableColumn fx:id="idColP" prefWidth="52.0" text="ID" />
+                  <TableColumn fx:id="rischioCol" prefWidth="120.0" text="Rischio" />
+                  <TableColumn fx:id="nomeColP" prefWidth="298.0" text="Nome" />
+                  <TableColumn fx:id="soggetiCol" prefWidth="108.0" text="Soggetti Esposti" />
+                  <TableColumn fx:id="stimaCol" prefWidth="51.0" text="Stima" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

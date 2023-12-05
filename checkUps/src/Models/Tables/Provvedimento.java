@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Provvedimento extends TablesId implements Serializable {
 
     private String nome;
-    //private int idMansione;
     private int idOggetto;
     private String rischio;
     private String soggettiEsposti;
