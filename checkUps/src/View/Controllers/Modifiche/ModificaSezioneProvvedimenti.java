@@ -101,7 +101,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     }
 
     @FXML
-    public void modify( ) {
+    public void modify() {
 
 
     }

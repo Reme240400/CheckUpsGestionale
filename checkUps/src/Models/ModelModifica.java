@@ -28,13 +28,13 @@ public class ModelModifica extends ModelListe{
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(false);
     private final BooleanProperty selectedReparto = new SimpleBooleanProperty(false);
-    private final BooleanProperty selectedTitolo = new SimpleBooleanProperty(false);
     private final BooleanProperty selectedOggetto = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
     private Titolo titoloTmp = null;
     private Oggetto oggettoTmp = null;
+    private Provvedimento provvedimentoTmp = null;
 
     // ------------------ CONSTRUCTOR ------------------ //
     public BooleanProperty savedProperty() {
@@ -47,10 +47,6 @@ public class ModelModifica extends ModelListe{
 
     public BooleanProperty selectedRepartoProperty() {
         return selectedReparto;
-    }
-
-    public BooleanProperty selectedTitoloProperty() {
-        return selectedTitolo;
     }
 
     public BooleanProperty selectedOggettoProperty() {
@@ -67,10 +63,6 @@ public class ModelModifica extends ModelListe{
 
     public final void setSelectedReparto(boolean selectedReparto) {
         selectedRepartoProperty().set(selectedReparto);
-    }
-
-    public final void setSelectedTitolo(boolean selectedTitolo) {
-        selectedTitoloProperty().set(selectedTitolo);
     }
  
     public final void setSelectedOggetto(boolean selectedOggetto){
@@ -99,6 +91,10 @@ public class ModelModifica extends ModelListe{
         this.oggettoTmp = oggetto;
     }
 
+    public void setProvvedimento(Provvedimento prov) {
+        this.provvedimentoTmp = prov;
+    }
+
 
     // ------------------ GETTER ------------------ //
     public final boolean isSaved() {
@@ -111,10 +107,6 @@ public class ModelModifica extends ModelListe{
 
     public final boolean isSelectedReparto() {
         return selectedRepartoProperty().get();
-    }
-
-    public final boolean isSelectedTitolo() {
-        return selectedTitoloProperty().get();
     }
 
     public final Societa getSocietaTmp() {
@@ -136,6 +128,10 @@ public class ModelModifica extends ModelListe{
 
     public final Oggetto getOggettoTmp() {
         return oggettoTmp;
+    }
+    
+    public final Provvedimento getProvTmp(){
+        return provvedimentoTmp;
     }
 
     // ------------------ RESETTER ------------------ //
@@ -159,12 +155,17 @@ public class ModelModifica extends ModelListe{
         this.oggettoTmp = null;
     }
 
+    public void resetProvTmp(){
+        this.provvedimentoTmp = null;
+    }
+
     public void resetAllTmp() {
         resetSocietaTmp();
         resetUnitaLocaleTmp();
         resetRepartoTmp();
         resetTitoloTmp();
         resetOggettoTmp();
+        resetProvTmp();
     }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
@@ -288,9 +289,6 @@ public class ModelModifica extends ModelListe{
 
         // Bind the filtered data to the TableView
         tableView.setItems(filteredData);
-    }
-
-    public void setProvvedimento(Provvedimento provvedimento) {
     }
     
 }

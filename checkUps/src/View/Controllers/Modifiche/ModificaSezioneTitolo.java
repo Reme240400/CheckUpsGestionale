@@ -162,8 +162,6 @@ public class ModificaSezioneTitolo implements Initializable {
         
         Titolo titolo = tableViewTitoli.getSelectionModel().getSelectedItem();
         modelModifica.setTitolo(titolo);
-        modelModifica.setSelectedTitolo(true);
-
     }
 
     public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
