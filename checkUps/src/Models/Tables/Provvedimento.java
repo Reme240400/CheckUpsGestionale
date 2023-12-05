@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Provvedimento extends TablesId implements Serializable {
 
     private String nome;
-    private int idMansione;
     private int idOggetto;
     private String rischio;
     private String soggettiEsposti;
@@ -13,12 +12,11 @@ public class Provvedimento extends TablesId implements Serializable {
     private int stima_d;
     private int stima_p;
 
-    public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, String rischio,
+    public Provvedimento(int idProvvedimento, int idOggetto, String rischio, String nome,
             String soggettiEsposti, int stima_r, int stima_d, int stima_p) {
         super(idProvvedimento);
 
         this.nome = nome;
-        this.idMansione = idMansione;
         this.idOggetto = idOggetto;
         this.rischio = rischio;
         this.soggettiEsposti = soggettiEsposti;
@@ -33,14 +31,6 @@ public class Provvedimento extends TablesId implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getIdMansione() {
-        return idMansione;
-    }
-
-    public void setIdMansione(int idMansione) {
-        this.idMansione = idMansione;
     }
 
     public int getIdOggetto() {

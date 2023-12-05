@@ -238,7 +238,6 @@ public class ModelDb {
                     while (resultSet.next()) {
                         int idProvvedimento = resultSet.getInt("id_provvedimento");
                         String nome = resultSet.getString("nome");
-                        int idMansione = resultSet.getInt("id_mansione");
                         int idOggetto = resultSet.getInt("id_oggetto");
                         String rischio = resultSet.getString("rischio");
                         String soggettiEsposti = resultSet.getString("soggetti_esposti");
@@ -246,8 +245,8 @@ public class ModelDb {
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
 
-                        Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
-                                rischio, soggettiEsposti, stima_r, stima_d, stima_p);
+                        Provvedimento provvedimento = new Provvedimento(idProvvedimento, idOggetto, rischio, nome,
+                                soggettiEsposti, stima_r, stima_d, stima_p);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -595,11 +594,6 @@ public class ModelDb {
 
                 modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
                         provvedimento.getId(),
-                        "id_mansione",
-                        provvedimento.getIdMansione());
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        provvedimento.getId(),
                         "id_oggetto",
                         provvedimento.getIdOggetto());
 
@@ -728,9 +722,8 @@ public class ModelDb {
                 break;
             case "Provvedimento":
                 Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
-                        ((Provvedimento) obj).getNome(),
-                        ((Provvedimento) obj).getIdMansione(),
                         ((Provvedimento) obj).getIdOggetto(),
+                        ((Provvedimento) obj).getNome(),
                         ((Provvedimento) obj).getRischio(),
                         ((Provvedimento) obj).getSoggettiEsposti(),
                         ((Provvedimento) obj).getStimaR(),
