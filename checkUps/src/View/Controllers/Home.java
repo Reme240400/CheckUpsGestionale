@@ -8,8 +8,12 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
+import Models.ModelHome;
+import Models.ModelPaths;
+import Models.ModelValutaRischi;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
@@ -17,9 +21,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
 
 
-public class Home extends ViewController {
+public class Home implements Initializable{
 
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
@@ -32,6 +39,12 @@ public class Home extends ViewController {
 
     @FXML
     private JFXButton btnValutaRischi;
+
+    private StackPane stackPane;
+
+    private ModelHome modelHome;
+    private ModelPaths modelPaths;
+    private ModelValutaRischi modelValutaRischi;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,7 +62,7 @@ public class Home extends ViewController {
         // * **************************************** //
 
         // * filtra i Combobox
-        FilteredList<String> filteredItems = filterComboBox(cercaSocieta, societies);
+        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
 
         cercaSocieta.setItems(filteredItems);
 
@@ -73,8 +86,13 @@ public class Home extends ViewController {
                                                             .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
                                                             .findFirst().get();
 
-                switchToValutaRischi( societa, unitaLocale);
+                Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
+                stackPane = modelPaths.getStackPaneHome();
+
+                if(root != null){
+                    Controller.changePane(stackPane,root);
+                }
                 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -85,4 +103,11 @@ public class Home extends ViewController {
         
     }
 
+    public void setModel(ModelHome modelHome, ModelValutaRischi modelValutaRischi, ModelPaths modelPaths){
+        this.modelHome = modelHome;
+        this.modelPaths = modelPaths;
+        this.modelValutaRischi = modelValutaRischi;
+
+
+    }
 }

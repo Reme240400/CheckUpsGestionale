@@ -1,41 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="503.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.Creazione">
    <top>
-      <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="53.0" prefWidth="705.0" styleClass="VBox_options" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnSocieta" alignment="CENTER" onAction="#switchToSocieta" text="Società / Ente">
+            <JFXButton fx:id="btnSocieta" alignment="CENTER" onAction="#switchToSocieta" stylesheets="@../css/style.css" text="Società / Ente">
                <HBox.margin>
                   <Insets left="20.0" />
-               </HBox.margin></JFXButton>
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="bordered" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></JFXButton>
             <Pane HBox.hgrow="SOMETIMES" />
-            <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
-            <Pane HBox.hgrow="SOMETIMES" />
-            <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" onAction="#switchToUnitaLocali" text="Unità locale" />
-            <Pane layoutX="273.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
-            <Label alignment="CENTER" layoutX="363.0" layoutY="28.0" prefHeight="17.0" text="&gt;&gt;" />
+            <JFXButton fx:id="btnUnitaLocali" alignment="CENTER" onAction="#switchToUnitaLocali" stylesheets="@../css/style.css" text="Unità locale">
+               <styleClass>
+                  <String fx:value="bordered" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></JFXButton>
             <Pane layoutX="377.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
-            <JFXButton fx:id="btnRepato" alignment="CENTER" layoutX="370.0" layoutY="24.0" onAction="#switchToReparto" text="Reparto" />
-            <Pane layoutX="441.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
-            <Label alignment="CENTER" layoutX="464.0" layoutY="28.0" prefHeight="17.0" text="&gt;&gt;" />
+            <JFXButton fx:id="btnRepato" alignment="CENTER" layoutX="370.0" layoutY="24.0" onAction="#switchToReparto" stylesheets="@../css/style.css" text="Reparto">
+               <styleClass>
+                  <String fx:value="bordered" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></JFXButton>
             <Pane layoutX="418.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
-            <JFXButton fx:id="btnTitolo" alignment="CENTER" layoutX="523.0" layoutY="24.0" onAction="#switchToTitoli" text="Titolo" />
-            <Pane layoutX="552.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
-            <Label alignment="CENTER" prefHeight="17.0" text="&gt;&gt;" />
-            <Pane />
+            <JFXButton fx:id="btnTitolo" alignment="CENTER" layoutX="523.0" layoutY="24.0" onAction="#switchToTitoli" stylesheets="@../css/style.css" text="Titolo">
+               <styleClass>
+                  <String fx:value="bordered" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></JFXButton>
             <Pane layoutX="608.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
-            <JFXButton fx:id="btnOggetto" alignment="CENTER" onAction="#switchToOggetti" text="Oggetto">
+            <JFXButton fx:id="btnOggetto" alignment="CENTER" onAction="#switchToOggetti" stylesheets="@../css/style.css" text="Oggetto">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <styleClass>
+                  <String fx:value="bordered" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <Pane layoutX="631.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
+            <JFXButton fx:id="btnProv" alignment="CENTER" layoutX="634.0" layoutY="24.0" onAction="#switchToProvvedimenti" stylesheets="@../css/style.css" text="Provvedimenti">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
+               <styleClass>
+                  <String fx:value="bordered" />
+                  <String fx:value="btn_homePage" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </JFXButton>
          </children>
       </HBox>

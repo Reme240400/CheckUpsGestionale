@@ -6,9 +6,11 @@ import java.util.Optional;
 
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
+import View.Controllers.Home;
 import View.Controllers.ValutaRischi;
 import View.Controllers.Creazione.Creazione;
 import View.Controllers.Creazione.CreazioneOggetto;
+import View.Controllers.Creazione.CreazioneProvvedimento;
 import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneTitolo;
@@ -31,12 +33,22 @@ import javafx.scene.layout.StackPane;
 public class ModelPaths {
 
     private ModelModifica modelModifica = new ModelModifica();
+    private ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
 
     private String loadedFXMLs = null;
+    private StackPane stackPane = null;
     private StackPane stackPaneHome = null;
     private StackPane stackPaneModificaR = null;
     private StackPane stackPaneModificaO = null;
     private StackPane stackPaneCrea = null;
+
+    public void setMainStackPane(StackPane stackPane) {
+        this.stackPane = stackPane;
+    }
+
+    public StackPane getMainStackPane() {
+        return this.stackPane;
+    }
 
     public void setStackPaneHome(StackPane stackPane) {
         this.stackPaneHome = stackPane;
@@ -188,9 +200,6 @@ public class ModelPaths {
         
         ValutaRischi rischiController = loader.getController();
 
-        System.out.println("Societa: " + societa.getNome());
-        System.out.println("Unita: " + unita.getNome());
-
         rischiController.setSection(unita, societa);
         rischiController.setModel(modelValutaRischi);
 
@@ -230,7 +239,10 @@ public class ModelPaths {
         if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
             FXMLLoader loader = new FXMLLoader(fxmlURL);
             Parent root = loader.load();
-            //Home home = loader.getController();
+
+            Home home = loader.getController();
+
+            home.setModel(modelHome, modelValutaRischi, this);
 
             loadedFXMLs = fxmlURL.toString();
 
@@ -318,7 +330,15 @@ public class ModelPaths {
 
     // ------------------ Cambia la scena a Creazione Provvedimento ------------------ //
     public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException{
-        return null;
+            
+            FXMLLoader loaderProvvedimento = new FXMLLoader(getClass().getResource("/View/fxml/creazione_provvedimenti.fxml"));
+            Parent root = loaderProvvedimento.load();
+            
+            CreazioneProvvedimento creazioneProvvedimento = loaderProvvedimento.getController();
+    
+            creazioneProvvedimento.setModel( modelCreazione, this, modelModifica);
+    
+            return root;
     }
 
     // ------------------  ------------------ //

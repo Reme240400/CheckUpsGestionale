@@ -15,8 +15,6 @@ import Models.ModelHome;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
-import Models.Tables.Societa;
-import Models.Tables.UnitaLocale;
 
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
@@ -26,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -42,6 +41,9 @@ public class ViewController implements Initializable{
 
     @FXML
     private JFXButton btnCreate;
+
+    @FXML
+    private Label titoloScena;
 
     @FXML
     private StackPane stackPane;
@@ -77,6 +79,8 @@ public class ViewController implements Initializable{
 
     public void switchToHome() throws IOException{
         
+        titoloScena.setText("Home Page");
+
         Parent root = modelPaths.switchToHome(modelHome);
         if(root != null){
             Controller.changePane(stackPane, root);
@@ -85,6 +89,8 @@ public class ViewController implements Initializable{
     }
 
     public void switchToCreazione() throws IOException{
+
+        titoloScena.setText("Creazione");
         
         Parent root = modelPaths.switchToCreazione(modelCreazione); 
 
@@ -96,6 +102,8 @@ public class ViewController implements Initializable{
 
     public void switchToModifica() throws IOException{
         
+        titoloScena.setText("Modifica");
+
         Parent root = modelPaths.switchToModifica(modelModifica);
 
         if(root != null){
@@ -104,16 +112,16 @@ public class ViewController implements Initializable{
         
     }
 
-    public void switchToValutaRischi(Societa societa, UnitaLocale unitaLocale) throws IOException{
+    // public void switchToValutaRischi(Societa societa, UnitaLocale unitaLocale) throws IOException{
 
-        Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
+    //     Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
-        stackPane = modelPaths.getStackPaneHome();
+    //     stackPane = modelPaths.getStackPaneHome();
 
-        if(root != null){
-            Controller.changePane(stackPane,root);
-        }
-    }
+    //     if(root != null){
+    //         Controller.changePane(stackPane,root);
+    //     }
+    // }
 
     public void logout(ActionEvent event) throws IOException{
         System.out.println("Logout");

@@ -107,15 +107,15 @@
                   </ImageView>
                </children>
             </HBox>
-            <Pane prefHeight="70.0" prefWidth="925.0">
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="927.0">
                <children>
-                  <Label alignment="CENTER" layoutX="351.0" layoutY="14.0" prefHeight="43.0" prefWidth="223.0" text="Home Page" textFill="#c90000">
+                  <Label fx:id="titoloScena" alignment="CENTER" prefHeight="43.0" prefWidth="223.0" textFill="#c90000">
                      <font>
                         <Font name="Berlin Sans FB" size="39.0" />
                      </font>
                   </Label>
                </children>
-            </Pane>
+            </HBox>
          </children>
       </HBox>
    </top>

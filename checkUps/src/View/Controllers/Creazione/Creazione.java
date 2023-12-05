@@ -19,13 +19,19 @@ public class Creazione implements Initializable {
     private JFXButton btnSocieta;
 
     @FXML
-    protected JFXButton btnUnitaLocali;
+    private JFXButton btnUnitaLocali;
 
     @FXML
     private JFXButton btnReparti;
 
     @FXML
     private JFXButton btnTitoli;
+
+    @FXML
+    private JFXButton btnOggetti;
+
+    @FXML
+    private JFXButton btnProvvedimenti;
 
     @FXML
     private StackPane stackPaneCreazione;
@@ -71,6 +77,13 @@ public class Creazione implements Initializable {
     public void switchToOggetti() throws IOException {
 
         Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
+        stackPaneCreazione.getChildren().removeAll();
+        stackPaneCreazione.getChildren().setAll(root);
+    }
+
+    public void switchToProvvedimenti() throws IOException {
+
+        Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
         stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);
     }

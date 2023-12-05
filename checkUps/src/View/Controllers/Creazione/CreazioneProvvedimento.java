@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Model;
 import Models.ModelCreazione;
@@ -28,7 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneProvvedimento implements Initializable{
+public class CreazioneProvvedimento implements Initializable {
 
     @FXML
     private JFXButton btnAdd;
@@ -105,6 +106,11 @@ public class CreazioneProvvedimento implements Initializable{
         idColO.setCellValueFactory(new PropertyValueFactory<Oggetto, Integer>("id"));
         nomeColO.setCellValueFactory(new PropertyValueFactory<Oggetto, String>("nome"));
 
+        idColP.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("id"));
+        nomeColP.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
+        rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
+        soggetiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggetti_esposti"));
+        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stima"));
 
         ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -120,27 +126,193 @@ public class CreazioneProvvedimento implements Initializable{
 
         cercaSocieta.setItems(filteredItems);
 
+        tableOggetti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectOggetto(); // Chiama il metodo quando viene selezionato un elemento
+            }
+        });
     }
 
-    
+    // --------------- triggherato quando si seleziona un' societa ---------------
+    // //
+    public void selectSocieta() {
+        List<UnitaLocale> specificList = null;
 
-    @FXML
+        if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
+
+            localSocieta = societaList.stream()
+                    .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                    .findFirst().get();
+            // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+
+            specificList = unitaLocaleList.stream()
+                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                    .toList();
+
+            ObservableList<String> items = FXCollections.observableArrayList();
+
+            // * *************** popola il combobox *************** //
+
+            for (UnitaLocale unita : specificList) {
+                items.add(unita.getNome());
+            }
+
+            // --------------- filtra il Combobox --------------- //
+            FilteredList<String> filteredItems = Model.filterComboBox(cercaUnita, items);
+
+            cercaUnita.setItems(filteredItems);
+        }
+
+        cercaUnita.setValue(null);
+        cercaReparto.setValue(null);
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
+    }
+
+    // --------------- triggherato quando si seleziona un' unita locale
+    // --------------- //
+    public void selectUnita() {
+        List<Reparto> specificList = null;
+
+        if (cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()) {
+
+            if (localSocieta != null) {
+                localUnita = unitaLocaleList.stream()
+                        .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                        .filter(u -> u.getNome().equals(cercaUnita.getValue()))
+                        .findFirst().get();
+
+                // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
+                specificList = repartoList.stream()
+                        .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
+                        .toList();
+
+                ObservableList<String> items = FXCollections.observableArrayList();
+
+                // * *************** popola il combobox *************** //
+
+                for (Reparto reparto : specificList) {
+                    items.add(reparto.getNome());
+                }
+
+                // --------------- filtra il Combobox --------------- //
+                FilteredList<String> filteredItems = Model.filterComboBoxById(cercaReparto, localSocieta.getId(),
+                        items);
+
+                cercaReparto.setItems(filteredItems);
+            }
+        }
+
+        cercaReparto.setValue(null);
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
+    }
+
+    // --------------- triggherato quando si seleziona un' reparto ---------------
+    // //
     public void selectReparto() {
 
+        List<Titolo> specificList = null;
+
+        if (localUnita != null && cercaReparto.getValue() != null && !cercaReparto.getValue().isEmpty()) {
+            localReparto = repartoList.stream()
+                    .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
+                    .filter(r -> r.getNome().equals(cercaReparto.getValue()))
+                    .findFirst().get();
+
+            specificList = titoloList.stream()
+                    .filter(t -> t.getIdReparto() == localReparto.getId())
+                    .toList();
+
+            ObservableList<String> items = FXCollections.observableArrayList();
+
+            // * *************** popola il combobox *************** //
+
+            for (Titolo titolo : specificList) {
+                items.add(titolo.getDescrizione());
+            }
+
+            // --------------- filtra il Combobox --------------- //
+            FilteredList<String> filteredItems = Model.filterComboBoxById(cercaTitolo, localUnita.getId(), items);
+
+            cercaTitolo.setItems(filteredItems);
+        }
+
+        cercaTitolo.setValue(null);
+        tableOggetti.getItems().clear();
+
     }
 
-    @FXML
-    public void selectSocieta() {
-
-    }
-
-    @FXML
+    // --------------- triggherato quando si seleziona un' titolo --------------- //
     public void selectTitolo() {
 
+        if (localReparto != null && cercaTitolo.getValue() != null && !cercaTitolo.getValue().isEmpty()) {
+            localTitolo = titoloList.stream()
+                    .filter(u -> u.getIdReparto() == localReparto.getId())
+                    .filter(u -> u.getDescrizione().equals(cercaTitolo.getValue()))
+                    .findFirst().get();
+
+            // textFieldTitolo.setText(modelCreazione.getTitoloTmp().getDescrizione());
+
+            fillTableViewO();
+        }
     }
 
-    @FXML
-    public void selectUnita() {
+    // --------------- triggherato quando si seleziona un' oggetto --------------- //
+    public void selectOggetto() {
+
+        if (localTitolo != null && tableOggetti.getSelectionModel().getSelectedItem() != null) {
+            localOggetto = tableOggetti.getSelectionModel().getSelectedItem();
+
+            fillTableViewP();
+        }
+    }
+
+    private void fillTableViewO() {
+
+        List<Oggetto> specificList = null;
+
+        if (localTitolo != null) {
+            oggettoList = ClassHelper.getListOggetto().stream()
+                    .filter(o -> o.getIdTitolo() == localTitolo.getId())
+                    .toList();
+        }
+
+        specificList = oggettoList.stream()
+                .filter(o -> o.getIdTitolo() == localTitolo.getId())
+                .toList();
+
+        ObservableList<Oggetto> items = FXCollections.observableArrayList();
+
+        // * *************** popola il combobox *************** //
+
+        for (Oggetto oggetto : specificList) {
+            items.add(oggetto);
+        }
+
+        tableOggetti.setItems(items);
+
+    }
+
+    private void fillTableViewP() {
+
+        List<Provvedimento> specificList = null;
+
+        if (localOggetto != null) {
+            specificList = ClassHelper.getListProvvedimento().stream()
+                    .filter(p -> p.getIdOggetto() == localOggetto.getId())
+                    .toList();
+        }
+
+        ObservableList<Provvedimento> items = FXCollections.observableArrayList();
+
+        // * *************** popola il combobox *************** //
+
+        for (Provvedimento provvedimento : specificList) {
+            items.add(provvedimento);
+        }
+
+        tableProvvedimenti.setItems(items);
 
     }
 
@@ -151,14 +323,18 @@ public class CreazioneProvvedimento implements Initializable{
 
     @FXML
     public void delete() {
-
+        if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
+            Provvedimento provvedimento = tableProvvedimenti.getSelectionModel().getSelectedItem();
+            Controller.eliminaRecord(provvedimento, provvedimento.getId());
+            tableProvvedimenti.getItems().remove(provvedimento);
+        }
     }
 
     @FXML
     public void modify() {
 
     }
-    
+
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
