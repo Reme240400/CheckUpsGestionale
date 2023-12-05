@@ -144,7 +144,7 @@ public class ModelListe {
                                 ClassHelper.getListProvvedimento().stream()
                                                 .filter(p -> p.getId() == provvedimento.getId()).forEach(p -> {
                                                         p.setNome(provvedimento.getNome());
-                                                        p.setIdMansione(provvedimento.getIdMansione());
+                                                        //p.setIdMansione(provvedimento.getIdMansione());
                                                         p.setIdOggetto(provvedimento.getIdOggetto());
                                                         p.setRischio(provvedimento.getRischio());
                                                         p.setSoggettiEsposti(provvedimento.getSoggettiEsposti());
@@ -234,7 +234,7 @@ public class ModelListe {
                         case "Provvedimento":
                                 Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
                                                 ((Provvedimento) obj).getNome(),
-                                                ((Provvedimento) obj).getIdMansione(),
+                                                //((Provvedimento) obj).getIdMansione(),
                                                 ((Provvedimento) obj).getIdOggetto(),
                                                 ((Provvedimento) obj).getRischio(),
                                                 ((Provvedimento) obj).getSoggettiEsposti(),

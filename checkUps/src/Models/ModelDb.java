@@ -238,7 +238,7 @@ public class ModelDb {
                     while (resultSet.next()) {
                         int idProvvedimento = resultSet.getInt("id_provvedimento");
                         String nome = resultSet.getString("nome");
-                        int idMansione = resultSet.getInt("id_mansione");
+                        //int idMansione = resultSet.getInt("id_mansione");
                         int idOggetto = resultSet.getInt("id_oggetto");
                         String rischio = resultSet.getString("rischio");
                         String soggettiEsposti = resultSet.getString("soggetti_esposti");
@@ -246,7 +246,7 @@ public class ModelDb {
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
 
-                        Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idMansione, idOggetto,
+                        Provvedimento provvedimento = new Provvedimento(idProvvedimento, nome, idOggetto,
                                 rischio, soggettiEsposti, stima_r, stima_d, stima_p);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
@@ -593,10 +593,10 @@ public class ModelDb {
                         "nome",
                         provvedimento.getNome());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        provvedimento.getId(),
-                        "id_mansione",
-                        provvedimento.getIdMansione());
+                //modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                       // provvedimento.getId(),
+                        //"id_mansione",
+                        //provvedimento.getIdMansione());
 
                 modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
                         provvedimento.getId(),
@@ -729,7 +729,7 @@ public class ModelDb {
             case "Provvedimento":
                 Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
                         ((Provvedimento) obj).getNome(),
-                        ((Provvedimento) obj).getIdMansione(),
+                        //((Provvedimento) obj).getIdMansione(),
                         ((Provvedimento) obj).getIdOggetto(),
                         ((Provvedimento) obj).getRischio(),
                         ((Provvedimento) obj).getSoggettiEsposti(),
@@ -983,13 +983,12 @@ public class ModelDb {
                 while (resultSet.next()) {
                     int idProvvedimento = resultSet.getInt("id_provvedimento");
                     String nome = resultSet.getString("nome");
-                    int idMansione = resultSet.getInt("id_mansione");
+                    //int idMansione = resultSet.getInt("id_mansione");
                     int idOggetto = resultSet.getInt("id_oggetto");
                     int idElencoRischi = resultSet.getInt("id_elenco_rischi");
 
                     System.out.println("ID Provvedimento: " + idProvvedimento);
                     System.out.println("Nome: " + nome);
-                    System.out.println("ID Mansione: " + idMansione);
                     System.out.println("ID Oggetto: " + idOggetto);
                     System.out.println("ID Elenco Rischi: " + idElencoRischi);
                     System.out.println();
