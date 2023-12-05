@@ -22,6 +22,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
@@ -33,7 +34,7 @@ public class pdfGenerator {
 
     public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
             String nomeFile) {
-        Document document = new Document(PageSize.A4.rotate());
+        Document document = new Document(new Rectangle(1008, 612));
 
         try {
 
@@ -80,9 +81,10 @@ public class pdfGenerator {
                         if (provvedimenti.size() == 0) {
                             continue;
                         }
-                        //ciclo per fare in modo che il titolo sia stampato solo dopo che ho controllato che abbia degli oggetti e dei provvedimenti
+                        // ciclo per fare in modo che il titolo sia stampato solo dopo che ho
+                        // controllato che abbia degli oggetti e dei provvedimenti
                         if (k == 0) {
-                            //se sono al primo giro non metto una pagina uova prima di titolo
+                            // se sono al primo giro non metto una pagina uova prima di titolo
                             if (n != 1) {
                                 document.newPage();
                             }
@@ -121,18 +123,12 @@ public class pdfGenerator {
                             provvedimentoTable.addCell(
                                     createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
                                             .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
-                            provvedimentoTable.addCell(createCell(provvedimento.getRischio(), 1, Font.BOLD));
+                            provvedimentoTable.addCell(
+                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
                             provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD));
                             provvedimentoTable.addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD));
-
-                            float remainingHeight = document.top() - document.bottom() - document.bottomMargin();
-                            float provvedimentoTableHeight = provvedimentoTable.calculateHeights();
-
-                            if (remainingHeight < provvedimentoTableHeight) {
-                                document.newPage();
-                            }
 
                             document.add(provvedimentoTable);
                         }
@@ -157,7 +153,7 @@ public class pdfGenerator {
 
     private static class PdfFooter extends PdfPageEventHelper {
         public void onEndPage(PdfWriter writer, Document document) {
-            PdfPTable table = new PdfPTable(2);
+            PdfPTable table = new PdfPTable(3);
             currentPage++;
             // Crea una data formattata
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -168,6 +164,7 @@ public class pdfGenerator {
             table.getDefaultCell().setFixedHeight(20);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(new Phrase("Data:  " + formattedDate));
+            table.addCell("LOGO");
             table.addCell("Pagina " + currentPage);
             table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
         }
