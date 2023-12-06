@@ -497,6 +497,32 @@ public class CreazioneProvvedimento implements Initializable {
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
+
+        if(modelCreazione.getSocietaTmp() != null){
+            localSocieta = modelCreazione.getSocietaTmp();
+            cercaSocieta.setValue(localSocieta.getNome());
+        }
+
+        if(modelCreazione.getUnitaLocaleTmp() != null){
+            localUnita = modelCreazione.getUnitaLocaleTmp();
+            cercaUnita.setValue(localUnita.getNome());
+        }
+
+        if(modelCreazione.getRepartoTmp() != null){
+            localReparto = modelCreazione.getRepartoTmp();
+            cercaReparto.setValue(localReparto.getNome());
+        }
+
+        if(modelCreazione.getTitoloTmp() != null){
+            localTitolo = modelCreazione.getTitoloTmp();
+            cercaTitolo.setValue(localTitolo.getDescrizione());
+        }
+
+        if(modelCreazione.getOggettoTmp() != null){
+            localOggetto = modelCreazione.getOggettoTmp();
+            fillTableViewO();
+        }
+
     }
 
 }

@@ -129,6 +129,11 @@ public class CreazioneOggetto implements Initializable {
 
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
 
+            if(localSocieta != null){
+                if(!cercaSocieta.getValue().equals(localSocieta.getNome()))
+                    modelCreazione.resetAllTmp();
+            }
+
             localSocieta = societaList.stream()
                                     .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                                     .findFirst().get();
@@ -163,7 +168,11 @@ public class CreazioneOggetto implements Initializable {
         List<Reparto> specificList = null;
 
         if(cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
-
+            tableOggetti.getItems().clear();
+            if(localUnita != null){
+                if(!cercaUnita.getValue().equals(localUnita.getNome()))
+                    modelCreazione.resetAllTmp();
+            }
             if(localSocieta != null){
                 localUnita = unitaLocaleList.stream()
                         .filter(u -> u.getIdSocieta() == localSocieta.getId())
@@ -192,7 +201,7 @@ public class CreazioneOggetto implements Initializable {
 
         cercaReparto.setValue(null);
         cercaTitolo.setValue(null);
-        tableOggetti.getItems().clear();
+        
     }
 
     // --------------- triggherato quando si seleziona un' reparto --------------- //
@@ -352,9 +361,7 @@ public class CreazioneOggetto implements Initializable {
                             "Qualcosa non è stato inserito correttamente");
                 }
             }
-        }
-
-        if (localSocieta != null &&
+        }else if (localSocieta != null &&
             localUnita != null &&
             localReparto != null &&
             localTitolo != null) {
@@ -405,6 +412,10 @@ public class CreazioneOggetto implements Initializable {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
             Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
 
+            modelCreazione.createSocietaTmp(localSocieta);
+            modelCreazione.createUnitaLocaleTmp(localUnita);
+            modelCreazione.createRepartoTmp(localReparto);
+            modelCreazione.createTitoloTmp(localTitolo);
             modelCreazione.createOggettoTmp(oggetto);
 
             try {
@@ -425,7 +436,27 @@ public class CreazioneOggetto implements Initializable {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-    
+        if(modelCreazione.getSocietaTmp() != null){
+            cercaSocieta.setValue(localSocieta.getNome());
+            selectUnita();
+        }
+
+        if(modelCreazione.getUnitaLocaleTmp() != null){
+            cercaUnita.setValue(localUnita.getNome());
+            selectReparto();
+        }
+
+        if(modelCreazione.getRepartoTmp() != null){
+            cercaReparto.setValue(localReparto.getNome());
+            selectTitolo();
+        }
+
+        if(modelCreazione.getTitoloTmp() != null){
+            cercaTitolo.setValue(localTitolo.getDescrizione());
+            fillTableView();
+        }
+
+        
     }
 
 }

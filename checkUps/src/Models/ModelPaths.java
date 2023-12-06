@@ -267,9 +267,8 @@ public class ModelPaths {
             CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
             creazioneUnita.setModel(modelCreazione, this);
-
-            creazioneUnita.setTextFields();
-            creazioneUnita.setSocieta(modelCreazione.getSocietaTmp());
+            
+            creazioneUnita.setSocieta();
 
             return root;
         } else {

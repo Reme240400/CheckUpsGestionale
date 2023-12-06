@@ -16,7 +16,6 @@ import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
-import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -60,7 +59,7 @@ public class CreazioneUnitaLocale implements Initializable {
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
 
-    private Societa societaTmp;
+    private Societa localSocieta;
     private List<Societa> listSocieta;
 
 
@@ -84,15 +83,6 @@ public class CreazioneUnitaLocale implements Initializable {
         
     }
 
-    public void setSocieta(){
-
-        if (cercaRecord.getValue() != null && !cercaRecord.getValue().equals("")) {
-            modelCreazione.createSocietaTmp(listSocieta.stream().filter(s -> s.getNome().equals(cercaRecord.getValue())).findFirst().get());
-            setSocieta(modelCreazione.getSocietaTmp());
-        }
-            
-    }
-
     public void salvaUnitaLocale(javafx.event.ActionEvent event) {
 
         int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
@@ -102,7 +92,7 @@ public class CreazioneUnitaLocale implements Initializable {
                                                     textFieldIndirizzo.getText(),
                                                     textFieldLocalita.getText(),
                                                     textFieldProvincia.getText(),
-                                                    societaTmp.getId());
+                                                    localSocieta.getId());
 
         Controller.inserisciNuovoRecord(unitaLocale);
 
@@ -120,11 +110,11 @@ public class CreazioneUnitaLocale implements Initializable {
                                                     textFieldIndirizzo.getText(),
                                                     textFieldLocalita.getText(),
                                                     textFieldProvincia.getText(),
-                                                    societaTmp.getId());
+                                                    localSocieta.getId());
         
         Controller.inserisciNuovoRecord(unitaLocale);
 
-        //modelCreazione.resetSocietaTmp();
+        modelCreazione.createSocietaTmp(localSocieta);
         modelCreazione.createUnitaLocaleTmp(unitaLocale);
         modelCreazione.setSaved(false);
 
@@ -156,7 +146,7 @@ public class CreazioneUnitaLocale implements Initializable {
 
     }
 
-    public void setTextFields() {
+    public void setTextFields() {  
 
         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty().not());
         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty().not());
@@ -170,18 +160,27 @@ public class CreazioneUnitaLocale implements Initializable {
 
     }
 
-    public void setSocieta(Societa societaTmp) {
+    public void setSocieta() {
 
-        if (societaTmp != null) {
-            this.societaTmp = societaTmp;
-            nomeSocieta.setText(societaTmp.getNome());
+        if(cercaRecord.getValue() != null && !cercaRecord.getValue().equals("")){
+            if(localSocieta != null){
+                if(!cercaRecord.getValue().equals(nomeSocieta.getText())){
+                    modelCreazione.resetAllTmp();
+                }
+            }
+
+            this.localSocieta = listSocieta.stream()
+                                            .filter(s -> s.getNome().equals(cercaRecord.getValue()))
+                                            .findFirst().get();
 
             this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
             this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
             this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
             this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
-            //this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
-        } 
+            nomeSocieta.setText(localSocieta.getNome());
+
+            
+        }
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
@@ -189,5 +188,17 @@ public class CreazioneUnitaLocale implements Initializable {
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
 
+        setTextFields();
+
+        if (modelCreazione.getSocietaTmp() != null) {System.out.println("sono qui UnitaLocale");
+            this.localSocieta = modelCreazione.getSocietaTmp();
+            nomeSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+
+            this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
+            this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
+            this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
+            this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
+            //this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
+        }
     }
 }

@@ -131,6 +131,8 @@ public class CreazioneSocieta implements Initializable {
 
         eliminaSocieta();
 
+        modelCreazione.setSaved(false);
+
     }
 
     // * ----------------------------- elimina la societa ----------------------------- //

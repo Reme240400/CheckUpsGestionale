@@ -64,18 +64,18 @@
                   </TableView>
                </children>
             </VBox>
-            <VBox layoutX="184.0" layoutY="10.0">
+            <VBox layoutX="184.0" layoutY="10.0" prefHeight="492.0" prefWidth="564.0">
                <children>
-                  <Pane prefHeight="90.0" prefWidth="365.0">
+                  <Pane>
                      <children>
-                        <Label layoutX="14.0" layoutY="4.0" text="Reparti">
+                        <Label layoutX="14.0" layoutY="4.0" text="Titoli">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <TableView fx:id="tableTitoli" prefHeight="520.0" prefWidth="500.0">
+                  <TableView fx:id="tableTitoli" prefHeight="461.0" prefWidth="297.0">
                      <columns>
                         <TableColumn fx:id="idColT" editable="false" prefWidth="57.0" text="ID" />
                         <TableColumn fx:id="descColT" prefWidth="273.0" text="Descrizione" />

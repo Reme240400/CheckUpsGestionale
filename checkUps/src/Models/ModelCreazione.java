@@ -259,7 +259,7 @@ public class ModelCreazione extends ModelListe{
         List<Reparto> specificList = listaReparti.stream()
             .filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId())
             .toList();
-
+        
         return specificList;
     }
 
