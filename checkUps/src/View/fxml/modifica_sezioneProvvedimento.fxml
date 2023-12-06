@@ -24,7 +24,7 @@
                         <TableColumn fx:id="idCol" prefWidth="85.0" text="ID" />
                         <TableColumn fx:id="rischioCol" prefWidth="140.0" text="Rischio" />
                         <TableColumn fx:id="nomeCol" prefWidth="444.0" text="Nome" />
-                        <TableColumn fx:id="soggetiCol" prefWidth="241.0" text="Soggetti Esposti" />
+                        <TableColumn fx:id="soggettiCol" prefWidth="241.0" text="Soggetti Esposti" />
                         <TableColumn fx:id="stimaCol" prefWidth="241.0" text="Stima" />
                      </columns>
                      <columnResizePolicy>

@@ -25,7 +25,7 @@
          <children>
             <VBox prefHeight="460.0" prefWidth="688.0">
                <children>
-                  <Pane prefHeight="129.0" prefWidth="688.0">
+                  <Pane prefHeight="124.0" prefWidth="688.0">
                      <children>
                         <Label layoutX="41.0" layoutY="36.0" text="Modifica Provvedimento">
                            <font>
@@ -47,7 +47,7 @@
                      </rowConstraints>
                      <children>
                         <Label text="Nome" GridPane.rowIndex="1" />
-                        <TextField fx:id="modificaNomeProv" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="modificaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label fx:id="rischio" layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="2" />
                         <TextArea fx:id="modificaRischio" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="modificaSoggettiEsposti" alignment="CENTER" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />

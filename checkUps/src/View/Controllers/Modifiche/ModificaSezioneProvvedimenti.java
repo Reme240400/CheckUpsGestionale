@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -13,13 +14,17 @@ import Models.Alerts;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Provvedimento;
-
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaOggetto;
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaProv;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -71,7 +76,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
         soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("stima_r"));
+        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("stimaR"));
 
         tableProvvedimenti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -101,9 +106,51 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     }
 
     @FXML
-    public void modify() {
+    public void modify() throws IOException{
+        if(modelModifica.getProvTmp() != null ){
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_prov_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
 
+            DialogPaneModificaProv dialogController = loader.getController();
+
+            dialogController.setModel(modelModifica);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Modifica Provvedimento");
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+
+            if (clickedButton.get() == ButtonType.APPLY) {
+
+                updateChanges(dialogController);
+            }
+        } else {
+            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
+        }
+    }
+
+    private void updateChanges(DialogPaneModificaProv dialogController) {
+        if(dialogController.getNome() != null && 
+            dialogController.getRischio() != null && 
+            dialogController.getSoggettiEsposti() != null && 
+            dialogController.getStimaR() != 0){
+
+            Provvedimento provvedimento = modelModifica.getProvTmp();
+            provvedimento.setNome(dialogController.getNome());
+            provvedimento.setRischio(dialogController.getRischio());
+            provvedimento.setSoggettiEsposti(dialogController.getSoggettiEsposti());
+            provvedimento.setStimaR(dialogController.getStimaR());
+
+            Controller.modificaCampo(provvedimento);
+
+            tableProvvedimenti.refresh();
+        } else {
+            Alerts.errorAllert("Errore", "Modifica fallita", "Riempi tutti i campi");
+        }
     }
 
     @FXML
@@ -114,7 +161,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
         
             if (clickedButton == ButtonType.APPLY) {
                 if(modelModifica.getTitoloTmp() != null){
-                    modelModifica.setSelectedReparto(false);
+                    modelModifica.setSelectedOggetto(false);
 
                     Parent root = modelPaths.switchToModificaOggetti(modelModifica);
                     Controller.changePane(modelPaths.getStackPaneModificaO(), root);
