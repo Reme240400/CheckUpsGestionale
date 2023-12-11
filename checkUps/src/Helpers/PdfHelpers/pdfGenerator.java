@@ -111,23 +111,23 @@ public class pdfGenerator {
                             PdfPTable provvedimentoTable = new PdfPTable(6);
 
                             if (j == 0) {
-                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD));
                                 provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD));
                                 provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD));
+                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD));
                                 provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD));
                             }
                             j++;
 
                             provvedimentoTable.setWidthPercentage(100);
-
-                            provvedimentoTable.addCell(
-                                    createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
-                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
                             provvedimentoTable.addCell(
                                     createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
                             provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD));
+                            provvedimentoTable.addCell(
+                                    createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
+                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
+
                             provvedimentoTable.addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD));
 
                             document.add(provvedimentoTable);
