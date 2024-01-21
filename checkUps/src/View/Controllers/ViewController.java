@@ -1,138 +1,122 @@
 package View.Controllers;
 
-import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import Controllers.Controller;
 import Controllers.ControllerDb;
+import Helpers.ClassHelper;
 import Models.Model;
-import Models.ModelCreazione;
-import Models.ModelHome;
-import Models.ModelModifica;
-import Models.ModelPaths;
-import Models.ModelValutaRischi;
-
+import Models.Tables.Societa;
+import View.Controllers.home.TableOggetto;
+import View.Controllers.home.TableProvvedimento;
+import View.Controllers.home.TableReparto;
+import View.Controllers.home.TableTitolo;
+import View.Controllers.home.TableUnitaLocale;
 import javafx.fxml.Initializable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
-public class ViewController implements Initializable{
+public class ViewController implements Initializable {
+    @FXML
+    private JFXComboBox<String> cercaSocieta;
 
     @FXML
-    private JFXButton btnQuit;
+    private JFXButton addTitoli;
 
     @FXML
-    private JFXButton btnHome;
+    private JFXButton addUnita1;
 
     @FXML
-    private JFXButton btnModify;
+    private JFXButton addUnita11;
 
     @FXML
-    private JFXButton btnCreate;
+    private JFXButton addUnita12;
 
     @FXML
-    private Label titoloScena;
+    private JFXButton addUnita121;
 
     @FXML
-    private StackPane stackPane;
+    private JFXButton addUnita1211;
 
-    protected static ModelPaths modelPaths = new ModelPaths();
-    protected static ModelCreazione modelCreazione = new ModelCreazione();
-    protected static ModelHome modelHome = new ModelHome();
-    protected static ModelModifica modelModifica = new ModelModifica();
-    protected static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
+    @FXML
+    private JFXButton addUnita2;
+
+    @FXML
+    private JFXButton removeTitoli;
+
+    @FXML
+    private JFXButton removeUnita1;
+
+    @FXML
+    private JFXButton removeUnita2;
+
+    private List<Societa> listaSocieta = ClassHelper.getListSocieta();
+
+    @FXML
+    private TableUnitaLocale table_unitaLocaliController;
+    @FXML
+    private TableReparto table_repartiController;
+    @FXML
+    private TableTitolo table_titoliController;
+    @FXML
+    private TableOggetto table_oggettiController;
+    @FXML
+    private TableProvvedimento table_provvedimentiController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         ControllerDb.popolaListeDaDatabase();
 
-        btnQuit.setOnAction(event -> {
-            try {
-                logout(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        ObservableList<String> obsNomiSocieta = FXCollections
+                .observableArrayList(listaSocieta.stream().map(soc -> soc.getNome()).toList());
+        FilteredList<String> filteredItems = Model.filterComboBox(cercaSocieta, obsNomiSocieta);
+        cercaSocieta.setItems(filteredItems);
+
+        table_unitaLocaliController.onRowSelect((uLocale) -> {
+            table_titoliController.clearTable();
+            table_oggettiController.clearTable();
+            table_provvedimentiController.clearTable();
+
+            table_repartiController.update(uLocale.getReparti());
         });
 
-        try{
-            switchToHome();
-            
-            modelPaths.setStackPaneHome(stackPane);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }        
+        table_repartiController.onRowSelect((reparto) -> {
+            table_oggettiController.clearTable();
+            table_provvedimentiController.clearTable();
+
+            table_titoliController.update(reparto.getTitoli());
+        });
+
+        table_titoliController.onRowSelect((titolo) -> {
+            table_provvedimentiController.clearTable();
+
+            table_oggettiController.update(titolo.getOggetti());
+        });
+
+        table_oggettiController.onRowSelect((oggetto) -> {
+            table_provvedimentiController.update(oggetto.getProvvedimenti());
+        });
     }
 
-    public void switchToHome() throws IOException{
-        
-        titoloScena.setText("Home Page");
+    public void selectSocieta() {
+        Optional<Societa> soc = listaSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                .findFirst();
+        if (soc.isEmpty())
+            return;
 
-        Parent root = modelPaths.switchToHome(modelHome, titoloScena);
-        if(root != null){
-            Controller.changePane(stackPane, root);
-        }
+        table_repartiController.clearTable();
+        table_titoliController.clearTable();
+        table_oggettiController.clearTable();
+        table_provvedimentiController.clearTable();
 
+        table_unitaLocaliController.update(ClassHelper.getListUnitaLocale().stream()
+                .filter(uLoc -> uLoc.getIdSocieta() == soc.get().getId()).toList());
     }
-
-    public void switchToCreazione() throws IOException{
-
-        titoloScena.setText("Creazione");
-        
-        Parent root = modelPaths.switchToCreazione(modelCreazione); 
-
-        if(root != null){
-            Controller.changePane(stackPane, root);
-        }
-
-    }
-
-    public void switchToModifica() throws IOException{
-        
-        titoloScena.setText("Modifica");
-
-        Parent root = modelPaths.switchToModifica(modelModifica);
-
-        if(root != null){
-            Controller.changePane(stackPane, root);
-        }
-        
-    }
-
-    public void logout(ActionEvent event) throws IOException{
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-
-        alert.setTitle("Esci");
-        alert.setHeaderText("Stai per uscire!");
-        alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
-
-
-        if(alert.showAndWait().get().getText().equals("OK")){
-            Stage stage = (Stage) btnQuit.getScene().getWindow();
-            stage.close();
-        }
-    }
-
-    public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
-
-        return Model.filterComboBox(cercaItem, units);
-    }
-
-    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
-
-        return Model.filterComboBoxById(cercaItem, id, units);
-    }
-
 }

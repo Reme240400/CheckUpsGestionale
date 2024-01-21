@@ -1,8 +1,11 @@
 package Models.Tables;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class Oggetto extends TablesId implements Serializable{
+import Helpers.ClassHelper;
+
+public class Oggetto extends TablesId implements Serializable {
 
     private String nome;
     private int idTitolo;
@@ -28,6 +31,10 @@ public class Oggetto extends TablesId implements Serializable{
 
     public void setIdTitolo(int idTitolo) {
         this.idTitolo = idTitolo;
+    }
+
+    public List<Provvedimento> getProvvedimenti() {
+        return ClassHelper.getListProvvedimento().stream().filter(provv -> provv.getIdOggetto() == getId()).toList();
     }
 
 }

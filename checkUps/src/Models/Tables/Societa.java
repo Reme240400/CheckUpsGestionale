@@ -1,9 +1,12 @@
 package Models.Tables;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class Societa extends TablesId implements Serializable{
-    
+import Helpers.ClassHelper;
+
+public class Societa extends TablesId implements Serializable {
+
     private String indirizzo;
     private String localita;
     private String provincia;
@@ -11,9 +14,9 @@ public class Societa extends TablesId implements Serializable{
     private String descrizione;
     private String nome;
 
-    public Societa( int idSocieta, String nome, String indirizzo, String localita, String provincia, String telefono, String descrizione) {
+    public Societa(int idSocieta, String nome, String indirizzo, String localita, String provincia, String telefono,
+            String descrizione) {
         super(idSocieta);
-        //this.idSocieta = idSocieta;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
@@ -33,11 +36,11 @@ public class Societa extends TablesId implements Serializable{
     public String getProvincia() {
         return provincia;
     }
-    
+
     public String getDescrizione() {
         return descrizione;
-    } 
-    
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -53,6 +56,7 @@ public class Societa extends TablesId implements Serializable{
     public void setLocalita(String localita) {
         this.localita = localita.toUpperCase();
     }
+
     public void setProvincia(String provincia) {
         this.provincia = provincia.toUpperCase();
     }
@@ -73,5 +77,7 @@ public class Societa extends TablesId implements Serializable{
         this.nome = nome;
     }
 
+    public List<UnitaLocale> getUnitaLocale() {
+        return ClassHelper.getListUnitaLocale().stream().filter(uLocale -> uLocale.getIdSocieta() == getId()).toList();
+    }
 }
-

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:controller="View.Controllers.ViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="73.0" prefWidth="1737.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefWidth="1920.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Pane>
+                                    <children>
+                                        <Label alignment="CENTER" layoutX="7.0" layoutY="14.0" prefHeight="35.0" prefWidth="101.0" text="Società">
+                                            <font>
+                                                <Font name="System Bold" size="24.0" />
+                                            </font>
+                                        </Label>
+                                        <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#selectSocieta" layoutX="14.0" layoutY="46.0" prefHeight="25.0" prefWidth="283.0" promptText="Cerca..." />
+                                        <JFXButton fx:id="addUnita11" layoutX="312.0" layoutY="46.0" ripplerFill="WHITE" styleClass="grid" stylesheets="@../css/style.css" text="+" />
+                                    </children>
+                                </Pane>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+                <VBox prefHeight="111.0" prefWidth="316.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <JFXButton fx:id="addUnita1211" defaultButton="true" ellipsisString="" prefHeight="64.0" prefWidth="108.0" ripplerFill="WHITE" stylesheets="@../css/style.css" text="VALUTAZIONE DEI RISCHI" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                    <font>
+                                        <Font name="System Bold" size="12.0" />
+                                    </font>
+                                    <styleClass>
+                                        <String fx:value="bordered" />
+                                        <String fx:value="bordered_style" />
+                                    </styleClass>
+                                </JFXButton>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <GridPane prefHeight="490.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="923.0" minWidth="10.0" prefWidth="923.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="634.0" minWidth="10.0" prefWidth="474.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="523.0" minWidth="10.0" prefWidth="523.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <fx:include fx:id="table_titoli" source="tables/table_titoli.fxml"/>
+                        <fx:include fx:id="table_unitaLocali" source="tables/table_unitalocali.fxml"/>
+                        <fx:include fx:id="table_reparti" source="tables/table_reparti.fxml"/>
+                    </children>
+                </GridPane>
+                <GridPane prefHeight="490.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="955.0" minWidth="10.0" prefWidth="531.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1389.0" minWidth="10.0" prefWidth="1389.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <fx:include fx:id="table_oggetti" source="tables/table_oggetti.fxml"/>
+                        <fx:include fx:id="table_provvedimenti" source="tables/table_provvedimenti.fxml"/>
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

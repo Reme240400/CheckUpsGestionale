@@ -26,8 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
-
-public class Home implements Initializable{
+public class Home implements Initializable {
 
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
@@ -65,9 +64,10 @@ public class Home implements Initializable{
         // * **************************************** //
 
         // * filtra i Combobox
-        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
+        // FilteredList<String> filteredItems =
+        // ViewController.filterComboBox(cercaSocieta, societies);
 
-        cercaSocieta.setItems(filteredItems);
+        // cercaSocieta.setItems(filteredItems);
 
         // * ************************************************ //
     }
@@ -78,40 +78,40 @@ public class Home implements Initializable{
     }
 
     public void goToValutaRischi() {
-        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null && !cercaSocieta.getValue().isEmpty() && !cercaUnitaLocale.getValue().isEmpty()) {
+        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null && !cercaSocieta.getValue().isEmpty()
+                && !cercaUnitaLocale.getValue().isEmpty()) {
             try {
                 Societa societa = listSocieta.stream()
-                                                .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
-                                                .findFirst().get();
-                    
+                        .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                        .findFirst().get();
+
                 UnitaLocale unitaLocale = listUnitaLocale.stream()
-                                                            .filter(u -> u.getIdSocieta() == societa.getId())
-                                                            .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
-                                                            .findFirst().get();
+                        .filter(u -> u.getIdSocieta() == societa.getId())
+                        .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
+                        .findFirst().get();
 
                 Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
                 stackPane = modelPaths.getStackPaneHome();
 
-                if(root != null){
+                if (root != null) {
                     title.setText("Valuta Rischi");
-                    Controller.changePane(stackPane,root);
+                    Controller.changePane(stackPane, root);
                 }
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
-            } 
-        }else {
+            }
+        } else {
             Alerts.errorAllert();
         }
-        
+
     }
 
-    public void setModel(ModelHome modelHome, ModelValutaRischi modelValutaRischi, ModelPaths modelPaths){
+    public void setModel(ModelHome modelHome, ModelValutaRischi modelValutaRischi, ModelPaths modelPaths) {
         this.modelHome = modelHome;
         this.modelPaths = modelPaths;
         this.modelValutaRischi = modelValutaRischi;
-
 
     }
 

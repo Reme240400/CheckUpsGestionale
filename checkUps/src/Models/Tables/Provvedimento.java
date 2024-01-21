@@ -3,26 +3,25 @@ package Models.Tables;
 import java.io.Serializable;
 
 public class Provvedimento extends TablesId implements Serializable {
-
-    private String nome;
     private int idOggetto;
+    private String nome;
     private String rischio;
     private String soggettiEsposti;
-    private int stima_r;
-    private int stima_d;
-    private int stima_p;
+    private int stimaR;
+    private int stimaD;
+    private int stimaP;
 
     public Provvedimento(int idProvvedimento, int idOggetto, String rischio, String nome,
             String soggettiEsposti, int stima_r, int stima_d, int stima_p) {
         super(idProvvedimento);
 
-        this.nome = nome;
         this.idOggetto = idOggetto;
+        this.nome = nome;
         this.rischio = rischio;
         this.soggettiEsposti = soggettiEsposti;
-        this.stima_r = stima_r;
-        this.stima_d = stima_d;
-        this.stima_p = stima_p;
+        this.stimaR = stima_r;
+        this.stimaD = stima_d;
+        this.stimaP = stima_p;
     }
 
     public String getNome() {
@@ -58,27 +57,27 @@ public class Provvedimento extends TablesId implements Serializable {
     }
 
     public int getStimaR() {
-        return stima_r;
+        return stimaR;
     }
 
     public void setStimaR(int stima_r) {
-        this.stima_r = stima_r;
+        this.stimaR = stima_r;
     }
 
     public int getStimaD() {
-        return stima_d;
+        return stimaD;
     }
 
     public void setStimaD(int stima_d) {
-        this.stima_d = stima_d;
+        this.stimaD = stima_d;
     }
 
     public int getStimaP() {
-        return stima_p;
+        return stimaP;
     }
 
     public void setStimaP(int stima_p) {
-        this.stima_p = stima_p;
+        this.stimaP = stima_p;
     }
 
 }

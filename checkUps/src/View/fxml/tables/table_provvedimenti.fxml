@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:controller="View.Controllers.home.TableProvvedimento"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="490.0" prefWidth="1153.0" style="-fx-padding: 10px;" GridPane.columnIndex="1">
+    <children>
+        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="620.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="35.0" prefWidth="212.0" text="Provvedimenti" HBox.hgrow="SOMETIMES">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Pane prefHeight="55.0" prefWidth="168.0" HBox.hgrow="SOMETIMES" />
+                <TextField prefHeight="30.0" prefWidth="284.0" promptText="Cerca...." stylesheets="@../../css/style.css">
+                    <styleClass>
+                        <String fx:value="bordered" />
+                        <String fx:value="bordered_style" />
+                    </styleClass>
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                </TextField>
+                <Pane layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="100.0" />
+                <JFXButton fx:id="addUnita2" ripplerFill="WHITE" styleClass="grid" stylesheets="@../../css/style.css" text="+">
+                    <HBox.margin>
+                        <Insets right="15.0" />
+                    </HBox.margin>
+                </JFXButton>
+                <JFXButton fx:id="removeUnita2" minWidth="-Infinity" prefWidth="23.0" ripplerFill="WHITE" styleClass="grid" stylesheets="@../../css/style.css" text="-">
+                    <HBox.margin>
+                        <Insets right="15.0" />
+                    </HBox.margin>
+                </JFXButton>
+            </children>
+        </HBox>
+        <TableView fx:id="tableProvvedimenti" prefHeight="368.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
+            <columns>
+                <TableColumn fx:id="col_idProvvedimento" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="col_rischioProvvedimento" prefWidth="312.0" text="Rischio" />
+                <TableColumn fx:id="col_nomeProvvedimento" prefWidth="415.0" text="Nome" />
+                <TableColumn fx:id="col_soggettiEspostiProvvedimento" prefWidth="305.0" text="Sogg. esposti" />
+                <TableColumn fx:id="col_stimarProvvedimento" prefWidth="62.0" text="Stima R" />
+                <TableColumn fx:id="col_stimadProvvedimento" prefWidth="66.0" text="Stima D" />
+                <TableColumn fx:id="col_stimapProvvedimento" prefWidth="62.0" text="Stima P" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

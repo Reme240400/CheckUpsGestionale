@@ -1,19 +1,22 @@
 package Models.Tables;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class Reparto extends TablesId implements Serializable{
+import Helpers.ClassHelper;
+
+public class Reparto extends TablesId implements Serializable {
 
     private int idUnitaLocale;
     private String nome;
-    private String descrizione;
+    private String data;
 
-    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione) {
+    public Reparto(int idReparto, int idUnitaLocale, String nome, String data) {
         super(idReparto);
 
         this.idUnitaLocale = idUnitaLocale;
         this.nome = nome;
-        this.descrizione = descrizione;
+        this.data = data;
     }
 
     public int getIdUnitaLocale() {
@@ -32,12 +35,15 @@ public class Reparto extends TablesId implements Serializable{
         this.nome = nome;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public String getData() {
+        return data;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setData(String descrizione) {
+        this.data = descrizione;
     }
 
+    public List<Titolo> getTitoli() {
+        return ClassHelper.getListTitolo().stream().filter(titolo -> titolo.getIdReparto() == getId()).toList();
+    }
 }

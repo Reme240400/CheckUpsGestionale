@@ -5,22 +5,24 @@ import java.util.List;
 
 import Helpers.ClassHelper;
 
-public class UnitaLocale extends TablesId implements Serializable{
+public class UnitaLocale extends TablesId implements Serializable {
     private int idSocieta;
     private String nome;
     private String indirizzo;
     private String localita;
     private String provincia;
+    private String telefono;
     private List<Reparto> listaReparti = ClassHelper.getListReparto();
 
-    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, int idSocieta) {
+    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia,
+            String telefono, int idSocieta) {
         super(idUnitaLocale);
-        //this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
+        this.telefono = telefono;
     }
 
     public int getIdSocieta() {
@@ -61,6 +63,14 @@ public class UnitaLocale extends TablesId implements Serializable{
 
     public void setProvincia(String provincia) {
         this.provincia = provincia.toUpperCase();
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getTelefono() {
+        return telefono;
     }
 
     public List<Reparto> getReparti() {

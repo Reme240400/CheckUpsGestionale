@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:controller="View.Controllers.home.TableOggetto"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 10px;">
+    <children>
+        <HBox alignment="CENTER" prefHeight="55.0" prefWidth="620.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="35.0" prefWidth="193.0" text="Oggetti" HBox.hgrow="SOMETIMES">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <TextField prefHeight="30.0" prefWidth="284.0" promptText="Cerca...." stylesheets="@../../css/style.css">
+                    <styleClass>
+                        <String fx:value="bordered" />
+                        <String fx:value="bordered_style" />
+                    </styleClass>
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                </TextField>
+                <Pane layoutX="10.0" layoutY="10.0" prefHeight="55.0" prefWidth="145.0" HBox.hgrow="SOMETIMES" />
+                <JFXButton fx:id="addUnita12" defaultButton="true" ellipsisString="" prefHeight="40.0" prefWidth="45.0" ripplerFill="WHITE" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../dev/ProgettoCheckUp/CheckUpsGestionale/checkUps/src/View/icons/upload_icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <Pane layoutX="690.0" layoutY="10.0" prefHeight="55.0" prefWidth="71.0" />
+                <JFXButton fx:id="addUnita1" ripplerFill="WHITE" styleClass="grid" stylesheets="@../../css/style.css" text="+">
+                    <HBox.margin>
+                        <Insets right="15.0" />
+                    </HBox.margin>
+                </JFXButton>
+                <JFXButton fx:id="removeUnita1" minWidth="-Infinity" prefWidth="23.0" ripplerFill="WHITE" styleClass="grid" stylesheets="@../../css/style.css" text="-">
+                    <HBox.margin>
+                        <Insets right="15.0" />
+                    </HBox.margin>
+                </JFXButton>
+            </children>
+        </HBox>
+        <TableView fx:id="tableOggetti" prefHeight="368.0" prefWidth="620.0" VBox.vgrow="SOMETIMES">
+            <columns>
+                <TableColumn fx:id="col_idOggetto" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="col_nomeOggetto" prefWidth="459.0" text="Nome" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</VBox>

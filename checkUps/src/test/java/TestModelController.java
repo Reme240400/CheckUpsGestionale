@@ -16,7 +16,7 @@ public class TestModelController {
 
         System.out.println("Lista Reparto:");
         for (Reparto reparto : ClassHelper.getListReparto()) {
-            System.out.println(reparto.getId() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
+            System.out.println(reparto.getId() + " - " + reparto.getNome() + " - " + reparto.getData());
         }
 
         Mansione mansione1 = new Mansione(1, "Mansione 1", "Responsabile 1");
@@ -30,13 +30,13 @@ public class TestModelController {
         }
 
         // Rimozione di un oggetto dalla lista Reparto
-        //Controller.rimuoviDaLista(reparto2, 0);
+        // Controller.rimuoviDaLista(reparto2, 0);
 
         System.out.println("STAMPA DOPO OPERAZIONI: \n");
         // Visualizzazione della lista Reparto dopo le operazioni
         System.out.println("Lista Reparto:");
         for (Reparto reparto : ClassHelper.getListReparto()) {
-            System.out.println(reparto.getId() + " - " + reparto.getNome() + " - " + reparto.getDescrizione());
+            System.out.println(reparto.getId() + " - " + reparto.getNome() + " - " + reparto.getData());
         }
 
         System.out.println("\nLista Mansione:");

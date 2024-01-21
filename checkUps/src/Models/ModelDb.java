@@ -142,9 +142,9 @@ public class ModelDb {
                         int idReparto = resultSet.getInt("id_reparto");
                         int idUnitaLocale = resultSet.getInt("id_unita_locale");
                         String nome = resultSet.getString("nome");
-                        String descrizione = resultSet.getString("descrizione");
+                        String data = resultSet.getString("descrizione");
 
-                        Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
+                        Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, data);
                         ModelListe.inserisciRecordInLista(reparto);
                     }
                 } catch (SQLException e) {
@@ -279,10 +279,12 @@ public class ModelDb {
                         String indirizzo = resultSet.getString("indirizzo");
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
+                        // String telefono = resultSet.getString("telefono"); // TODO: Togliere commento
+                        // dopo aver aggiunto la column al db
+                        String telefono = "123 456 7890";
 
-                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
-                                idSocieta);
-
+                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, indirizzo, localita, provincia,
+                                telefono, idSocieta);
                         ModelListe.inserisciRecordInLista(unitaLocale);
                     }
                 } catch (SQLException e) {
@@ -485,7 +487,7 @@ public class ModelDb {
                 modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
                         reparto.getId(),
                         "descrizione",
-                        reparto.getDescrizione());
+                        reparto.getData());
 
                 break;
 
@@ -669,82 +671,31 @@ public class ModelDb {
     public static void inserisciRecordInLista(Object obj) {
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
-                Mansione mansione = new Mansione(((Mansione) obj).getId(),
-                        ((Mansione) obj).getNome(),
-                        ((Mansione) obj).getResponsabile());
-
-                ClassHelper.getListMansione().add(mansione);
+                ClassHelper.getListMansione().add((Mansione) obj);
                 break;
             case "Titolo":
-                Titolo titolo = new Titolo(((Titolo) obj).getId(),
-                        ((Titolo) obj).getIdReparto(),
-                        ((Titolo) obj).getDescrizione());
-
-                ClassHelper.getListTitolo().add(titolo);
+                ClassHelper.getListTitolo().add((Titolo) obj);
                 break;
             case "Reparto":
-                Reparto reparto = new Reparto(((Reparto) obj).getId(),
-                        ((Reparto) obj).getIdUnitaLocale(),
-                        ((Reparto) obj).getNome(),
-                        ((Reparto) obj).getDescrizione());
-
-                ClassHelper.getListReparto().add(reparto);
+                ClassHelper.getListReparto().add((Reparto) obj);
                 break;
             case "Rischio":
-                Rischio rischio = new Rischio(((Rischio) obj).getId(),
-                        ((Rischio) obj).getNome(),
-                        ((Rischio) obj).getP(),
-                        ((Rischio) obj).getD(),
-                        ((Rischio) obj).getR(),
-                        ((Rischio) obj).getIdReparto());
-
-                ClassHelper.getListRischio().add(rischio);
+                ClassHelper.getListRischio().add((Rischio) obj);
                 break;
             case "Societa":
-
-                Societa societa = new Societa(
-                        ((Societa) obj).getId(),
-                        ((Societa) obj).getNome(),
-                        ((Societa) obj).getIndirizzo(),
-                        ((Societa) obj).getLocalita(),
-                        ((Societa) obj).getProvincia(),
-                        ((Societa) obj).getTelefono(),
-                        ((Societa) obj).getDescrizione());
-
-                ClassHelper.getListSocieta().add(societa);
+                ClassHelper.getListSocieta().add((Societa) obj);
                 break;
             case "Oggetto":
-                Oggetto oggetto = new Oggetto(((Oggetto) obj).getId(),
-                        ((Oggetto) obj).getNome(),
-                        ((Oggetto) obj).getIdTitolo());
-
-                ClassHelper.getListOggetto().add(oggetto);
+                ClassHelper.getListOggetto().add((Oggetto) obj);
                 break;
             case "Provvedimento":
-                Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
-                        ((Provvedimento) obj).getIdOggetto(),
-                        ((Provvedimento) obj).getNome(),
-                        ((Provvedimento) obj).getRischio(),
-                        ((Provvedimento) obj).getSoggettiEsposti(),
-                        ((Provvedimento) obj).getStimaR(),
-                        ((Provvedimento) obj).getStimaD(),
-                        ((Provvedimento) obj).getStimaP());
-
-                ClassHelper.getListProvvedimento().add(provvedimento);
+                ClassHelper.getListProvvedimento().add((Provvedimento) obj);
                 break;
             case "UnitaLocale":
-                UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getId(),
-                        ((UnitaLocale) obj).getNome(),
-                        ((UnitaLocale) obj).getIndirizzo(),
-                        ((UnitaLocale) obj).getLocalita(),
-                        ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getIdSocieta());
-
-                ClassHelper.getListUnitaLocale().add(unitaLocale);
+                ClassHelper.getListUnitaLocale().add((UnitaLocale) obj);
                 break;
             default:
-                throw new IllegalArgumentException(
-                        "Unexpected value: " + obj.getClass().getSimpleName());
+                throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
         }
     }
 
@@ -976,7 +927,7 @@ public class ModelDb {
                 while (resultSet.next()) {
                     int idProvvedimento = resultSet.getInt("id_provvedimento");
                     String nome = resultSet.getString("nome");
-                    //int idMansione = resultSet.getInt("id_mansione");
+                    // int idMansione = resultSet.getInt("id_mansione");
                     int idOggetto = resultSet.getInt("id_oggetto");
                     int idElencoRischi = resultSet.getInt("id_elenco_rischi");
 
@@ -1068,7 +1019,7 @@ public class ModelDb {
             preparedStatement.setInt(1, repartoList.get(repartoList.size() - 1).getId());
             preparedStatement.setInt(2, repartoList.get(repartoList.size() - 1).getIdUnitaLocale());
             preparedStatement.setString(3, repartoList.get(repartoList.size() - 1).getNome());
-            preparedStatement.setString(4, repartoList.get(repartoList.size() - 1).getDescrizione());
+            preparedStatement.setString(4, repartoList.get(repartoList.size() - 1).getData());
             preparedStatement.executeUpdate();
 
         }
