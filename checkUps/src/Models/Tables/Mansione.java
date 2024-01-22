@@ -1,8 +1,6 @@
 package Models.Tables;
 
-import java.io.Serializable;
-
-public class Mansione extends TablesId implements Serializable{
+public class Mansione extends TableField {
 
     private String nome;
     private String responsabile;

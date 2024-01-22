@@ -1,8 +1,6 @@
 package Models.Tables;
 
-import java.io.Serializable;
-
-public class Rischio extends TablesId implements Serializable{
+public class Rischio extends TableField {
 
     private String nome;
     private int p;

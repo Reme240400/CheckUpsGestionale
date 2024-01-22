@@ -12,16 +12,14 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-import javafx.beans.binding.BooleanExpression;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.util.Callback;
 
-public class ModelModifica extends ModelListe{
+public class ModelModifica extends ModelListe {
 
     private boolean check = false;
 
@@ -52,6 +50,7 @@ public class ModelModifica extends ModelListe{
     public BooleanProperty selectedOggettoProperty() {
         return selectedOggetto;
     }
+
     // ------------------ SETTER ------------------ //
     public final void setSaved(boolean saved) {
         savedProperty().set(saved);
@@ -64,11 +63,10 @@ public class ModelModifica extends ModelListe{
     public final void setSelectedReparto(boolean selectedReparto) {
         selectedRepartoProperty().set(selectedReparto);
     }
- 
-    public final void setSelectedOggetto(boolean selectedOggetto){
+
+    public final void setSelectedOggetto(boolean selectedOggetto) {
         selectedOggettoProperty().set(selectedOggetto);
     }
-
 
     public void setSocieta(Societa societa) {
         this.societaTmp = societa;
@@ -76,7 +74,7 @@ public class ModelModifica extends ModelListe{
 
     public final void setUnitaLocale(UnitaLocale unitaLocale) {
         this.unitaLocaleTmp = unitaLocale;
-        
+
     }
 
     public final void setReparto(Reparto reparto) {
@@ -95,7 +93,6 @@ public class ModelModifica extends ModelListe{
         this.provvedimentoTmp = prov;
     }
 
-
     // ------------------ GETTER ------------------ //
     public final boolean isSaved() {
         return savedProperty().get();
@@ -110,7 +107,7 @@ public class ModelModifica extends ModelListe{
     }
 
     public final Societa getSocietaTmp() {
-        
+
         return societaTmp;
     }
 
@@ -129,8 +126,8 @@ public class ModelModifica extends ModelListe{
     public final Oggetto getOggettoTmp() {
         return oggettoTmp;
     }
-    
-    public final Provvedimento getProvTmp(){
+
+    public final Provvedimento getProvTmp() {
         return provvedimentoTmp;
     }
 
@@ -155,7 +152,7 @@ public class ModelModifica extends ModelListe{
         this.oggettoTmp = null;
     }
 
-    public void resetProvTmp(){
+    public void resetProvTmp() {
         this.provvedimentoTmp = null;
     }
 
@@ -168,11 +165,12 @@ public class ModelModifica extends ModelListe{
         resetProvTmp();
     }
 
-    // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
+    // ------------------ Riempie i campi con le informazioni prese dalle liste
+    // ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
             TextField textFieldTel) {
-    
+
         String societa = cercaRecord.getValue();
 
         if (societa != null) {
@@ -190,7 +188,7 @@ public class ModelModifica extends ModelListe{
 
     public void fillTextField(JFXComboBox<String> cercaRecord, int idS, TextField textFieldUnita,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia) {
-    
+
         String societa = cercaRecord.getValue();
 
         if (societa != null) {
@@ -205,22 +203,23 @@ public class ModelModifica extends ModelListe{
             setEnable(true);
         }
     }
-    
+
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
         List<Reparto> specificList = listaReparti.stream()
-                                            .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
-                                            .toList();
+                .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
+                .toList();
 
         return specificList;
     }
 
     public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparti, List<UnitaLocale> listaUnita) {
 
-        List<UnitaLocale> allUnitaLocali = listaUnita.stream().filter( unita -> unita.getIdSocieta() == getSocietaTmp().getId()).toList();
+        List<UnitaLocale> allUnitaLocali = listaUnita.stream()
+                .filter(unita -> unita.getIdSocieta() == getSocietaTmp().getId()).toList();
 
         List<Reparto> allReparti = allUnitaLocali.stream()
-            .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
-            .collect(Collectors.toList());
+                .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
+                .collect(Collectors.toList());
 
         return allReparti;
 
@@ -228,32 +227,32 @@ public class ModelModifica extends ModelListe{
 
     public List<Titolo> fillTitoliTable(List<Titolo> listaTitoli) {
         List<Titolo> specificList = listaTitoli.stream()
-                                            .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
-                                            .toList();
-        
-        return specificList;  
+                .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
+                .toList();
+
+        return specificList;
     }
 
     public List<Oggetto> fillOggettiTable(List<Oggetto> listaOggetti) {
         List<Oggetto> specificList = listaOggetti.stream()
-                                            .filter(o -> o.getIdTitolo() == getTitoloTmp().getId())
-                                            .toList();
-        
-        return specificList;  
+                .filter(o -> o.getIdTitolo() == getTitoloTmp().getId())
+                .toList();
+
+        return specificList;
     }
-    
+
     public List<Provvedimento> fillProvvedimentiTable(List<Provvedimento> listaProvvedimenti) {
         List<Provvedimento> specificList = listaProvvedimenti.stream()
-                                            .filter(p -> p.getIdOggetto() == getOggettoTmp().getId())
-                                            .toList();
-        
-        return specificList;  
+                .filter(p -> p.getIdOggetto() == getOggettoTmp().getId())
+                .toList();
+
+        return specificList;
     }
 
-    public <T> void  filterTable( TextField filterTextField, TableView<T> tableView, ObservableList<T> observableList) {
+    public <T> void filterTable(TextField filterTextField, TableView<T> tableView, ObservableList<T> observableList) {
 
         String filterText = filterTextField.getText().toLowerCase().trim();
-        
+
         // Create a filtered list based on the original observableList
         FilteredList<T> filteredData = new FilteredList<>(observableList, classe -> {
             if (filterText.isEmpty()) {
@@ -275,11 +274,11 @@ public class ModelModifica extends ModelListe{
                     UnitaLocale unitaLocale = (UnitaLocale) classe;
                     check = unitaLocale.getNome().toLowerCase().contains(filterText);
                     break;
-                
+
                 case "Titolo":
                     Titolo titolo = (Titolo) classe;
                     check = titolo.getDescrizione().contains(filterText);
-                
+
                 default:
                     return check;
             }
@@ -290,5 +289,5 @@ public class ModelModifica extends ModelListe{
         // Bind the filtered data to the TableView
         tableView.setItems(filteredData);
     }
-    
+
 }

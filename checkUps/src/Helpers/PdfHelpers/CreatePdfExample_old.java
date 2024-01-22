@@ -15,7 +15,6 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-import javafx.scene.text.Font;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -30,13 +29,17 @@ public class CreatePdfExample_old {
         return (int) ((mediaBox.getHeight() - 2 * margin) / rowHeight);
     }
 
-    public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti, String nomeFile) {
+    public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
+            String nomeFile) {
 
         // le filtro
-        // Societa societa = ClassHelper.getListSocieta().stream().filter(s -> s.getId() == idSocieta).findFirst().get();
-        // UnitaLocale unitaLocale = ClassHelper.getListUnitaLocale().stream().filter(s -> s.getId() == idUnitaLocale)
-        //         .findFirst().get();
-        // reparti reparti = ClassHelper.getListreparti().stream().filter(r -> r.getId() == idreparti).findFirst().get();
+        // Societa societa = ClassHelper.getListSocieta().stream().filter(s -> s.getId()
+        // == idSocieta).findFirst().get();
+        // UnitaLocale unitaLocale = ClassHelper.getListUnitaLocale().stream().filter(s
+        // -> s.getId() == idUnitaLocale)
+        // .findFirst().get();
+        // reparti reparti = ClassHelper.getListreparti().stream().filter(r -> r.getId()
+        // == idreparti).findFirst().get();
 
         List<Titolo> titoli = ModelListe.filtraTitoliDaReparto(reparti);
 
@@ -300,7 +303,7 @@ public class CreatePdfExample_old {
                 }
 
             }
-            
+
             contentStream.close();
             // Visualizzazione del PDF
             document.save(nomeFile);

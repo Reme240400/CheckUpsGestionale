@@ -1,11 +1,10 @@
 package Models.Tables;
 
-import java.io.Serializable;
 import java.util.List;
 
 import Helpers.ClassHelper;
 
-public class Reparto extends TablesId implements Serializable {
+public class Reparto extends TableField {
 
     private int idUnitaLocale;
     private String nome;

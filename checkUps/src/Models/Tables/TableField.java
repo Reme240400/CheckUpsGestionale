@@ -1,15 +1,16 @@
 package Models.Tables;
 
-public abstract class TablesId {
-    
+import java.io.Serializable;
+
+public abstract class TableField implements Serializable {
     private int id;
 
-    public TablesId(int id) {
+    public TableField(int id) {
         this.id = id;
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {

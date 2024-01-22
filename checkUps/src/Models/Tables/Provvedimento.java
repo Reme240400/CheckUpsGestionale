@@ -1,8 +1,6 @@
 package Models.Tables;
 
-import java.io.Serializable;
-
-public class Provvedimento extends TablesId implements Serializable {
+public class Provvedimento extends TableField {
     private int idOggetto;
     private String nome;
     private String rischio;
