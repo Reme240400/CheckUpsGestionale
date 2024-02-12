@@ -3,7 +3,6 @@ package View.Controllers.home;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -47,11 +46,6 @@ public class TableReparto extends PicoTable<Reparto> {
         filterReparto.setText("");
         this.originalData = FXCollections.observableArrayList(updatedValues);
         tableReparti.setItems(this.originalData);
-    }
-
-    @Override
-    public void onRowSelect(Consumer<Reparto> op) {
-        this.selectAction = op;
     }
 
     @Override

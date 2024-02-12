@@ -20,9 +20,11 @@ public abstract class PicoTable<Z> implements Initializable {
 
     public abstract void update(List<Z> updatedValues);
 
-    public abstract void onRowSelect(Consumer<Z> selected);
-
     public abstract void clearTable();
+
+    public void setClickAction(Consumer<Z> selected) {
+        this.selectAction = selected;
+    }
 
     protected <X, Y> void makeValueProperty(TableColumn<X, Y> col, String id) {
         col.setCellValueFactory(new PropertyValueFactory<>(id));

@@ -3,7 +3,6 @@ package View.Controllers.home;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -39,12 +38,15 @@ public class TableUnitaLocale extends PicoTable<UnitaLocale> {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // tableUnitaLocali.setEditable(true);
+
         this.makeValueProperty(col_idUnitaLocale, "id");
         this.makeValueProperty(col_nomeUnitaLocale, "nome");
         this.makeValueProperty(col_indirizzoUnitaLocale, "indirizzo");
         this.makeValueProperty(col_localitaUnitaLocale, "localita");
         this.makeValueProperty(col_provinciaUnitaLocale, "provincia");
         this.makeValueProperty(col_telefonoUnitaLocale, "telefono");
+        // col_telefonoUnitaLocale.setCellFactory(TextFieldTableCell.forTableColumn());
 
         this.registerSelectAction(tableUnitaLocali);
         this.registerTextFilter(tableUnitaLocali, filterUnitaLocale, col_nomeUnitaLocale);
@@ -55,11 +57,6 @@ public class TableUnitaLocale extends PicoTable<UnitaLocale> {
         filterUnitaLocale.setText("");
         this.originalData = FXCollections.observableArrayList(updatedValues);
         tableUnitaLocali.setItems(this.originalData);
-    }
-
-    @Override
-    public void onRowSelect(Consumer<UnitaLocale> op) {
-        this.selectAction = op;
     }
 
     @Override

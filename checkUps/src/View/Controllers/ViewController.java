@@ -79,7 +79,7 @@ public class ViewController implements Initializable {
         FilteredList<String> filteredItems = Model.filterComboBox(cercaSocieta, obsNomiSocieta);
         cercaSocieta.setItems(filteredItems);
 
-        table_unitaLocaliController.onRowSelect((uLocale) -> {
+        table_unitaLocaliController.setClickAction((uLocale) -> {
             table_titoliController.clearTable();
             table_oggettiController.clearTable();
             table_provvedimentiController.clearTable();
@@ -87,20 +87,20 @@ public class ViewController implements Initializable {
             table_repartiController.update(uLocale.getReparti());
         });
 
-        table_repartiController.onRowSelect((reparto) -> {
+        table_repartiController.setClickAction((reparto) -> {
             table_oggettiController.clearTable();
             table_provvedimentiController.clearTable();
 
             table_titoliController.update(reparto.getTitoli());
         });
 
-        table_titoliController.onRowSelect((titolo) -> {
+        table_titoliController.setClickAction((titolo) -> {
             table_provvedimentiController.clearTable();
 
             table_oggettiController.update(titolo.getOggetti());
         });
 
-        table_oggettiController.onRowSelect((oggetto) -> {
+        table_oggettiController.setClickAction((oggetto) -> {
             table_provvedimentiController.update(oggetto.getProvvedimenti());
         });
     }

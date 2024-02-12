@@ -3,7 +3,6 @@ package View.Controllers.home;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import Models.Tables.Titolo;
 import javafx.collections.FXCollections;
@@ -37,11 +36,6 @@ public class TableTitolo extends PicoTable<Titolo> {
         filterTitoli.setText("");
         this.originalData = FXCollections.observableArrayList(updatedValues);
         tableTitoli.setItems(this.originalData);
-    }
-
-    @Override
-    public void onRowSelect(Consumer<Titolo> selected) {
-        this.selectAction = selected;
     }
 
     @Override
