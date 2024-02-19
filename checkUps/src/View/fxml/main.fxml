@@ -1,125 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" styleClass="VBox_options" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
-   <left>
-      <VBox fx:id="VBox_options" alignment="TOP_CENTER" minWidth="-Infinity" prefHeight="633.0" prefWidth="170.0" styleClass="VBox_options" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton fx:id="btnHome" contentDisplay="TOP" layoutX="27.0" layoutY="144.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#switchToHome" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Home" textOverrun="CENTER_WORD_ELLIPSIS">
-               <styleClass>
-                  <String fx:value="btn_homePage" />
-                  <String fx:value="btn_home" />
-                  <String fx:value="bordered" />
-               </styleClass>
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/grid_shape_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Yu Gothic Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <Pane prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton fx:id="btnCreate" contentDisplay="TOP" layoutX="27.0" layoutY="246.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#switchToCreazione" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Crea">
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/plus.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Yu Gothic Bold" size="18.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="btn_homePage" />
-                  <String fx:value="bordered" />
-               </styleClass>
-            </JFXButton>
-            <Pane layoutX="10.0" layoutY="230.0" prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <JFXButton fx:id="btnModify" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#switchToModifica" prefHeight="120.0" prefWidth="120.0" stylesheets="@../css/style.css" text="Modifica">
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/pencil.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font name="Yu Gothic Bold" size="18.0" />
-               </font>
-               <styleClass>
-                  <String fx:value="btn_homePage" />
-                  <String fx:value="bordered" />
-               </styleClass>
-            </JFXButton>
-            <Pane layoutX="10.0" layoutY="162.0" prefHeight="60.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-            <Pane prefHeight="60.0" prefWidth="288.0" VBox.vgrow="ALWAYS" />
-            <JFXButton fx:id="btnQuit" layoutX="27.0" layoutY="246.0" prefHeight="52.0" prefWidth="144.0" stylesheets="@../css/style.css" text="Esci">
-               <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/icons8_Sign_Out_32px.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <styleClass>
-                  <String fx:value="btn_homePage" />
-                  <String fx:value="btn_quit" />
-                  <String fx:value="bordered" />
-               </styleClass>
-               <font>
-                  <Font name="Yu Gothic Bold" size="20.0" />
-               </font>
-            </JFXButton>
-            <Pane prefHeight="54.0" prefWidth="288.0" styleClass="separator_pane" stylesheets="@../css/style.css" />
-         </children>
-      </VBox>
-   </left>
    <top>
       <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="171.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="51.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="bordered">
                      <image>
                         <Image url="@../images/logo%20con%20sfondo%20transpartente.png" />
                      </image>
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="20.0" />
                      </HBox.margin>
                   </ImageView>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="927.0">
-               <children>
-                  <Label fx:id="titoloScena" alignment="CENTER" prefHeight="43.0" prefWidth="223.0" textFill="#c90000">
-                     <font>
-                        <Font name="Berlin Sans FB" size="39.0" />
-                     </font>
-                  </Label>
+                  <Pane layoutX="516.0" layoutY="10.0" prefHeight="70.0" prefWidth="118.0" HBox.hgrow="SOMETIMES" />
+                  <JFXButton prefHeight="73.0" prefWidth="50.0" text="Home" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                  <JFXButton prefHeight="78.0" prefWidth="42.0" text="Crea" />
+                  <Pane layoutX="137.0" layoutY="10.0" prefHeight="70.0" prefWidth="118.0" HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
          </children>
       </HBox>
    </top>
    <center>
-      <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" style="-fx-background-color: white;" styleClass="half_bordered" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
