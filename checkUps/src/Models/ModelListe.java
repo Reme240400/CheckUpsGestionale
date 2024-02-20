@@ -195,7 +195,9 @@ public class ModelListe {
                 Reparto reparto = new Reparto(((Reparto) obj).getId(),
                         ((Reparto) obj).getIdUnitaLocale(),
                         ((Reparto) obj).getNome(),
-                        ((Reparto) obj).getDescrizione());
+                        ((Reparto) obj).getDescrizione(),
+                        ((Reparto) obj).getRevisione(),
+                        ((Reparto) obj).getData());
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
@@ -238,7 +240,10 @@ public class ModelListe {
                         ((Provvedimento) obj).getSoggettiEsposti(),
                         ((Provvedimento) obj).getStimaR(),
                         ((Provvedimento) obj).getStimaD(),
-                        ((Provvedimento) obj).getStimaP());
+                        ((Provvedimento) obj).getStimaP(),
+                        ((Provvedimento) obj).getEmail(),
+                        ((Provvedimento) obj).getDataInizio(),
+                        ((Provvedimento) obj).getDataScadenza());
 
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;
@@ -248,7 +253,8 @@ public class ModelListe {
                         ((UnitaLocale) obj).getIndirizzo(),
                         ((UnitaLocale) obj).getLocalita(),
                         ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getIdSocieta());
+                        ((UnitaLocale) obj).getIdSocieta(),
+                        ((UnitaLocale) obj).getTelefono());
 
                 ClassHelper.getListUnitaLocale().add(unitaLocale);
                 break;

@@ -36,72 +36,89 @@ public class Societa extends TablesId implements Serializable {
         return indirizzo;
     }
 
-    public String getLocalita() {
-        return localita;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getPartitaIva() {
-        return partitaIva;
-    }
-
-    public String getCodiceFiscale() {
-        return codiceFiscale;
-    }
-
-    public String getBancaAppoggio() {
-        return bancaAppoggio;
-    }
-
-    public String getCodiceAteco() {
-        return codiceAteco;
-    }
-
-    public String getLogoUrl() {
-        return logoUrl;
-    }
-
     public void setIndirizzo(String indirizzo) {
         this.indirizzo = indirizzo;
+    }
+
+    public String getLocalita() {
+        return localita;
     }
 
     public void setLocalita(String localita) {
         this.localita = localita.toUpperCase();
     }
 
+    public String getProvincia() {
+        return provincia;
+    }
+
     public void setProvincia(String provincia) {
         this.provincia = provincia.toUpperCase();
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+            this.descrizione = descrizione;
+    }
+
+    public String getTelefono() {
+        return telefono;
     }
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public void setDescrizione(String descrizione) {
-        if (descrizione.length() > 255) {
-            this.descrizione = descrizione.substring(0, 255);
-        } else {
-            this.descrizione = descrizione;
-        }
+    public String getNome() {
+        return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getPartitaIva() {
+        return partitaIva;
+    }
+
+    public void setPartitaIva(String partitaIva){
+        this.partitaIva = partitaIva;
+    }
+
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale){
+        this.codiceFiscale = codiceFiscale;
+    }
+
+    public String getBancaAppoggio() {
+        return bancaAppoggio;
+    }
+
+    public void setBancaAppoggio(String bancaAppoggio){
+        this.bancaAppoggio = bancaAppoggio;
+    }
+
+    public String getCodiceAteco() {
+        return codiceAteco;
+    }
+
+    public void setCodiceAteco(String codiceAteco){
+        this.codiceAteco = codiceAteco;
+    }
+
+    public String getLogoUrl() {
+        return logoUrl;
+    }
+
+    public void setLogoURl(String logoUrl){
+        this.logoUrl = logoUrl;
+    }
+   
 
 }

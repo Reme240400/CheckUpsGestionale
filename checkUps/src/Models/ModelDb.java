@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 
 import Helpers.ClassHelper;
@@ -148,8 +149,9 @@ public class ModelDb {
                         int idUnitaLocale = resultSet.getInt("id_unita_locale");
                         String nome = resultSet.getString("nome");
                         String descrizione = resultSet.getString("descrizione");
-
-                        Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione);
+                        String revisione = resultSet.getString("revisione");
+                        LocalDate data = resultSet.getDate("data").toLocalDate();
+                        Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione, revisione, data);
                         ModelListe.inserisciRecordInLista(reparto);
                     }
                 } catch (SQLException e) {
@@ -249,9 +251,11 @@ public class ModelDb {
                         int stima_r = resultSet.getInt("stima_r");
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
-
+                        String email = resultSet.getString("email");
+                        LocalDate data_inizio = resultSet.getDate("data_inizio").toLocalDate();
+                        LocalDate data_scadenza = resultSet.getDate("data_scadenza").toLocalDate();
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, idOggetto, rischio, nome,
-                                soggettiEsposti, stima_r, stima_d, stima_p);
+                                soggettiEsposti, stima_r, stima_d, stima_p, email, data_inizio, data_scadenza);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -284,9 +288,9 @@ public class ModelDb {
                         String indirizzo = resultSet.getString("indirizzo");
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
-
+                        String telefono = resultSet.getString("telefono");
                         UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
-                                idSocieta);
+                                idSocieta,telefono);
 
                         ModelListe.inserisciRecordInLista(unitaLocale);
                     }
@@ -691,7 +695,9 @@ public class ModelDb {
                 Reparto reparto = new Reparto(((Reparto) obj).getId(),
                         ((Reparto) obj).getIdUnitaLocale(),
                         ((Reparto) obj).getNome(),
-                        ((Reparto) obj).getDescrizione());
+                        ((Reparto) obj).getDescrizione(),
+                        ((Reparto) obj).getRevisione(),
+                        ((Reparto) obj).getData());
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
@@ -733,7 +739,11 @@ public class ModelDb {
                         ((Provvedimento) obj).getSoggettiEsposti(),
                         ((Provvedimento) obj).getStimaR(),
                         ((Provvedimento) obj).getStimaD(),
-                        ((Provvedimento) obj).getStimaP());
+                        ((Provvedimento) obj).getStimaP(),
+                        ((Provvedimento) obj).getEmail(),
+                        ((Provvedimento) obj).getDataInizio(),
+                        ((Provvedimento) obj).getDataScadenza());
+
 
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;
@@ -743,7 +753,8 @@ public class ModelDb {
                         ((UnitaLocale) obj).getIndirizzo(),
                         ((UnitaLocale) obj).getLocalita(),
                         ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getIdSocieta());
+                        ((UnitaLocale) obj).getIdSocieta(),
+                        ((UnitaLocale) obj).getTelefono());
 
                 ClassHelper.getListUnitaLocale().add(unitaLocale);
                 break;

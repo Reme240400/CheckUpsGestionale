@@ -1,19 +1,24 @@
 package Models.Tables;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class Reparto extends TablesId implements Serializable{
 
     private int idUnitaLocale;
     private String nome;
     private String descrizione;
+    private String revisione;
+    private LocalDate data;
 
-    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione) {
+    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione, String revisione, LocalDate data) {
         super(idReparto);
 
         this.idUnitaLocale = idUnitaLocale;
         this.nome = nome;
         this.descrizione = descrizione;
+        this.revisione = revisione;
+        this.data = data;
     }
 
     public int getIdUnitaLocale() {
@@ -38,6 +43,22 @@ public class Reparto extends TablesId implements Serializable{
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public String getRevisione(){
+        return this.revisione;
+    }
+
+    public void setRevisione(String revisione){
+        this.revisione = revisione;
+    }
+
+    public LocalDate getData(){
+        return this.data;
+    }
+
+    public void setData(LocalDate data){
+        this.data = data;
     }
 
 }
