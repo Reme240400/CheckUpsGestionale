@@ -16,11 +16,13 @@
    <center>
       <TableView fx:id="tableProvvedimenti" editable="true" prefHeight="487.0" prefWidth="745.0">
          <columns>
-            <TableColumn fx:id="idColP" prefWidth="52.0" text="ID" />
-            <TableColumn fx:id="rischioCol" prefWidth="120.0" text="Rischio" />
-            <TableColumn fx:id="nomeColP" prefWidth="246.0" text="Nome" />
-            <TableColumn fx:id="soggetiCol" prefWidth="255.0" text="Soggetti Esposti" />
-            <TableColumn fx:id="stimaCol" prefWidth="200.0" text="Stima" />
+            <TableColumn fx:id="rischioCol" maxWidth="110.0" minWidth="-Infinity" prefWidth="110.0" text="Rischio" />
+            <TableColumn fx:id="nomeColP" minWidth="-Infinity" prefWidth="187.0" text="Nome" />
+            <TableColumn fx:id="soggetiCol" minWidth="-Infinity" prefWidth="182.0" text="Soggetti Esposti" />
+            <TableColumn fx:id="stimaCol" minWidth="-Infinity" prefWidth="191.0" text="Email" />
+            <TableColumn fx:id="stimaCol1" minWidth="-Infinity" prefWidth="51.0" text="Stima" />
+            <TableColumn fx:id="stimaCol11" minWidth="-Infinity" prefWidth="89.0" text="Data inizio" />
+            <TableColumn fx:id="stimaCol111" minWidth="-Infinity" prefWidth="108.0" text="Data scadenza" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

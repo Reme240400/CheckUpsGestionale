@@ -27,11 +27,11 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="62.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="150.0" minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="234.0" minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="143.0" minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="114.0" minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="114.0" minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Label prefHeight="17.0" prefWidth="93.0" text="Nome:" />
@@ -67,7 +67,7 @@
                </HBox.margin>
             </JFXButton>
             <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
-            <JFXComboBox editable="true" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+            <JFXComboBox fx:id="cercaUnita" editable="true" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
             <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
             <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                <HBox.margin>
