@@ -28,22 +28,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class ViewController implements Initializable{
-
-    @FXML
-    private JFXButton btnQuit;
-
+public class ViewController implements Initializable {
     @FXML
     private JFXButton btnHome;
 
     @FXML
-    private JFXButton btnModify;
-
-    @FXML
     private JFXButton btnCreate;
-
-    @FXML
-    private Label titoloScena;
 
     @FXML
     private StackPane stackPane;
@@ -56,73 +46,40 @@ public class ViewController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         ControllerDb.popolaListeDaDatabase();
 
-        btnQuit.setOnAction(event -> {
-            try {
-                logout(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        try{
+        try {
             switchToHome();
-            
+
             modelPaths.setStackPaneHome(stackPane);
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }        
+        }
     }
 
-    public void switchToHome() throws IOException{
-        
-        titoloScena.setText("Home Page");
-
-        Parent root = modelPaths.switchToHome(modelHome, titoloScena);
-        if(root != null){
+    public void switchToHome() throws IOException {
+        Parent root = modelPaths.switchToHome(modelHome);
+        if (root != null) {
             Controller.changePane(stackPane, root);
         }
 
     }
 
-    public void switchToCreazione() throws IOException{
+    public void switchToCreazione() throws IOException {
+        Parent root = modelPaths.switchToCreazione(modelCreazione);
 
-        titoloScena.setText("Creazione");
-        
-        Parent root = modelPaths.switchToCreazione(modelCreazione); 
-
-        if(root != null){
+        if (root != null) {
             Controller.changePane(stackPane, root);
         }
 
     }
 
-    public void switchToModifica() throws IOException{
-        
-        titoloScena.setText("Modifica");
-
-        Parent root = modelPaths.switchToModifica(modelModifica);
-
-        if(root != null){
-            Controller.changePane(stackPane, root);
-        }
-        
-    }
-
-    public void logout(ActionEvent event) throws IOException{
+    public void logout(ActionEvent event) throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
         alert.setTitle("Esci");
         alert.setHeaderText("Stai per uscire!");
         alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
-
-
-        if(alert.showAndWait().get().getText().equals("OK")){
-            Stage stage = (Stage) btnQuit.getScene().getWindow();
-            stage.close();
-        }
     }
 
     public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
@@ -130,7 +87,8 @@ public class ViewController implements Initializable{
         return Model.filterComboBox(cercaItem, units);
     }
 
-    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,
+            ObservableList<String> units) {
 
         return Model.filterComboBoxById(cercaItem, id, units);
     }

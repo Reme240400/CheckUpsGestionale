@@ -44,14 +44,19 @@ public class ModelDb {
                     while (resultSet.next()) {
                         int id_societa = resultSet.getInt("id_societa");
                         String nome = resultSet.getString("nome");
-                        String indirizzo = resultSet.getString("indirizzo");
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
                         String telefono = resultSet.getString("telefono");
                         String descrizione = resultSet.getString("descrizione");
+                        String indirizzo = resultSet.getString("indirizzo");
+                        String partitaIva = resultSet.getString("partita_iva");
+                        String codiceFiscale = resultSet.getString("codice_fiscale");
+                        String bancaAppoggio = resultSet.getString("banca_appoggio");
+                        String codiceAteco = resultSet.getString("codice_ateco");
+                        String logoUrl = resultSet.getString("logo");
 
                         Societa societa = new Societa(id_societa, nome, indirizzo, localita, provincia, telefono,
-                                descrizione);
+                                descrizione, partitaIva, codiceFiscale, bancaAppoggio, codiceAteco, logoUrl);
 
                         ModelListe.inserisciRecordInLista(societa);
                     }
@@ -701,15 +706,15 @@ public class ModelDb {
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
-
-                Societa societa = new Societa(
-                        ((Societa) obj).getId(),
-                        ((Societa) obj).getNome(),
-                        ((Societa) obj).getIndirizzo(),
-                        ((Societa) obj).getLocalita(),
-                        ((Societa) obj).getProvincia(),
-                        ((Societa) obj).getTelefono(),
-                        ((Societa) obj).getDescrizione());
+                Societa societa = (Societa) obj;
+                // Societa societa = new Societa(
+                // ((Societa) obj).getId(),
+                // ((Societa) obj).getNome(),
+                // ((Societa) obj).getIndirizzo(),
+                // ((Societa) obj).getLocalita(),
+                // ((Societa) obj).getProvincia(),
+                // ((Societa) obj).getTelefono(),
+                // ((Societa) obj).getDescrizione());
 
                 ClassHelper.getListSocieta().add(societa);
                 break;
@@ -976,7 +981,7 @@ public class ModelDb {
                 while (resultSet.next()) {
                     int idProvvedimento = resultSet.getInt("id_provvedimento");
                     String nome = resultSet.getString("nome");
-                    //int idMansione = resultSet.getInt("id_mansione");
+                    // int idMansione = resultSet.getInt("id_mansione");
                     int idOggetto = resultSet.getInt("id_oggetto");
                     int idElencoRischi = resultSet.getInt("id_elenco_rischi");
 

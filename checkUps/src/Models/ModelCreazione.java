@@ -17,7 +17,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.TextField;
 
-public class ModelCreazione extends ModelListe{
+public class ModelCreazione extends ModelListe {
 
     // initialize variables
 
@@ -62,13 +62,13 @@ public class ModelCreazione extends ModelListe{
     public final boolean isDiscard() {
         return discardProperty().get();
     }
-    
+
     public Societa getSocietaTmp() {
         return societaTmp;
-    } 
-    
+    }
+
     public UnitaLocale getUnitaLocaleTmp() {
-        
+
         return unitaLocaleTmp;
     }
 
@@ -80,11 +80,11 @@ public class ModelCreazione extends ModelListe{
         return titoloTmp;
     }
 
-    public Oggetto getOggettoTmp(){
+    public Oggetto getOggettoTmp() {
         return oggettoTmp;
     }
 
-    public Provvedimento getProvvedimentoTmp(){
+    public Provvedimento getProvvedimentoTmp() {
         return provvedimentoTmp;
     }
     // ------------------ END GETTER ------------------ //
@@ -101,12 +101,12 @@ public class ModelCreazione extends ModelListe{
 
     public final void setDiscard(boolean discard) {
         discardProperty().set(discard);
-    } 
-    
+    }
+
     public void createSocietaTmp(Societa societaTmp) {
         this.societaTmp = societaTmp;
     }
-    
+
     public void createUnitaLocaleTmp(UnitaLocale unitaLocale) {
         this.unitaLocaleTmp = unitaLocale;
     }
@@ -121,7 +121,7 @@ public class ModelCreazione extends ModelListe{
 
     public void createOggettoTmp(Oggetto oggetto) {
         this.oggettoTmp = oggetto;
-    }  
+    }
 
     public void createProvvedimentoTmp(Provvedimento provvedimento) {
         this.provvedimentoTmp = provvedimento;
@@ -145,11 +145,11 @@ public class ModelCreazione extends ModelListe{
         this.titoloTmp = null;
     }
 
-    public void resetOggettoTmp(){
+    public void resetOggettoTmp() {
         this.oggettoTmp = null;
     }
 
-    public void resetProvvedimentoTmp(){
+    public void resetProvvedimentoTmp() {
         this.provvedimentoTmp = null;
     }
 
@@ -162,57 +162,57 @@ public class ModelCreazione extends ModelListe{
         resetProvvedimentoTmp();
     }
 
-    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
+    // ------------------ Controllo se i campi sono stati inseriti
+    // ------------------ //
     public void isTextFilled(TextField textField, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
-            
+
         boolean areAllEmpty = Stream.of(
-            textField.getText(),
-            textFieldIndirizzo.getText(),
-            textFieldLocalita.getText(),
-            textFieldProvincia.getText(),
-            textFieldTel.getText()
-        ).allMatch(String::isEmpty);
-    
+                textField.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText(),
+                textFieldTel.getText()).allMatch(String::isEmpty);
+
         boolean isAnyEmpty = Stream.of(
                 textField.getText(),
                 textFieldIndirizzo.getText(),
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText(),
-                textFieldTel.getText()
-        ).anyMatch(String::isEmpty);
-    
-            setSaved(!isAnyEmpty);
-            setDiscard(!areAllEmpty);
+                textFieldTel.getText()).anyMatch(String::isEmpty);
+
+        setSaved(!isAnyEmpty);
+        setDiscard(!areAllEmpty);
 
     }
 
     public void isTextFilled(TextField textField, TextField textFieldIndirizzo, TextField textFieldLocalita,
-            TextField textFieldProvincia) {                    // txtTel = textFieldTel.getText();
-            
+            TextField textFieldProvincia) { // txtTel = textFieldTel.getText();
+
         boolean areAllEmpty = Stream.of(
-            textField.getText(),
-            textFieldIndirizzo.getText(),
-            textFieldLocalita.getText(),
-            textFieldProvincia.getText()
-            // textFieldTel.getText()
+                textField.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText()
+        // textFieldTel.getText()
         ).allMatch(String::isEmpty);
-    
+
         boolean isAnyEmpty = Stream.of(
                 textField.getText(),
                 textFieldIndirizzo.getText(),
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText()
-                // textFieldTel.getText()
+        // textFieldTel.getText()
         ).anyMatch(String::isEmpty);
-    
-            setSaved(!isAnyEmpty);
-            setDiscard(!areAllEmpty);
+
+        setSaved(!isAnyEmpty);
+        setDiscard(!areAllEmpty);
 
     }
     // ------------------ END ------------------ //
 
-    // ------------------ Setta i campi come sono stati salvati ------------------ //
+    // ------------------ Setta i campi come sono stati salvati ------------------
+    // //
     // //
     public void setOldTextFields(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
             TextField textFieldProvincia, TextField textFieldTel) {
@@ -231,11 +231,12 @@ public class ModelCreazione extends ModelListe{
     }
     // ------------------ END ------------------ //
 
-    // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
+    // ------------------ Riempie i campi con le informazioni prese dalle liste
+    // ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
             TextField textFieldTel) {
-    
+
         String societa = cercaRecord.getValue();
 
         if (societa != null) {
@@ -249,7 +250,8 @@ public class ModelCreazione extends ModelListe{
 
             setDiscard(true);
 
-            createSocietaTmp(ClassHelper.getListSocieta().stream().filter(s -> s.getNome().equals(societa)).findFirst().get());
+            createSocietaTmp(
+                    ClassHelper.getListSocieta().stream().filter(s -> s.getNome().equals(societa)).findFirst().get());
         } else {
             setDiscard(false);
         }
@@ -257,61 +259,59 @@ public class ModelCreazione extends ModelListe{
 
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti, UnitaLocale unitaLocale) {
         List<Reparto> specificList = listaReparti.stream()
-            .filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId())
-            .toList();
-        
+                .filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId())
+                .toList();
+
         return specificList;
     }
 
     public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
         List<Reparto> specificList = listaReparti.stream()
-            .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
-            .toList();
+                .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
+                .toList();
 
         return specificList;
     }
 
-    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale, Societa societa) {
+    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale,
+            Societa societa) {
         List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
-            .filter( unita -> unita.getIdSocieta() == societa.getId())
-            .toList();
+                .filter(unita -> unita.getIdSocieta() == societa.getId())
+                .toList();
 
         List<Reparto> allReparti = allUnitaLocali.stream()
-            .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
-            .collect(Collectors.toList());
-
+                .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
+                .collect(Collectors.toList());
 
         return allReparti;
     }
 
     public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale) {
         List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
-            .filter( unita -> unita.getIdSocieta() == getSocietaTmp().getId())
-            .toList();
+                .filter(unita -> unita.getIdSocieta() == getSocietaTmp().getId())
+                .toList();
 
         List<Reparto> allReparti = allUnitaLocali.stream()
-            .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
-            .collect(Collectors.toList());
-
+                .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
+                .collect(Collectors.toList());
 
         return allReparti;
     }
 
     public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto, Reparto reparto) {
         List<Titolo> specificList = listaTitolo.stream()
-            .filter(titolo -> titolo.getIdReparto() == reparto.getId())
-            .toList();
+                .filter(titolo -> titolo.getIdReparto() == reparto.getId())
+                .toList();
 
         return specificList;
     }
-    
+
     public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
         List<Titolo> specificList = listaTitolo.stream()
-            .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
-            .toList();
+                .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
+                .toList();
 
         return specificList;
     }
-
 
 }

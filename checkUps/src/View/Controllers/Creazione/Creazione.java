@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
-
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import javafx.fxml.FXML;
@@ -14,25 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 public class Creazione implements Initializable {
-
-    @FXML
-    private JFXButton btnSocieta;
-
-    @FXML
-    private JFXButton btnUnitaLocali;
-
-    @FXML
-    private JFXButton btnReparti;
-
-    @FXML
-    private JFXButton btnTitoli;
-
-    @FXML
-    private JFXButton btnOggetti;
-
-    @FXML
-    private JFXButton btnProvvedimenti;
-
     @FXML
     private StackPane stackPaneCreazione;
 
@@ -40,7 +19,8 @@ public class Creazione implements Initializable {
     private ModelPaths modelPaths;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {}
+    public void initialize(URL url, ResourceBundle rb) {
+    }
 
     // * cambia scena in UnitaLocale
     public void switchToSocieta() throws IOException {
@@ -53,7 +33,7 @@ public class Creazione implements Initializable {
 
     // * cambia scena in UnitaLocale
     public void switchToUnitaLocali() throws IOException {
-        
+
         Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
         stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);

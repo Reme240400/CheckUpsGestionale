@@ -3,18 +3,22 @@ package View.Controllers.Creazione;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.ModelCreazione;
-import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Societa;
-
+import View.Controllers.ViewController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -23,9 +27,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class CreazioneSocieta implements Initializable {
-
-    @FXML
-    private JFXButton btnAnnulla;
 
     @FXML
     private JFXButton btnSalva;
@@ -37,10 +38,10 @@ public class CreazioneSocieta implements Initializable {
     private TextField textFieldSocieta;
 
     @FXML
-    private TextField textFieldIndirizzo;
+    private TextField textFieldLocalita;
 
     @FXML
-    private TextField textFieldLocalita;
+    private TextField textFieldIndirizzo;
 
     @FXML
     private TextField textFieldProvincia;
@@ -48,18 +49,35 @@ public class CreazioneSocieta implements Initializable {
     @FXML
     private TextField textFieldTel;
 
-    // @FXML
-    // private TextField textFieldDesc;
- 
+    @FXML
+    private TextField textFieldDescrizione;
+
+    @FXML
+    private TextField textFieldPartitaIva;
+
+    @FXML
+    private TextField textFieldCodiceFiscale;
+
+    @FXML
+    private TextField textFieldBancaAppoggio;
+
+    @FXML
+    private TextField textFieldCodiceAteco;
+
+    @FXML
+    private JFXButton buttonLogoUrl;
+
+    @FXML
+    private JFXComboBox<String> cercaSocieta;
+
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
-    private ModelModifica modelModifica;
 
     Societa societaTmp = null;
     List<Societa> listSocieta = ClassHelper.getListSocieta();
-    // private String txtDesc;
 
-    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
+    // ------------------------------------------------------- INITIALIZE
+    // -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -83,21 +101,56 @@ public class CreazioneSocieta implements Initializable {
 
         // * **************************************** //
 
+        ObservableList<String> societies = FXCollections
+                .observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
+        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
+        cercaSocieta.setItems(filteredItems);
+
+        cercaSocieta.onKeyReleasedProperty().addListener((obs, oValue, nValue) -> {
+            filtraSocieta();
+        });
     }
-    // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
+    // ------------------------------------------------------- END INITIALIZE
+    // -------------------------------------------------------------------- //
+
+    public void filtraSocieta() {
+        Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                .findFirst();
+        if (curSocieta.isEmpty())
+            return;
+
+        Societa soc = curSocieta.get();
+        textFieldSocieta.setText(soc.getNome());
+        textFieldLocalita.setText(soc.getLocalita());
+        textFieldProvincia.setText(soc.getProvincia());
+        textFieldTel.setText(soc.getTelefono());
+        textFieldIndirizzo.setText(soc.getIndirizzo());
+        textFieldDescrizione.setText(soc.getDescrizione());
+        textFieldPartitaIva.setText(soc.getPartitaIva());
+        textFieldCodiceFiscale.setText(soc.getCodiceFiscale());
+        textFieldBancaAppoggio.setText(soc.getBancaAppoggio());
+        textFieldCodiceAteco.setText(soc.getCodiceAteco());
+
+        // buttonLogoUrl.; // soc.getLogoUrl()
+    }
 
     // -------------------- salva la societa -------------------- //
     public void save_addSocieta() {
 
         int id = Controller.getNewId(listSocieta);
 
-        Societa societaTmp = new Societa(id, 
-                                        textFieldSocieta.getText(), 
-                                        textFieldIndirizzo.getText(), 
-                                        textFieldLocalita.getText(), 
-                                        textFieldProvincia.getText(), 
-                                        textFieldTel.getText(), 
-                                        "");
+        Societa societaTmp = new Societa(id,
+                textFieldSocieta.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText(),
+                textFieldTel.getText(),
+                textFieldDescrizione.getText(),
+                textFieldPartitaIva.getText(),
+                textFieldCodiceFiscale.getText(),
+                textFieldBancaAppoggio.getText(),
+                textFieldCodiceAteco.getText(),
+                buttonLogoUrl.getText());
 
         modelCreazione.createSocietaTmp(societaTmp);
 
@@ -119,13 +172,18 @@ public class CreazioneSocieta implements Initializable {
 
         int id = Controller.getNewId(listSocieta);
 
-        Societa societaTmp = new Societa(id, 
-                                        textFieldSocieta.getText(), 
-                                        textFieldIndirizzo.getText(), 
-                                        textFieldLocalita.getText(), 
-                                        textFieldProvincia.getText(), 
-                                        textFieldTel.getText(), 
-                                        "");
+        Societa societaTmp = new Societa(id,
+                textFieldSocieta.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText(),
+                textFieldTel.getText(),
+                textFieldDescrizione.getText(),
+                textFieldPartitaIva.getText(),
+                textFieldCodiceFiscale.getText(),
+                textFieldBancaAppoggio.getText(),
+                textFieldCodiceAteco.getText(),
+                buttonLogoUrl.getText());
 
         Controller.inserisciNuovoRecord(societaTmp);
 
@@ -135,10 +193,10 @@ public class CreazioneSocieta implements Initializable {
 
     }
 
-    // * ----------------------------- elimina la societa ----------------------------- //
+    // * ----------------------------- elimina la societa
+    // ----------------------------- //
     public void eliminaSocieta() {
 
-        // textFieldDesc.clear();
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
         textFieldProvincia.clear();
@@ -150,25 +208,26 @@ public class CreazioneSocieta implements Initializable {
         modelCreazione.setSaved(false);
         modelCreazione.setDiscard(false);
     }
-    // * ------------------------------------------------------------------------------- //
+    // *
+    // -------------------------------------------------------------------------------
+    // //
 
-
-    // * ---------------------- controlla se i campi sono vuoti ---------------------- //
+    // * ---------------------- controlla se i campi sono vuoti
+    // ---------------------- //
     public void keyReleasedProperty() {
-
         modelCreazione.isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel);
-
     }
-    // * ------------------------------------------------------------------------------- //
+    // *
+    // -------------------------------------------------------------------------------
+    // //
 
     // * ************ setta il modelCreazionelo ************ //
     public void setTextFields() {
 
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnSalvaAggiungi.disableProperty().bind(modelCreazione.savedProperty().not());
-        this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
-        
+
         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
         this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
@@ -177,7 +236,7 @@ public class CreazioneSocieta implements Initializable {
 
         // * ************ setta i campi come sono stati salvati ************ //
         modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
-            textFieldTel);
+                textFieldTel);
         // * ************************************************ //
     }
 
@@ -185,7 +244,7 @@ public class CreazioneSocieta implements Initializable {
 
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
-    
+
     }
 
 }

@@ -15,79 +15,109 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
-   <center>
-      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="435.0" prefWidth="614.0">
-               <children>
-                  <GridPane alignment="CENTER" prefHeight="439.0" prefWidth="614.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="261.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="62.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="93.0" text="Ragione Sociale:" />
-                        <TextField fx:id="textFieldSocieta" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" GridPane.columnIndex="1" />
-                        <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
-                        <TextField fx:id="textFieldLocalita" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="2" />
-                        <TextField fx:id="textFieldIndirizzo" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="3" />
-                        <TextField fx:id="textFieldProvincia" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="4" />
-                        <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Descrizione:" GridPane.rowIndex="5" />
-                        <TextField fx:id="textFieldDesc" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                     </children>
-                  </GridPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </center>
-   <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="752.0" BorderPane.alignment="CENTER_LEFT">
-         <children>
-            <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="32.0" prefWidth="27.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
-               <graphic>
-                  <ImageView fitHeight="33.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/save_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets left="25.0" />
-               </HBox.margin>
-            </JFXButton>
-            <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
-            <JFXComboBox editable="true" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
-            <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
-            <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
-               <HBox.margin>
-                  <Insets right="25.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/angle-right.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="15.0" />
-         </BorderPane.margin>
-      </HBox>
-   </top>
+<BorderPane prefHeight="495.0" prefWidth="752.0"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+    <center>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <children>
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="443.0" prefWidth="673.0">
+                    <children>
+                        <GridPane alignment="CENTER" prefHeight="439.0" prefWidth="645.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="111.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="425.0" minWidth="10.0" prefWidth="327.0" />
+                                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="235.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label prefHeight="17.0" prefWidth="93.0" text="Ragione Sociale:" />
+                                <TextField fx:id="textFieldSocieta" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" GridPane.columnIndex="1" />
+                                <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldLocalita" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="2" />
+                                <TextField fx:id="textFieldIndirizzo" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Pane prefHeight="0.0" prefWidth="156.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                    <children>
+                                        <Label layoutX="15.0" layoutY="23.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
+                                        <TextField fx:id="textFieldProvincia" accessibleText="INTEGER" alignment="CENTER" layoutX="72.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="69.0" />
+                                    </children>
+                                </Pane>
+                                <Pane prefHeight="17.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="19.0" prefHeight="17.0" prefWidth="56.0" text="Telefono:" />
+                                        <TextField fx:id="textFieldTel" accessibleText="INTEGER" layoutX="70.0" layoutY="15.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="163.0" />
+                                    </children>
+                                </Pane>
+                                <Label text="Partita IVA:" GridPane.rowIndex="3" />
+                                <TextField fx:id="textFieldPartitaIva" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <Pane prefHeight="0.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                    <children>
+                                        <Label layoutX="14.0" layoutY="23.0" text="Descrizione:" />
+                                        <TextField fx:id="textFieldDescrizione" accessibleText="INTEGER" layoutX="87.0" layoutY="19.0" prefHeight="25.0" prefWidth="150.0" />
+                                    </children>
+                                </Pane>
+                                <Label text="Codice Fiscale:" GridPane.rowIndex="4" />
+                                <TextField fx:id="textFieldCodiceFiscale" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <Label text="Banca d'appoggio:" GridPane.rowIndex="5" />
+                                <TextField fx:id="textFieldBancaAppoggio" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Label text="Codice ateco:" GridPane.rowIndex="6" />
+                                <TextField fx:id="textFieldCodiceAteco" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <Pane prefHeight="1.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                    <children>
+                                        <JFXButton fx:id="buttonLogoUrl" buttonType="RAISED" layoutX="14.0" layoutY="19.0" text="File Immagine" />
+                                        <Label layoutX="108.0" layoutY="23.0" prefHeight="17.0" prefWidth="129.0" />
+                                    </children>
+                                </Pane>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+    <top>
+        <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="752.0" BorderPane.alignment="CENTER_LEFT">
+            <children>
+                <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="32.0" prefWidth="27.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+                    <graphic>
+                        <ImageView fitHeight="33.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../icons/save_icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="25.0" />
+                    </HBox.margin>
+                </JFXButton>
+                <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
+                <JFXComboBox fx:id="cercaSocieta" onHiding="#filtraSocieta" editable="true" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+                <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
+                <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                    <HBox.margin>
+                        <Insets right="25.0" />
+                    </HBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../icons/angle-right.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="15.0" />
+            </BorderPane.margin>
+        </HBox>
+    </top>
 </BorderPane>
