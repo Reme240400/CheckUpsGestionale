@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<DialogPane expanded="true" prefHeight="397.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.DialogPaneAddR">
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <content>
+      <HBox alignment="CENTER" prefHeight="227.0" prefWidth="482.0">
+         <children>
+            <VBox prefHeight="233.0" prefWidth="422.0" HBox.hgrow="SOMETIMES">
+               <children>
+                  <GridPane alignment="CENTER" prefHeight="171.0" prefWidth="422.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="95.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="260.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="34.0" minHeight="30.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="58.0" minHeight="16.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Nome" />
+                        <TextField fx:id="creaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
+                        <Label text="Data" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="creaDataReparto" editable="false" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label layoutX="62.0" layoutY="39.0" text="Descrizione" GridPane.rowIndex="2" />
+                        <TextArea fx:id="creaDescReparto" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </content>
+   <header>
+      <HBox alignment="CENTER" prefHeight="121.0" prefWidth="482.0">
+         <children>
+            <Pane>
+               <children>
+                  <TextField fx:id="textFieldSocieta" editable="false" layoutY="56.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="41.0" text="Società" />
+               </children>
+            </Pane>
+            <Pane prefHeight="111.0" prefWidth="77.0" />
+            <Pane>
+               <children>
+                  <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="56.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="41.0" text="Unità Locale" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </header>
+</DialogPane>

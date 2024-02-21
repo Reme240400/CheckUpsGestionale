@@ -1,11 +1,13 @@
-package View.Controllers.Creazione;
+package View.Controllers.Creazione.DialogPane;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -30,6 +32,12 @@ public class DialogPaneAddP implements Initializable{
 
     @FXML
     private Spinner<Integer> setStimaR;
+
+    @FXML
+    private TextField creaEmail;
+
+    @FXML
+    private DatePicker creaDataFine;
 
     @FXML
     private TextField textFieldOggetto;
@@ -90,6 +98,21 @@ public class DialogPaneAddP implements Initializable{
         textFieldReparto.setText(nomeR);
         textFieldTitolo.setText(nomeT);
         textFieldOggetto.setText(nomeO);
+    }
+
+    public String getEmail() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmail'");
+    }
+
+    public LocalDate getDataInizio() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDataInizio'");
+    }
+
+    public LocalDate getDataFine() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDataFine'");
     }
 
 

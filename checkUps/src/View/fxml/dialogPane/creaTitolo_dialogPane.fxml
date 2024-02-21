@@ -25,21 +25,21 @@
                      <children>
                         <Pane>
                            <children>
-                              <TextField fx:id="textFieldSocieta" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                              <TextField fx:id="textFieldSocieta" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                               <Label text="Società" />
                            </children>
                         </Pane>
                         <Pane prefHeight="54.0" prefWidth="77.0" />
                         <Pane>
                            <children>
-                              <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                              <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                               <Label text="Unità Locale" />
                            </children>
                         </Pane>
                         <Pane layoutX="183.0" layoutY="10.0" prefHeight="54.0" prefWidth="77.0" />
                         <Pane layoutX="260.0" layoutY="10.0">
                            <children>
-                              <TextField fx:id="textFieldReparto" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                              <TextField fx:id="textFieldReparto" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                               <Label text="Reparto" />
                            </children>
                         </Pane>

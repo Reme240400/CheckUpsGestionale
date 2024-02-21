@@ -20,6 +20,7 @@ import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
 import View.Controllers.ViewController;
+import View.Controllers.Creazione.DialogPane.DialogPaneAddT;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

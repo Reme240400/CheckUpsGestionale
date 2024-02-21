@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Interfaces.CreazioneInterface;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
@@ -19,6 +20,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+import View.Controllers.Creazione.DialogPane.DialogPaneAddO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +36,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneOggetto implements Initializable {
+public class CreazioneOggetto implements Initializable, CreazioneInterface {
 
     @FXML
     private JFXButton btnAdd;
@@ -292,7 +294,7 @@ public class CreazioneOggetto implements Initializable {
     }
 
     @FXML
-    public void modify() {
+    public void aggiorna() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
 
             Parent root = new Parent() {};
@@ -408,7 +410,7 @@ public class CreazioneOggetto implements Initializable {
     }
 
     @FXML
-    public void save_addOggetto() {
+    public void salva() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
             Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
 

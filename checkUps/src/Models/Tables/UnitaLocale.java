@@ -14,7 +14,7 @@ public class UnitaLocale extends TablesId implements Serializable{
     private List<Reparto> listaReparti = ClassHelper.getListReparto();
     private String telefono;
 
-    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, int idSocieta, String telefono) {
+    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, String telefono, int idSocieta) {
         super(idUnitaLocale);
         //this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;

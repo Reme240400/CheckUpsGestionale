@@ -1,4 +1,4 @@
-package View.Controllers.Creazione;
+package View.Controllers.Creazione.DialogPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;

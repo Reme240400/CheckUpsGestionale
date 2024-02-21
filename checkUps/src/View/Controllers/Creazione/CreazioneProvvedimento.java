@@ -5,6 +5,7 @@ import java.util.List;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -22,7 +23,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-
+import View.Controllers.Creazione.DialogPane.DialogPaneAddP;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -378,6 +379,7 @@ public class CreazioneProvvedimento implements Initializable {
                         && dialogController.getStimaP() != 0) {
 
                     int id = Controller.getNewId(provList);
+                    LocalDate data = LocalDate.now();
                     Provvedimento newProvvedimento = new Provvedimento(id,
                                                                         localOggetto.getId(),
                                                                         dialogController.getNome(),
@@ -385,7 +387,10 @@ public class CreazioneProvvedimento implements Initializable {
                                                                         dialogController.getSoggettiEsposti(),
                                                                         dialogController.getStimaR(),
                                                                         dialogController.getStimaD(),
-                                                                        dialogController.getStimaP());
+                                                                        dialogController.getStimaP(),
+                                                                        dialogController.getEmail(),
+                                                                        data,
+                                                                        dialogController.getDataFine());
                                                     
                     modelCreazione.createProvvedimentoTmp(newProvvedimento);
                     Controller.inserisciNuovoRecord(newProvvedimento);
@@ -439,6 +444,7 @@ public class CreazioneProvvedimento implements Initializable {
                         && dialogController.getStimaP() != 0) {
 
                     int id = Controller.getNewId(provList);
+                    LocalDate data = LocalDate.now();
                     Provvedimento newProvvedimento = new Provvedimento(id,
                                                                         localOggetto.getId(),
                                                                         dialogController.getNome(),
@@ -446,7 +452,10 @@ public class CreazioneProvvedimento implements Initializable {
                                                                         dialogController.getSoggettiEsposti(),
                                                                         dialogController.getStimaR(),
                                                                         dialogController.getStimaD(),
-                                                                        dialogController.getStimaP());
+                                                                        dialogController.getStimaP(),
+                                                                        dialogController.getEmail(),
+                                                                        data,
+                                                                        dialogController.getDataFine());
                                                     
                     modelCreazione.createProvvedimentoTmp(newProvvedimento);
                     Controller.inserisciNuovoRecord(newProvvedimento);

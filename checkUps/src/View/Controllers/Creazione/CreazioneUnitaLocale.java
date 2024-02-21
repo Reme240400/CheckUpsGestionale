@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Interfaces.CreazioneInterface;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelPaths;
@@ -24,7 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 
-public class CreazioneUnitaLocale implements Initializable {
+public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     @FXML
     private JFXComboBox<String> cercaRecord;
@@ -53,8 +54,8 @@ public class CreazioneUnitaLocale implements Initializable {
     @FXML
     private TextField textFieldProvincia;
 
-    //@FXML
-    //private TextField textFieldTel;
+    @FXML
+    private TextField textFieldTel;
 
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
@@ -83,7 +84,7 @@ public class CreazioneUnitaLocale implements Initializable {
         
     }
 
-    public void salvaUnitaLocale(javafx.event.ActionEvent event) {
+    public void aggiorna() {
 
         int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
@@ -92,6 +93,7 @@ public class CreazioneUnitaLocale implements Initializable {
                                                     textFieldIndirizzo.getText(),
                                                     textFieldLocalita.getText(),
                                                     textFieldProvincia.getText(),
+                                                    textFieldTel.getText(),
                                                     localSocieta.getId());
 
         Controller.inserisciNuovoRecord(unitaLocale);
@@ -101,7 +103,7 @@ public class CreazioneUnitaLocale implements Initializable {
         
     }
 
-    public void save_addUnitaLocale(){
+    public void salva(){
 
         int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
@@ -110,6 +112,7 @@ public class CreazioneUnitaLocale implements Initializable {
                                                     textFieldIndirizzo.getText(),
                                                     textFieldLocalita.getText(),
                                                     textFieldProvincia.getText(),
+                                                    textFieldTel.getText(),
                                                     localSocieta.getId());
         
         Controller.inserisciNuovoRecord(unitaLocale);

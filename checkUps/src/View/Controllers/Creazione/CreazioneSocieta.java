@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Interfaces.CreazioneInterface;
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.Tables.Societa;
@@ -26,13 +27,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneSocieta implements Initializable {
+public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
     @FXML
     private JFXButton btnSalva;
 
     @FXML
-    private JFXButton btnSalvaAggiungi;
+    private JFXButton btnAggiorna;
 
     @FXML
     private TextField textFieldSocieta;
@@ -135,7 +136,7 @@ public class CreazioneSocieta implements Initializable {
     }
 
     // -------------------- salva la societa -------------------- //
-    public void save_addSocieta() {
+    public void aggiorna() {
 
         int id = Controller.getNewId(listSocieta);
 
@@ -168,7 +169,7 @@ public class CreazioneSocieta implements Initializable {
 
     }
 
-    public void salvaSocieta() {
+    public void salva() {
 
         int id = Controller.getNewId(listSocieta);
 
@@ -195,7 +196,7 @@ public class CreazioneSocieta implements Initializable {
 
     // * ----------------------------- elimina la societa
     // ----------------------------- //
-    public void eliminaSocieta() {
+     public void eliminaSocieta() {
 
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
@@ -209,8 +210,7 @@ public class CreazioneSocieta implements Initializable {
         modelCreazione.setDiscard(false);
     }
     // *
-    // -------------------------------------------------------------------------------
-    // //
+    // ------------------------------------------------------------------------------- //
 
     // * ---------------------- controlla se i campi sono vuoti
     // ---------------------- //
@@ -219,14 +219,13 @@ public class CreazioneSocieta implements Initializable {
                 textFieldProvincia, textFieldTel);
     }
     // *
-    // -------------------------------------------------------------------------------
-    // //
+    // ------------------------------------------------------------------------------- //
 
     // * ************ setta il modelCreazionelo ************ //
     public void setTextFields() {
 
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
-        this.btnSalvaAggiungi.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
 
         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());

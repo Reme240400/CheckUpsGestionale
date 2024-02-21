@@ -2,7 +2,6 @@ package Models.Tables;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Provvedimento extends TablesId implements Serializable {
 

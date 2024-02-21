@@ -1,7 +1,6 @@
-package View.Controllers.Creazione;
+package View.Controllers.Creazione.DialogPane;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
@@ -10,19 +9,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-public class DialogPaneAddR implements Initializable{
+public class DialogPaneAddT implements Initializable{
 
     @FXML
-    private DatePicker creaDescReparto;
-
-    @FXML
-    private TextField creaNomeReparto;
+    private TextField creaNome;
 
     @FXML
     private TextField textFieldSocieta;
 
     @FXML
     private TextField textFieldUnitaLocale;
+
+    @FXML
+    private TextField textFieldReparto;
 
     private ModelCreazione modelCreazione;
 
@@ -31,20 +30,15 @@ public class DialogPaneAddR implements Initializable{
     }
 
     public String getNome(){
-        
-        return creaNomeReparto.getText();
+    
+        return creaNome.getText();
     
     }
 
-    public LocalDate getData(){
-
-        return creaDescReparto.getValue();    
-        
-    }
-
-    public void fillTextBox(String nomeSocieta, String nomeUnita){
+    public void fillTextBox(String nomeSocieta, String nomeUnita, String nomeReparto ){
         textFieldSocieta.setText(nomeSocieta);
         textFieldUnitaLocale.setText(nomeUnita);
+        textFieldReparto.setText(nomeReparto);
     }
 
     public void setModel(ModelCreazione modelCreazione){

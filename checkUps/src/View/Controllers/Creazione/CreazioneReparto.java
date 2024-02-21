@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Interfaces.CreazioneInterface;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
@@ -19,7 +20,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
-
+import View.Controllers.Creazione.DialogPane.DialogPaneAddR;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -35,7 +36,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneReparto implements Initializable {
+public class CreazioneReparto implements Initializable, CreazioneInterface {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -101,7 +102,7 @@ public class CreazioneReparto implements Initializable {
     }
 
     // --------------- triggherato quando si seleziona una societa --------------- //
-    public void selectSocieta () {
+   /* public void selectSocieta () {
         List<UnitaLocale> specificList = null;
 
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
@@ -166,7 +167,7 @@ public class CreazioneReparto implements Initializable {
                                     "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
         }
 
-    }
+    }*/
 
     // --------------- popola la tabella dei reparti --------------- //
     private void fillTableView() {
@@ -194,7 +195,7 @@ public class CreazioneReparto implements Initializable {
     }
 
     // --------------- va alla schermata di modifica --------------- //
-    public void modify() throws IOException {
+    public void aggiorna() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
 
             Parent root = new Parent() {};
@@ -205,7 +206,12 @@ public class CreazioneReparto implements Initializable {
             else if(localUnita != null)
                 modelModifica.setUnitaLocale(localUnita);
 
-            root = modelPaths.switchToModificaReparto(modelModifica);
+            try {
+                root = modelPaths.switchToModificaReparto(modelModifica);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             Controller.changePane(modelPaths.getStackPaneHome(), root);
         }
@@ -291,7 +297,10 @@ public class CreazioneReparto implements Initializable {
                     Reparto newReparto = new Reparto(id,
                             localUnita.getId(),
                             dialogController.getNome(),
-                            dialogController.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                            dialogController.getRevisione(),
+                            dialogController.getDesc(),
+                            dialogController.getData()
+                            );
                     modelCreazione.createRepartoTmp(newReparto);
                     Controller.inserisciNuovoRecord(newReparto);
 
@@ -310,7 +319,7 @@ public class CreazioneReparto implements Initializable {
     }
 
     // --------------- va alla schermata di creazione Titolo --------------- //
-    public void save_addReparto() {
+    public void salva() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
 
@@ -341,13 +350,13 @@ public class CreazioneReparto implements Initializable {
         if(modelCreazione.getSocietaTmp() != null){
             this.localSocieta = modelCreazione.getSocietaTmp();
             this.cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
-            selectSocieta();
+          //  selectSocieta();
         }
 
         if(modelCreazione.getUnitaLocaleTmp() != null){
             this.localUnita = modelCreazione.getUnitaLocaleTmp();
             this.cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
-            selectUnita();
+            //selectUnita();
         }
     }
 
