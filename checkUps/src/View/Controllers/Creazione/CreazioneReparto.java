@@ -206,26 +206,26 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
     // --------------- va alla schermata di modifica --------------- //
     public void modifica() {
-        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
+        // if (tableReparti.getSelectionModel().getSelectedItem() != null) {
 
-            Parent root = new Parent() {
-            };
-            modelModifica = new ModelModifica();
+        // Parent root = new Parent() {
+        // };
+        // modelModifica = new ModelModifica();
 
-            if (modelCreazione.getUnitaLocaleTmp() != null)
-                modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
-            else if (localUnita != null)
-                modelModifica.setUnitaLocale(localUnita);
+        // if (modelCreazione.getUnitaLocaleTmp() != null)
+        // modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
+        // else if (localUnita != null)
+        // modelModifica.setUnitaLocale(localUnita);
 
-            try {
-                root = modelPaths.switchToModificaReparto(modelModifica);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        // try {
+        // root = modelPaths.switchToModificaReparto(modelModifica);
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
 
-            Controller.changePane(modelPaths.getStackPaneHome(), root);
-        }
+        // Controller.changePane(modelPaths.getStackPaneHome(), root);
+        // }
     }
 
     // --------------- elimina il reparto selezionato --------------- //
@@ -318,7 +318,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
                                 dialogController.getNome(),
                                 dialogController.getRevisione(),
                                 dialogController.getDesc(),
-                                dialogController.getData());
+                                Optional.of(dialogController.getData()));
                         modelCreazione.createRepartoTmp(newReparto);
                         Controller.inserisciNuovoRecord(newReparto);
 

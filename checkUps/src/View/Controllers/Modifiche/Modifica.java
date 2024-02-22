@@ -51,7 +51,7 @@ public class Modifica implements Initializable {
     private JFXButton btnOggetti;
 
     @FXML
-    private JFXButton btnProvvedimenti;    
+    private JFXButton btnProvvedimenti;
 
     // ----------------- Societa ----------------- //
     @FXML
@@ -77,7 +77,7 @@ public class Modifica implements Initializable {
 
     @FXML
     private JFXButton btnDelS;
-    
+
     // ----------------- Societa ----------------- //
 
     // ----------------- Unita Locale ----------------- //
@@ -126,7 +126,6 @@ public class Modifica implements Initializable {
     @FXML
     private StackPane oggetti_provvedimentiStackPane;
 
-
     @FXML
     private DialogPane dialogPane;
 
@@ -157,8 +156,8 @@ public class Modifica implements Initializable {
             }
 
             return change;
-        }; 
-        
+        };
+
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
         // ------------------------------------------------------------------------- //
@@ -196,7 +195,8 @@ public class Modifica implements Initializable {
         cercaRecordU.setItems(filteredItems);
     }
 
-    // --------------- Riempi i campi con i dati della societa selezionata --------------- //
+    // --------------- Riempi i campi con i dati della societa selezionata
+    // --------------- //
     public void fillTextFieldS() {
         if (cercaRecordS.getValue() != null && !cercaRecordS.getValue().equals("")) {
             modelModifica.fillTextField(cercaRecordS, textFieldNomeS, textFieldIndirizzo, textFieldLocalita,
@@ -208,7 +208,8 @@ public class Modifica implements Initializable {
         }
     }
 
-    // --------------- Riempi i campi con i dati dell'unita locale selezionata --------------- //
+    // --------------- Riempi i campi con i dati dell'unita locale selezionata
+    // --------------- //
     public void fillTextFieldU() {
         if (cercaRecordU.getValue() != null && !cercaRecordU.getValue().equals("")) {
             int id = modelModifica.getSocietaTmp().getId();
@@ -239,7 +240,7 @@ public class Modifica implements Initializable {
             modelModifica.getUnitaLocaleTmp().setIndirizzo(textFieldIndirizzoU.getText());
             modelModifica.getUnitaLocaleTmp().setLocalita(textFieldLocalitaU.getText());
             modelModifica.getUnitaLocaleTmp().setProvincia(textFieldProvinciaU.getText());
-            
+
             Controller.modificaCampo(modelModifica.getUnitaLocaleTmp());
             popolaComboBoxU();
         }
@@ -265,115 +266,125 @@ public class Modifica implements Initializable {
         }
     }
 
-    // --------------- Mostra il dialogPane per filtrare l'Unita Locale --------------- //
+    // --------------- Mostra il dialogPane per filtrare l'Unita Locale
+    // --------------- //
     public void showUnitaPane() throws IOException {
 
-        // ------------------- Mostra il dialogPane dell'Unita Locale ------------------- //
-        if (tabUnitaLocale.isSelected()) {
+        // // ------------------- Mostra il dialogPane dell'Unita Locale
+        // ------------------- //
+        // if (tabUnitaLocale.isSelected()) {
 
-            ButtonType clickedButton = modelPaths.showUnitaDialogPane(modelModifica);
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
-            if (clickedButton == ButtonType.APPLY) {
-                if (modelModifica.getSocietaTmp() != null) {
-                    // prende l'id della societa selezionata //
-                    this.idSocieta = modelModifica.getSocietaTmp().getId();
+        // ButtonType clickedButton = modelPaths.showUnitaDialogPane(modelModifica);
+        // // ------------------- Se viene premuto il tasto "Applica"
+        // ------------------- //
+        // if (clickedButton == ButtonType.APPLY) {
+        // if (modelModifica.getSocietaTmp() != null) {
+        // // prende l'id della societa selezionata //
+        // this.idSocieta = modelModifica.getSocietaTmp().getId();
 
-                    popolaComboBoxU();
+        // popolaComboBoxU();
 
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona una società");
-                    tabPane.getSelectionModel().select(0);
-                }
-            } else {
-                tabPane.getSelectionModel().select(0);
-            }
-        }
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona una società");
+        // tabPane.getSelectionModel().select(0);
+        // }
+        // } else {
+        // tabPane.getSelectionModel().select(0);
+        // }
+        // }
     }
 
-    // ------------------- Mostra il dialogPane per filtrare i Reparti ------------------- //
+    // ------------------- Mostra il dialogPane per filtrare i Reparti
+    // ------------------- //
     public void showRepartiTitoliDialogPane() throws IOException {
 
-        if (tabReparti_Titoli.isSelected()) {
-        
-            ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
+        // if (tabReparti_Titoli.isSelected()) {
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+        // ButtonType clickedButton =
+        // modelPaths.showRepartiTitoliDialogPane(modelModifica);
 
-            if (clickedButton == ButtonType.APPLY) {
-                if(modelModifica.getUnitaLocaleTmp() != null){
-                    showRepartoPane();
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
-                    tabPane.getSelectionModel().select(0);
-                }
-            } else {
-                tabPane.getSelectionModel().select(0);
-            }
-        }
+        // // ------------------- Se viene premuto il tasto "Applica"
+        // ------------------- //
+
+        // if (clickedButton == ButtonType.APPLY) {
+        // if(modelModifica.getUnitaLocaleTmp() != null){
+        // showRepartoPane();
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità
+        // locale");
+        // tabPane.getSelectionModel().select(0);
+        // }
+        // } else {
+        // tabPane.getSelectionModel().select(0);
+        // }
+        // }
     }
 
     // ------------------- Mostra il pannello dei Reparti ------------------- //
     public void showRepartoPane() throws IOException {
 
-        Parent root = modelPaths.switchToModificaReparto(modelModifica);
+        // Parent root = modelPaths.switchToModificaReparto(modelModifica);
 
-        if (root != null) {
-            titoli_repartiStackPane.getChildren().removeAll();
-            titoli_repartiStackPane.getChildren().setAll(root);
-        }
+        // if (root != null) {
+        // titoli_repartiStackPane.getChildren().removeAll();
+        // titoli_repartiStackPane.getChildren().setAll(root);
+        // }
     }
 
     // ------------------- Mostra il pannello dei Titoli ------------------- //
     public void showTitoliPane() throws IOException {
 
-        Parent root = modelPaths.switchToModificaTitoli(modelModifica);
+        // Parent root = modelPaths.switchToModificaTitoli(modelModifica);
 
-        if (root != null) {
-            titoli_repartiStackPane.getChildren().removeAll();
-            titoli_repartiStackPane.getChildren().setAll(root);
-        }
+        // if (root != null) {
+        // titoli_repartiStackPane.getChildren().removeAll();
+        // titoli_repartiStackPane.getChildren().setAll(root);
+        // }
     }
 
-    // ------------------- Mostra il dialogPane per filtrare gli Oggetti ------------------- //
-    public void showOggettiDialogPane() throws IOException{
-        
-        if (tabOggetti_Provvedimenti.isSelected()) {
-            
-            ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
+    // ------------------- Mostra il dialogPane per filtrare gli Oggetti
+    // ------------------- //
+    public void showOggettiDialogPane() throws IOException {
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+        // if (tabOggetti_Provvedimenti.isSelected()) {
 
-            if (clickedButton == ButtonType.APPLY) {
-                if(modelModifica.getTitoloTmp() != null){
-                    showOggettiPane();
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un Titolo");
-                    tabPane.getSelectionModel().select(0);
-                }
-            } else {
-                tabPane.getSelectionModel().select(0);
-            }
-        }
+        // ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
+
+        // // ------------------- Se viene premuto il tasto "Applica"
+        // ------------------- //
+
+        // if (clickedButton == ButtonType.APPLY) {
+        // if(modelModifica.getTitoloTmp() != null){
+        // showOggettiPane();
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un Titolo");
+        // tabPane.getSelectionModel().select(0);
+        // }
+        // } else {
+        // tabPane.getSelectionModel().select(0);
+        // }
+        // }
     }
 
     // ------------------- Mostra il pannello degli Oggetti ------------------- //
-    public void showOggettiPane() throws IOException{
-        Parent root = modelPaths.switchToModificaOggetti(modelModifica);
+    public void showOggettiPane() throws IOException {
+        // Parent root = modelPaths.switchToModificaOggetti(modelModifica);
 
-        if (root != null) {
-            oggetti_provvedimentiStackPane.getChildren().removeAll();
-            oggetti_provvedimentiStackPane.getChildren().setAll(root);
-        }
+        // if (root != null) {
+        // oggetti_provvedimentiStackPane.getChildren().removeAll();
+        // oggetti_provvedimentiStackPane.getChildren().setAll(root);
+        // }
     }
 
-    // ------------------- Mostra il dialogPane per filtrare i Provvedimenti ------------------- //
-    public void showProvvedimentiPane() throws IOException{
-        Parent root = modelPaths.switchToModificaProvvedimenti(modelModifica);
+    // ------------------- Mostra il dialogPane per filtrare i Provvedimenti
+    // ------------------- //
+    public void showProvvedimentiPane() throws IOException {
+        // Parent root = modelPaths.switchToModificaProvvedimenti(modelModifica);
 
-        if (root != null) {
-            oggetti_provvedimentiStackPane.getChildren().removeAll();
-            oggetti_provvedimentiStackPane.getChildren().setAll(root);
-        }
+        // if (root != null) {
+        // oggetti_provvedimentiStackPane.getChildren().removeAll();
+        // oggetti_provvedimentiStackPane.getChildren().setAll(root);
+        // }
     }
 
     // ----------------- Setta il model ----------------- //
@@ -401,8 +412,7 @@ public class Modifica implements Initializable {
 
         modelPaths.setStackPaneModificaR(titoli_repartiStackPane);
         modelPaths.setStackPaneModificaO(oggetti_provvedimentiStackPane);
-        
-        
+
     }
 
 }

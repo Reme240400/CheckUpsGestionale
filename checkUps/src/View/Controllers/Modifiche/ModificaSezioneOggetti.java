@@ -30,7 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ModificaSezioneOggetti implements Initializable{
+public class ModificaSezioneOggetti implements Initializable {
 
     @FXML
     private JFXButton btnDel;
@@ -96,7 +96,7 @@ public class ModificaSezioneOggetti implements Initializable{
 
     @FXML
     private void modify() throws Exception {
-        if(modelModifica.getOggettoTmp() != null ){
+        if (modelModifica.getOggettoTmp() != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_oggetto_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
@@ -111,7 +111,8 @@ public class ModificaSezioneOggetti implements Initializable{
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
 
@@ -123,13 +124,13 @@ public class ModificaSezioneOggetti implements Initializable{
     }
 
     private void updateChanges(DialogPaneModificaOggetto dialogController) {
-        if(modelModifica.getOggettoTmp() != null && 
-            modelModifica.getOggettoTmp().getNome() != ""){
+        if (modelModifica.getOggettoTmp() != null &&
+                modelModifica.getOggettoTmp().getNome() != "") {
 
             modelModifica.getOggettoTmp().setNome(dialogController.getNome());
 
             Controller.modificaCampo(modelModifica.getOggettoTmp());
-            
+
         } else {
             Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "L'oggetto selezionato non è valido");
         }
@@ -137,25 +138,25 @@ public class ModificaSezioneOggetti implements Initializable{
 
     @FXML
     private void refresh() {
-        try {
-            modelModifica.resetAllTmp();
-            ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
-        
-            if (clickedButton == ButtonType.APPLY) {
-                if(modelModifica.getTitoloTmp() != null){
-                    modelModifica.setSelectedOggetto(false);
+        // try {
+        // modelModifica.resetAllTmp();
+        // ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
 
-                    Parent root = modelPaths.switchToModificaOggetti(modelModifica);
-                    Controller.changePane(modelPaths.getStackPaneModificaO(), root);
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'titolo");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // if (clickedButton == ButtonType.APPLY) {
+        // if(modelModifica.getTitoloTmp() != null){
+        // modelModifica.setSelectedOggetto(false);
+
+        // Parent root = modelPaths.switchToModificaOggetti(modelModifica);
+        // Controller.changePane(modelPaths.getStackPaneModificaO(), root);
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'titolo");
+        // }
+        // }
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
-    
+
     public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
         this.modelPaths = modelPaths;

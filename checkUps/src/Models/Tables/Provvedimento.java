@@ -2,6 +2,7 @@ package Models.Tables;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Provvedimento extends TablesId implements Serializable {
 
@@ -13,12 +14,13 @@ public class Provvedimento extends TablesId implements Serializable {
     private int stima_d;
     private int stima_p;
     private String email;
-    private LocalDate data_inizio;
-    private LocalDate data_scadenza;
+    private Optional<LocalDate> data_inizio;
+    private Optional<LocalDate> data_scadenza;
 
     public Provvedimento(int idProvvedimento, int idOggetto, String rischio, String nome,
-            String soggettiEsposti, int stima_r, int stima_d, int stima_p, String email, LocalDate data_inizio,
-            LocalDate data_scadenza) {
+            String soggettiEsposti, int stima_r, int stima_d, int stima_p, String email,
+            Optional<LocalDate> data_inizio,
+            Optional<LocalDate> data_scadenza) {
         super(idProvvedimento);
 
         this.nome = nome;
@@ -97,20 +99,11 @@ public class Provvedimento extends TablesId implements Serializable {
         this.email = email;
     }
 
-    public LocalDate getDataInizio() {
+    public Optional<LocalDate> getDataInizio() {
         return this.data_inizio;
     }
 
-    public void setDataInizio(LocalDate data_inizio) {
-        this.data_inizio = data_inizio;
-    }
-
-    public LocalDate getDataScadenza() {
+    public Optional<LocalDate> getDataScadenza() {
         return this.data_scadenza;
     }
-
-    public void setDataScadenza(LocalDate data_scadenza) {
-        this.data_scadenza = data_scadenza;
-    }
-
 }

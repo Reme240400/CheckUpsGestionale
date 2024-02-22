@@ -1,6 +1,7 @@
 package Models;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import Helpers.ClassHelper;
 import Models.Tables.Mansione;
@@ -150,7 +152,12 @@ public class ModelDb {
                         String nome = resultSet.getString("nome");
                         String descrizione = resultSet.getString("descrizione");
                         String revisione = resultSet.getString("revisione");
-                        LocalDate data = resultSet.getDate("data").toLocalDate();
+
+                        Optional<LocalDate> data = Optional.empty();
+                        Date data_db = resultSet.getDate("data");
+                        if (data_db != null)
+                            data = Optional.of(data_db.toLocalDate());
+
                         Reparto reparto = new Reparto(idReparto, idUnitaLocale, nome, descrizione, revisione, data);
                         ModelListe.inserisciRecordInLista(reparto);
                     }
@@ -252,8 +259,17 @@ public class ModelDb {
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
                         String email = resultSet.getString("email");
-                        LocalDate data_inizio = resultSet.getDate("data_inizio").toLocalDate();
-                        LocalDate data_scadenza = resultSet.getDate("data_scadenza").toLocalDate();
+
+                        Optional<LocalDate> data_inizio = Optional.empty();
+                        Date data_inizio_db = resultSet.getDate("data_inizio");
+                        if (data_inizio_db != null)
+                            data_inizio = Optional.of(data_inizio_db.toLocalDate());
+
+                        Optional<LocalDate> data_scadenza = Optional.empty();
+                        Date data_scadenza_db = resultSet.getDate("data_scadenza");
+                        if (data_scadenza_db != null)
+                            data_scadenza = Optional.of(data_scadenza_db.toLocalDate());
+
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, idOggetto, rischio, nome,
                                 soggettiEsposti, stima_r, stima_d, stima_p, email, data_inizio, data_scadenza);
                         ModelListe.inserisciRecordInLista(provvedimento);
@@ -743,7 +759,6 @@ public class ModelDb {
                         ((Provvedimento) obj).getEmail(),
                         ((Provvedimento) obj).getDataInizio(),
                         ((Provvedimento) obj).getDataScadenza());
-
 
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;

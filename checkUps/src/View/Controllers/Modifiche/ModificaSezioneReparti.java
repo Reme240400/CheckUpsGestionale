@@ -29,7 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ModificaSezioneReparti implements Initializable{
+public class ModificaSezioneReparti implements Initializable {
 
     @FXML
     private TableView<Reparto> tableViewReparti;
@@ -59,7 +59,7 @@ public class ModificaSezioneReparti implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-            
+
         // --------------- inizializzo le colonne della tabella --------------- //
         idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
@@ -73,49 +73,50 @@ public class ModificaSezioneReparti implements Initializable{
 
     }
 
-    // --------------- filtra la tabella in tempo reale, in base al nome --------------- //
-    public void filterTable(){
+    // --------------- filtra la tabella in tempo reale, in base al nome
+    // --------------- //
+    public void filterTable() {
         modelModifica.filterTable(filterTable, tableViewReparti, observableList);
     }
 
-    public void fillRepartiTable(){
+    public void fillRepartiTable() {
 
         List<Reparto> specificList = null;
-        
+
         if (modelModifica.getUnitaLocaleTmp() != null) {
             specificList = modelModifica.fillRepartiTable(listaReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableViewReparti.setItems(observableList);
-            
-        } else if(modelModifica.getSocietaTmp() != null){
+
+        } else if (modelModifica.getSocietaTmp() != null) {
             specificList = modelModifica.fillAllRepartiTable(listaReparto, listUnitaLocale);
 
             observableList = FXCollections.observableArrayList(specificList);
-            tableViewReparti.setItems(observableList);            
+            tableViewReparti.setItems(observableList);
         }
     }
 
-    private void updateChanges(DialogPaneModificaReparto dialogController) throws IOException{
+    private void updateChanges(DialogPaneModificaReparto dialogController) throws IOException {
 
-        if(modelModifica.getRepartoTmp() != null && 
-            modelModifica.getRepartoTmp().getNome() != "" && 
-            modelModifica.getRepartoTmp().getDescrizione() != ""){
+        if (modelModifica.getRepartoTmp() != null &&
+                modelModifica.getRepartoTmp().getNome() != "" &&
+                modelModifica.getRepartoTmp().getDescrizione() != "") {
 
             modelModifica.getRepartoTmp().setNome(dialogController.getNomeReparto());
             modelModifica.getRepartoTmp().setDescrizione(dialogController.getDescReparto());
 
             Controller.modificaCampo(modelModifica.getRepartoTmp());
-            
+
         } else {
             Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
         }
     }
 
     @FXML
-    private void modify() throws IOException{
+    private void modify() throws IOException {
 
-        if(modelModifica.getRepartoTmp() != null ){
+        if (modelModifica.getRepartoTmp() != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_reparto_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
@@ -130,7 +131,8 @@ public class ModificaSezioneReparti implements Initializable{
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
 
@@ -142,8 +144,8 @@ public class ModificaSezioneReparti implements Initializable{
     }
 
     @FXML
-    private void delete(){
-        
+    private void delete() {
+
         if (tableViewReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
             Controller.eliminaRecord(reparto, reparto.getId());
@@ -152,36 +154,38 @@ public class ModificaSezioneReparti implements Initializable{
     }
 
     @FXML
-    private void refresh(){
-        try {
-            modelModifica.resetAllTmp();
-            ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
+    private void refresh() {
+        // try {
+        // modelModifica.resetAllTmp();
+        // ButtonType clickedButton =
+        // modelPaths.showRepartiTitoliDialogPane(modelModifica);
 
-            if (clickedButton == ButtonType.APPLY) {
-                if(modelModifica.getUnitaLocaleTmp() != null){
-                    fillRepartiTable();
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // if (clickedButton == ButtonType.APPLY) {
+        // if(modelModifica.getUnitaLocaleTmp() != null){
+        // fillRepartiTable();
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità
+        // locale");
+        // }
+        // }
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
 
-    public void selectReparto(){
+    public void selectReparto() {
         Reparto reparto = tableViewReparti.getSelectionModel().getSelectedItem();
         modelModifica.setReparto(reparto);
         modelModifica.setSelectedReparto(true);
-        
+
     }
 
     public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
         this.modelPaths = modelPaths;
 
-        fillRepartiTable();  
+        fillRepartiTable();
 
     }
-    
+
 }

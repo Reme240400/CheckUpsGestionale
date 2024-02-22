@@ -1,6 +1,8 @@
 package test.java;
 
-import Controllers.Controller;
+import java.time.LocalDate;
+import java.util.Optional;
+
 import Helpers.ClassHelper;
 import Models.Tables.Mansione;
 import Models.Tables.Reparto;
@@ -9,8 +11,10 @@ public class TestModelController {
     public static void main(String[] args) {
 
         // Popolamento della lista Reparto
-        Reparto reparto1 = new Reparto(1, 1, "Reparto 1", "Descrizione Reparto 1");
-        Reparto reparto2 = new Reparto(2, 1, "Reparto 2", "Descrizione Reparto 2");
+        Reparto reparto1 = new Reparto(1, 1, "Reparto 1", "Descrizione Reparto 1", "Revisione rep 1",
+                Optional.of(LocalDate.now()));
+        Reparto reparto2 = new Reparto(2, 1, "Reparto 2", "Descrizione Reparto 2", "Revisione rep 2",
+                Optional.of(LocalDate.now()));
         // Controller.popolaLista(reparto1);
         // Controller.popolaLista(reparto2);
 
@@ -30,7 +34,7 @@ public class TestModelController {
         }
 
         // Rimozione di un oggetto dalla lista Reparto
-        //Controller.rimuoviDaLista(reparto2, 0);
+        // Controller.rimuoviDaLista(reparto2, 0);
 
         System.out.println("STAMPA DOPO OPERAZIONI: \n");
         // Visualizzazione della lista Reparto dopo le operazioni

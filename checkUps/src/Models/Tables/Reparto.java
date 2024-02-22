@@ -2,16 +2,18 @@ package Models.Tables;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Optional;
 
-public class Reparto extends TablesId implements Serializable{
+public class Reparto extends TablesId implements Serializable {
 
     private int idUnitaLocale;
     private String nome;
     private String descrizione;
     private String revisione;
-    private LocalDate data;
+    private Optional<LocalDate> data;
 
-    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione, String revisione, LocalDate data) {
+    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione, String revisione,
+            Optional<LocalDate> data) {
         super(idReparto);
 
         this.idUnitaLocale = idUnitaLocale;
@@ -45,20 +47,16 @@ public class Reparto extends TablesId implements Serializable{
         this.descrizione = descrizione;
     }
 
-    public String getRevisione(){
+    public String getRevisione() {
         return this.revisione;
     }
 
-    public void setRevisione(String revisione){
+    public void setRevisione(String revisione) {
         this.revisione = revisione;
     }
 
-    public LocalDate getData(){
+    public Optional<LocalDate> getData() {
         return this.data;
-    }
-
-    public void setData(LocalDate data){
-        this.data = data;
     }
 
 }

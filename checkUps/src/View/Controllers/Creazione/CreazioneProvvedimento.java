@@ -274,7 +274,8 @@ public class CreazioneProvvedimento implements Initializable {
         }
     }
 
-    // --------------- triggherato quando si seleziona un' oggetto --------------- //
+    // --------------- triggherato quando si seleziona un' oggetto ---------------
+    // //
     public void selectOggetto() {
 
         if (localTitolo != null && tableOggetti.getSelectionModel().getSelectedItem() != null) {
@@ -341,11 +342,11 @@ public class CreazioneProvvedimento implements Initializable {
 
     @FXML
     public void addProv() throws IOException {
-        if (modelCreazione.getSocietaTmp() != null && 
-            modelCreazione.getUnitaLocaleTmp() != null && 
-            modelCreazione.getRepartoTmp() != null && 
-            modelCreazione.getTitoloTmp() != null && 
-            modelCreazione.getOggettoTmp() != null) {
+        if (modelCreazione.getSocietaTmp() != null &&
+                modelCreazione.getUnitaLocaleTmp() != null &&
+                modelCreazione.getRepartoTmp() != null &&
+                modelCreazione.getTitoloTmp() != null &&
+                modelCreazione.getOggettoTmp() != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaProv_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
@@ -354,10 +355,10 @@ public class CreazioneProvvedimento implements Initializable {
 
             dialogController.setModel(modelCreazione);
             dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-                                        modelCreazione.getUnitaLocaleTmp().getNome(), 
-                                        modelCreazione.getRepartoTmp().getNome(),
-                                        modelCreazione.getTitoloTmp().getDescrizione(),
-                                        modelCreazione.getOggettoTmp().getNome());
+                    modelCreazione.getUnitaLocaleTmp().getNome(),
+                    modelCreazione.getRepartoTmp().getNome(),
+                    modelCreazione.getTitoloTmp().getDescrizione(),
+                    modelCreazione.getOggettoTmp().getNome());
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
@@ -365,11 +366,12 @@ public class CreazioneProvvedimento implements Initializable {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null
-                        && !dialogController.getNome().equals("") 
+                        && !dialogController.getNome().equals("")
                         && dialogController.getRischio() != null
                         && !dialogController.getRischio().equals("")
                         && dialogController.getSoggettiEsposti() != null
@@ -381,17 +383,17 @@ public class CreazioneProvvedimento implements Initializable {
                     int id = Controller.getNewId(provList);
                     LocalDate data = LocalDate.now();
                     Provvedimento newProvvedimento = new Provvedimento(id,
-                                                                        localOggetto.getId(),
-                                                                        dialogController.getNome(),
-                                                                        dialogController.getRischio(),
-                                                                        dialogController.getSoggettiEsposti(),
-                                                                        dialogController.getStimaR(),
-                                                                        dialogController.getStimaD(),
-                                                                        dialogController.getStimaP(),
-                                                                        dialogController.getEmail(),
-                                                                        data,
-                                                                        dialogController.getDataFine());
-                                                    
+                            localOggetto.getId(),
+                            dialogController.getNome(),
+                            dialogController.getRischio(),
+                            dialogController.getSoggettiEsposti(),
+                            dialogController.getStimaR(),
+                            dialogController.getStimaD(),
+                            dialogController.getStimaP(),
+                            dialogController.getEmail(),
+                            Optional.of(data),
+                            Optional.of(dialogController.getDataFine()));
+
                     modelCreazione.createProvvedimentoTmp(newProvvedimento);
                     Controller.inserisciNuovoRecord(newProvvedimento);
 
@@ -407,10 +409,10 @@ public class CreazioneProvvedimento implements Initializable {
         }
 
         if (localSocieta != null &&
-            localUnita != null &&
-            localReparto != null &&
-            localTitolo != null && 
-            localOggetto != null) {
+                localUnita != null &&
+                localReparto != null &&
+                localTitolo != null &&
+                localOggetto != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaProv_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
@@ -419,10 +421,10 @@ public class CreazioneProvvedimento implements Initializable {
 
             dialogController.setModel(modelCreazione);
             dialogController.fillTextBox(localSocieta.getNome(),
-                                        localUnita.getNome(), 
-                                        localReparto.getNome(),
-                                        localTitolo.getDescrizione(),
-                                        localOggetto.getNome());
+                    localUnita.getNome(),
+                    localReparto.getNome(),
+                    localTitolo.getDescrizione(),
+                    localOggetto.getNome());
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
@@ -430,11 +432,12 @@ public class CreazioneProvvedimento implements Initializable {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null
-                        && !dialogController.getNome().equals("") 
+                        && !dialogController.getNome().equals("")
                         && dialogController.getRischio() != null
                         && !dialogController.getRischio().equals("")
                         && dialogController.getSoggettiEsposti() != null
@@ -446,17 +449,17 @@ public class CreazioneProvvedimento implements Initializable {
                     int id = Controller.getNewId(provList);
                     LocalDate data = LocalDate.now();
                     Provvedimento newProvvedimento = new Provvedimento(id,
-                                                                        localOggetto.getId(),
-                                                                        dialogController.getNome(),
-                                                                        dialogController.getRischio(),
-                                                                        dialogController.getSoggettiEsposti(),
-                                                                        dialogController.getStimaR(),
-                                                                        dialogController.getStimaD(),
-                                                                        dialogController.getStimaP(),
-                                                                        dialogController.getEmail(),
-                                                                        data,
-                                                                        dialogController.getDataFine());
-                                                    
+                            localOggetto.getId(),
+                            dialogController.getNome(),
+                            dialogController.getRischio(),
+                            dialogController.getSoggettiEsposti(),
+                            dialogController.getStimaR(),
+                            dialogController.getStimaD(),
+                            dialogController.getStimaP(),
+                            dialogController.getEmail(),
+                            Optional.of(data),
+                            Optional.of(dialogController.getDataFine()));
+
                     modelCreazione.createProvvedimentoTmp(newProvvedimento);
                     Controller.inserisciNuovoRecord(newProvvedimento);
 
@@ -482,24 +485,24 @@ public class CreazioneProvvedimento implements Initializable {
 
     @FXML
     public void modify() {
-        if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
+        // if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
 
-            Parent root = new Parent() {};
-            modelModifica = new ModelModifica();
+        // Parent root = new Parent() {};
+        // modelModifica = new ModelModifica();
 
-            if(modelCreazione.getOggettoTmp() != null)
-                modelModifica.setOggetto(modelCreazione.getOggettoTmp());
-            else if(localOggetto != null)
-                modelModifica.setOggetto(localOggetto);
+        // if(modelCreazione.getOggettoTmp() != null)
+        // modelModifica.setOggetto(modelCreazione.getOggettoTmp());
+        // else if(localOggetto != null)
+        // modelModifica.setOggetto(localOggetto);
 
-            try {
-                root = modelPaths.switchToModificaProvvedimenti(modelModifica);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // try {
+        // root = modelPaths.switchToModificaProvvedimenti(modelModifica);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
 
-            Controller.changePane(modelPaths.getStackPaneHome(), root);
-        }
+        // Controller.changePane(modelPaths.getStackPaneHome(), root);
+        // }
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
@@ -507,27 +510,27 @@ public class CreazioneProvvedimento implements Initializable {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-        if(modelCreazione.getSocietaTmp() != null){
+        if (modelCreazione.getSocietaTmp() != null) {
             localSocieta = modelCreazione.getSocietaTmp();
             cercaSocieta.setValue(localSocieta.getNome());
         }
 
-        if(modelCreazione.getUnitaLocaleTmp() != null){
+        if (modelCreazione.getUnitaLocaleTmp() != null) {
             localUnita = modelCreazione.getUnitaLocaleTmp();
             cercaUnita.setValue(localUnita.getNome());
         }
 
-        if(modelCreazione.getRepartoTmp() != null){
+        if (modelCreazione.getRepartoTmp() != null) {
             localReparto = modelCreazione.getRepartoTmp();
             cercaReparto.setValue(localReparto.getNome());
         }
 
-        if(modelCreazione.getTitoloTmp() != null){
+        if (modelCreazione.getTitoloTmp() != null) {
             localTitolo = modelCreazione.getTitoloTmp();
             cercaTitolo.setValue(localTitolo.getDescrizione());
         }
 
-        if(modelCreazione.getOggettoTmp() != null){
+        if (modelCreazione.getOggettoTmp() != null) {
             localOggetto = modelCreazione.getOggettoTmp();
             fillTableViewO();
         }

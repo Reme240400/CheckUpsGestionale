@@ -84,113 +84,126 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a modifica *************** //
-    public Parent switchToModifica(ModelModifica model) throws IOException {
+    // public Parent switchToModifica(ModelModifica model) throws IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica.fxml");
+    // URL fxmlURL =
+    // getClass().getClassLoader().getResource("View/fxml/modifica.fxml");
 
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
+    // if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+    // FXMLLoader loader = new FXMLLoader(fxmlURL);
 
-            Parent root = loader.load();
-            Modifica modifica = loader.getController();
+    // Parent root = loader.load();
+    // Modifica modifica = loader.getController();
 
-            modifica.setModel(model, this);
+    // modifica.setModel(model, this);
 
-            loadedFXMLs = fxmlURL.toString();
+    // loadedFXMLs = fxmlURL.toString();
 
-            return root;
-        } else {
-            return null;
-        }
+    // return root;
+    // } else {
+    // return null;
+    // }
 
-    }
+    // }
 
     // * *************** Cambia la scena a modifica reparti *************** //
-    public Parent switchToModificaReparto(ModelModifica modelModifica) throws IOException {
+    // public Parent switchToModificaReparto(ModelModifica modelModifica) throws
+    // IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneReparto.fxml");
+    // URL fxmlURL =
+    // getClass().getClassLoader().getResource("View/fxml/modifica_sezioneReparto.fxml");
 
-        // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaR, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
+    // // Check if the stackPaneHome already contains the root of the new scene
+    // if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaR,
+    // fxmlURL.toString())) {
+    // FXMLLoader loader = new FXMLLoader(fxmlURL);
 
-            Parent root = loader.load();
-            ModificaSezioneReparti modifica = loader.getController();
+    // Parent root = loader.load();
+    // ModificaSezioneReparti modifica = loader.getController();
 
-            modifica.setModel(modelModifica, this);
+    // modifica.setModel(modelModifica, this);
 
-            loadedFXMLs = fxmlURL.toString();
+    // loadedFXMLs = fxmlURL.toString();
 
-            return root;
-        } else {
-            return null;
-        }
-    }
+    // return root;
+    // } else {
+    // return null;
+    // }
+    // }
 
     // * *************** Cambia la scena a modifica titoli *************** //
-    public Parent switchToModificaTitoli(ModelModifica modelModifica) throws IOException {
+    // public Parent switchToModificaTitoli(ModelModifica modelModifica) throws
+    // IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneTitolo.fxml");
+    // URL fxmlURL =
+    // getClass().getClassLoader().getResource("View/fxml/modifica_sezioneTitolo.fxml");
 
-        // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaR, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
-            Parent root = loader.load();
+    // // Check if the stackPaneHome already contains the root of the new scene
+    // if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaR,
+    // fxmlURL.toString())) {
+    // FXMLLoader loader = new FXMLLoader(fxmlURL);
+    // Parent root = loader.load();
 
-            ModificaSezioneTitolo controller = loader.getController();
+    // ModificaSezioneTitolo controller = loader.getController();
 
-            controller.setModel(modelModifica, this);
+    // controller.setModel(modelModifica, this);
 
-            loadedFXMLs = fxmlURL.toString();
+    // loadedFXMLs = fxmlURL.toString();
 
-            return root;
-        } else {
-            return null;
-        }
-    }
+    // return root;
+    // } else {
+    // return null;
+    // }
+    // }
 
     // *************** Cambia la scena a Modifica Oggetti *************** //
-    public Parent switchToModificaOggetti(ModelModifica modelModifica) throws IOException {
+    // public Parent switchToModificaOggetti(ModelModifica modelModifica) throws
+    // IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneOggetto.fxml");
+    // URL fxmlURL =
+    // getClass().getClassLoader().getResource("View/fxml/modifica_sezioneOggetto.fxml");
 
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaO, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
-            Parent root = loader.load();
+    // if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaO,
+    // fxmlURL.toString())) {
+    // FXMLLoader loader = new FXMLLoader(fxmlURL);
+    // Parent root = loader.load();
 
-            ModificaSezioneOggetti controller = loader.getController();
+    // ModificaSezioneOggetti controller = loader.getController();
 
-            controller.setModel(modelModifica, this);
+    // controller.setModel(modelModifica, this);
 
-            loadedFXMLs = fxmlURL.toString();
+    // loadedFXMLs = fxmlURL.toString();
 
-            return root;
-        } else {
-            return null;
-        }
-    }
+    // return root;
+    // } else {
+    // return null;
+    // }
+    // }
 
     // *************** Cambia la scena a Modifica Provvedimenti *************** //
-    public Parent switchToModificaProvvedimenti(ModelModifica modelModifica) throws IOException {
+    // public Parent switchToModificaProvvedimenti(ModelModifica modelModifica)
+    // throws IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/modifica_sezioneProvvedimento.fxml");
+    // URL fxmlURL =
+    // getClass().getClassLoader().getResource("View/fxml/modifica_sezioneProvvedimento.fxml");
 
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaO, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
-            Parent root = loader.load();
+    // if (fxmlURL != null && !isAlreadyLoaded(stackPaneModificaO,
+    // fxmlURL.toString())) {
+    // FXMLLoader loader = new FXMLLoader(fxmlURL);
+    // Parent root = loader.load();
 
-            ModificaSezioneProvvedimenti controller = loader.getController();
+    // ModificaSezioneProvvedimenti controller = loader.getController();
 
-            controller.setModel(modelModifica, this);
+    // controller.setModel(modelModifica, this);
 
-            loadedFXMLs = fxmlURL.toString();
+    // loadedFXMLs = fxmlURL.toString();
 
-            return root;
-        } else {
-            return null;
-        }
+    // return root;
+    // } else {
+    // return null;
+    // }
 
-    }
+    // }
 
     // *************** Cambia la scena a valuta rischi *************** //
     public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita)
@@ -257,7 +270,7 @@ public class ModelPaths {
     // * *************** Cambia la scena a Creazione Unita Locale *************** //
     public Parent switchToCreazioneUnitaLocale(ModelCreazione modelCreazione) throws IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/creazione_unitalocale.fxml");
+        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/creazione/creazione_unitalocale.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
         if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
@@ -279,9 +292,8 @@ public class ModelPaths {
 
     // ------------------ Cambia la scena a Creazione Societa ------------------ //
     public Parent switchToCreazioneSocieta(ModelCreazione modelCreazione) throws IOException {
-
-        FXMLLoader loaderSocieta = new FXMLLoader(getClass().getResource("/View/fxml/creazione/creazione_societa.fxml"));
-
+        FXMLLoader loaderSocieta = new FXMLLoader(
+                getClass().getResource("/View/fxml/creazione/creazione_societa.fxml"));
         Parent root = loaderSocieta.load();
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
@@ -294,7 +306,8 @@ public class ModelPaths {
     // ------------------ Cambia la scena a Creazione Reparti ------------------ //
     public Parent switchToCreazioneReparti(ModelCreazione modelCreazione) throws IOException {
 
-        FXMLLoader loaderReparti = new FXMLLoader(getClass().getResource("/View/fxml/creazione_reparti.fxml"));
+        FXMLLoader loaderReparti = new FXMLLoader(
+                getClass().getResource("/View/fxml/creazione/creazione_reparti.fxml"));
         Parent root = loaderReparti.load();
 
         CreazioneReparto creazioneReparto = loaderReparti.getController();
@@ -307,7 +320,7 @@ public class ModelPaths {
     // ------------------ Cambia la scena a Creazione Titoli ------------------ //
     public Parent switchToCreazioneTitolo(ModelCreazione modelCreazione) throws IOException {
 
-        FXMLLoader loaderTitoli = new FXMLLoader(getClass().getResource("/View/fxml/creazione_titoli.fxml"));
+        FXMLLoader loaderTitoli = new FXMLLoader(getClass().getResource("/View/fxml/creazione/creazione_titoli.fxml"));
         Parent root = loaderTitoli.load();
 
         CreazioneTitolo creazioneTitolo = loaderTitoli.getController();
@@ -320,7 +333,8 @@ public class ModelPaths {
     // ------------------ Cambia la scena a Creazione Oggetto ------------------ //
     public Parent switchToCreazioneOggetto(ModelCreazione modelCreazione) throws IOException {
 
-        FXMLLoader loaderOggetto = new FXMLLoader(getClass().getResource("/View/fxml/creazione_oggetti.fxml"));
+        FXMLLoader loaderOggetto = new FXMLLoader(
+                getClass().getResource("/View/fxml/creazione/creazione_oggetti.fxml"));
         Parent root = loaderOggetto.load();
 
         CreazioneOggetto creazioneOggetto = loaderOggetto.getController();
@@ -335,7 +349,7 @@ public class ModelPaths {
     public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException {
 
         FXMLLoader loaderProvvedimento = new FXMLLoader(
-                getClass().getResource("/View/fxml/creazione_provvedimenti.fxml"));
+                getClass().getResource("/View/fxml/creazione/creazione_provvedimenti.fxml"));
         Parent root = loaderProvvedimento.load();
 
         CreazioneProvvedimento creazioneProvvedimento = loaderProvvedimento.getController();
@@ -346,59 +360,65 @@ public class ModelPaths {
     }
 
     // ------------------ ------------------ //
-    public ButtonType showUnitaDialogPane(ModelModifica modelModifica) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_unitaLocale_dialogPane.fxml"));
-        DialogPane dialogPane = loader.load();
+    // public ButtonType showUnitaDialogPane(ModelModifica modelModifica) throws
+    // IOException {
+    // FXMLLoader loader = new
+    // FXMLLoader(getClass().getResource("/View/fxml/switch_unitaLocale_dialogPane.fxml"));
+    // DialogPane dialogPane = loader.load();
 
-        DialogPaneUnita dialogController = loader.getController();
+    // DialogPaneUnita dialogController = loader.getController();
 
-        dialogController.setModel(modelModifica);
+    // dialogController.setModel(modelModifica);
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogPane);
-        dialog.setTitle("Scegli la Società");
+    // Dialog<ButtonType> dialog = new Dialog<>();
+    // dialog.setDialogPane(dialogPane);
+    // dialog.setTitle("Scegli la Società");
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
+    // Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        return clickedButton.get();
-    }
+    // return clickedButton.get();
+    // }
 
     // ------------------ Cambia la scena a Creazione Reparti ------------------ //
-    public ButtonType showRepartiTitoliDialogPane(ModelModifica modelModifica) throws IOException {
+    // public ButtonType showRepartiTitoliDialogPane(ModelModifica modelModifica)
+    // throws IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
-        DialogPane dialogPane = loader.load();
+    // FXMLLoader loader = new
+    // FXMLLoader(getClass().getResource("/View/fxml/switch_reparto_dialogPane.fxml"));
+    // DialogPane dialogPane = loader.load();
 
-        DialogPaneReparto dialogController = loader.getController();
+    // DialogPaneReparto dialogController = loader.getController();
 
-        dialogController.setModel(modelModifica);
+    // dialogController.setModel(modelModifica);
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogPane);
-        dialog.setTitle("");
+    // Dialog<ButtonType> dialog = new Dialog<>();
+    // dialog.setDialogPane(dialogPane);
+    // dialog.setTitle("");
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
+    // Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        return clickedButton.get();
-    }
+    // return clickedButton.get();
+    // }
 
-    public ButtonType showOggettiDialogPane(ModelModifica modelModifica) throws IOException {
+    // public ButtonType showOggettiDialogPane(ModelModifica modelModifica) throws
+    // IOException {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/switch_oggetto_dialogPane.fxml"));
-        DialogPane dialogPane = loader.load();
+    // FXMLLoader loader = new
+    // FXMLLoader(getClass().getResource("/View/fxml/switch_oggetto_dialogPane.fxml"));
+    // DialogPane dialogPane = loader.load();
 
-        DialogPaneOggetto dialogController = loader.getController();
+    // DialogPaneOggetto dialogController = loader.getController();
 
-        dialogController.setModel(modelModifica);
+    // dialogController.setModel(modelModifica);
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogPane);
-        dialog.setTitle("");
+    // Dialog<ButtonType> dialog = new Dialog<>();
+    // dialog.setDialogPane(dialogPane);
+    // dialog.setTitle("");
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
+    // Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        return clickedButton.get();
-    }
+    // return clickedButton.get();
+    // }
 
     // ------------------ Verifica che il contenuto dello stackPane sia già stato
     // caricato ------------------ //

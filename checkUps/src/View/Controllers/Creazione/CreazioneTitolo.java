@@ -65,8 +65,8 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     @FXML
     private TableColumn<Titolo, String> descColT;
 
-    //@FXML
-    //private JFXButton btnAnnulla;
+    // @FXML
+    // private JFXButton btnAnnulla;
 
     @FXML
     private JFXButton btnNext;
@@ -125,17 +125,19 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         });
     }
 
-    // --------------- triggherato quando si seleziona una societa --------------- //
+    // --------------- triggherato quando si seleziona una societa ---------------
+    // //
     public void selectSocieta() {
         List<UnitaLocale> specificList = null;
-        
+
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
-            if(localSocieta != null){
-                if(!cercaSocieta.getValue().equals(localSocieta.getNome()))
+            if (localSocieta != null) {
+                if (!cercaSocieta.getValue().equals(localSocieta.getNome()))
                     modelCreazione.resetAllTmp();
             }
 
-            localSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst().get();
+            localSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst()
+                    .get();
             // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
 
             fillTableViewReparti();
@@ -161,23 +163,24 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         tableReparti.getItems().clear();
     }
 
-    // --------------- triggherato quando si seleziona un' unita locale --------------- // 
+    // --------------- triggherato quando si seleziona un' unita locale
+    // --------------- //
 
     public void selectUnita() {
 
         // if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
-        //     && !cercaUnita.getValue().isEmpty()) {
-        //     localUnita = listUnitaLocale.stream()
-        //             .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
-        //             .filter(u -> u.getNome().equals(cercaUnita.getValue()))
-        //             .findFirst().get();
+        // && !cercaUnita.getValue().isEmpty()) {
+        // localUnita = listUnitaLocale.stream()
+        // .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
+        // .filter(u -> u.getNome().equals(cercaUnita.getValue()))
+        // .findFirst().get();
 
-        //     fillTableViewReparti();
-        // }else 
-        if(localSocieta != null && localSocieta.getNome() != ""){
+        // fillTableViewReparti();
+        // }else
+        if (localSocieta != null && localSocieta.getNome() != "") {
             tableReparti.getItems().clear();
-            if(localUnita != null){
-                if(!cercaUnita.getValue().equals(localUnita.getNome()))
+            if (localUnita != null) {
+                if (!cercaUnita.getValue().equals(localUnita.getNome()))
                     modelCreazione.resetAllTmp();
             }
 
@@ -188,9 +191,10 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
             fillTableViewReparti();
         } else {
-            Alerts.errorAllert("Errore", "Societa non selezionata", "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
+            Alerts.errorAllert("Errore", "Societa non selezionata",
+                    "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
         }
-        
+
     }
 
     public void selectReparto() {
@@ -205,30 +209,35 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
 
-        // if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() == null) {
-            
-        //     specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale);
+        // if (modelCreazione.getSocietaTmp() != null &&
+        // modelCreazione.getUnitaLocaleTmp() == null) {
 
-        //     observableList = FXCollections.observableArrayList(specificList);
-        //     tableReparti.setItems(observableList);
+        // specificList = modelCreazione.fillAllRepartiTable(listaReparto,
+        // listUnitaLocale);
 
-        // } else if(modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null){
-        //     specificList = modelCreazione.fillRepartiTable(listaReparto, modelCreazione.getUnitaLocaleTmp());
+        // observableList = FXCollections.observableArrayList(specificList);
+        // tableReparti.setItems(observableList);
 
-        //     observableList = FXCollections.observableArrayList(specificList);
-        //     tableReparti.setItems(observableList);
-        //     modelCreazione.setEnable(true);
+        // } else if(modelCreazione.getSocietaTmp() != null &&
+        // modelCreazione.getUnitaLocaleTmp() != null){
+        // specificList = modelCreazione.fillRepartiTable(listaReparto,
+        // modelCreazione.getUnitaLocaleTmp());
+
+        // observableList = FXCollections.observableArrayList(specificList);
+        // tableReparti.setItems(observableList);
+        // modelCreazione.setEnable(true);
         // }
 
         // if(localSocieta != null && localUnita == null) {
-        //     specificList = modelCreazione.fillAllRepartiTable(listaReparto, listUnitaLocale, localSocieta);
+        // specificList = modelCreazione.fillAllRepartiTable(listaReparto,
+        // listUnitaLocale, localSocieta);
 
-        //     observableList = FXCollections.observableArrayList(specificList);
-        //     tableReparti.setItems(observableList);
-        // } else 
-        if(localSocieta != null && localUnita != null){
+        // observableList = FXCollections.observableArrayList(specificList);
+        // tableReparti.setItems(observableList);
+        // } else
+        if (localSocieta != null && localUnita != null) {
 
-            if(localReparto != null)
+            if (localReparto != null)
                 if (!tableReparti.getSelectionModel().getSelectedItem().getNome().equals(localReparto.getNome())) {
                     modelCreazione.resetRepartoTmp();
                 }
@@ -245,36 +254,36 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         List<Titolo> specificList = null;
         ObservableList<Titolo> observableList = null;
 
-        if(localReparto != null){
+        if (localReparto != null) {
             specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto, localReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableTitoli.setItems(observableList);
-        // }else if (modelCreazione.getRepartoTmp() != null) {
-        //     specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto);
+            // }else if (modelCreazione.getRepartoTmp() != null) {
+            // specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto);
 
-        //     observableList = FXCollections.observableArrayList(specificList);
-        //     tableTitoli.setItems(observableList);
+            // observableList = FXCollections.observableArrayList(specificList);
+            // tableTitoli.setItems(observableList);
         } else
-            Alerts.errorAllert("Errore", "Reparto non selezionata", 
-                                "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
+            Alerts.errorAllert("Errore", "Reparto non selezionata",
+                    "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
 
     }
 
     public void modifica() {
 
-        Parent root = new Parent() {};
-        modelModifica = new ModelModifica();
+        // Parent root = new Parent() {};
+        // modelModifica = new ModelModifica();
 
-        modelModifica.setReparto(localReparto);
+        // modelModifica.setReparto(localReparto);
 
-        try {
-            root = modelPaths.switchToModificaTitoli(modelModifica);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try {
+        // root = modelPaths.switchToModificaTitoli(modelModifica);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
 
-        Controller.changePane(modelPaths.getStackPaneHome(), root);
+        // Controller.changePane(modelPaths.getStackPaneHome(), root);
     }
 
     @FXML
@@ -296,44 +305,45 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
             try {
                 dialogPane = loader.load();
 
-            DialogPaneAddT dialogController = loader.getController();
+                DialogPaneAddT dialogController = loader.getController();
 
-            dialogController.setModel(modelCreazione);
-            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-                    modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+                dialogController.setModel(modelCreazione);
+                dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                        modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
 
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Crea Reparto");
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Crea Reparto");
 
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+                Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+                // ------------------- Se viene premuto il tasto "Applica" -------------------
+                // //
 
-            if(clickedButton.get() == ButtonType.APPLY){
-                if( dialogController.getNome() != null && !dialogController.getNome().equals("")){
-                    int id = Controller.getNewId(listaTitolo);
-                    Titolo newTitolo = new Titolo(id,
-                            modelCreazione.getRepartoTmp().getId(),
-                            dialogController.getNome());
-                    modelCreazione.createTitoloTmp(newTitolo);
-                    Controller.inserisciNuovoRecord(newTitolo);
+                if (clickedButton.get() == ButtonType.APPLY) {
+                    if (dialogController.getNome() != null && !dialogController.getNome().equals("")) {
+                        int id = Controller.getNewId(listaTitolo);
+                        Titolo newTitolo = new Titolo(id,
+                                modelCreazione.getRepartoTmp().getId(),
+                                dialogController.getNome());
+                        modelCreazione.createTitoloTmp(newTitolo);
+                        Controller.inserisciNuovoRecord(newTitolo);
 
-                    tableTitoli.getItems().add(newTitolo);
+                        tableTitoli.getItems().add(newTitolo);
 
-                    tableTitoli.refresh();
-                } else {
-                    Alerts.errorAllert();
+                        tableTitoli.refresh();
+                    } else {
+                        Alerts.errorAllert();
+                    }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         }
     }
 
     @FXML
-    public void next(){
+    public void next() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
 
@@ -344,12 +354,12 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
             try {
                 Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
-    
+
                 Controller.changePane(modelPaths.getStackPaneCrea(), root);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else
+        } else
             Alerts.errorAllert("Errore", "Errore nella Selezione del Titolo",
                     "Non è stato selezionato nessun titolo");
     }
@@ -360,19 +370,19 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-        if(modelCreazione.getSocietaTmp() != null){
+        if (modelCreazione.getSocietaTmp() != null) {
             this.localSocieta = modelCreazione.getSocietaTmp();
             this.cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
             selectSocieta();
         }
 
-        if(modelCreazione.getUnitaLocaleTmp() != null){
+        if (modelCreazione.getUnitaLocaleTmp() != null) {
             this.localUnita = modelCreazione.getUnitaLocaleTmp();
             this.cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
             selectUnita();
         }
 
-        if(modelCreazione.getRepartoTmp() != null){
+        if (modelCreazione.getRepartoTmp() != null) {
             this.localReparto = modelCreazione.getRepartoTmp();
             fillTableViewTitoli();
         }

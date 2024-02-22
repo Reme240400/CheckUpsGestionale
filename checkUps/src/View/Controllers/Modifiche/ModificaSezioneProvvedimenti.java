@@ -30,7 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class ModificaSezioneProvvedimenti implements Initializable{
+public class ModificaSezioneProvvedimenti implements Initializable {
 
     @FXML
     private JFXButton btnDel;
@@ -63,7 +63,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     private TableView<Provvedimento> tableProvvedimenti;
 
     private ObservableList<Provvedimento> observableList = FXCollections.observableArrayList();
-    
+
     private ModelModifica modelModifica;
     private ModelPaths modelPaths;
 
@@ -71,7 +71,7 @@ public class ModificaSezioneProvvedimenti implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         idCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("id"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
@@ -86,13 +86,13 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     }
 
     private void selectProvvedimento() {
-            
+
         Provvedimento provvedimento = tableProvvedimenti.getSelectionModel().getSelectedItem();
         modelModifica.setProvvedimento(provvedimento);
     }
 
     @FXML
-    public void delete( ) {
+    public void delete() {
         if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
             Provvedimento provvedimento = tableProvvedimenti.getSelectionModel().getSelectedItem();
             Controller.eliminaRecord(provvedimento, provvedimento.getId());
@@ -101,13 +101,13 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     }
 
     @FXML
-    public void filterTable( ) {
+    public void filterTable() {
         modelModifica.filterTable(filterTable, tableProvvedimenti, observableList);
     }
 
     @FXML
-    public void modify() throws IOException{
-        if(modelModifica.getProvTmp() != null ){
+    public void modify() throws IOException {
+        if (modelModifica.getProvTmp() != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_prov_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
@@ -122,7 +122,8 @@ public class ModificaSezioneProvvedimenti implements Initializable{
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
 
@@ -134,10 +135,10 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     }
 
     private void updateChanges(DialogPaneModificaProv dialogController) {
-        if(dialogController.getNome() != null && 
-            dialogController.getRischio() != null && 
-            dialogController.getSoggettiEsposti() != null && 
-            dialogController.getStimaR() != 0){
+        if (dialogController.getNome() != null &&
+                dialogController.getRischio() != null &&
+                dialogController.getSoggettiEsposti() != null &&
+                dialogController.getStimaR() != 0) {
 
             Provvedimento provvedimento = modelModifica.getProvTmp();
             provvedimento.setNome(dialogController.getNome());
@@ -154,33 +155,32 @@ public class ModificaSezioneProvvedimenti implements Initializable{
     }
 
     @FXML
-    public void refresh( ) {
-        try {
-            modelModifica.resetAllTmp();
-            ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
-        
-            if (clickedButton == ButtonType.APPLY) {
-                if(modelModifica.getTitoloTmp() != null){
-                    modelModifica.setSelectedOggetto(false);
+    public void refresh() {
+        // try {
+        // modelModifica.resetAllTmp();
+        // ButtonType clickedButton = modelPaths.showOggettiDialogPane(modelModifica);
 
-                    Parent root = modelPaths.switchToModificaOggetti(modelModifica);
-                    Controller.changePane(modelPaths.getStackPaneModificaO(), root);
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'titolo");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // if (clickedButton == ButtonType.APPLY) {
+        // if(modelModifica.getTitoloTmp() != null){
+        // modelModifica.setSelectedOggetto(false);
+
+        // Parent root = modelPaths.switchToModificaOggetti(modelModifica);
+        // Controller.changePane(modelPaths.getStackPaneModificaO(), root);
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'titolo");
+        // }
+        // }
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
 
     public void setModel(ModelModifica modelModifica, ModelPaths modelPaths) {
         this.modelModifica = modelModifica;
         this.modelPaths = modelPaths;
-    
+
         observableList = FXCollections.observableArrayList(modelModifica.fillProvvedimentiTable(listaProvvedimenti));
         tableProvvedimenti.setItems(observableList);
     }
 
-    
 }

@@ -298,24 +298,24 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
     @FXML
     public void modifica() {
-        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+        // if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
 
-            Parent root = new Parent() {};
-            modelModifica = new ModelModifica();
+        // Parent root = new Parent() {};
+        // modelModifica = new ModelModifica();
 
-            if (modelCreazione.getUnitaLocaleTmp() != null)
-                modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
-            else if (localUnita != null)
-                modelModifica.setUnitaLocale(localUnita);
+        // if (modelCreazione.getUnitaLocaleTmp() != null)
+        // modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
+        // else if (localUnita != null)
+        // modelModifica.setUnitaLocale(localUnita);
 
-            try {
-                root = modelPaths.switchToModificaOggetti(modelModifica);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // try {
+        // root = modelPaths.switchToModificaOggetti(modelModifica);
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
 
-            Controller.changePane(modelPaths.getStackPaneHome(), root);
-        }
+        // Controller.changePane(modelPaths.getStackPaneHome(), root);
+        // }
     }
 
     @FXML

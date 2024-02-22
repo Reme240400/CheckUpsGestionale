@@ -65,9 +65,9 @@ public class ModificaSezioneTitolo implements Initializable {
         idCol.setCellValueFactory(new PropertyValueFactory<Titolo, Integer>("id"));
         nomeColR.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(listaReparto.stream()
-                                                        .filter(reparto -> reparto.getId() == cellData.getValue().getIdReparto())
-                                                        .findFirst().get()
-                                                        .getNome());
+                    .filter(reparto -> reparto.getId() == cellData.getValue().getIdReparto())
+                    .findFirst().get()
+                    .getNome());
         });
 
         descCol.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
@@ -79,24 +79,24 @@ public class ModificaSezioneTitolo implements Initializable {
         });
     }
 
-    private void updateChanges(DialogPaneModificaTitolo dialogController) throws IOException{
+    private void updateChanges(DialogPaneModificaTitolo dialogController) throws IOException {
 
-        if(modelModifica.getTitoloTmp() != null && 
-            modelModifica.getTitoloTmp().getDescrizione() != ""){
+        if (modelModifica.getTitoloTmp() != null &&
+                modelModifica.getTitoloTmp().getDescrizione() != "") {
 
             modelModifica.getTitoloTmp().setDescrizione(dialogController.getDescTitolo());
 
             Controller.modificaCampo(modelModifica.getTitoloTmp());
-            
+
         } else {
             Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
         }
     }
 
     @FXML
-    private void modify() throws IOException{
+    private void modify() throws IOException {
 
-        if(modelModifica.getTitoloTmp() != null ){
+        if (modelModifica.getTitoloTmp() != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/modifica_titolo_dialogPane.fxml"));
             DialogPane dialogPane = loader.load();
@@ -111,7 +111,8 @@ public class ModificaSezioneTitolo implements Initializable {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
 
@@ -123,7 +124,7 @@ public class ModificaSezioneTitolo implements Initializable {
     }
 
     @FXML
-    private void delete(){
+    private void delete() {
         if (tableViewTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableViewTitoli.getSelectionModel().getSelectedItem();
             Controller.eliminaRecord(titolo, titolo.getId());
@@ -132,34 +133,36 @@ public class ModificaSezioneTitolo implements Initializable {
     }
 
     @FXML
-    private void refresh(){
-        try {
-            modelModifica.resetAllTmp();
-            ButtonType clickedButton = modelPaths.showRepartiTitoliDialogPane(modelModifica);
-        
-            if (clickedButton == ButtonType.APPLY) {
-                if(modelModifica.getUnitaLocaleTmp() != null){
-                    modelModifica.setSelectedReparto(false);
+    private void refresh() {
+        // try {
+        // modelModifica.resetAllTmp();
+        // ButtonType clickedButton =
+        // modelPaths.showRepartiTitoliDialogPane(modelModifica);
 
-                    Parent root = modelPaths.switchToModificaReparto(modelModifica);
-                    Controller.changePane(modelPaths.getStackPaneModificaR(), root);
-                } else {
-                    Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità locale");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // if (clickedButton == ButtonType.APPLY) {
+        // if(modelModifica.getUnitaLocaleTmp() != null){
+        // modelModifica.setSelectedReparto(false);
+
+        // // Parent root = modelPaths.switchToModificaReparto(modelModifica);
+        // Controller.changePane(modelPaths.getStackPaneModificaR(), root);
+        // } else {
+        // Alerts.errorAllert("Errore", "Selezione errata", "Seleziona un'unità
+        // locale");
+        // }
+        // }
+        // } catch (IOException e) {
+        // e.printStackTrace();
+        // }
     }
 
-    public void filterTable(){
-        
-        modelModifica.filterTable(filterTable, tableViewTitoli , observableList);
+    public void filterTable() {
+
+        modelModifica.filterTable(filterTable, tableViewTitoli, observableList);
 
     }
 
     private void selectTitolo() {
-        
+
         Titolo titolo = tableViewTitoli.getSelectionModel().getSelectedItem();
         modelModifica.setTitolo(titolo);
     }
@@ -170,6 +173,6 @@ public class ModificaSezioneTitolo implements Initializable {
 
         observableList = FXCollections.observableArrayList(modelModifica.fillTitoliTable(listaTitoli));
         tableViewTitoli.setItems(observableList);
-    }  
-    
+    }
+
 }
