@@ -25,12 +25,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.converter.IntegerStringConverter;
 
 public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
     @FXML
-    private JFXButton btnSalva;
+    private JFXButton btnNext;
 
     @FXML
     private JFXButton btnAggiorna;
@@ -66,7 +68,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     private TextField textFieldCodiceAteco;
 
     @FXML
-    private JFXButton buttonLogoUrl;
+    private ImageView logoImageView;
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -77,7 +79,8 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     Societa societaTmp = null;
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
-    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
+    // ------------------------------------------------------- INITIALIZE
+    // -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -106,14 +109,18 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
         cercaSocieta.setItems(filteredItems);
 
-        cercaSocieta.onKeyReleasedProperty().addListener((obs, oValue, nValue) -> {
-            filtraSocieta();
-        });
+        logoImageView
+                .setImage(new Image(
+                        "https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
+
+        // cercaSocieta.onKeyReleasedProperty().addListener((obs, oValue, nValue) -> {
+        // filtraSocieta();
+        // });
     }
     // ------------------------------------------------------- END INITIALIZE
     // -------------------------------------------------------------------- //
 
-    public void filtraSocieta() {
+    public void selezionaSocieta() {
         Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                 .findFirst();
         if (curSocieta.isEmpty())
@@ -130,13 +137,13 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         textFieldCodiceFiscale.setText(soc.getCodiceFiscale());
         textFieldBancaAppoggio.setText(soc.getBancaAppoggio());
         textFieldCodiceAteco.setText(soc.getCodiceAteco());
+        logoImageView.setImage(new Image(soc.getLogoUrl()));
 
-        // buttonLogoUrl.; // soc.getLogoUrl()
+        modelCreazione.setCanGoNext(true);
     }
 
     // -------------------- salva la societa -------------------- //
     public void aggiorna() {
-
         int id = Controller.getNewId(listSocieta);
 
         Societa societaTmp = new Societa(id,
@@ -150,12 +157,35 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 textFieldCodiceFiscale.getText(),
                 textFieldBancaAppoggio.getText(),
                 textFieldCodiceAteco.getText(),
-                buttonLogoUrl.getText());
+                logoImageView.getImage().getUrl());
+
+        Controller.inserisciNuovoRecord(societaTmp);
+
+        pulisciDati();
+
+        modelCreazione.setSaved(false);
+        modelCreazione.setCanGoNext(false);
+    }
+
+    public void saveAndGoNext() {
+        int id = Controller.getNewId(listSocieta);
+
+        Societa societaTmp = new Societa(id,
+                textFieldSocieta.getText(),
+                textFieldIndirizzo.getText(),
+                textFieldLocalita.getText(),
+                textFieldProvincia.getText(),
+                textFieldTel.getText(),
+                textFieldDescrizione.getText(),
+                textFieldPartitaIva.getText(),
+                textFieldCodiceFiscale.getText(),
+                textFieldBancaAppoggio.getText(),
+                textFieldCodiceAteco.getText(),
+                logoImageView.getImage().getUrl());
 
         modelCreazione.createSocietaTmp(societaTmp);
 
         Controller.inserisciNuovoRecord(societaTmp);
-
         modelCreazione.setSaved(false);
 
         try {
@@ -165,72 +195,43 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void salva() {
-
-        int id = Controller.getNewId(listSocieta);
-
-        Societa societaTmp = new Societa(id,
-                textFieldSocieta.getText(),
-                textFieldIndirizzo.getText(),
-                textFieldLocalita.getText(),
-                textFieldProvincia.getText(),
-                textFieldTel.getText(),
-                textFieldDescrizione.getText(),
-                textFieldPartitaIva.getText(),
-                textFieldCodiceFiscale.getText(),
-                textFieldBancaAppoggio.getText(),
-                textFieldCodiceAteco.getText(),
-                buttonLogoUrl.getText());
-
-        Controller.inserisciNuovoRecord(societaTmp);
-
-        annulla();
-
-        modelCreazione.setSaved(false);
-
-    }
-
-    // * ----------------------------- elimina la societa
-    // ----------------------------- //
-     public void annulla() {
-
+    public void pulisciDati() {
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
         textFieldProvincia.clear();
         textFieldSocieta.clear();
         textFieldTel.clear();
+        textFieldPartitaIva.clear();
+        textFieldCodiceFiscale.clear();
+        textFieldBancaAppoggio.clear();
+        textFieldCodiceAteco.clear();
+        textFieldDescrizione.clear();
+        logoImageView.setImage(null);
+
+        cercaSocieta.setValue(null);
 
         modelCreazione.setEnable(true);
         modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
         modelCreazione.setDiscard(false);
     }
-    // *
-    // ------------------------------------------------------------------------------- //
 
     // * ---------------------- controlla se i campi sono vuoti
     // ---------------------- //
     public void keyReleasedProperty() {
-        modelCreazione.isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
+        modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel);
     }
     // *
-    // ------------------------------------------------------------------------------- //
+    // -------------------------------------------------------------------------------
+    // //
 
     // * ************ setta il modelCreazionelo ************ //
     public void setTextFields() {
-
-        this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
-
-        this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
-        this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
-        this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
-        this.textFieldSocieta.editableProperty().bind(modelCreazione.isEnableProperty());
-        this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty());
 
         // * ************ setta i campi come sono stati salvati ************ //
         modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
@@ -239,10 +240,8 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
-
         this.modelCreazione = modelCreazione;
         this.modelPaths = modelPaths;
-
     }
 
 }

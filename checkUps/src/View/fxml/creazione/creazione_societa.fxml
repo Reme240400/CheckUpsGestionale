@@ -15,7 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
     <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
@@ -46,7 +48,7 @@
                                 <Pane prefHeight="0.0" prefWidth="156.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                     <children>
                                         <Label layoutX="15.0" layoutY="23.0" prefHeight="17.0" prefWidth="56.0" text="Provincia:" />
-                                        <TextField fx:id="textFieldProvincia" accessibleText="INTEGER" alignment="CENTER" layoutX="72.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="69.0" />
+                                        <TextField fx:id="textFieldProvincia" accessibleText="INTEGER" layoutX="72.0" layoutY="19.0" minHeight="-Infinity" minWidth="-Infinity" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="69.0" />
                                     </children>
                                 </Pane>
                                 <Pane prefHeight="17.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -70,15 +72,15 @@
                                 <Label text="Codice ateco:" GridPane.rowIndex="6" />
                                 <TextField fx:id="textFieldCodiceAteco" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                 <Pane prefHeight="1.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <children>
-                              <ImageView fitHeight="123.0" fitWidth="122.0" layoutX="118.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true" />
-                           </children>
+                                    <children>
+                                        <ImageView fx:id="logoImageView" fitHeight="123.0" fitWidth="122.0" layoutX="118.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true" />
+                                    </children>
                                 </Pane>
-                                  <JFXButton fx:id="buttonLogoUrl" buttonType="RAISED" ripplerFill="#39d0e1" text="File Immagine" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <GridPane.margin>
-                              <Insets left="10.0" />
-                           </GridPane.margin>
-                        </JFXButton>
+                                <JFXButton buttonType="RAISED" ripplerFill="#39d0e1" text="File Immagine" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                    <GridPane.margin>
+                                        <Insets left="10.0" />
+                                    </GridPane.margin>
+                                </JFXButton>
                             </children>
                         </GridPane>
                     </children>
@@ -101,22 +103,22 @@
                         <Insets left="25.0" />
                     </HBox.margin>
                 </JFXButton>
-            <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#annulla" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../icons/cross.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets left="15.0" />
-               </HBox.margin>
-            </JFXButton>
+                <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#pulisciDati" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
+                    <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../icons/cross.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets left="15.0" />
+                    </HBox.margin>
+                </JFXButton>
                 <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
-                <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#filtraSocieta" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+                <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#selezionaSocieta" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
                 <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
-                <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salva" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#saveAndGoNext" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                     <HBox.margin>
                         <Insets right="25.0" />
                     </HBox.margin>
@@ -132,9 +134,9 @@
             <BorderPane.margin>
                 <Insets bottom="15.0" top="5.0" />
             </BorderPane.margin>
-         <opaqueInsets>
-            <Insets top="5.0" />
-         </opaqueInsets>
+            <opaqueInsets>
+                <Insets top="5.0" />
+            </opaqueInsets>
         </HBox>
     </top>
 </BorderPane>

@@ -2,7 +2,6 @@ package Models;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
@@ -15,20 +14,8 @@ import View.Controllers.Creazione.CreazioneReparto;
 import View.Controllers.Creazione.CreazioneSocieta;
 import View.Controllers.Creazione.CreazioneTitolo;
 import View.Controllers.Creazione.CreazioneUnitaLocale;
-import View.Controllers.Modifiche.Modifica;
-import View.Controllers.Modifiche.ModificaSezioneOggetti;
-import View.Controllers.Modifiche.ModificaSezioneProvvedimenti;
-import View.Controllers.Modifiche.ModificaSezioneReparti;
-import View.Controllers.Modifiche.ModificaSezioneTitolo;
-import View.Controllers.Modifiche.DialogPane.DialogPaneOggetto;
-import View.Controllers.Modifiche.DialogPane.DialogPaneReparto;
-import View.Controllers.Modifiche.DialogPane.DialogPaneUnita;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 public class ModelPaths {

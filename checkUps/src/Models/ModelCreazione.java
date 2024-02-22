@@ -24,6 +24,7 @@ public class ModelCreazione extends ModelListe {
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty discard = new SimpleBooleanProperty(false);
     private final BooleanProperty isEnable = new SimpleBooleanProperty(true);
+    private final BooleanProperty canNext = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
     private Reparto repartoTmp = null;
@@ -45,6 +46,10 @@ public class ModelCreazione extends ModelListe {
 
     public BooleanProperty savedProperty() {
         return saved;
+    }
+
+    public BooleanProperty canGoNextProperty() {
+        return canNext;
     }
 
     // -------------------- end initialize methods -------------------- //
@@ -101,6 +106,10 @@ public class ModelCreazione extends ModelListe {
 
     public final void setDiscard(boolean discard) {
         discardProperty().set(discard);
+    }
+
+    public final void setCanGoNext(boolean canNext) {
+        canGoNextProperty().set(canNext);
     }
 
     public void createSocietaTmp(Societa societaTmp) {
@@ -164,52 +173,14 @@ public class ModelCreazione extends ModelListe {
 
     // ------------------ Controllo se i campi sono stati inseriti
     // ------------------ //
-    public void isTextFilled(TextField textField, TextField textFieldIndirizzo, TextField textFieldLocalita,
-            TextField textFieldProvincia, TextField textFieldTel) {
-
-        boolean areAllEmpty = Stream.of(
-                textField.getText(),
-                textFieldIndirizzo.getText(),
-                textFieldLocalita.getText(),
-                textFieldProvincia.getText(),
-                textFieldTel.getText()).allMatch(String::isEmpty);
-
-        boolean isAnyEmpty = Stream.of(
-                textField.getText(),
-                textFieldIndirizzo.getText(),
-                textFieldLocalita.getText(),
-                textFieldProvincia.getText(),
-                textFieldTel.getText()).anyMatch(String::isEmpty);
+    public void areTextFieldsFilled(TextField... textField) {
+        boolean areAllEmpty = Stream.of(textField).allMatch(t -> t.getText().isEmpty());
+        boolean isAnyEmpty = Stream.of(textField).anyMatch(t -> t.getText().isEmpty());
 
         setSaved(!isAnyEmpty);
         setDiscard(!areAllEmpty);
-
     }
-
-    public void isTextFilled(TextField textField, TextField textFieldIndirizzo, TextField textFieldLocalita,
-            TextField textFieldProvincia) { // txtTel = textFieldTel.getText();
-
-        boolean areAllEmpty = Stream.of(
-                textField.getText(),
-                textFieldIndirizzo.getText(),
-                textFieldLocalita.getText(),
-                textFieldProvincia.getText()
-        // textFieldTel.getText()
-        ).allMatch(String::isEmpty);
-
-        boolean isAnyEmpty = Stream.of(
-                textField.getText(),
-                textFieldIndirizzo.getText(),
-                textFieldLocalita.getText(),
-                textFieldProvincia.getText()
-        // textFieldTel.getText()
-        ).anyMatch(String::isEmpty);
-
-        setSaved(!isAnyEmpty);
-        setDiscard(!areAllEmpty);
-
-    }
-    // ------------------ END ------------------ //
+    // ------------------ THE END ------------------ //
 
     // ------------------ Setta i campi come sono stati salvati ------------------
     // //
@@ -225,8 +196,8 @@ public class ModelCreazione extends ModelListe {
             // textFieldDesc.setText(societaTmp.getDescrizione());
 
             // * ************ controlla se i campi sono vuoti ************ //
-            isTextFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia, textFieldTel);
-
+            areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+                    textFieldTel);
         }
     }
     // ------------------ END ------------------ //

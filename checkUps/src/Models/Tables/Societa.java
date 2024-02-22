@@ -17,7 +17,8 @@ public class Societa extends TablesId implements Serializable {
     private String logoUrl;
 
     public Societa(int idSocieta, String nome, String indirizzo, String localita, String provincia, String telefono,
-            String descrizione, String pIva, String codFiscale, String bancaAppoggio, String codAteco, String logoUrl) {
+            String descrizione, String pIva, String codFiscale, String bancaAppoggio, String codAteco,
+            String logoUrl) {
         super(idSocieta);
         this.indirizzo = indirizzo;
         this.localita = localita;
@@ -61,7 +62,7 @@ public class Societa extends TablesId implements Serializable {
     }
 
     public void setDescrizione(String descrizione) {
-            this.descrizione = descrizione;
+        this.descrizione = descrizione;
     }
 
     public String getTelefono() {
@@ -84,7 +85,7 @@ public class Societa extends TablesId implements Serializable {
         return partitaIva;
     }
 
-    public void setPartitaIva(String partitaIva){
+    public void setPartitaIva(String partitaIva) {
         this.partitaIva = partitaIva;
     }
 
@@ -92,7 +93,7 @@ public class Societa extends TablesId implements Serializable {
         return codiceFiscale;
     }
 
-    public void setCodiceFiscale(String codiceFiscale){
+    public void setCodiceFiscale(String codiceFiscale) {
         this.codiceFiscale = codiceFiscale;
     }
 
@@ -100,7 +101,7 @@ public class Societa extends TablesId implements Serializable {
         return bancaAppoggio;
     }
 
-    public void setBancaAppoggio(String bancaAppoggio){
+    public void setBancaAppoggio(String bancaAppoggio) {
         this.bancaAppoggio = bancaAppoggio;
     }
 
@@ -108,7 +109,7 @@ public class Societa extends TablesId implements Serializable {
         return codiceAteco;
     }
 
-    public void setCodiceAteco(String codiceAteco){
+    public void setCodiceAteco(String codiceAteco) {
         this.codiceAteco = codiceAteco;
     }
 
@@ -116,9 +117,8 @@ public class Societa extends TablesId implements Serializable {
         return logoUrl;
     }
 
-    public void setLogoURl(String logoUrl){
+    public void setLogoURl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
-   
 
 }

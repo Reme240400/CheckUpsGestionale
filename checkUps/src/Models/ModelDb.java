@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import Helpers.ClassHelper;
 import Models.Tables.Mansione;
@@ -23,6 +24,7 @@ import Models.Tables.UnitaLocale;
 
 public class ModelDb {
 
+    private static final String placeholderLogo = "https://via.placeholder.com/150";
     private static final String connectionUrl = "jdbc:postgresql://localhost:5432/checkups_db";
     private static final String username = "postgres";
     private static final String password = "postgres";
@@ -59,7 +61,8 @@ public class ModelDb {
                         String logoUrl = resultSet.getString("logo");
 
                         Societa societa = new Societa(id_societa, nome, indirizzo, localita, provincia, telefono,
-                                descrizione, partitaIva, codiceFiscale, bancaAppoggio, codiceAteco, logoUrl);
+                                descrizione, partitaIva, codiceFiscale, bancaAppoggio, codiceAteco,
+                                logoUrl == null ? placeholderLogo : logoUrl);
 
                         ModelListe.inserisciRecordInLista(societa);
                     }
@@ -409,51 +412,40 @@ public class ModelDb {
 
     // Metodo generico per l'inserimento di un record in una tabella
     public static void inserisciRecord(Object obj) {
-        try (Connection connection = connessioneDb()) {
-            if (connection != null) {
-                try (Statement statement = connection.createStatement()) {
 
-                    switch (obj.getClass().getSimpleName()) {
-                        case "Mansione":
-                            inserisciElementoMansioni(connection, ClassHelper.getListMansione());
-                            break;
-                        case "Titolo":
-                            inserisciElementoTitoli(connection, ClassHelper.getListTitolo());
-                            break;
-                        case "Reparto":
-                            inserisciElementoReparti(connection, ClassHelper.getListReparto());
-                            break;
-                        case "Rischio":
-                            inserisciElementoRischi(connection, ClassHelper.getListRischio());
-                            break;
-                        case "Societa":
-                            inserisciElementoSocieta(connection, ClassHelper.getListSocieta());
-                            break;
-                        case "Oggetto":
-                            inserisciElementoOggetti(connection, ClassHelper.getListOggetto());
-                            break;
-                        case "Provvedimento":
-                            inserisciElementoProvvedimenti(connection, ClassHelper.getListProvvedimento());
-                            break;
-                        case "UnitaLocale":
-                            inserisciElementoUnitaLocali(connection, ClassHelper.getListUnitaLocale());
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
-                    }
-
-                } catch (SQLException e) {
-                    System.out.println("Errore durante l'inserimento di un nuovo record nel DB:  " + e.getMessage());
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        switch (obj.getClass().getSimpleName()) {
+            case "Mansione":
+                inserisciElementoMansioni(ClassHelper.getListMansione());
+                break;
+            case "Titolo":
+                inserisciElementoTitoli(ClassHelper.getListTitolo());
+                break;
+            case "Reparto":
+                inserisciElementoReparti(ClassHelper.getListReparto());
+                break;
+            case "Rischio":
+                inserisciElementoRischi(ClassHelper.getListRischio());
+                break;
+            case "Societa":
+                inserisciElementoSocieta(ClassHelper.getListSocieta());
+                break;
+            case "Oggetto":
+                inserisciElementoOggetti(ClassHelper.getListOggetto());
+                break;
+            case "Provvedimento":
+                inserisciElementoProvvedimenti(ClassHelper.getListProvvedimento());
+                break;
+            case "UnitaLocale":
+                inserisciElementoUnitaLocali(ClassHelper.getListUnitaLocale());
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected value: " + obj.getClass().getSimpleName());
         }
+
     }
 
     public static void modificaCampo(Object obj) {
         switch (obj.getClass().getSimpleName()) {
-
             case "Mansione":
                 Mansione mansione = ((Mansione) obj);
 
@@ -687,6 +679,25 @@ public class ModelDb {
             default:
                 throw new IllegalArgumentException(
                         "Unexpected value: " + obj.getClass().getSimpleName());
+        }
+    }
+
+    public static void existField() {
+
+    }
+
+    private static void doUpdateQuery(String query, Consumer<PreparedStatement> action) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (PreparedStatement pStatement = connection.prepareStatement(query)) {
+                    action.accept(pStatement);
+                    pStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println("Errore durante l'esecuzione della query: " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -1057,132 +1068,156 @@ public class ModelDb {
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
-    public static void inserisciElementoSocieta(Connection connection, List<Societa> societaList) throws SQLException {
-        String insertQuery = "INSERT INTO public.societa (id_societa, indirizzo, localita, provincia, telefono, descrizione, nome) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setInt(1, societaList.get(societaList.size() - 1).getId());
-            preparedStatement.setString(2, societaList.get(societaList.size() - 1).getIndirizzo());
-            preparedStatement.setString(3, societaList.get(societaList.size() - 1).getLocalita());
-            preparedStatement.setString(4, societaList.get(societaList.size() - 1).getProvincia());
-            preparedStatement.setString(5, societaList.get(societaList.size() - 1).getTelefono());
-            preparedStatement.setString(6, societaList.get(societaList.size() - 1).getDescrizione());
-            preparedStatement.setString(7, societaList.get(societaList.size() - 1).getNome());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoSocieta(List<Societa> societaList) {
+        doUpdateQuery(
+                "INSERT INTO public.societa (id_societa, nome, localita, provincia, telefono, descrizione, indirizzo, partita_iva, codice_fiscale, banca_appoggio, codice_ateco, logo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                (ps) -> {
+                    try {
+                        Societa soc = societaList.get(societaList.size() - 1);
+                        ps.setInt(1, soc.getId());
+                        ps.setString(2, soc.getNome());
+                        ps.setString(3, soc.getLocalita());
+                        ps.setString(4, soc.getProvincia());
+                        ps.setString(5, soc.getTelefono());
+                        ps.setString(6, soc.getDescrizione());
+                        ps.setString(7, soc.getIndirizzo());
+                        ps.setString(8, soc.getPartitaIva());
+                        ps.setString(9, soc.getCodiceFiscale());
+                        ps.setString(10, soc.getBancaAppoggio());
+                        ps.setString(11, soc.getCodiceAteco());
+                        ps.setString(12, soc.getLogoUrl().equals(placeholderLogo) ? null : soc.getLogoUrl());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrisponde nome
-    public static void inserisciElementoUnitaLocali(Connection connection, List<UnitaLocale> unitaLocaleList)
-            throws SQLException {
-        String insertQuery = "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, unitaLocaleList.get(unitaLocaleList.size() - 1).getId());
-            preparedStatement.setInt(2, unitaLocaleList.get(unitaLocaleList.size() - 1).getIdSocieta());
-            preparedStatement.setString(3, unitaLocaleList.get(unitaLocaleList.size() - 1).getNome());
-            preparedStatement.setString(4, unitaLocaleList.get(unitaLocaleList.size() - 1).getIndirizzo());
-            preparedStatement.setString(5, unitaLocaleList.get(unitaLocaleList.size() - 1).getLocalita());
-            preparedStatement.setString(6, unitaLocaleList.get(unitaLocaleList.size() - 1).getProvincia());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoUnitaLocali(List<UnitaLocale> unitaLocaleList) {
+        doUpdateQuery(
+                "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (ps) -> {
+                    try {
+                        UnitaLocale uLocale = unitaLocaleList.get(unitaLocaleList.size() - 1);
+                        ps.setInt(1, uLocale.getId());
+                        ps.setInt(2, uLocale.getIdSocieta());
+                        ps.setString(3, uLocale.getNome());
+                        ps.setString(4, uLocale.getIndirizzo());
+                        ps.setString(5, uLocale.getLocalita());
+                        ps.setString(6, uLocale.getProvincia());
+                        ps.setString(7, uLocale.getTelefono());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
-    public static void inserisciElementoReparti(Connection connection, List<Reparto> repartoList) throws SQLException {
-        String insertQuery = "INSERT INTO public.reparti (id_reparto, id_unita_locale, nome, descrizione) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+    public static void inserisciElementoReparti(List<Reparto> repartoList) {
+        doUpdateQuery(
+                "INSERT INTO public.reparti (id_reparto, id_unita_locale, nome, descrizione, revisione, data) VALUES (?, ?, ?, ?, ?, ?)",
+                (ps) -> {
+                    try {
+                        Reparto reparto = repartoList.get(repartoList.size() - 1);
+                        ps.setInt(1, reparto.getId());
+                        ps.setInt(2, reparto.getIdUnitaLocale());
+                        ps.setString(3, reparto.getNome());
+                        ps.setString(4, reparto.getDescrizione());
+                        ps.setString(5, reparto.getRevisione());
+                        // ps.setDate(6, reparto.getData().);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
 
-            preparedStatement.setInt(1, repartoList.get(repartoList.size() - 1).getId());
-            preparedStatement.setInt(2, repartoList.get(repartoList.size() - 1).getIdUnitaLocale());
-            preparedStatement.setString(3, repartoList.get(repartoList.size() - 1).getNome());
-            preparedStatement.setString(4, repartoList.get(repartoList.size() - 1).getDescrizione());
-            preparedStatement.executeUpdate();
-
-        }
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
-    public static void inserisciElementoTitoli(Connection connection, List<Titolo> titoloList) throws SQLException {
-        String insertQuery = "INSERT INTO public.titoli (id_titolo, descrizione, id_reparto) VALUES (?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, titoloList.get(titoloList.size() - 1).getId());
-            preparedStatement.setString(2, titoloList.get(titoloList.size() - 1).getDescrizione());
-            preparedStatement.setInt(3, titoloList.get(titoloList.size() - 1).getIdReparto());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoTitoli(List<Titolo> titoloList) {
+        doUpdateQuery("INSERT INTO public.titoli (id_titolo, descrizione, id_reparto) VALUES (?, ?, ?)", (ps) -> {
+            try {
+                ps.setInt(1, titoloList.get(titoloList.size() - 1).getId());
+                ps.setString(2, titoloList.get(titoloList.size() - 1).getDescrizione());
+                ps.setInt(3, titoloList.get(titoloList.size() - 1).getIdReparto());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondente
-    public static void inserisciElementoMansioni(Connection connection, List<Mansione> mansioneList)
-            throws SQLException {
-        String insertQuery = "INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, mansioneList.get(mansioneList.size() - 1).getId());
-            preparedStatement.setString(2, mansioneList.get(mansioneList.size() - 1).getNome());
-            preparedStatement.setString(3, mansioneList.get(mansioneList.size() - 1).getResponsabile());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoMansioni(List<Mansione> mansioneList) {
+        doUpdateQuery("INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)", (statement) -> {
+            try {
+                statement.setInt(1, mansioneList.get(mansioneList.size() - 1).getId());
+                statement.setString(2, mansioneList.get(mansioneList.size() - 1).getNome());
+                statement.setString(3, mansioneList.get(mansioneList.size() - 1).getResponsabile());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
-    public static void inserisciElementoOggetti(Connection connection, List<Oggetto> oggettoList) throws SQLException {
-        String insertQuery = "INSERT INTO public.oggetti (id, nome, id_titolo) VALUES (?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, oggettoList.get(oggettoList.size() - 1).getId());
-            preparedStatement.setString(2, oggettoList.get(oggettoList.size() - 1).getNome());
-            preparedStatement.setInt(3, oggettoList.get(oggettoList.size() - 1).getIdTitolo());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoOggetti(List<Oggetto> oggettoList) {
+        doUpdateQuery("INSERT INTO public.oggetti (id, nome, id_titolo) VALUES (?, ?, ?)", (ps) -> {
+            try {
+                ps.setInt(1, oggettoList.get(oggettoList.size() - 1).getId());
+                ps.setString(2, oggettoList.get(oggettoList.size() - 1).getNome());
+                ps.setInt(3, oggettoList.get(oggettoList.size() - 1).getIdTitolo());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
-    public static void inserisciElementoProvvedimenti(Connection connection, List<Provvedimento> provvedimentoList)
-            throws SQLException {
-        String insertQuery = "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p) VALUES (?, ?, ?, ?, ?,?,?,?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, provvedimentoList.get(provvedimentoList.size() - 1).getId());
-            preparedStatement.setInt(2, provvedimentoList.get(provvedimentoList.size() - 1).getIdOggetto());
-            preparedStatement.setString(3, provvedimentoList.get(provvedimentoList.size() - 1).getRischio());
-            preparedStatement.setString(4, provvedimentoList.get(provvedimentoList.size() - 1).getNome());
-            preparedStatement.setString(5, provvedimentoList.get(provvedimentoList.size() - 1).getSoggettiEsposti());
-            preparedStatement.setInt(6, provvedimentoList.get(provvedimentoList.size() - 1).getStimaR());
-            preparedStatement.setInt(7, provvedimentoList.get(provvedimentoList.size() - 1).getStimaD());
-            preparedStatement.setInt(8, provvedimentoList.get(provvedimentoList.size() - 1).getStimaP());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoProvvedimenti(List<Provvedimento> provvedimentoList) {
+        doUpdateQuery(
+                "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, email, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)",
+                (ps) -> {
+                    try {
+                        Provvedimento prov = provvedimentoList.get(provvedimentoList.size() - 1);
+                        ps.setInt(1, prov.getId());
+                        ps.setInt(2, prov.getIdOggetto());
+                        ps.setString(3, prov.getRischio());
+                        ps.setString(4, prov.getNome());
+                        ps.setString(5, prov.getSoggettiEsposti());
+                        ps.setInt(6, prov.getStimaR());
+                        ps.setInt(7, prov.getStimaD());
+                        ps.setInt(8, prov.getStimaP());
+                        ps.setString(9, prov.getEmail());
+                        // ps.setDate(10, prov.getDataInizio());
+                        // ps.setDate(11, prov.getDataScadenza());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondente
-    public static void inserisciElementoRischi(Connection connection, List<Rischio> rischioList) throws SQLException {
-        String insertQuery = "INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-
-            preparedStatement.setInt(1, rischioList.get(rischioList.size() - 1).getId());
-            preparedStatement.setString(2, rischioList.get(rischioList.size() - 1).getNome());
-            preparedStatement.setInt(3, rischioList.get(rischioList.size() - 1).getP());
-            preparedStatement.setInt(4, rischioList.get(rischioList.size() - 1).getD());
-            preparedStatement.setInt(5, rischioList.get(rischioList.size() - 1).getR());
-            preparedStatement.setInt(6, rischioList.get(rischioList.size() - 1).getIdReparto());
-            preparedStatement.executeUpdate();
-
-        }
+    public static void inserisciElementoRischi(List<Rischio> rischioList) {
+        doUpdateQuery("INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)",
+                (ps) -> {
+                    try {
+                        Rischio rischio = rischioList.get(rischioList.size() - 1);
+                        ps.setInt(1, rischio.getId());
+                        ps.setString(2, rischio.getNome());
+                        ps.setInt(3, rischio.getP());
+                        ps.setInt(4, rischio.getD());
+                        ps.setInt(5, rischio.getR());
+                        ps.setInt(6, rischio.getIdReparto());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
 }
