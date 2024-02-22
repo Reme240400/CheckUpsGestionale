@@ -15,9 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
     <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
@@ -71,12 +69,16 @@
                                 <TextField fx:id="textFieldBancaAppoggio" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                 <Label text="Codice ateco:" GridPane.rowIndex="6" />
                                 <TextField fx:id="textFieldCodiceAteco" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                <Pane prefHeight="1.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                                    <children>
-                                        <JFXButton fx:id="buttonLogoUrl" buttonType="RAISED" layoutX="14.0" layoutY="19.0" text="File Immagine" />
-                                        <Label layoutX="108.0" layoutY="23.0" prefHeight="17.0" prefWidth="129.0" />
-                                    </children>
+                                <Pane prefHeight="1.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                           <children>
+                              <ImageView fitHeight="123.0" fitWidth="122.0" layoutX="118.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
                                 </Pane>
+                                  <JFXButton fx:id="buttonLogoUrl" buttonType="RAISED" ripplerFill="#39d0e1" text="File Immagine" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </JFXButton>
                             </children>
                         </GridPane>
                     </children>
@@ -87,11 +89,11 @@
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="752.0" BorderPane.alignment="CENTER_LEFT">
             <children>
-                <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salvaSocieta" prefHeight="32.0" prefWidth="27.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../css/style.css" textFill="WHITE" textOverrun="CLIP">
+                <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#aggiorna" prefHeight="32.0" prefWidth="27.0" ripplerFill="#32a834" styleClass="bordered" stylesheets="@../../css/style.css" textFill="WHITE" textOverrun="CLIP">
                     <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../icons/save_icon.png" />
+                                <Image url="@../../icons/save_icon.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -99,25 +101,40 @@
                         <Insets left="25.0" />
                     </HBox.margin>
                 </JFXButton>
+            <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#annulla" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/cross.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </JFXButton>
                 <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
-                <JFXComboBox fx:id="cercaSocieta" onHiding="#filtraSocieta" editable="true" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+                <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#filtraSocieta" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
                 <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
-                <JFXButton fx:id="btnSalvaAggiungi" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save_addSocieta" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#salva" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                     <HBox.margin>
                         <Insets right="25.0" />
                     </HBox.margin>
                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../icons/angle-right.png" />
+                                <Image url="@../../icons/angle-right.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </JFXButton>
             </children>
             <BorderPane.margin>
-                <Insets bottom="15.0" />
+                <Insets bottom="15.0" top="5.0" />
             </BorderPane.margin>
+         <opaqueInsets>
+            <Insets top="5.0" />
+         </opaqueInsets>
         </HBox>
     </top>
 </BorderPane>

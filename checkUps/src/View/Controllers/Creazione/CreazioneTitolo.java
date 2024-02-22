@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Interfaces.CreazioneTInterface;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
@@ -35,7 +36,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo implements Initializable {
+public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
@@ -64,11 +65,17 @@ public class CreazioneTitolo implements Initializable {
     @FXML
     private TableColumn<Titolo, String> descColT;
 
-    @FXML
-    private JFXButton btnAnnulla;
+    //@FXML
+    //private JFXButton btnAnnulla;
 
     @FXML
-    private JFXButton btnSalva;
+    private JFXButton btnNext;
+
+    @FXML
+    private JFXButton btnAggiungi;
+
+    @FXML
+    private JFXButton btnModifica;
 
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
@@ -254,15 +261,18 @@ public class CreazioneTitolo implements Initializable {
 
     }
 
-    @FXML
-    public void modify() throws IOException {
+    public void modifica() {
 
         Parent root = new Parent() {};
         modelModifica = new ModelModifica();
 
         modelModifica.setReparto(localReparto);
 
-        root = modelPaths.switchToModificaTitoli(modelModifica);
+        try {
+            root = modelPaths.switchToModificaTitoli(modelModifica);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Controller.changePane(modelPaths.getStackPaneHome(), root);
     }
@@ -277,12 +287,14 @@ public class CreazioneTitolo implements Initializable {
     }
 
     @FXML
-    public void addTitolo() throws IOException {
+    public void aggiungi() {
         if (localSocieta != null && localUnita != null
                 && localReparto != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaTitolo_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
+            DialogPane dialogPane;
+            try {
+                dialogPane = loader.load();
 
             DialogPaneAddT dialogController = loader.getController();
 
@@ -314,11 +326,14 @@ public class CreazioneTitolo implements Initializable {
                     Alerts.errorAllert();
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         }
     }
 
     @FXML
-    public void save_addTitolo(){
+    public void next(){
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
 

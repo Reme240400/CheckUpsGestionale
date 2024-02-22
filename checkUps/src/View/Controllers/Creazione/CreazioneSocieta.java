@@ -77,8 +77,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     Societa societaTmp = null;
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
-    // ------------------------------------------------------- INITIALIZE
-    // -------------------------------------------------------------------- //
+    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -188,7 +187,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
         Controller.inserisciNuovoRecord(societaTmp);
 
-        eliminaSocieta();
+        annulla();
 
         modelCreazione.setSaved(false);
 
@@ -196,7 +195,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
     // * ----------------------------- elimina la societa
     // ----------------------------- //
-     public void eliminaSocieta() {
+     public void annulla() {
 
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();

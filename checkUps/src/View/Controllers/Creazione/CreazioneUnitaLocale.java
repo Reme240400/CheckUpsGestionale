@@ -31,13 +31,13 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     private JFXComboBox<String> cercaRecord;
 
     @FXML
-    private JFXButton btnSalvaU;
+    private JFXButton btnSalva;
 
     @FXML
-    private JFXButton btnAnnullaU;
+    private JFXButton btnAnnulla;
 
     @FXML
-    private JFXButton btnSalvaAggiungiU;
+    private JFXButton btnAggiorna;
 
     @FXML
     private TextField nomeSocieta;
@@ -99,7 +99,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         Controller.inserisciNuovoRecord(unitaLocale);
 
         modelCreazione.resetSocietaTmp();
-        eliminaUnitaLocale();
+        annulla();
         
     }
 
@@ -130,7 +130,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         }
     }
 
-    public void eliminaUnitaLocale() {
+    public void annulla() {
 
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
@@ -157,9 +157,9 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty().not());
         //this.textFieldTel.editableProperty().bind(modelCreazione.isEnableProperty().not());
 
-        this.btnSalvaU.disableProperty().bind(modelCreazione.savedProperty().not());
-        this.btnAnnullaU.disableProperty().bind(modelCreazione.discardProperty().not());
-        this.btnSalvaAggiungiU.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
+        this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
 
     }
 

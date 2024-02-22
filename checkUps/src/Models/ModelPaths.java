@@ -280,7 +280,7 @@ public class ModelPaths {
     // ------------------ Cambia la scena a Creazione Societa ------------------ //
     public Parent switchToCreazioneSocieta(ModelCreazione modelCreazione) throws IOException {
 
-        FXMLLoader loaderSocieta = new FXMLLoader(getClass().getResource("/View/fxml/creazione_societa.fxml"));
+        FXMLLoader loaderSocieta = new FXMLLoader(getClass().getResource("/View/fxml/creazione/creazione_societa.fxml"));
 
         Parent root = loaderSocieta.load();
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();

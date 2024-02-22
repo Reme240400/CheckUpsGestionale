@@ -9,7 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Interfaces.CreazioneInterface;
+import Interfaces.CreazioneTInterface;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
@@ -21,6 +21,7 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import View.Controllers.Creazione.DialogPane.DialogPaneAddO;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,19 +37,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneOggetto implements Initializable, CreazioneInterface {
+public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
     @FXML
-    private JFXButton btnAdd;
+    private JFXButton btnAggiungi;
+
+    // @FXML
+    // private JFXButton btnDel;
 
     @FXML
-    private JFXButton btnDel;
+    private JFXButton btnModifica;
 
     @FXML
-    private JFXButton btnModify;
-
-    @FXML
-    private JFXButton btnSalvaAggiungi;
+    private JFXButton btnNext;
 
     @FXML
     private JFXComboBox<String> cercaReparto;
@@ -101,13 +102,12 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
         idCol.setCellValueFactory(new PropertyValueFactory<Oggetto, Integer>("id"));
         nomeColT.setCellValueFactory(cellData -> {
             return new SimpleStringProperty(titoloList.stream()
-                                                        .filter(reparto -> reparto.getId() == cellData.getValue().getIdTitolo())
-                                                        .findFirst().get()
-                                                        .getDescrizione());
+                    .filter(reparto -> reparto.getId() == cellData.getValue().getIdTitolo())
+                    .findFirst().get()
+                    .getDescrizione());
         });
 
         nomeCol.setCellValueFactory(new PropertyValueFactory<Oggetto, String>("nome"));
-
 
         ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -125,20 +125,21 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
 
     }
 
-    // --------------- triggherato quando si seleziona un' societa --------------- //
+    // --------------- triggherato quando si seleziona un' societa ---------------
+    // //
     public void selectSocieta() {
         List<UnitaLocale> specificList = null;
 
         if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
 
-            if(localSocieta != null){
-                if(!cercaSocieta.getValue().equals(localSocieta.getNome()))
+            if (localSocieta != null) {
+                if (!cercaSocieta.getValue().equals(localSocieta.getNome()))
                     modelCreazione.resetAllTmp();
             }
 
             localSocieta = societaList.stream()
-                                    .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
-                                    .findFirst().get();
+                    .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                    .findFirst().get();
             // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
 
             specificList = unitaLocaleList.stream()
@@ -165,17 +166,18 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
         tableOggetti.getItems().clear();
     }
 
-    // --------------- triggherato quando si seleziona un' unita locale --------------- //
+    // --------------- triggherato quando si seleziona un' unita locale
+    // --------------- //
     public void selectUnita() {
         List<Reparto> specificList = null;
 
-        if(cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()){
+        if (cercaUnita.getValue() != null && !cercaUnita.getValue().isEmpty()) {
             tableOggetti.getItems().clear();
-            if(localUnita != null){
-                if(!cercaUnita.getValue().equals(localUnita.getNome()))
+            if (localUnita != null) {
+                if (!cercaUnita.getValue().equals(localUnita.getNome()))
                     modelCreazione.resetAllTmp();
             }
-            if(localSocieta != null){
+            if (localSocieta != null) {
                 localUnita = unitaLocaleList.stream()
                         .filter(u -> u.getIdSocieta() == localSocieta.getId())
                         .filter(u -> u.getNome().equals(cercaUnita.getValue()))
@@ -183,8 +185,8 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
 
                 // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
                 specificList = repartoList.stream()
-                    .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
-                    .toList();
+                        .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
+                        .toList();
 
                 ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -195,7 +197,8 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
                 }
 
                 // --------------- filtra il Combobox --------------- //
-                FilteredList<String> filteredItems = Model.filterComboBoxById(cercaReparto, localSocieta.getId(), items);
+                FilteredList<String> filteredItems = Model.filterComboBoxById(cercaReparto, localSocieta.getId(),
+                        items);
 
                 cercaReparto.setItems(filteredItems);
             }
@@ -203,23 +206,24 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
 
         cercaReparto.setValue(null);
         cercaTitolo.setValue(null);
-        
+
     }
 
-    // --------------- triggherato quando si seleziona un' reparto --------------- //
+    // --------------- triggherato quando si seleziona un' reparto ---------------
+    // //
     public void selectReparto() {
 
         List<Titolo> specificList = null;
 
-        if(localUnita != null && cercaReparto.getValue() != null && !cercaReparto.getValue().isEmpty()){
+        if (localUnita != null && cercaReparto.getValue() != null && !cercaReparto.getValue().isEmpty()) {
             localReparto = repartoList.stream()
                     .filter(r -> r.getIdUnitaLocale() == localUnita.getId())
                     .filter(r -> r.getNome().equals(cercaReparto.getValue()))
                     .findFirst().get();
 
             specificList = titoloList.stream()
-                                    .filter(t -> t.getIdReparto() == localReparto.getId())
-                                    .toList();
+                    .filter(t -> t.getIdReparto() == localReparto.getId())
+                    .toList();
 
             ObservableList<String> items = FXCollections.observableArrayList();
 
@@ -242,8 +246,8 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
 
     // --------------- triggherato quando si seleziona un' titolo --------------- //
     public void selectTitolo() {
-        
-        if(localReparto != null && cercaTitolo.getValue() != null && !cercaTitolo.getValue().isEmpty()){
+
+        if (localReparto != null && cercaTitolo.getValue() != null && !cercaTitolo.getValue().isEmpty()) {
             localTitolo = titoloList.stream()
                     .filter(u -> u.getIdReparto() == localReparto.getId())
                     .filter(u -> u.getDescrizione().equals(cercaTitolo.getValue()))
@@ -266,8 +270,8 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
         }
 
         specificList = oggettoList.stream()
-                                    .filter(o -> o.getIdTitolo() == localTitolo.getId())
-                                    .toList();
+                .filter(o -> o.getIdTitolo() == localTitolo.getId())
+                .toList();
 
         ObservableList<Oggetto> items = FXCollections.observableArrayList();
 
@@ -278,31 +282,30 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
         }
 
         tableOggetti.setItems(items);
-        
+
     }
 
     @FXML
     public void delete() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
-            if(Alerts.deleteAlert(tableOggetti.getSelectionModel().getSelectedItem().getNome()))
-            {
+            if (Alerts.deleteAlert(tableOggetti.getSelectionModel().getSelectedItem().getNome())) {
                 Oggetto reparto = tableOggetti.getSelectionModel().getSelectedItem();
                 Controller.eliminaRecord(reparto, reparto.getId());
                 tableOggetti.getItems().remove(reparto);
-            }            
+            }
         }
     }
 
     @FXML
-    public void aggiorna() {
+    public void modifica() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
 
             Parent root = new Parent() {};
             modelModifica = new ModelModifica();
 
-            if(modelCreazione.getUnitaLocaleTmp() != null)
+            if (modelCreazione.getUnitaLocaleTmp() != null)
                 modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
-            else if(localUnita != null)
+            else if (localUnita != null)
                 modelModifica.setUnitaLocale(localUnita);
 
             try {
@@ -316,101 +319,119 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
     }
 
     @FXML
-    public void addOggetto() throws IOException{
+    public void aggiungi() {
 
-        if (modelCreazione.getSocietaTmp() != null && 
-            modelCreazione.getUnitaLocaleTmp() != null && 
-            modelCreazione.getRepartoTmp() != null && 
-            modelCreazione.getTitoloTmp() != null) {
+        /*
+         * if (modelCreazione.getSocietaTmp() != null &&
+         * modelCreazione.getUnitaLocaleTmp() != null &&
+         * modelCreazione.getRepartoTmp() != null &&
+         * modelCreazione.getTitoloTmp() != null) {
+         * 
+         * FXMLLoader loader = new
+         * FXMLLoader(getClass().getResource("/View/fxml/creaOggetto_dialogPane.fxml"));
+         * DialogPane dialogPane;
+         * try {
+         * dialogPane = loader.load();
+         * 
+         * 
+         * DialogPaneAddO dialogController = loader.getController();
+         * 
+         * dialogController.setModel(modelCreazione);
+         * dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+         * modelCreazione.getUnitaLocaleTmp().getNome(),
+         * modelCreazione.getRepartoTmp().getNome(),
+         * modelCreazione.getTitoloTmp().getDescrizione());
+         * 
+         * Dialog<ButtonType> dialog = new Dialog<>();
+         * dialog.setDialogPane(dialogPane);
+         * dialog.setTitle("Crea Oggetto");
+         * 
+         * Optional<ButtonType> clickedButton = dialog.showAndWait();
+         * 
+         * // ------------------- Se viene premuto il tasto "Applica"
+         * ------------------- //
+         * 
+         * if (clickedButton.get() == ButtonType.APPLY) {
+         * if (dialogController.getNome() != null
+         * && !dialogController.getNome().equals("")) {
+         * 
+         * int id = Controller.getNewId(oggettoList);
+         * Oggetto newOggetto = new Oggetto(id,
+         * dialogController.getNome(),
+         * modelCreazione.getTitoloTmp().getId());
+         * 
+         * modelCreazione.createOggettoTmp(newOggetto);
+         * Controller.inserisciNuovoRecord(newOggetto);
+         * 
+         * tableOggetti.getItems().add(newOggetto);
+         * 
+         * tableOggetti.refresh();
+         * 
+         * } else {
+         * Alerts.errorAllert("Errore", "Errore nell'inserimento",
+         * "Qualcosa non è stato inserito correttamente");
+         * }
+         * }
+         * } catch (IOException e) {
+         * // TODO Auto-generated catch block
+         * e.printStackTrace();
+         * }
+         * }else
+         */ if (localSocieta != null &&
+                localUnita != null &&
+                localReparto != null &&
+                localTitolo != null) {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaOggetto_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
+            DialogPane dialogPane;
+            try {
+                dialogPane = loader.load();
 
-            DialogPaneAddO dialogController = loader.getController();
+                DialogPaneAddO dialogController = loader.getController();
 
-            dialogController.setModel(modelCreazione);
-            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-                                        modelCreazione.getUnitaLocaleTmp().getNome(), 
-                                        modelCreazione.getRepartoTmp().getNome(),
-                                        modelCreazione.getTitoloTmp().getDescrizione());
+                dialogController.setModel(modelCreazione);
+                dialogController.fillTextBox(localSocieta.getNome(),
+                        localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione());
 
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Crea Oggetto");
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Crea Oggetto");
 
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
+                Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+                // ------------------- Se viene premuto il tasto "Applica" -------------------
+                // //
 
-            if (clickedButton.get() == ButtonType.APPLY) {
-                if (dialogController.getNome() != null
-                        && !dialogController.getNome().equals("")) {
+                if (clickedButton.get() == ButtonType.APPLY) {
+                    if (dialogController.getNome() != null
+                            && !dialogController.getNome().equals("")) {
 
-                    int id = Controller.getNewId(oggettoList);
-                    Oggetto newOggetto = new Oggetto(id,
-                                                    dialogController.getNome(),
-                                                    modelCreazione.getTitoloTmp().getId());
-                                                    
-                    modelCreazione.createOggettoTmp(newOggetto);
-                    Controller.inserisciNuovoRecord(newOggetto);
+                        int id = Controller.getNewId(oggettoList);
+                        Oggetto newOggetto = new Oggetto(id,
+                                dialogController.getNome(),
+                                localTitolo.getId());
 
-                    tableOggetti.getItems().add(newOggetto);
+                        modelCreazione.createOggettoTmp(newOggetto);
+                        Controller.inserisciNuovoRecord(newOggetto);
 
-                    tableOggetti.refresh();
+                        tableOggetti.getItems().add(newOggetto);
 
-                } else {
-                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                            "Qualcosa non è stato inserito correttamente");
+                        tableOggetti.refresh();
+
+                    } else {
+                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                                "Qualcosa non è stato inserito correttamente");
+                    }
                 }
-            }
-        }else if (localSocieta != null &&
-            localUnita != null &&
-            localReparto != null &&
-            localTitolo != null) {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaOggetto_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
-
-            DialogPaneAddO dialogController = loader.getController();
-
-            dialogController.setModel(modelCreazione);
-            dialogController.fillTextBox(localSocieta.getNome(),
-                    localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione());
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Crea Oggetto");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
-
-            if (clickedButton.get() == ButtonType.APPLY) {
-                if (dialogController.getNome() != null
-                        && !dialogController.getNome().equals("")) {
-
-                    int id = Controller.getNewId(oggettoList);
-                    Oggetto newOggetto = new Oggetto(id,
-                                                    dialogController.getNome(),
-                                                    localTitolo.getId());
-                                                    
-                    modelCreazione.createOggettoTmp(newOggetto);
-                    Controller.inserisciNuovoRecord(newOggetto);
-
-                    tableOggetti.getItems().add(newOggetto);
-
-                    tableOggetti.refresh();
-
-                } else {
-                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                            "Qualcosa non è stato inserito correttamente");
-                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
     }
 
     @FXML
-    public void salva() {
+    public void next() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
             Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
 
@@ -422,15 +443,15 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
 
             try {
                 Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
-    
+
                 Controller.changePane(modelPaths.getStackPaneCrea(), root);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else
+        } else
             Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
                     "Non è stato selezionato nessun reparto");
-    
+
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
@@ -438,27 +459,26 @@ public class CreazioneOggetto implements Initializable, CreazioneInterface {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-        if(modelCreazione.getSocietaTmp() != null){
+        if (modelCreazione.getSocietaTmp() != null) {
             cercaSocieta.setValue(localSocieta.getNome());
             selectUnita();
         }
 
-        if(modelCreazione.getUnitaLocaleTmp() != null){
+        if (modelCreazione.getUnitaLocaleTmp() != null) {
             cercaUnita.setValue(localUnita.getNome());
             selectReparto();
         }
 
-        if(modelCreazione.getRepartoTmp() != null){
+        if (modelCreazione.getRepartoTmp() != null) {
             cercaReparto.setValue(localReparto.getNome());
             selectTitolo();
         }
 
-        if(modelCreazione.getTitoloTmp() != null){
+        if (modelCreazione.getTitoloTmp() != null) {
             cercaTitolo.setValue(localTitolo.getDescrizione());
             fillTableView();
         }
 
-        
     }
 
 }
