@@ -290,7 +290,7 @@ public class ModelDb {
                         String provincia = resultSet.getString("provincia");
                         String telefono = resultSet.getString("telefono");
                         UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
-                                idSocieta,telefono);
+                                telefono, idSocieta);
 
                         ModelListe.inserisciRecordInLista(unitaLocale);
                     }
@@ -753,8 +753,8 @@ public class ModelDb {
                         ((UnitaLocale) obj).getIndirizzo(),
                         ((UnitaLocale) obj).getLocalita(),
                         ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getIdSocieta(),
-                        ((UnitaLocale) obj).getTelefono());
+                        ((UnitaLocale) obj).getTelefono(),
+                        ((UnitaLocale) obj).getIdSocieta());
 
                 ClassHelper.getListUnitaLocale().add(unitaLocale);
                 break;

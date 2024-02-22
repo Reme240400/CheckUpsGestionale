@@ -253,8 +253,8 @@ public class ModelListe {
                         ((UnitaLocale) obj).getIndirizzo(),
                         ((UnitaLocale) obj).getLocalita(),
                         ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getIdSocieta(),
-                        ((UnitaLocale) obj).getTelefono());
+                        ((UnitaLocale) obj).getTelefono(),
+                        ((UnitaLocale) obj).getIdSocieta());
 
                 ClassHelper.getListUnitaLocale().add(unitaLocale);
                 break;
