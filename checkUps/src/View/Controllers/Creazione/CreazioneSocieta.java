@@ -54,7 +54,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     private TextField textFieldTel;
 
     @FXML
-    private TextArea textAreaDescrizione;
+    private TextArea textAreaDesc;
 
     @FXML
     private TextField textFieldPartitaIva;
@@ -132,7 +132,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         textFieldProvincia.setText(soc.getProvincia());
         textFieldTel.setText(soc.getTelefono());
         textFieldIndirizzo.setText(soc.getIndirizzo());
-        textAreaDescrizione.setText(soc.getDescrizione());
+        textAreaDesc.setText(soc.getDescrizione());
         textFieldPartitaIva.setText(soc.getPartitaIva());
         textFieldCodiceFiscale.setText(soc.getCodiceFiscale());
         textFieldBancaAppoggio.setText(soc.getBancaAppoggio());
@@ -152,7 +152,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText(),
                 textFieldTel.getText(),
-                textAreaDescrizione.getText(),
+                textAreaDesc.getText(),
                 textFieldPartitaIva.getText(),
                 textFieldCodiceFiscale.getText(),
                 textFieldBancaAppoggio.getText(),
@@ -176,7 +176,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText(),
                 textFieldTel.getText(),
-                textAreaDescrizione.getText(),
+                textAreaDesc.getText(),
                 textFieldPartitaIva.getText(),
                 textFieldCodiceFiscale.getText(),
                 textFieldBancaAppoggio.getText(),
@@ -207,7 +207,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         textFieldCodiceFiscale.clear();
         textFieldBancaAppoggio.clear();
         textFieldCodiceAteco.clear();
-        textAreaDescrizione.clear();
+        textAreaDesc.clear();
         logoImageView.setImage(null);
 
         cercaSocieta.setValue(null);
@@ -233,7 +233,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
 
         // * ************ setta i campi come sono stati salvati ************ //
-        modelCreazione.setOldTextFields(textAreaDescrizione ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+        modelCreazione.setOldTextFields(textAreaDesc ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
                 textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
         // * ************************************************ //
     }

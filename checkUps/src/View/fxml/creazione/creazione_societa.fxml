@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,9 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
     <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
@@ -62,7 +61,7 @@
                                 <Pane prefHeight="0.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                     <children>
                                         <Label layoutX="14.0" layoutY="23.0" text="Descrizione:" />
-                                        <TextField fx:id="textFieldDescrizione" accessibleText="INTEGER" layoutX="87.0" layoutY="19.0" prefHeight="25.0" prefWidth="150.0" />
+                              <TextArea fx:id="textAreaDesc" layoutX="81.0" layoutY="4.0" prefHeight="56.0" prefWidth="154.0" />
                                     </children>
                                 </Pane>
                                 <Label text="Codice Fiscale:" GridPane.rowIndex="4" />
