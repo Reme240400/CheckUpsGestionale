@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
@@ -215,13 +216,9 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
             ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
                                                                                             .filter(u -> u.getIdSocieta() == localSocieta.getId())
-                                                                                            .map(n -> n.getNome())
-                                                                                            .toList());
-
-            System.out.println(listUnitaLocale.stream()
-            .filter(u -> u.getIdSocieta() == localSocieta.getId()).toList()
-            );
-
+                                                                                            .map(UnitaLocale::getNome)
+                                                                                            .collect(Collectors.toList()));
+            
             FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
             cercaUnita.setItems(filteredItems);
 

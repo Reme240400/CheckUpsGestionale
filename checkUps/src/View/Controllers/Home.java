@@ -54,15 +54,7 @@ public class Home implements Initializable{
 
         // * *************** inizializza i campi *************** //
 
-        ObservableList<String> societies = FXCollections.observableArrayList();
-
-        // * *************** popola i combobox *************** //
-
-        for (Societa societa : listSocieta) {
-            cercaSocieta.getItems().add(societa.getNome());
-            societies.add(societa.getNome());
-        }
-        // * **************************************** //
+        ObservableList<String> societies = FXCollections.observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
 
         // * filtra i Combobox
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
@@ -74,7 +66,23 @@ public class Home implements Initializable{
 
     public void onSelectedSocieta() {
 
-        modelHome.onKeyPressedFilter(cercaSocieta, cercaUnitaLocale, listSocieta, listUnitaLocale);
+        if (cercaSocieta.getValue() != null) {
+            // Remove the previous listener, if any
+            String selectedSocieta = cercaSocieta.getValue();
+
+            int id = listSocieta.stream()
+                                .filter(s -> s.getNome().equals(selectedSocieta))
+                                .findFirst().get().getId();
+
+            // Retrieve the list of UnitaLocale based on the selected Societa
+            ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
+                                                                                            .filter(u -> u.getIdSocieta() == id)
+                                                                                            .map(UnitaLocale::getNome)
+                                                                                            .toList());
+
+            FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnitaLocale, unitalocali);
+            cercaUnitaLocale.setItems(filteredItems);
+        }
     }
 
     public void goToValutaRischi() {
