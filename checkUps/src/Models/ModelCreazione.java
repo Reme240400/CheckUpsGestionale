@@ -15,6 +15,7 @@ import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ModelCreazione extends ModelListe {
@@ -171,33 +172,33 @@ public class ModelCreazione extends ModelListe {
         resetProvvedimentoTmp();
     }
 
-    // ------------------ Controllo se i campi sono stati inseriti
-    // ------------------ //
+    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
     public void areTextFieldsFilled(TextField... textField) {
         boolean areAllEmpty = Stream.of(textField).allMatch(t -> t.getText().isEmpty());
         boolean isAnyEmpty = Stream.of(textField).anyMatch(t -> t.getText().isEmpty());
 
         setSaved(!isAnyEmpty);
+        setCanGoNext(!isAnyEmpty);
         setDiscard(!areAllEmpty);
     }
     // ------------------ THE END ------------------ //
 
-    // ------------------ Setta i campi come sono stati salvati ------------------
-    // //
-    // //
-    public void setOldTextFields(TextField textFieldSocieta, TextField textFieldIndirizzo, TextField textFieldLocalita,
-            TextField textFieldProvincia, TextField textFieldTel) {
+    // ------------------ Setta i campi come sono stati salvati ------------------ //
+    public void setOldTextFields(TextArea desc, TextField... textField ) {
         if (getSocietaTmp() != null) {
-            textFieldSocieta.setText(getSocietaTmp().getNome());
-            textFieldIndirizzo.setText(getSocietaTmp().getIndirizzo());
-            textFieldLocalita.setText(getSocietaTmp().getLocalita());
-            textFieldProvincia.setText(getSocietaTmp().getProvincia());
-            textFieldTel.setText(String.valueOf(getSocietaTmp().getTelefono()));
-            // textFieldDesc.setText(societaTmp.getDescrizione());
+            textField[0].setText(getSocietaTmp().getNome());
+            textField[1].setText(getSocietaTmp().getIndirizzo());
+            textField[2].setText(getSocietaTmp().getLocalita());
+            textField[3].setText(getSocietaTmp().getProvincia());
+            textField[4].setText(String.valueOf(getSocietaTmp().getTelefono()));
+            textField[5].setText(getSocietaTmp().getPartitaIva());
+            textField[6].setText(getSocietaTmp().getCodiceFiscale());
+            textField[7].setText(getSocietaTmp().getBancaAppoggio());
+            textField[8].setText(getSocietaTmp().getCodiceAteco());
+            desc.setText(getSocietaTmp().getDescrizione());
 
             // * ************ controlla se i campi sono vuoti ************ //
-            areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
-                    textFieldTel);
+            areTextFieldsFilled( textField);
         }
     }
     // ------------------ END ------------------ //
