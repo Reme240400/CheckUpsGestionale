@@ -223,7 +223,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     //  ---------------------- controlla se i campi sono vuoti ---------------------- //
     public void keyReleasedProperty() {
         modelCreazione.areTextFieldsFilled( textFieldSocieta, textFieldIndirizzo, textFieldLocalita, 
-                textFieldProvincia, textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
+                textFieldProvincia, textFieldTel, textFieldCodiceAteco);
     }
 
     // ------------------------------------------------------------------------------- //
