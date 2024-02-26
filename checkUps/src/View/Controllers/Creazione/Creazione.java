@@ -32,7 +32,7 @@ public class Creazione implements Initializable {
     }
 
     // * cambia scena in UnitaLocale
-    public void switchToUnitaLocali() throws IOException {
+    /*public void switchToUnitaLocali() throws IOException {
 
         Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
         stackPaneCreazione.getChildren().removeAll();
@@ -66,7 +66,7 @@ public class Creazione implements Initializable {
         Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
         stackPaneCreazione.getChildren().removeAll();
         stackPaneCreazione.getChildren().setAll(root);
-    }
+    }*/
 
     // * setta il modello
     public void setModelCreazione(ModelCreazione model, ModelPaths modelPaths) {

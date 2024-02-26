@@ -15,9 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
     <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
@@ -68,7 +66,7 @@
                         <Insets left="25.0" />
                     </HBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#annulla" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
+                <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#pulisciDati" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                             <image>
