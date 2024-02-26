@@ -23,6 +23,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
@@ -53,7 +54,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     private TextField textFieldTel;
 
     @FXML
-    private TextField textFieldDescrizione;
+    private TextArea textAreaDesc;
 
     @FXML
     private TextField textFieldPartitaIva;
@@ -117,8 +118,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         // filtraSocieta();
         // });
     }
-    // ------------------------------------------------------- END INITIALIZE
-    // -------------------------------------------------------------------- //
+    // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
 
     public void selezionaSocieta() {
         Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
@@ -132,7 +132,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         textFieldProvincia.setText(soc.getProvincia());
         textFieldTel.setText(soc.getTelefono());
         textFieldIndirizzo.setText(soc.getIndirizzo());
-        textFieldDescrizione.setText(soc.getDescrizione());
+        textAreaDesc.setText(soc.getDescrizione());
         textFieldPartitaIva.setText(soc.getPartitaIva());
         textFieldCodiceFiscale.setText(soc.getCodiceFiscale());
         textFieldBancaAppoggio.setText(soc.getBancaAppoggio());
@@ -152,7 +152,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText(),
                 textFieldTel.getText(),
-                textFieldDescrizione.getText(),
+                textAreaDesc.getText(),
                 textFieldPartitaIva.getText(),
                 textFieldCodiceFiscale.getText(),
                 textFieldBancaAppoggio.getText(),
@@ -176,7 +176,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText(),
                 textFieldTel.getText(),
-                textFieldDescrizione.getText(),
+                textAreaDesc.getText(),
                 textFieldPartitaIva.getText(),
                 textFieldCodiceFiscale.getText(),
                 textFieldBancaAppoggio.getText(),
@@ -187,6 +187,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
         Controller.inserisciNuovoRecord(societaTmp);
         modelCreazione.setSaved(false);
+        modelCreazione.setCanGoNext(false);
 
         try {
             Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
@@ -207,21 +208,24 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         textFieldCodiceFiscale.clear();
         textFieldBancaAppoggio.clear();
         textFieldCodiceAteco.clear();
-        textFieldDescrizione.clear();
-        logoImageView.setImage(new Image("https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
+        textAreaDesc.clear();
+        logoImageView.setImage(new Image(
+            "https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
 
         cercaSocieta.setValue(null);
 
+        modelCreazione.setCanGoNext(false);
         modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
         modelCreazione.setCanGoNext(false);
     }
 
-    // ---------------------- controlla se i campi sono vuoti ---------------------- //
+    //  ---------------------- controlla se i campi sono vuoti ---------------------- //
     public void keyReleasedProperty() {
-        modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
-                textFieldProvincia, textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio);
+        modelCreazione.areTextFieldsFilled( textFieldSocieta, textFieldIndirizzo, textFieldLocalita, 
+                textFieldProvincia, textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
     }
+
     // ------------------------------------------------------------------------------- //
 
     // * ************ setta il modelCreazionelo ************ //
@@ -230,8 +234,8 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
 
         // * ************ setta i campi come sono stati salvati ************ //
-        modelCreazione.setOldTextFields(textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
-                textFieldTel);
+        modelCreazione.setOldTextFields(textAreaDesc ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+                textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
         // * ************************************************ //
     }
 

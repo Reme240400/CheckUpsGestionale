@@ -257,12 +257,12 @@ public class ModelPaths {
     // * *************** Cambia la scena a Creazione Unita Locale *************** //
     public Parent switchToCreazioneUnitaLocale(ModelCreazione modelCreazione) throws IOException {
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/creazione/creazione_unitalocale.fxml");
+        URL fxmlURL = getClass().getClassLoader().getResource("/View/fxml/creazione/creazione_unitalocale.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+        //if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
             FXMLLoader loaderUnitaLocale = new FXMLLoader(
-                    getClass().getResource("/View/fxml/creazione_unitalocale.fxml"));
+                    getClass().getResource("/View/fxml/creazione/creazione_unitalocale.fxml"));
 
             Parent root = loaderUnitaLocale.load();
             CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
@@ -272,9 +272,7 @@ public class ModelPaths {
             creazioneUnita.setSocieta();
 
             return root;
-        } else {
-            return null;
-        }
+        
     }
 
     // ------------------ Cambia la scena a Creazione Societa ------------------ //
@@ -331,8 +329,7 @@ public class ModelPaths {
         return root;
     }
 
-    // ------------------ Cambia la scena a Creazione Provvedimento
-    // ------------------ //
+    // ------------------ Cambia la scena a Creazione Provvedimento ------------------ //
     public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException {
 
         FXMLLoader loaderProvvedimento = new FXMLLoader(
