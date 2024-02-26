@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXComboBox;
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
-import Models.ModelHome;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
 import Models.Tables.Societa;
@@ -45,7 +44,6 @@ public class Home implements Initializable{
 
     private Label title;
 
-    private ModelHome modelHome;
     private ModelPaths modelPaths;
     private ModelValutaRischi modelValutaRischi;
 
@@ -115,8 +113,8 @@ public class Home implements Initializable{
         
     }
 
-    public void setModel(ModelHome modelHome, ModelValutaRischi modelValutaRischi, ModelPaths modelPaths){
-        this.modelHome = modelHome;
+    public void setModel( ModelValutaRischi modelValutaRischi, ModelPaths modelPaths){
+    
         this.modelPaths = modelPaths;
         this.modelValutaRischi = modelValutaRischi;
 

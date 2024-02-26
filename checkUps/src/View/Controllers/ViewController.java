@@ -11,7 +11,6 @@ import Controllers.Controller;
 import Controllers.ControllerDb;
 import Models.Model;
 import Models.ModelCreazione;
-import Models.ModelHome;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
@@ -40,7 +39,6 @@ public class ViewController implements Initializable {
 
     protected static ModelPaths modelPaths = new ModelPaths();
     protected static ModelCreazione modelCreazione = new ModelCreazione();
-    protected static ModelHome modelHome = new ModelHome();
     protected static ModelModifica modelModifica = new ModelModifica();
     protected static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
 
@@ -58,7 +56,7 @@ public class ViewController implements Initializable {
     }
 
     public void switchToHome() throws IOException {
-        Parent root = modelPaths.switchToHome(modelHome);
+        Parent root = modelPaths.switchToHome();
         if (root != null) {
             Controller.changePane(stackPane, root);
         }

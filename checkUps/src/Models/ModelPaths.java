@@ -233,7 +233,7 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a home *************** //
-    public Parent switchToHome(ModelHome modelHome) throws IOException {
+    public Parent switchToHome() throws IOException {
 
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/home.fxml");
 
@@ -244,7 +244,7 @@ public class ModelPaths {
 
             Home home = loader.getController();
 
-            home.setModel(modelHome, modelValutaRischi, this);
+            home.setModel( modelValutaRischi, this);
 
             loadedFXMLs = fxmlURL.toString();
 
