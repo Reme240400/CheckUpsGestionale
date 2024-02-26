@@ -208,25 +208,21 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         textFieldBancaAppoggio.clear();
         textFieldCodiceAteco.clear();
         textFieldDescrizione.clear();
-        logoImageView.setImage(null);
+        logoImageView.setImage(new Image("https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
 
         cercaSocieta.setValue(null);
 
-        modelCreazione.setEnable(true);
         modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
-        modelCreazione.setDiscard(false);
+        modelCreazione.setCanGoNext(false);
     }
 
-    // * ---------------------- controlla se i campi sono vuoti
-    // ---------------------- //
+    // ---------------------- controlla se i campi sono vuoti ---------------------- //
     public void keyReleasedProperty() {
         modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
-                textFieldProvincia, textFieldTel);
+                textFieldProvincia, textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio);
     }
-    // *
-    // -------------------------------------------------------------------------------
-    // //
+    // ------------------------------------------------------------------------------- //
 
     // * ************ setta il modelCreazionelo ************ //
     public void setTextFields() {

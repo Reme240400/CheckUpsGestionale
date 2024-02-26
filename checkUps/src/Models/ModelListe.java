@@ -178,83 +178,42 @@ public class ModelListe {
     public static void inserisciRecordInLista(Object obj) {
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
-                Mansione mansione = new Mansione(((Mansione) obj).getId(),
-                        ((Mansione) obj).getNome(),
-                        ((Mansione) obj).getResponsabile());
+                Mansione mansione = (Mansione) obj;
 
                 ClassHelper.getListMansione().add(mansione);
                 break;
             case "Titolo":
-                Titolo titolo = new Titolo(((Titolo) obj).getId(),
-                        ((Titolo) obj).getIdReparto(),
-                        ((Titolo) obj).getDescrizione());
+                Titolo titolo = (Titolo) obj;
 
                 ClassHelper.getListTitolo().add(titolo);
                 break;
             case "Reparto":
-                Reparto reparto = new Reparto(((Reparto) obj).getId(),
-                        ((Reparto) obj).getIdUnitaLocale(),
-                        ((Reparto) obj).getNome(),
-                        ((Reparto) obj).getDescrizione(),
-                        ((Reparto) obj).getRevisione(),
-                        ((Reparto) obj).getData());
+                Reparto reparto = (Reparto) obj;
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
             case "Rischio":
-                Rischio rischio = new Rischio(((Rischio) obj).getId(),
-                        ((Rischio) obj).getNome(),
-                        ((Rischio) obj).getP(),
-                        ((Rischio) obj).getD(),
-                        ((Rischio) obj).getR(),
-                        ((Rischio) obj).getIdReparto());
+                Rischio rischio = (Rischio) obj;
 
                 ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
                 Societa societa = (Societa) obj;
-                // Societa societa = new Societa(
-                // ((Societa) obj).getId(),
-                // ((Societa) obj).getNome(),
-                // ((Societa) obj).getIndirizzo(),
-                // ((Societa) obj).getLocalita(),
-                // ((Societa) obj).getProvincia(),
-                // ((Societa) obj).getTelefono(),
-                // ((Societa) obj).getDescrizione());
 
                 ClassHelper.getListSocieta().add(societa);
                 break;
             case "Oggetto":
-                Oggetto oggetto = new Oggetto(((Oggetto) obj).getId(),
-                        ((Oggetto) obj).getNome(),
-                        ((Oggetto) obj).getIdTitolo());
+                Oggetto oggetto = (Oggetto) obj;
 
                 ClassHelper.getListOggetto().add(oggetto);
                 break;
             case "Provvedimento":
-                Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
-
-                        ((Provvedimento) obj).getIdOggetto(),
-                        ((Provvedimento) obj).getRischio(),
-                        ((Provvedimento) obj).getNome(),
-                        ((Provvedimento) obj).getSoggettiEsposti(),
-                        ((Provvedimento) obj).getStimaR(),
-                        ((Provvedimento) obj).getStimaD(),
-                        ((Provvedimento) obj).getStimaP(),
-                        ((Provvedimento) obj).getEmail(),
-                        ((Provvedimento) obj).getDataInizio(),
-                        ((Provvedimento) obj).getDataScadenza());
+                Provvedimento provvedimento = (Provvedimento) obj;
 
                 ClassHelper.getListProvvedimento().add(provvedimento);
                 break;
             case "UnitaLocale":
-                UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getId(),
-                        ((UnitaLocale) obj).getNome(),
-                        ((UnitaLocale) obj).getIndirizzo(),
-                        ((UnitaLocale) obj).getLocalita(),
-                        ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getTelefono(),
-                        ((UnitaLocale) obj).getIdSocieta());
+                UnitaLocale unitaLocale = (UnitaLocale) obj;
 
                 ClassHelper.getListUnitaLocale().add(unitaLocale);
                 break;
