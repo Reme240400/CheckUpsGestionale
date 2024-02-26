@@ -80,8 +80,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     Societa societaTmp = null;
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
-    // ------------------------------------------------------- INITIALIZE
-    // -------------------------------------------------------------------- //
+    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -99,14 +98,12 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
             return change;
         };
-
+        System.out.println("dio cane");
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
 
-        // * **************************************** //
+        ObservableList<String> societies = FXCollections.observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
 
-        ObservableList<String> societies = FXCollections
-                .observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
         cercaSocieta.setItems(filteredItems);
 
@@ -114,11 +111,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 .setImage(new Image(
                         "https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
 
-        // cercaSocieta.onKeyReleasedProperty().addListener((obs, oValue, nValue) -> {
-        // filtraSocieta();
-        // });
     }
-    // ------------------------------------------------------- END INITIALIZE -------------------------------------------------------------------- //
 
     public void selezionaSocieta() {
         Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
@@ -194,7 +187,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
             Controller.changePane(modelPaths.getStackPaneCrea(), root);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Errore caricamento unità locali:" + e);
         }
     }
 

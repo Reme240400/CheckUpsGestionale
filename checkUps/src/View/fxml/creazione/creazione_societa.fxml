@@ -57,7 +57,7 @@
                                     </children>
                                 </Pane>
                                 <Label text="Partita IVA:" GridPane.rowIndex="3" />
-                                <TextField fx:id="textFieldPartitaIva" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="textFieldPartitaIva" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Pane prefHeight="0.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                     <children>
                                         <Label layoutX="14.0" layoutY="23.0" text="Descrizione:" />
@@ -65,11 +65,11 @@
                                     </children>
                                 </Pane>
                                 <Label text="Codice Fiscale:" GridPane.rowIndex="4" />
-                                <TextField fx:id="textFieldCodiceFiscale" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextField fx:id="textFieldCodiceFiscale" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                 <Label text="Banca d'appoggio:" GridPane.rowIndex="5" />
-                                <TextField fx:id="textFieldBancaAppoggio" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <TextField fx:id="textFieldBancaAppoggio" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                 <Label text="Codice ateco:" GridPane.rowIndex="6" />
-                                <TextField fx:id="textFieldCodiceAteco" accessibleText="INTEGER" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <TextField fx:id="textFieldCodiceAteco" accessibleText="INTEGER" onKeyReleased="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                 <Pane prefHeight="1.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                     <children>
                                         <ImageView fx:id="logoImageView" fitHeight="123.0" fitWidth="122.0" layoutX="118.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true" />
