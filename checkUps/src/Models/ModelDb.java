@@ -17,7 +17,7 @@ import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
-import Models.Tables.Rischio;
+//import Models.Tables.Rischio;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
@@ -166,40 +166,6 @@ public class ModelDb {
                     }
                 } catch (SQLException e) {
                     System.out.println("Errore durante la lettura della tabella reparti: " + e.getMessage());
-                } finally {
-                    try {
-                        connection.close();
-                    } catch (SQLException e) {
-                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public static void popolaListaRischi() {
-        try (Connection connection = connessioneDb()) {
-            if (connection != null) {
-                ClassHelper.svuotaListaRischi();
-                try (Statement statement = connection.createStatement();
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.rischi")) {
-
-                    while (resultSet.next()) {
-                        int idRischio = resultSet.getInt("id_rischio");
-                        String nome = resultSet.getString("nome");
-                        int p = resultSet.getInt("P");
-                        int d = resultSet.getInt("D");
-                        int r = resultSet.getInt("R");
-                        int idReparto = resultSet.getInt("id_reparto");
-
-                        Rischio rischio = new Rischio(idRischio, nome, p, d, r, idReparto);
-                        ModelListe.inserisciRecordInLista(rischio);
-                    }
-                } catch (SQLException e) {
-                    System.out.println("Errore durante la lettura della tabella rischi: " + e.getMessage());
                 } finally {
                     try {
                         connection.close();
@@ -423,9 +389,11 @@ public class ModelDb {
             case "Reparto":
                 inserisciElementoReparti(ClassHelper.getListReparto());
                 break;
-            case "Rischio":
-                inserisciElementoRischi(ClassHelper.getListRischio());
-                break;
+            /*
+             * case "Rischio":
+             * inserisciElementoRischi(ClassHelper.getListRischio());
+             * break;
+             */
             case "Societa":
                 inserisciElementoSocieta(ClassHelper.getListSocieta());
                 break;
@@ -506,37 +474,39 @@ public class ModelDb {
 
                 break;
 
-            case "Rischio":
-
-                Rischio rischio = ((Rischio) obj);
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        rischio.getId(),
-                        "id_rischio",
-                        rischio.getId());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
-                        rischio.getId(), "nome",
-                        rischio.getNome());
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        rischio.getId(), "p",
-                        rischio.getP());
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        rischio.getId(), "d",
-                        rischio.getD());
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        rischio.getId(), "r",
-                        rischio.getR());
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        rischio.getId(),
-                        "id_reparto",
-                        rischio.getIdReparto());
-
-                break;
+            /*
+             * case "Rischio":
+             * 
+             * Rischio rischio = ((Rischio) obj);
+             * 
+             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+             * rischio.getId(),
+             * "id_rischio",
+             * rischio.getId());
+             * 
+             * modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+             * rischio.getId(), "nome",
+             * rischio.getNome());
+             * 
+             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+             * rischio.getId(), "p",
+             * rischio.getP());
+             * 
+             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+             * rischio.getId(), "d",
+             * rischio.getD());
+             * 
+             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+             * rischio.getId(), "r",
+             * rischio.getR());
+             * 
+             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+             * rischio.getId(),
+             * "id_reparto",
+             * rischio.getIdReparto());
+             * 
+             * break;
+             */
 
             case "Societa":
                 Societa societa = ((Societa) obj);
@@ -728,16 +698,18 @@ public class ModelDb {
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
-            case "Rischio":
-                Rischio rischio = new Rischio(((Rischio) obj).getId(),
-                        ((Rischio) obj).getNome(),
-                        ((Rischio) obj).getP(),
-                        ((Rischio) obj).getD(),
-                        ((Rischio) obj).getR(),
-                        ((Rischio) obj).getIdReparto());
-
-                ClassHelper.getListRischio().add(rischio);
-                break;
+            /*
+             * case "Rischio":
+             * Rischio rischio = new Rischio(((Rischio) obj).getId(),
+             * ((Rischio) obj).getNome(),
+             * ((Rischio) obj).getP(),
+             * ((Rischio) obj).getD(),
+             * ((Rischio) obj).getR(),
+             * ((Rischio) obj).getIdReparto());
+             * 
+             * ClassHelper.getListRischio().add(rischio);
+             * break;
+             */
             case "Societa":
                 Societa societa = (Societa) obj;
                 // Societa societa = new Societa(
@@ -1040,32 +1012,6 @@ public class ModelDb {
         }
     }
 
-    public void visualizzaTabellaElencoRischi() {
-        Connection connection = connessioneDb();
-        if (connection != null) {
-            try (Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery("SELECT * FROM public.elenco_rischi")) {
-
-                while (resultSet.next()) {
-                    int idProvvedimento = resultSet.getInt("id_provvedimento");
-                    int idRischio = resultSet.getInt("id_rischio");
-
-                    System.out.println("ID Provvedimento: " + idProvvedimento);
-                    System.out.println("ID Rischio: " + idRischio);
-                    System.out.println();
-                }
-            } catch (SQLException e) {
-                System.out.println("Errore durante la lettura della tabella elenco_rischi: " + e.getMessage());
-            } finally {
-                try {
-                    connection.close(); // Chiude la connessione in modo controllato
-                } catch (SQLException e) {
-                    System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
-                }
-            }
-        }
-    }
-
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
     // corrispondnome
     public static void inserisciElementoSocieta(List<Societa> societaList) {
@@ -1200,24 +1146,90 @@ public class ModelDb {
                     }
                 });
     }
-
-    // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
-    public static void inserisciElementoRischi(List<Rischio> rischioList) {
-        doUpdateQuery("INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)",
-                (ps) -> {
-                    try {
-                        Rischio rischio = rischioList.get(rischioList.size() - 1);
-                        ps.setInt(1, rischio.getId());
-                        ps.setString(2, rischio.getNome());
-                        ps.setInt(3, rischio.getP());
-                        ps.setInt(4, rischio.getD());
-                        ps.setInt(5, rischio.getR());
-                        ps.setInt(6, rischio.getIdReparto());
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                });
-    }
-
+    /*
+     * // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
+     * // corrispondente
+     * public static void inserisciElementoRischi(List<Rischio> rischioList) {
+     * doUpdateQuery("INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)"
+     * ,
+     * (ps) -> {
+     * try {
+     * Rischio rischio = rischioList.get(rischioList.size() - 1);
+     * ps.setInt(1, rischio.getId());
+     * ps.setString(2, rischio.getNome());
+     * ps.setInt(3, rischio.getP());
+     * ps.setInt(4, rischio.getD());
+     * ps.setInt(5, rischio.getR());
+     * ps.setInt(6, rischio.getIdReparto());
+     * } catch (SQLException e) {
+     * e.printStackTrace();
+     * }
+     * });
+     * }
+     * 
+     * public static void popolaListaRischi() {
+     * try (Connection connection = connessioneDb()) {
+     * if (connection != null) {
+     * ClassHelper.svuotaListaRischi();
+     * try (Statement statement = connection.createStatement();
+     * ResultSet resultSet = statement.executeQuery("SELECT * FROM public.rischi"))
+     * {
+     * 
+     * while (resultSet.next()) {
+     * int idRischio = resultSet.getInt("id_rischio");
+     * String nome = resultSet.getString("nome");
+     * int p = resultSet.getInt("P");
+     * int d = resultSet.getInt("D");
+     * int r = resultSet.getInt("R");
+     * int idReparto = resultSet.getInt("id_reparto");
+     * 
+     * Rischio rischio = new Rischio(idRischio, nome, p, d, r, idReparto);
+     * ModelListe.inserisciRecordInLista(rischio);
+     * }
+     * } catch (SQLException e) {
+     * System.out.println("Errore durante la lettura della tabella rischi: " +
+     * e.getMessage());
+     * } finally {
+     * try {
+     * connection.close();
+     * } catch (SQLException e) {
+     * System.out.println("Errore durante la chiusura della connessione: " +
+     * e.getMessage());
+     * }
+     * }
+     * }
+     * } catch (SQLException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * }
+     * }
+     * public void visualizzaTabellaElencoRischi() {
+     * Connection connection = connessioneDb();
+     * if (connection != null) {
+     * try (Statement statement = connection.createStatement();
+     * ResultSet resultSet =
+     * statement.executeQuery("SELECT * FROM public.elenco_rischi")) {
+     * 
+     * while (resultSet.next()) {
+     * int idProvvedimento = resultSet.getInt("id_provvedimento");
+     * int idRischio = resultSet.getInt("id_rischio");
+     * 
+     * System.out.println("ID Provvedimento: " + idProvvedimento);
+     * System.out.println("ID Rischio: " + idRischio);
+     * System.out.println();
+     * }
+     * } catch (SQLException e) {
+     * System.out.println("Errore durante la lettura della tabella elenco_rischi: "
+     * + e.getMessage());
+     * } finally {
+     * try {
+     * connection.close(); // Chiude la connessione in modo controllato
+     * } catch (SQLException e) {
+     * System.out.println("Errore durante la chiusura della connessione: " +
+     * e.getMessage());
+     * }
+     * }
+     * }
+     * }
+     */
 }
