@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="672.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
     <center>
-        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="509.0" prefWidth="832.0" BorderPane.alignment="CENTER">
             <children>
                 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="435.0" prefWidth="614.0">
                     <children>
@@ -35,13 +35,13 @@
                             </rowConstraints>
                             <children>
                                 <Label prefHeight="17.0" prefWidth="93.0" text="Nome:" />
-                                <TextField fx:id="textFieldSocieta" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" GridPane.columnIndex="1" />
+                                <TextField fx:id="textFieldUnitaLocale" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" GridPane.columnIndex="1" />
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
-                                <TextField fx:id="textFieldLocalita" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldLocalita" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="2" />
                                 <TextField fx:id="textFieldIndirizzo" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="3" />
-                                <TextField fx:id="textFieldProvincia" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="textFieldProvincia" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="4" />
                                 <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             </children>
@@ -52,7 +52,7 @@
         </HBox>
     </center>
     <top>
-        <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="752.0" BorderPane.alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="752.0" BorderPane.alignment="CENTER_LEFT">
             <children>
                 <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#aggiorna" prefHeight="32.0" prefWidth="27.0" ripplerFill="#32a834" textFill="WHITE" textOverrun="CLIP">
                     <graphic>
@@ -63,7 +63,7 @@
                         </ImageView>
                     </graphic>
                     <HBox.margin>
-                        <Insets left="25.0" />
+                        <Insets left="20.0" />
                     </HBox.margin>
                 </JFXButton>
                 <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#pulisciDati" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
@@ -75,15 +75,21 @@
                         </ImageView>
                     </graphic>
                     <HBox.margin>
-                        <Insets left="15.0" />
+                        <Insets left="20.0" />
                     </HBox.margin>
                 </JFXButton>
-                <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
-                <JFXComboBox fx:id="cercaUnita" editable="true" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
-                <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
+            <Pane prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
+            <TextField fx:id="textFieldSocieta" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="265.0" promptText="Societa" styleClass="transparent" stylesheets="@../../css/style.css" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </HBox.margin>
+            </TextField>
+                <JFXComboBox fx:id="cercaUnita" editable="true" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+                <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="44.0" />
+            <Pane layoutX="137.0" layoutY="10.0" prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
                 <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#saveAndGoNext" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                     <HBox.margin>
-                        <Insets right="25.0" />
+                        <Insets right="20.0" />
                     </HBox.margin>
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

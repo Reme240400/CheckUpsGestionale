@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -16,7 +18,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
-
+import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,6 +26,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
+import javafx.util.converter.IntegerStringConverter;
 
 public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
@@ -40,7 +45,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     private JFXButton btnAggiorna;
 
     @FXML
-    private TextField nomeSocieta;
+    private TextField textFieldSocieta;
 
     @FXML
     private TextField textFieldUnitaLocale;
@@ -61,26 +66,47 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     private ModelPaths modelPaths;
 
     private Societa localSocieta;
-    private List<Societa> listSocieta;
+    private List<UnitaLocale> listUnitaLocale;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        listSocieta = ClassHelper.getListSocieta();
-        ObservableList<String> items = FXCollections.observableArrayList();
+        UnaryOperator<TextFormatter.Change> filter = change -> {
 
-        // * *************** popola il combobox *************** //
+            // remove any non-digit characters from inserted text:
+            if (!change.getText().matches("\\d*")) {
+                change.setText(change.getText().replaceAll("[^\\d]", ""));
+            }
 
-        for (Societa societa : listSocieta) {
-            cercaUnita.getItems().add(societa.getNome());
-            items.add(societa.getNome());
-        }
+            if (change.getControlNewText().length() > 15) {
+                return null;
+            }
 
-        // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = Model.filterComboBox(cercaUnita, items);
+            return change;
+        };
+        
+        TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
+        textFieldTel.setTextFormatter(formatter);
 
-        cercaUnita.setItems(filteredItems);
+        listUnitaLocale = ClassHelper.getListUnitaLocale();
 
+    }
+
+    public void selezionaUnita() {
+        Optional<UnitaLocale> curUnita = listUnitaLocale.stream().filter(s -> s.getNome().equals(cercaUnita.getValue()))
+                .findFirst();
+                
+        if (curUnita.isEmpty())
+            return;
+
+        UnitaLocale unita = curUnita.get();
+        textFieldSocieta.setText(unita.getNome());
+        textFieldLocalita.setText(unita.getLocalita());
+        textFieldProvincia.setText(unita.getProvincia());
+        textFieldTel.setText(unita.getTelefono());
+        textFieldIndirizzo.setText(unita.getIndirizzo());
+
+        modelCreazione.setCanGoNext(true);
     }
 
     public void aggiorna() {
@@ -147,31 +173,31 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     public void keyReleasedProperty() {
 
         modelCreazione.areTextFieldsFilled(textFieldUnitaLocale, textFieldIndirizzo, textFieldLocalita,
-                textFieldProvincia);
+            textFieldProvincia, textFieldTel);
 
     }
 
-    public void setSocieta() {
+    // public void setSocieta() {
 
-        if (cercaUnita.getValue() != null && !cercaUnita.getValue().equals("")) {
-            if (localSocieta != null) {
-                if (!cercaUnita.getValue().equals(nomeSocieta.getText())) {
-                    modelCreazione.resetAllTmp();
-                }
-            }
+    //     if (cercaUnita.getValue() != null && !cercaUnita.getValue().equals("")) {
+    //         if (localSocieta != null) {
+    //             if (!cercaUnita.getValue().equals(nomeSocieta.getText())) {
+    //                 modelCreazione.resetAllTmp();
+    //             }
+    //         }
 
-            this.localSocieta = listSocieta.stream()
-                    .filter(s -> s.getNome().equals(cercaUnita.getValue()))
-                    .findFirst().get();
+    //         this.localSocieta = listSocieta.stream()
+    //                 .filter(s -> s.getNome().equals(cercaUnita.getValue()))
+    //                 .findFirst().get();
 
-            this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
-            this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
-            this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
-            this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
-            nomeSocieta.setText(localSocieta.getNome());
+    //         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
+    //         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
+    //         this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
+    //         this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
+    //         nomeSocieta.setText(localSocieta.getNome());
 
-        }
-    }
+    //     }
+    // }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
 
@@ -183,9 +209,21 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
 
         if (modelCreazione.getSocietaTmp() != null) {
-        
+            
             this.localSocieta = modelCreazione.getSocietaTmp();
-            nomeSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+            textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+
+            ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
+                                                                                            .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                                                                                            .map(n -> n.getNome())
+                                                                                            .toList());
+
+            System.out.println(listUnitaLocale.stream()
+            .filter(u -> u.getIdSocieta() == localSocieta.getId()).toList()
+            );
+
+            FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
+            cercaUnita.setItems(filteredItems);
 
         }
     }

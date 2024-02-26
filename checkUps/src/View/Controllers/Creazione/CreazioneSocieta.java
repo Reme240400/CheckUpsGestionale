@@ -17,6 +17,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.Tables.Societa;
 import View.Controllers.ViewController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -98,7 +99,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
             return change;
         };
-        System.out.println("dio cane");
+
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
 
@@ -116,6 +117,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     public void selezionaSocieta() {
         Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                 .findFirst();
+                
         if (curSocieta.isEmpty())
             return;
 
@@ -187,7 +189,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
             Controller.changePane(modelPaths.getStackPaneCrea(), root);
         } catch (IOException e) {
-            System.out.println("Errore caricamento unità locali:" + e);
+            e.printStackTrace();
         }
     }
 
@@ -227,7 +229,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
 
         // * ************ setta i campi come sono stati salvati ************ //
-        modelCreazione.setOldTextFields(textAreaDesc ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+        modelCreazione.setOldSocietaTextFields(textAreaDesc ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
                 textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
         // * ************************************************ //
     }

@@ -265,7 +265,7 @@ public class ModelPaths {
 
             creazioneUnita.setModel(modelCreazione, this);
 
-            creazioneUnita.setSocieta();
+            //creazioneUnita.setSocieta();
 
             return root;
         

@@ -184,7 +184,7 @@ public class ModelCreazione extends ModelListe {
     // ------------------ THE END ------------------ //
 
     // ------------------ Setta i campi come sono stati salvati ------------------ //
-    public void setOldTextFields(TextArea desc, TextField... textField ) {
+    public void setOldSocietaTextFields(TextArea desc, TextField... textField ) {
         if (getSocietaTmp() != null) {
             textField[0].setText(getSocietaTmp().getNome());
             textField[1].setText(getSocietaTmp().getIndirizzo());
@@ -197,14 +197,11 @@ public class ModelCreazione extends ModelListe {
             textField[8].setText(getSocietaTmp().getCodiceAteco());
             desc.setText(getSocietaTmp().getDescrizione());
 
-            // * ************ controlla se i campi sono vuoti ************ //
-            areTextFieldsFilled( textField);
+            areTextFieldsFilled(textField);
         }
     }
-    // ------------------ END ------------------ //
 
-    // ------------------ Riempie i campi con le informazioni prese dalle liste
-    // ------------------ //
+    // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
             TextField textFieldTel) {
