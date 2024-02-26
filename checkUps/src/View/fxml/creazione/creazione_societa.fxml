@@ -61,7 +61,7 @@
                                 <Pane prefHeight="0.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                     <children>
                                         <Label layoutX="14.0" layoutY="23.0" text="Descrizione:" />
-                              <TextArea fx:id="textAreaDesc" layoutX="81.0" layoutY="4.0" prefHeight="56.0" prefWidth="154.0" />
+                              <TextArea fx:id="textAreaDesc" layoutX="81.0" layoutY="4.0" prefHeight="56.0" prefWidth="154.0" wrapText="true" />
                                     </children>
                                 </Pane>
                                 <Label text="Codice Fiscale:" GridPane.rowIndex="4" />
