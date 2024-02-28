@@ -28,7 +28,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.Image;
 import javafx.util.converter.IntegerStringConverter;
 
 public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
@@ -101,13 +100,15 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
             return;
 
         UnitaLocale unita = curUnita.get();
-        textFieldSocieta.setText(unita.getNome());
+        textFieldUnitaLocale.setText(unita.getNome());
         textFieldLocalita.setText(unita.getLocalita());
         textFieldProvincia.setText(unita.getProvincia());
         textFieldTel.setText(unita.getTelefono());
         textFieldIndirizzo.setText(unita.getIndirizzo());
 
+        modelCreazione.createUnitaLocaleTmp(unita);
         modelCreazione.setCanGoNext(true);
+        modelCreazione.setDiscard(true);
     }
 
     public void aggiorna() {
@@ -131,20 +132,22 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     public void saveAndGoNext() {
 
-        int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
+        if (cercaUnita.getValue() == null){
+            int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
-        UnitaLocale unitaLocale = new UnitaLocale(id,
-                textFieldUnitaLocale.getText(),
-                textFieldIndirizzo.getText(),
-                textFieldLocalita.getText(),
-                textFieldProvincia.getText(),
-                textFieldTel.getText(),
-                localSocieta.getId());
+            UnitaLocale unitaLocale = new UnitaLocale(id,
+                    textFieldUnitaLocale.getText(),
+                    textFieldIndirizzo.getText(),
+                    textFieldLocalita.getText(),
+                    textFieldProvincia.getText(),
+                    textFieldTel.getText(),
+                    localSocieta.getId());
 
-        Controller.inserisciNuovoRecord(unitaLocale);
+            Controller.inserisciNuovoRecord(unitaLocale);
 
-        modelCreazione.createSocietaTmp(localSocieta);
-        modelCreazione.createUnitaLocaleTmp(unitaLocale);
+            modelCreazione.createUnitaLocaleTmp(unitaLocale);
+        }
+
         modelCreazione.setCanGoNext(false);
         modelCreazione.setSaved(false);
 
@@ -178,28 +181,6 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     }
 
-    // public void setSocieta() {
-
-    //     if (cercaUnita.getValue() != null && !cercaUnita.getValue().equals("")) {
-    //         if (localSocieta != null) {
-    //             if (!cercaUnita.getValue().equals(nomeSocieta.getText())) {
-    //                 modelCreazione.resetAllTmp();
-    //             }
-    //         }
-
-    //         this.localSocieta = listSocieta.stream()
-    //                 .filter(s -> s.getNome().equals(cercaUnita.getValue()))
-    //                 .findFirst().get();
-
-    //         this.textFieldIndirizzo.editableProperty().bind(modelCreazione.isEnableProperty());
-    //         this.textFieldLocalita.editableProperty().bind(modelCreazione.isEnableProperty());
-    //         this.textFieldProvincia.editableProperty().bind(modelCreazione.isEnableProperty());
-    //         this.textFieldUnitaLocale.editableProperty().bind(modelCreazione.isEnableProperty());
-    //         nomeSocieta.setText(localSocieta.getNome());
-
-    //     }
-    // }
-
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
 
         this.modelCreazione = modelCreazione;
@@ -207,7 +188,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
-        this.btnSalva.disableProperty().bind(modelCreazione.savedProperty().not());
+        this.btnSalva.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
         if (modelCreazione.getSocietaTmp() != null) {
             

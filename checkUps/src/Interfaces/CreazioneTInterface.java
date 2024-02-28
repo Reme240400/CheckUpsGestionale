@@ -4,5 +4,5 @@ public interface CreazioneTInterface {
         
     public void modifica();
     public void aggiungi();
-    public void next();
+    public void saveAndGoNext();
 }

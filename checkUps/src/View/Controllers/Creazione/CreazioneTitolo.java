@@ -343,7 +343,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     }
 
     @FXML
-    public void next() {
+    public void saveAndGoNext() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
 

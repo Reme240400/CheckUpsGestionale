@@ -29,7 +29,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="54.0" prefWidth="83.0">
                     <children>
-                        <JFXButton fx:id="btnModifica" contentDisplay="CENTER" ellipsisString="" onAction="#modifica" prefHeight="35.0" prefWidth="57.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
+                        <JFXButton fx:id="btnModifica" contentDisplay="CENTER" ellipsisString="" onAction="#modifica" prefHeight="35.0" prefWidth="57.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

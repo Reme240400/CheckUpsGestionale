@@ -79,6 +79,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     private ModelPaths modelPaths;
 
     Societa societaTmp = null;
+    Optional<Societa> curSocieta = Optional.empty();
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
     // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
@@ -115,7 +116,7 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
     }
 
     public void selezionaSocieta() {
-        Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+        curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                 .findFirst();
 
         if (curSocieta.isEmpty())
@@ -231,8 +232,8 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
 
         // * ************ setta i campi come sono stati salvati ************ //
-        modelCreazione.setOldSocietaTextFields(textAreaDesc ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
-                textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
+        //modelCreazione.setOldSocietaTextFields(textAreaDesc ,textFieldSocieta, textFieldIndirizzo, textFieldLocalita, textFieldProvincia,
+          //      textFieldTel, textFieldPartitaIva, textFieldCodiceFiscale, textFieldBancaAppoggio, textFieldCodiceAteco);
     }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {

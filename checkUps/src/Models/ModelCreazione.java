@@ -24,7 +24,6 @@ public class ModelCreazione extends ModelListe {
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
     private final BooleanProperty discard = new SimpleBooleanProperty(false);
-    private final BooleanProperty isEnable = new SimpleBooleanProperty(true);
     private final BooleanProperty canNext = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
@@ -36,10 +35,6 @@ public class ModelCreazione extends ModelListe {
     // end initialize variables
 
     // --------------------- initialize methods --------------------- //
-
-    public BooleanProperty isEnableProperty() {
-        return isEnable;
-    }
 
     public BooleanProperty discardProperty() {
         return discard;
@@ -56,10 +51,6 @@ public class ModelCreazione extends ModelListe {
     // -------------------- end initialize methods -------------------- //
 
     // ------------------ GETTER ------------------ //
-
-    public final boolean isEnable() {
-        return isEnableProperty().get();
-    }
 
     public final boolean isSaved() {
         return savedProperty().get();
@@ -96,10 +87,6 @@ public class ModelCreazione extends ModelListe {
     // ------------------ END GETTER ------------------ //
 
     // ------------------ SETTER ------------------ //
-
-    public final void setEnable(boolean isEnable) {
-        isEnableProperty().set(isEnable);
-    }
 
     public final void setSaved(boolean saved) {
         savedProperty().set(saved);

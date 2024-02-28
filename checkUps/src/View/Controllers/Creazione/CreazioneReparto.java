@@ -40,12 +40,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
     @FXML
-    private JFXComboBox<String> cercaSocieta;
-
-    @FXML
-    private JFXComboBox<String> cercaUnita;
-
-    @FXML
     private TableView<Reparto> tableReparti;
 
     @FXML
@@ -70,8 +64,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
 
-    private List<Societa> listSocieta;
-    private List<UnitaLocale> listUnitaLocale;
     private List<Reparto> listaReparto;
 
     private Societa localSocieta = null;
@@ -79,103 +71,12 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        listSocieta = ClassHelper.getListSocieta();
         listaReparto = ClassHelper.getListReparto();
-        listUnitaLocale = ClassHelper.getListUnitaLocale();
 
-        idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
-        ObservableList<String> items = FXCollections.observableArrayList();
-
-        // * *************** popola il combobox *************** //
-
-        for (Societa societa : listSocieta) {
-            cercaSocieta.getItems().add(societa.getNome());
-            items.add(societa.getNome());
-        }
-
-        // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = Model.filterComboBox(cercaSocieta, items);
-
-        cercaSocieta.setItems(filteredItems);
     }
-
-    // --------------- triggherato quando si seleziona una societa ---------------
-    // //
-    /*
-     * public void selectSocieta () {
-     * List<UnitaLocale> specificList = null;
-     * 
-     * if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
-     * if(localSocieta != null){
-     * if(!cercaSocieta.getValue().equals(localSocieta.getNome()))
-     * modelCreazione.resetAllTmp();
-     * }
-     * 
-     * cercaUnita.setValue(null);
-     * localSocieta = listSocieta.stream().filter(s ->
-     * s.getNome().equals(cercaSocieta.getValue())).findFirst().get();
-     * // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
-     * 
-     * specificList = listUnitaLocale.stream()
-     * .filter(u -> u.getIdSocieta() == localSocieta.getId())
-     * .toList();
-     * 
-     * ObservableList<String> items = FXCollections.observableArrayList();
-     * 
-     * // * *************** popola il combobox *************** //
-     * 
-     * for (UnitaLocale unita : specificList) {
-     * items.add(unita.getNome());
-     * }
-     * 
-     * // --------------- filtra il Combobox --------------- //
-     * FilteredList<String> filteredItems = Model.filterComboBox(cercaUnita, items);
-     * 
-     * cercaUnita.setItems(filteredItems);
-     * }
-     * cercaUnita.setValue(null);
-     * }
-     * 
-     * // --------------- triggherato quando si seleziona un' unita locale
-     * --------------- //
-     * public void selectUnita() {
-     * 
-     * // if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() !=
-     * null
-     * // && !cercaUnita.getValue().isEmpty()) {
-     * // // ! DA USARE SEMPRE IN QUESTO MODO
-     * // localUnita = listUnitaLocale.stream()
-     * // .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
-     * // .filter(u -> u.getNome().equals(cercaUnita.getValue()))
-     * // .findFirst().get();
-     * 
-     * // // textFieldUnita.setText(modelCreazione.getUnitaLocaleTmp().getNome());
-     * 
-     * // fillTableView();
-     * // }else
-     * if(localSocieta != null && localSocieta.getNome() != ""){
-     * if(localUnita != null){
-     * if(!cercaUnita.getValue().equals(localUnita.getNome()))
-     * modelCreazione.resetUnitaLocaleTmp();
-     * }
-     * localUnita = listUnitaLocale.stream()
-     * .filter(u -> u.getIdSocieta() == localSocieta.getId())
-     * .filter(u -> u.getNome().equals(cercaUnita.getValue()))
-     * .findFirst().get();
-     * 
-     * 
-     * fillTableView();
-     * } else {
-     * Alerts.errorAllert("Errore", "Societa non selezionata",
-     * "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa"
-     * );
-     * }
-     * 
-     * }
-     */
 
     // --------------- popola la tabella dei reparti --------------- //
     private void fillTableView() {
@@ -192,13 +93,11 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         // tableReparti.setItems(observableList);
 
         // } else
-        if (modelCreazione.getSocietaTmp() != null && modelCreazione.getUnitaLocaleTmp() != null ||
-                localSocieta != null && localUnita != null) {
+        if (localSocieta != null && localUnita != null) {
             specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableReparti.setItems(observableList);
-            modelCreazione.setEnable(true);
         } else
             Alerts.errorAllert("Errore2", "Societa non selezionata",
                     "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
@@ -342,7 +241,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     }
 
     // --------------- va alla schermata di creazione Titolo --------------- //
-    public void next() {
+    public void saveAndGoNext() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
 
@@ -368,19 +267,17 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-        // this.tableReparti.disableProperty().bind(modelCreazione.isEnableProperty().not());
+        this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
         if (modelCreazione.getSocietaTmp() != null) {
             this.localSocieta = modelCreazione.getSocietaTmp();
-            this.cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
-            // selectSocieta();
         }
 
         if (modelCreazione.getUnitaLocaleTmp() != null) {
             this.localUnita = modelCreazione.getUnitaLocaleTmp();
-            this.cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
-            // selectUnita();
         }
+
+        fillTableView();
     }
 
 }

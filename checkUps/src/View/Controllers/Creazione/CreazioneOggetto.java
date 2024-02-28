@@ -431,7 +431,7 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
     }
 
     @FXML
-    public void next() {
+    public void saveAndGoNext() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
             Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
 
