@@ -77,4 +77,8 @@ public class UnitaLocale extends TablesId implements Serializable{
         this.telefono = telefono;
     }
 
+    public void toStringUnitaLocale(){
+        System.out.println("ID: " + getId() + " Nome: " + getNome() + " Indirizzo: " + getIndirizzo() + " Localita: " + getLocalita() + " Provincia: " + getProvincia() + " Telefono: " + getTelefono());
+    }
+
 }

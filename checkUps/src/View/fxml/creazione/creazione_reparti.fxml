@@ -14,7 +14,7 @@
 
 <BorderPane prefHeight="547.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneReparto">
     <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0" styleClass="top_pane" stylesheets="@../../css/style.css">
+        <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0" stylesheets="@../../css/style.css">
             <children>
                 <VBox alignment="CENTER" prefHeight="52.0" prefWidth="78.0">
                     <children>
@@ -64,7 +64,7 @@
         </HBox>
     </top>
     <center>
-        <TableView fx:id="tableReparti" prefHeight="415.0" prefWidth="543.0">
+        <TableView fx:id="tableReparti" prefHeight="415.0" prefWidth="543.0" styleClass="transparent" stylesheets="@../../css/style.css">
             <columns>
                 <TableColumn fx:id="nomeCol" prefWidth="294.0" text="Nome" />
                 <TableColumn fx:id="descCol" prefWidth="273.0" text="Data" />

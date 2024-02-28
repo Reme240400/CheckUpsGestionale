@@ -93,8 +93,10 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     }
 
     public void selezionaUnita() {
-        Optional<UnitaLocale> curUnita = listUnitaLocale.stream().filter(s -> s.getNome().equals(cercaUnita.getValue()))
-                .findFirst();
+        Optional<UnitaLocale> curUnita = listUnitaLocale.stream()
+                                                        .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                                                        .filter(s -> s.getNome().equals(cercaUnita.getValue()))
+                                                        .findFirst();
                 
         if (curUnita.isEmpty())
             return;
@@ -169,6 +171,8 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         textFieldTel.clear();
 
         modelCreazione.resetUnitaLocaleTmp();
+
+        cercaUnita.getSelectionModel().clearSelection();
         modelCreazione.setCanGoNext(false);
         modelCreazione.setSaved(false);
         modelCreazione.setDiscard(false);

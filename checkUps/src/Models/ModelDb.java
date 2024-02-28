@@ -672,7 +672,7 @@ public class ModelDb {
     }
 
     // Metodo per inserire un nuovo elemento nella lista
-    public static void inserisciRecordInLista(Object obj) {
+   /* public static void inserisciRecordInLista(Object obj) {
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
                 Mansione mansione = new Mansione(((Mansione) obj).getId(),
@@ -698,7 +698,7 @@ public class ModelDb {
 
                 ClassHelper.getListReparto().add(reparto);
                 break;
-            /*
+            
              * case "Rischio":
              * Rischio rischio = new Rischio(((Rischio) obj).getId(),
              * ((Rischio) obj).getNome(),
@@ -709,7 +709,7 @@ public class ModelDb {
              * 
              * ClassHelper.getListRischio().add(rischio);
              * break;
-             */
+             
             case "Societa":
                 Societa societa = (Societa) obj;
                 // Societa societa = new Societa(
@@ -760,7 +760,7 @@ public class ModelDb {
                 throw new IllegalArgumentException(
                         "Unexpected value: " + obj.getClass().getSimpleName());
         }
-    }
+    }*/
 
     public void visualizzaTabellaSocieta() {
         Connection connection = connessioneDb();

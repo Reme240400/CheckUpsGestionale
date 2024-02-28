@@ -76,6 +76,12 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
+        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Handle the selection change, newValue contains the selected Reparto
+            if (newValue != null) {
+                
+            }
+        });
     }
 
     // --------------- popola la tabella dei reparti --------------- //
@@ -83,16 +89,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         List<Reparto> specificList = null;
         ObservableList<Reparto> observableList = null;
 
-        // if (modelCreazione.getSocietaTmp() != null &&
-        // modelCreazione.getUnitaLocaleTmp() == null ||
-        // localSocieta != null && localUnita == null) {
-        // specificList = modelCreazione.fillAllRepartiTable(listaReparto,
-        // listUnitaLocale, localSocieta);
-
-        // observableList = FXCollections.observableArrayList(specificList);
-        // tableReparti.setItems(observableList);
-
-        // } else
         if (localSocieta != null && localUnita != null) {
             specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
 
@@ -139,52 +135,8 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     // --------------- apre un dialog Pane per creare il Reparto --------------- //
     public void aggiungi() {
 
-        // if (modelCreazione.getSocietaTmp() != null &&
-        // modelCreazione.getUnitaLocaleTmp() != null) {
-        // FXMLLoader loader = new
-        // FXMLLoader(getClass().getResource("/View/fxml/creaReparto_dialogPane.fxml"));
-        // DialogPane dialogPane = loader.load();
-
-        // DialogPaneAddR dialogController = loader.getController();
-
-        // dialogController.setModel(modelCreazione);
-        // dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-        // modelCreazione.getUnitaLocaleTmp().getNome());
-
-        // Dialog<ButtonType> dialog = new Dialog<>();
-        // dialog.setDialogPane(dialogPane);
-        // dialog.setTitle("Crea Reparto");
-
-        // Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-        // // ------------------- Se viene premuto il tasto "Applica"
-        // ------------------- //
-
-        // if (clickedButton.get() == ButtonType.APPLY) {
-        // if (dialogController.getNome() != null
-        // && !dialogController.getNome().equals("")
-        // && dialogController.getData() != null) {
-
-        // int id = Controller.getNewId(listaReparto);
-        // Reparto newReparto = new Reparto(id,
-        // modelCreazione.getUnitaLocaleTmp().getId(),
-        // dialogController.getNome(),
-        // dialogController.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        // modelCreazione.createRepartoTmp(newReparto);
-        // Controller.inserisciNuovoRecord(newReparto);
-
-        // tableReparti.getItems().add(newReparto);
-
-        // tableReparti.refresh();
-
-        // } else {
-        // Alerts.errorAllert("Errore", "Errore nell'inserimento",
-        // "Qualcosa non è stato inserito correttamente");
-        // }
-        // }
-        // } else
         if (localSocieta != null && localUnita != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaReparto_dialogPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPane/creaReparto_dialogPane.fxml"));
             DialogPane dialogPane;
 
             try {
@@ -203,8 +155,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-                // ------------------- Se viene premuto il tasto "Applica" -------------------
-                // //
+                // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
                 if (clickedButton.get() == ButtonType.APPLY) {
                     if (dialogController.getNome() != null
@@ -245,8 +196,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
 
-            modelCreazione.createSocietaTmp(localSocieta);
-            modelCreazione.createUnitaLocaleTmp(localUnita);
             modelCreazione.createRepartoTmp(reparto);
 
             try {
@@ -268,6 +217,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         this.modelModifica = modelModifica;
 
         this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
+        this.btnModifica.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
         if (modelCreazione.getSocietaTmp() != null) {
             this.localSocieta = modelCreazione.getSocietaTmp();

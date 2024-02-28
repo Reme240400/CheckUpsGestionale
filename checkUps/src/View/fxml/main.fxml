@@ -9,9 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" styleClass="VBox_options" stylesheets="@../css/style.css"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
     <top>
         <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
             <children>
@@ -36,6 +34,6 @@
         </HBox>
     </top>
     <center>
-        <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" BorderPane.alignment="CENTER" />
     </center>
 </BorderPane>
