@@ -42,8 +42,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     @FXML
     private TableView<Reparto> tableReparti;
 
-    @FXML
-    private TableColumn<Reparto, Integer> idCol;
 
     @FXML
     private TableColumn<Reparto, String> nomeCol;
@@ -76,12 +74,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
-        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // Handle the selection change, newValue contains the selected Reparto
-            if (newValue != null) {
-                
-            }
-        });
     }
 
     // --------------- popola la tabella dei reparti --------------- //
@@ -226,6 +218,13 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         if (modelCreazione.getUnitaLocaleTmp() != null) {
             this.localUnita = modelCreazione.getUnitaLocaleTmp();
         }
+
+        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Handle the selection change, newValue contains the selected Reparto
+            if (newValue != null) {
+                modelCreazione.setCanGoNext(true);
+            }
+        });
 
         fillTableView();
     }

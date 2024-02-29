@@ -39,34 +39,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     @FXML
-    private JFXComboBox<String> cercaSocieta;
-
-    @FXML
-    private JFXComboBox<String> cercaUnita;
-
-    @FXML
     private TableView<Reparto> tableReparti;
 
     @FXML
     private TableView<Titolo> tableTitoli;
 
     @FXML
-    private TableColumn<Reparto, Integer> idColR;
-
-    @FXML
-    private TableColumn<Reparto, String> nomeColR;
-
-    @FXML
-    private TableColumn<Reparto, String> descColR;
-
-    @FXML
-    private TableColumn<Titolo, Integer> idColT;
-
-    @FXML
     private TableColumn<Titolo, String> descColT;
-
-    // @FXML
-    // private JFXButton btnAnnulla;
 
     @FXML
     private JFXButton btnNext;
@@ -81,8 +60,6 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
 
-    private List<Societa> listSocieta;
-    private List<UnitaLocale> listUnitaLocale;
     private List<Reparto> listaReparto;
     private List<Titolo> listaTitolo;
 
@@ -92,160 +69,18 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        listSocieta = ClassHelper.getListSocieta();
         listaReparto = ClassHelper.getListReparto();
-        listUnitaLocale = ClassHelper.getListUnitaLocale();
         listaTitolo = ClassHelper.getListTitolo();
-
-        idColR.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
-        nomeColR.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
-        descColR.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
-
-        idColT.setCellValueFactory(new PropertyValueFactory<Titolo, Integer>("id"));
+    
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
 
-        ObservableList<String> items = FXCollections.observableArrayList();
-
-        // * *************** popola il combobox *************** //
-
-        for (Societa societa : listSocieta) {
-            cercaSocieta.getItems().add(societa.getNome());
-            items.add(societa.getNome());
-        }
-
-        // --------------- filtra il Combobox --------------- //
-        FilteredList<String> filteredItems = Model.filterComboBox(cercaSocieta, items);
-
-        cercaSocieta.setItems(filteredItems);
-
-        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                selectReparto(); // Chiama il metodo quando viene selezionato un elemento
-            }
-        });
     }
 
-    // --------------- triggherato quando si seleziona una societa ---------------
-    // //
-    public void selectSocieta() {
-        List<UnitaLocale> specificList = null;
-
-        if (cercaSocieta.getValue() != null && !cercaSocieta.getValue().isEmpty()) {
-            if (localSocieta != null) {
-                if (!cercaSocieta.getValue().equals(localSocieta.getNome()))
-                    modelCreazione.resetAllTmp();
-            }
-
-            localSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue())).findFirst()
-                    .get();
-            // textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
-
-            fillTableViewReparti();
-
-            specificList = listUnitaLocale.stream()
-                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
-                    .toList();
-
-            ObservableList<String> items = FXCollections.observableArrayList();
-
-            // * *************** popola il combobox *************** //
-
-            for (UnitaLocale unita : specificList) {
-                items.add(unita.getNome());
-            }
-
-            // --------------- filtra il Combobox --------------- //
-            FilteredList<String> filteredItems = Model.filterComboBox(cercaUnita, items);
-
-            cercaUnita.setItems(filteredItems);
-        }
-        cercaUnita.setValue(null);
-        tableReparti.getItems().clear();
-    }
-
-    // --------------- triggherato quando si seleziona un' unita locale
-    // --------------- //
-
-    public void selectUnita() {
-
-        // if (modelCreazione.getSocietaTmp() != null && cercaUnita.getValue() != null
-        // && !cercaUnita.getValue().isEmpty()) {
-        // localUnita = listUnitaLocale.stream()
-        // .filter(u -> u.getIdSocieta() == modelCreazione.getSocietaTmp().getId())
-        // .filter(u -> u.getNome().equals(cercaUnita.getValue()))
-        // .findFirst().get();
-
-        // fillTableViewReparti();
-        // }else
-        if (localSocieta != null && localSocieta.getNome() != "") {
-            tableReparti.getItems().clear();
-            if (localUnita != null) {
-                if (!cercaUnita.getValue().equals(localUnita.getNome()))
-                    modelCreazione.resetAllTmp();
-            }
-
-            localUnita = listUnitaLocale.stream()
-                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
-                    .filter(u -> u.getNome().equals(cercaUnita.getValue()))
-                    .findFirst().get();
-
-            fillTableViewReparti();
-        } else {
-            Alerts.errorAllert("Errore", "Societa non selezionata",
-                    "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
-        }
-
-    }
 
     public void selectReparto() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             localReparto = tableReparti.getSelectionModel().getSelectedItem();
             fillTableViewTitoli();
-        }
-    }
-
-    // --------------- popola la tabella dei reparti --------------- //
-    private void fillTableViewReparti() {
-        List<Reparto> specificList = null;
-        ObservableList<Reparto> observableList = null;
-
-        // if (modelCreazione.getSocietaTmp() != null &&
-        // modelCreazione.getUnitaLocaleTmp() == null) {
-
-        // specificList = modelCreazione.fillAllRepartiTable(listaReparto,
-        // listUnitaLocale);
-
-        // observableList = FXCollections.observableArrayList(specificList);
-        // tableReparti.setItems(observableList);
-
-        // } else if(modelCreazione.getSocietaTmp() != null &&
-        // modelCreazione.getUnitaLocaleTmp() != null){
-        // specificList = modelCreazione.fillRepartiTable(listaReparto,
-        // modelCreazione.getUnitaLocaleTmp());
-
-        // observableList = FXCollections.observableArrayList(specificList);
-        // tableReparti.setItems(observableList);
-        // modelCreazione.setEnable(true);
-        // }
-
-        // if(localSocieta != null && localUnita == null) {
-        // specificList = modelCreazione.fillAllRepartiTable(listaReparto,
-        // listUnitaLocale, localSocieta);
-
-        // observableList = FXCollections.observableArrayList(specificList);
-        // tableReparti.setItems(observableList);
-        // } else
-        if (localSocieta != null && localUnita != null) {
-
-            if (localReparto != null)
-                if (!tableReparti.getSelectionModel().getSelectedItem().getNome().equals(localReparto.getNome())) {
-                    modelCreazione.resetRepartoTmp();
-                }
-
-            specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
-
-            observableList = FXCollections.observableArrayList(specificList);
-            tableReparti.setItems(observableList);
         }
     }
 
@@ -259,11 +94,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
             observableList = FXCollections.observableArrayList(specificList);
             tableTitoli.setItems(observableList);
-            // }else if (modelCreazione.getRepartoTmp() != null) {
-            // specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto);
 
-            // observableList = FXCollections.observableArrayList(specificList);
-            // tableTitoli.setItems(observableList);
         } else
             Alerts.errorAllert("Errore", "Reparto non selezionata",
                     "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
@@ -300,7 +131,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         if (localSocieta != null && localUnita != null
                 && localReparto != null) {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaTitolo_dialogPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPane/creaTitolo_dialogPane.fxml"));
             DialogPane dialogPane;
             try {
                 dialogPane = loader.load();
@@ -317,8 +148,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-                // ------------------- Se viene premuto il tasto "Applica" -------------------
-                // //
+                // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
                 if (clickedButton.get() == ButtonType.APPLY) {
                     if (dialogController.getNome() != null && !dialogController.getNome().equals("")) {
@@ -342,14 +172,15 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         }
     }
 
+    public void importa(){
+
+    }
+
     @FXML
     public void saveAndGoNext() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
             Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
 
-            modelCreazione.createSocietaTmp(localSocieta);
-            modelCreazione.createUnitaLocaleTmp(localUnita);
-            modelCreazione.createRepartoTmp(localReparto);
             modelCreazione.createTitoloTmp(titolo);
 
             try {
@@ -372,14 +203,10 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
         if (modelCreazione.getSocietaTmp() != null) {
             this.localSocieta = modelCreazione.getSocietaTmp();
-            this.cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
-            selectSocieta();
         }
 
         if (modelCreazione.getUnitaLocaleTmp() != null) {
             this.localUnita = modelCreazione.getUnitaLocaleTmp();
-            this.cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
-            selectUnita();
         }
 
         if (modelCreazione.getRepartoTmp() != null) {
