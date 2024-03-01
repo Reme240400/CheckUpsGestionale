@@ -22,6 +22,7 @@ import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
 import View.Controllers.Creazione.DialogPane.DialogPaneAddR;
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaReparto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -93,26 +94,32 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
     // --------------- va alla schermata di modifica --------------- //
     public void modifica() {
-        // if (tableReparti.getSelectionModel().getSelectedItem() != null) {
+        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
 
-        // Parent root = new Parent() {
-        // };
-        // modelModifica = new ModelModifica();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneModifica/modifica_reparto_dialogPane.fxml"));
+            DialogPane dialogPane;
+            try {
+                dialogPane = loader.load();
+            
+                DialogPaneModificaReparto dialogController = loader.getController();
 
-        // if (modelCreazione.getUnitaLocaleTmp() != null)
-        // modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
-        // else if (localUnita != null)
-        // modelModifica.setUnitaLocale(localUnita);
+                dialogController.setModel(modelModifica);
 
-        // try {
-        // root = modelPaths.switchToModificaReparto(modelModifica);
-        // } catch (IOException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
 
-        // Controller.changePane(modelPaths.getStackPaneHome(), root);
-        // }
+                Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+                if (clickedButton.get() == ButtonType.APPLY){}
+                    //updateChanges(dialogController);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+        }
+        
     }
 
     // --------------- elimina il reparto selezionato --------------- //
