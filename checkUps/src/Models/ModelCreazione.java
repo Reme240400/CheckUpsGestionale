@@ -242,7 +242,7 @@ public class ModelCreazione extends ModelListe {
         return allReparti;
     }
 
-    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale) {
+    public List<Reparto> fillAllRepartiTable( List<UnitaLocale> listUnitaLocale) {
         List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
                 .filter(unita -> unita.getIdSocieta() == getSocietaTmp().getId())
                 .toList();
@@ -254,7 +254,7 @@ public class ModelCreazione extends ModelListe {
         return allReparti;
     }
 
-    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto, Reparto reparto) {
+    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, Reparto reparto) {
         List<Titolo> specificList = listaTitolo.stream()
                 .filter(titolo -> titolo.getIdReparto() == reparto.getId())
                 .toList();
@@ -262,9 +262,17 @@ public class ModelCreazione extends ModelListe {
         return specificList;
     }
 
-    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, List<Reparto> listaReparto) {
+    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo) {
         List<Titolo> specificList = listaTitolo.stream()
                 .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
+                .toList();
+
+        return specificList;
+    }
+
+    public List<Oggetto> fillOggettiTable(List<Oggetto> listaOggetti, Titolo titolo) {
+        List<Oggetto> specificList = listaOggetti.stream()
+                .filter(oggetto -> oggetto.getIdTitolo() == titolo.getId())
                 .toList();
 
         return specificList;

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
@@ -57,34 +56,35 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
 
-    private List<Oggetto> oggettoList = ClassHelper.getListOggetto();
- 
     private Societa localSocieta;
     private UnitaLocale localUnita;
     private Reparto localReparto;
     private Titolo localTitolo;
     private Oggetto localOggetto;
 
+    private List<Oggetto> listaOggetti;
+
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        oggettoList = ClassHelper.getListOggetto();
+
+        listaOggetti = ClassHelper.getListOggetto();
 
     }
 
     private void fillTableView() {
 
         List<Oggetto> specificList = null;
+        ObservableList<Oggetto> observableList = null;
 
-        if (localReparto != null) {
-            specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto, localReparto);
-        
+        if (localTitolo != null) {
+            specificList = modelCreazione.fillOggettiTable(listaOggetti, localTitolo);
 
-        ObservableList<Oggetto> items = FXCollections.observableArrayList();
+            observableList = FXCollections.observableArrayList(specificList);
+            tableOggetti.setItems(observableList);
 
-        tableOggetti.setItems(items);
-    } else
-            Alerts.errorAllert("Errore", "Reparto non selezionata",
-                    "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
+        } else
+            Alerts.errorAllert("Errore", "Titolo non selezionato",
+                    "Impossibile riempire la tabella oggetti se non si è selezionato un Titolo");
 
     }
 
@@ -152,7 +152,7 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
                     if (dialogController.getNome() != null
                             && !dialogController.getNome().equals("")) {
 
-                        int id = Controller.getNewId(oggettoList);
+                        int id = Controller.getNewId(listaOggetti);
                         Oggetto newOggetto = new Oggetto(id,
                                 dialogController.getNome(),
                                 localTitolo.getId());
@@ -204,7 +204,20 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
+        if (modelCreazione.getSocietaTmp() != null) {
+            this.localSocieta = modelCreazione.getSocietaTmp();
+        }
+
+        if (modelCreazione.getUnitaLocaleTmp() != null) {
+            this.localUnita = modelCreazione.getUnitaLocaleTmp();
+        }
+
+        if (modelCreazione.getRepartoTmp() != null) {
+            this.localReparto = modelCreazione.getRepartoTmp();
+        }
+
         if (modelCreazione.getTitoloTmp() != null) {
+            this.localTitolo = modelCreazione.getTitoloTmp();
             fillTableView();
         }
 

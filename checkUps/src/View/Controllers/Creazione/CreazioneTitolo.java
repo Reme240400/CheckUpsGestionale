@@ -60,7 +60,6 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
 
-    private List<Reparto> listaReparto;
     private List<Titolo> listaTitolo;
 
     private Reparto localReparto;
@@ -69,19 +68,10 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        listaReparto = ClassHelper.getListReparto();
         listaTitolo = ClassHelper.getListTitolo();
     
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
 
-    }
-
-
-    public void selectReparto() {
-        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
-            localReparto = tableReparti.getSelectionModel().getSelectedItem();
-            fillTableViewTitoli();
-        }
     }
 
     // --------------- popola la tabella dei titoli --------------- //
@@ -90,7 +80,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         ObservableList<Titolo> observableList = null;
 
         if (localReparto != null) {
-            specificList = modelCreazione.fillTitoliTable(listaTitolo, listaReparto, localReparto);
+            specificList = modelCreazione.fillTitoliTable(listaTitolo, localReparto);
 
             observableList = FXCollections.observableArrayList(specificList);
             tableTitoli.setItems(observableList);
@@ -213,6 +203,15 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
             this.localReparto = modelCreazione.getRepartoTmp();
             fillTableViewTitoli();
         }
+
+        tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Handle the selection change, newValue contains the selected Reparto
+            if (newValue != null) {
+                modelCreazione.setCanGoNext(true);
+                System.out.println("Titolo selezionato: " + newValue.getDescrizione());
+            }
+        });
+
     }
 
 }
