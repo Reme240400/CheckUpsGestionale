@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane expanded="true" prefHeight="637.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.DialogPaneAddP">
+<DialogPane expanded="true" prefHeight="637.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DialogPaneAddP">
    <buttonTypes>
       <ButtonType fx:constant="APPLY" />
       <ButtonType fx:constant="CANCEL" />

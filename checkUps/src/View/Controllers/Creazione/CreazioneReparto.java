@@ -21,7 +21,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
-import View.Controllers.Creazione.DialogPane.DialogPaneAddR;
+import View.Controllers.Creazione.dialogPane.DialogPaneAddR;
 import View.Controllers.Modifiche.DialogPane.DialogPaneModificaReparto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,6 +107,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Modifica Reparto");
 
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
 
@@ -134,60 +135,53 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     // --------------- apre un dialog Pane per creare il Reparto --------------- //
     public void aggiungi() {
 
-        if (localSocieta != null && localUnita != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPane/creaReparto_dialogPane.fxml"));
-            DialogPane dialogPane;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneCreazione/creaReparto_dialogPane.fxml"));
+        DialogPane dialogPane;
 
-            try {
-                dialogPane = loader.load();
+        try {
+            dialogPane = loader.load();
 
-                DialogPaneAddR dialogController = loader.getController();
+            DialogPaneAddR dialogController = loader.getController();
 
-                dialogController.setModel(modelCreazione);
-                dialogController.fillTextBox(localSocieta.getNome(),
-                        localUnita.getNome());
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(localSocieta.getNome(),
+                    localUnita.getNome());
 
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Reparto");
 
-                dialog.setTitle("Crea Reparto");
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
-                // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            if (clickedButton.get() == ButtonType.APPLY) {
+                if (dialogController.getNome() != null
+                        && !dialogController.getNome().equals("")
+                        && dialogController.getData() != null) {
 
-                if (clickedButton.get() == ButtonType.APPLY) {
-                    if (dialogController.getNome() != null
-                            && !dialogController.getNome().equals("")
-                            && dialogController.getData() != null) {
+                    int id = Controller.getNewId(listaReparto);
+                    Reparto newReparto = new Reparto(id,
+                            localUnita.getId(),
+                            dialogController.getNome(),
+                            dialogController.getRevisione(),
+                            dialogController.getDesc(),
+                            Optional.of(dialogController.getData()));
 
-                        int id = Controller.getNewId(listaReparto);
-                        Reparto newReparto = new Reparto(id,
-                                localUnita.getId(),
-                                dialogController.getNome(),
-                                dialogController.getRevisione(),
-                                dialogController.getDesc(),
-                                Optional.of(dialogController.getData()));
-                        modelCreazione.createRepartoTmp(newReparto);
-                        Controller.inserisciNuovoRecord(newReparto);
+                    Controller.inserisciNuovoRecord(newReparto);
 
-                        tableReparti.getItems().add(newReparto);
+                    tableReparti.getItems().add(newReparto);
 
-                        tableReparti.refresh();
+                    tableReparti.refresh();
 
-                    } else {
-                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                                "Qualcosa non è stato inserito correttamente");
-                    }
+                } else {
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente");
                 }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
-        } else
-            Alerts.errorAllert("Errore", "Errore nella Selezione dell'Unita Locale",
-                    "Non è stato selezionato nessuna unita locale");
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // --------------- va alla schermata di creazione Titolo --------------- //

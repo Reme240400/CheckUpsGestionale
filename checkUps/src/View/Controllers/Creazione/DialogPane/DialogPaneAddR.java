@@ -1,4 +1,4 @@
-package View.Controllers.Creazione.DialogPane;
+package View.Controllers.Creazione.dialogPane;
 
 import java.net.URL;
 import java.sql.Date;

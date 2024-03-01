@@ -21,7 +21,8 @@ import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
 import View.Controllers.ViewController;
-import View.Controllers.Creazione.DialogPane.DialogPaneAddT;
+import View.Controllers.Creazione.dialogPane.DialogPaneAddT;
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaTitolo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -93,18 +94,32 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     public void modifica() {
 
-        // Parent root = new Parent() {};
-        // modelModifica = new ModelModifica();
+        if (tableTitoli.getSelectionModel().getSelectedItem() != null){
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneModifica/modifica_titolo_dialogPane.fxml"));
+            DialogPane dialogPane;
+            try {
+                dialogPane = loader.load();
+            
+                DialogPaneModificaTitolo dialogController = loader.getController();
 
-        // modelModifica.setReparto(localReparto);
+                dialogController.setModel(modelModifica);
 
-        // try {
-        // root = modelPaths.switchToModificaTitoli(modelModifica);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Modifica Titolo");
 
-        // Controller.changePane(modelPaths.getStackPaneHome(), root);
+                Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+                if (clickedButton.get() == ButtonType.APPLY) {
+
+                    //updateChanges(dialogController);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else
+            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
     }
 
     @FXML
@@ -118,10 +133,8 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     @FXML
     public void aggiungi() {
-        if (localSocieta != null && localUnita != null
-                && localReparto != null) {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPane/creaTitolo_dialogPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneCreazione/creaTitolo_dialogPane.fxml"));
             DialogPane dialogPane;
             try {
                 dialogPane = loader.load();
@@ -153,13 +166,13 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
                         tableTitoli.refresh();
                     } else {
-                        Alerts.errorAllert();
+                        Alerts.errorAllert( "Errore", "Errore nell'inserimento",
+                                "Qualcosa non è stato inserito correttamente");
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
     }
 
     public void importa(){

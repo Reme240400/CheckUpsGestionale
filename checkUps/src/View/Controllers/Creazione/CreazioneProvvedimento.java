@@ -23,7 +23,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-import View.Controllers.Creazione.DialogPane.DialogPaneAddP;
+import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

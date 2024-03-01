@@ -18,8 +18,7 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
-import View.Controllers.Creazione.DialogPane.DialogPaneAddO;
-
+import View.Controllers.Creazione.dialogPane.DialogPaneAddO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -124,54 +123,48 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
     @FXML
     public void aggiungi() {
 
-        if (localSocieta != null &&
-            localUnita != null &&
-            localReparto != null &&
-            localTitolo != null) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneCreazione/creaOggetto_dialogPane.fxml"));
+        DialogPane dialogPane;
+        try {
+            dialogPane = loader.load();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaOggetto_dialogPane.fxml"));
-            DialogPane dialogPane;
-            try {
-                dialogPane = loader.load();
+            DialogPaneAddO dialogController = loader.getController();
 
-                DialogPaneAddO dialogController = loader.getController();
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(localSocieta.getNome(),
+                    localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione());
 
-                dialogController.setModel(modelCreazione);
-                dialogController.fillTextBox(localSocieta.getNome(),
-                        localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione());
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Oggetto");
 
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Crea Oggetto");
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
+            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
 
-                // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            if (clickedButton.get() == ButtonType.APPLY) {
+                if (dialogController.getNome() != null
+                        && !dialogController.getNome().equals("")) {
 
-                if (clickedButton.get() == ButtonType.APPLY) {
-                    if (dialogController.getNome() != null
-                            && !dialogController.getNome().equals("")) {
+                    int id = Controller.getNewId(listaOggetti);
+                    Oggetto newOggetto = new Oggetto(id,
+                            dialogController.getNome(),
+                            localTitolo.getId());
 
-                        int id = Controller.getNewId(listaOggetti);
-                        Oggetto newOggetto = new Oggetto(id,
-                                dialogController.getNome(),
-                                localTitolo.getId());
+                    modelCreazione.createOggettoTmp(newOggetto);
+                    Controller.inserisciNuovoRecord(newOggetto);
 
-                        modelCreazione.createOggettoTmp(newOggetto);
-                        Controller.inserisciNuovoRecord(newOggetto);
+                    tableOggetti.getItems().add(newOggetto);
 
-                        tableOggetti.getItems().add(newOggetto);
+                    tableOggetti.refresh();
 
-                        tableOggetti.refresh();
-
-                    } else {
-                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                                "Qualcosa non è stato inserito correttamente");
-                    }
+                } else {
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
