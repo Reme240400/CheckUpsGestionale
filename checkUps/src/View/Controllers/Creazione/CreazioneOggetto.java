@@ -30,6 +30,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
@@ -48,9 +49,6 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
     @FXML
     private TableColumn<Oggetto, String> nomeCol;
 
-    @FXML
-    private TableColumn<Oggetto, String> nomeColT;
-
     private ModelCreazione modelCreazione;
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
@@ -65,9 +63,9 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-
         listaOggetti = ClassHelper.getListOggetto();
 
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Oggetto, String>("nome"));
     }
 
     private void fillTableView() {
@@ -80,10 +78,9 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
             observableList = FXCollections.observableArrayList(specificList);
             tableOggetti.setItems(observableList);
-
         } else
-            Alerts.errorAllert("Errore", "Titolo non selezionato",
-                    "Impossibile riempire la tabella oggetti se non si è selezionato un Titolo");
+            Alerts.errorAllert("Errore", "Oggetto non selezionato",
+                    "Impossibile riempire la tabella oggetti se non si è selezionato un Oggetto");
 
     }
 
@@ -123,7 +120,8 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
     @FXML
     public void aggiungi() {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneCreazione/creaOggetto_dialogPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/View/fxml/dialogPaneCreazione/creaOggetto_dialogPane.fxml"));
         DialogPane dialogPane;
         try {
             dialogPane = loader.load();
@@ -140,7 +138,8 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null
@@ -167,7 +166,11 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
         }
     }
 
-    public void importa(){
+    public void importa() {
+
+    }
+
+    public void goBack() {
 
     }
 

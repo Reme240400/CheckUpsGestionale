@@ -84,7 +84,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
             return change;
         };
-        
+
         TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
 
@@ -94,10 +94,10 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     public void selezionaUnita() {
         Optional<UnitaLocale> curUnita = listUnitaLocale.stream()
-                                                        .filter(u -> u.getIdSocieta() == localSocieta.getId())
-                                                        .filter(s -> s.getNome().equals(cercaUnita.getValue()))
-                                                        .findFirst();
-                
+                .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                .filter(s -> s.getNome().equals(cercaUnita.getValue()))
+                .findFirst();
+
         if (curUnita.isEmpty())
             return;
 
@@ -111,6 +111,10 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         modelCreazione.createUnitaLocaleTmp(unita);
         modelCreazione.setCanGoNext(true);
         modelCreazione.setDiscard(true);
+    }
+
+    public void goBack() {
+
     }
 
     public void aggiorna() {
@@ -134,7 +138,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     public void saveAndGoNext() {
 
-        if (cercaUnita.getValue() == null){
+        if (cercaUnita.getValue() == null) {
             int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
             UnitaLocale unitaLocale = new UnitaLocale(id,
@@ -181,7 +185,7 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     public void keyReleasedProperty() {
 
         modelCreazione.areTextFieldsFilled(textFieldUnitaLocale, textFieldIndirizzo, textFieldLocalita,
-            textFieldProvincia, textFieldTel);
+                textFieldProvincia, textFieldTel);
 
     }
 
@@ -195,15 +199,15 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         this.btnSalva.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
         if (modelCreazione.getSocietaTmp() != null) {
-            
+
             this.localSocieta = modelCreazione.getSocietaTmp();
             textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
 
             ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
-                                                                                            .filter(u -> u.getIdSocieta() == localSocieta.getId())
-                                                                                            .map(UnitaLocale::getNome)
-                                                                                            .collect(Collectors.toList()));
-            
+                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
+                    .map(UnitaLocale::getNome)
+                    .collect(Collectors.toList()));
+
             FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
             cercaUnita.setItems(filteredItems);
 

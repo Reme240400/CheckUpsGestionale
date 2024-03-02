@@ -70,7 +70,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         listaTitolo = ClassHelper.getListTitolo();
-    
+
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
 
     }
@@ -85,22 +85,25 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
             observableList = FXCollections.observableArrayList(specificList);
             tableTitoli.setItems(observableList);
-
         } else
             Alerts.errorAllert("Errore", "Reparto non selezionata",
                     "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
+    }
+
+    public void goBack() {
 
     }
 
     public void modifica() {
 
-        if (tableTitoli.getSelectionModel().getSelectedItem() != null){
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneModifica/modifica_titolo_dialogPane.fxml"));
+        if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/View/fxml/dialogPaneModifica/modifica_titolo_dialogPane.fxml"));
             DialogPane dialogPane;
             try {
                 dialogPane = loader.load();
-            
+
                 DialogPaneModificaTitolo dialogController = loader.getController();
 
                 dialogController.setModel(modelModifica);
@@ -113,7 +116,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
                 if (clickedButton.get() == ButtonType.APPLY) {
 
-                    //updateChanges(dialogController);
+                    // updateChanges(dialogController);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -134,48 +137,50 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     @FXML
     public void aggiungi() {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneCreazione/creaTitolo_dialogPane.fxml"));
-            DialogPane dialogPane;
-            try {
-                dialogPane = loader.load();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/View/fxml/dialogPaneCreazione/creaTitolo_dialogPane.fxml"));
+        DialogPane dialogPane;
+        try {
+            dialogPane = loader.load();
 
-                DialogPaneAddT dialogController = loader.getController();
+            DialogPaneAddT dialogController = loader.getController();
 
-                dialogController.setModel(modelCreazione);
-                dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-                        modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+            dialogController.setModel(modelCreazione);
+            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                    modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
 
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Crea Reparto");
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea Reparto");
 
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-                // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
-                if (clickedButton.get() == ButtonType.APPLY) {
-                    if (dialogController.getNome() != null && !dialogController.getNome().equals("")) {
-                        int id = Controller.getNewId(listaTitolo);
-                        Titolo newTitolo = new Titolo(id,
-                                modelCreazione.getRepartoTmp().getId(),
-                                dialogController.getNome());
-                        modelCreazione.createTitoloTmp(newTitolo);
-                        Controller.inserisciNuovoRecord(newTitolo);
+            if (clickedButton.get() == ButtonType.APPLY) {
+                if (dialogController.getNome() != null && !dialogController.getNome().equals("")) {
+                    int id = Controller.getNewId(listaTitolo);
+                    Titolo newTitolo = new Titolo(id,
+                            modelCreazione.getRepartoTmp().getId(),
+                            dialogController.getNome());
+                    modelCreazione.createTitoloTmp(newTitolo);
+                    Controller.inserisciNuovoRecord(newTitolo);
 
-                        tableTitoli.getItems().add(newTitolo);
+                    tableTitoli.getItems().add(newTitolo);
 
-                        tableTitoli.refresh();
-                    } else {
-                        Alerts.errorAllert( "Errore", "Errore nell'inserimento",
-                                "Qualcosa non è stato inserito correttamente");
-                    }
+                    tableTitoli.refresh();
+                } else {
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void importa(){
+    public void importa() {
 
     }
 

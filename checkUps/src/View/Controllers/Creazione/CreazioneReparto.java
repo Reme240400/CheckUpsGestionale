@@ -43,7 +43,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     @FXML
     private TableView<Reparto> tableReparti;
 
-
     @FXML
     private TableColumn<Reparto, String> nomeCol;
 
@@ -75,6 +74,12 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
+        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // selectReparto(); // Chiama il metodo quando viene selezionato un elemento
+                modelModifica.setReparto(newValue);
+            }
+        });
     }
 
     // --------------- popola la tabella dei reparti --------------- //
@@ -96,11 +101,12 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     public void modifica() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneModifica/modifica_reparto_dialogPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/View/fxml/dialogPaneModifica/modifica_reparto_dialogPane.fxml"));
             DialogPane dialogPane;
             try {
                 dialogPane = loader.load();
-            
+
                 DialogPaneModificaReparto dialogController = loader.getController();
 
                 dialogController.setModel(modelModifica);
@@ -111,8 +117,9 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-                if (clickedButton.get() == ButtonType.APPLY){}
-                    //updateChanges(dialogController);
+                if (clickedButton.get() == ButtonType.APPLY) {
+                }
+                // updateChanges(dialogController);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -120,7 +127,11 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         } else {
             Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
         }
-        
+
+    }
+
+    public void goBack() {
+
     }
 
     // --------------- elimina il reparto selezionato --------------- //
@@ -135,7 +146,8 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     // --------------- apre un dialog Pane per creare il Reparto --------------- //
     public void aggiungi() {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/dialogPaneCreazione/creaReparto_dialogPane.fxml"));
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/View/fxml/dialogPaneCreazione/creaReparto_dialogPane.fxml"));
         DialogPane dialogPane;
 
         try {
@@ -153,7 +165,8 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" ------------------- //
+            // ------------------- Se viene premuto il tasto "Applica" -------------------
+            // //
 
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null

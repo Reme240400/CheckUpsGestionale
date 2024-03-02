@@ -149,6 +149,10 @@ public class CreazioneProvvedimento implements Initializable {
         });
     }
 
+    public void goBack() {
+
+    }
+
     // --------------- triggherato quando si seleziona un' societa ---------------
     // //
     public void selectSocieta() {

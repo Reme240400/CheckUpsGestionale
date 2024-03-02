@@ -39,10 +39,12 @@ public class DialogPaneModificaReparto implements Initializable {
         this.modelModifica = modelModifica;
 
         modificaNomeReparto.setText(modelModifica.getRepartoTmp().getNome());
-        if(modelModifica.getRepartoTmp().getDescrizione().contains("T"))
-            modificaDescReparto.setValue( LocalDate.parse(modelModifica.getRepartoTmp().getDescrizione(), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+        if (modelModifica.getRepartoTmp().getDescrizione().contains("T"))
+            modificaDescReparto.setValue(LocalDate.parse(modelModifica.getRepartoTmp().getDescrizione(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
         else
-            modificaDescReparto.setValue(LocalDate.parse(modelModifica.getRepartoTmp().getDescrizione(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            modificaDescReparto.setValue(LocalDate.parse(modelModifica.getRepartoTmp().getDescrizione(),
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
-    
+
 }
