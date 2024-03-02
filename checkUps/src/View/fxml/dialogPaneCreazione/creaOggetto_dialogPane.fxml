@@ -35,25 +35,25 @@
                            <children>
                               <Pane>
                                  <children>
-                                    <TextField fx:id="textFieldSocieta" editable="false" layoutX="31.0" layoutY="18.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <TextField fx:id="textFieldSocieta" editable="false" layoutX="31.0" layoutY="18.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                                     <Label layoutX="31.0" text="Società" />
                                  </children>
                               </Pane>
                               <Pane GridPane.columnIndex="1">
                                  <children>
-                                    <TextField fx:id="textFieldUnitaLocale" editable="false" layoutX="31.0" layoutY="18.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <TextField fx:id="textFieldUnitaLocale" editable="false" layoutX="31.0" layoutY="18.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                                     <Label layoutX="31.0" text="Unità Locale" />
                                  </children>
                               </Pane>
                               <Pane GridPane.rowIndex="1">
                                  <children>
-                                    <TextField fx:id="textFieldReparto" editable="false" layoutX="31.0" layoutY="17.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <TextField fx:id="textFieldReparto" editable="false" layoutX="31.0" layoutY="17.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                                     <Label layoutX="31.0" text="Reparto" />
                                  </children>
                               </Pane>
                               <Pane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <TextField fx:id="textFieldTitolo" editable="false" layoutX="31.0" layoutY="17.0" styleClass="transparent" stylesheets="@../css/style.css" />
+                                    <TextField fx:id="textFieldTitolo" editable="false" layoutX="31.0" layoutY="17.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                                     <Label layoutX="31.0" text="Titolo" />
                                  </children>
                               </Pane>
@@ -73,7 +73,7 @@
                            </rowConstraints>
                            <children>
                               <Label text="Nome" />
-                              <TextField fx:id="creaNomeOggetto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" />
+                              <TextField fx:id="creaNomeOggetto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                      </children>

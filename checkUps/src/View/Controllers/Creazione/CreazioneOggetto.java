@@ -151,7 +151,6 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
                             dialogController.getNome(),
                             localTitolo.getId());
 
-                    modelCreazione.createOggettoTmp(newOggetto);
                     Controller.inserisciNuovoRecord(newOggetto);
 
                     tableOggetti.getItems().add(newOggetto);

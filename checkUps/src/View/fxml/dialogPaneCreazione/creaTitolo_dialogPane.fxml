@@ -55,7 +55,7 @@
                      </rowConstraints>
                      <children>
                         <Label contentDisplay="CENTER" text="Nome" />
-                        <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="404.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" />
+                        <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="404.0" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                </children>

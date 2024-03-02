@@ -663,7 +663,7 @@ public class ModelDb {
                     action.accept(pStatement);
                     pStatement.executeUpdate();
                 } catch (SQLException e) {
-                    System.out.println("Errore durante l'esecuzione della query: " + e.getMessage());
+                   e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -1072,7 +1072,7 @@ public class ModelDb {
                         ps.setString(3, reparto.getNome());
                         ps.setString(4, reparto.getDescrizione());
                         ps.setString(5, reparto.getRevisione());
-                        // ps.setDate(6, reparto.getData().);
+                        ps.setDate(6, reparto.getData().orElse(null) != null ? java.sql.Date.valueOf(reparto.getData().get()) : null);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
