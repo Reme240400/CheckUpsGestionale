@@ -45,9 +45,6 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     private JFXButton btnAggiorna;
 
     @FXML
-    private TextField textFieldSocieta;
-
-    @FXML
     private TextField textFieldUnitaLocale;
 
     @FXML
@@ -201,7 +198,6 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         if (modelCreazione.getSocietaTmp() != null) {
 
             this.localSocieta = modelCreazione.getSocietaTmp();
-            textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
 
             ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
                     .filter(u -> u.getIdSocieta() == localSocieta.getId())

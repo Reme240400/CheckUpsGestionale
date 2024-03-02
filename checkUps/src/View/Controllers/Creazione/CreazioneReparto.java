@@ -165,9 +165,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" -------------------
-            // //
-
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null
                         && !dialogController.getNome().equals("")

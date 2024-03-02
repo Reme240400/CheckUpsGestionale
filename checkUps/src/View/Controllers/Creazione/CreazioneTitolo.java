@@ -191,6 +191,9 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
             modelCreazione.createTitoloTmp(titolo);
 
+            modelCreazione.setSaved(false);
+            modelCreazione.setCanGoNext(false);
+
             try {
                 Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
 
@@ -223,7 +226,6 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         }
 
         tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // Handle the selection change, newValue contains the selected Reparto
             if (newValue != null) {
                 modelCreazione.setCanGoNext(true);
                 System.out.println("Titolo selezionato: " + newValue.getDescrizione());
