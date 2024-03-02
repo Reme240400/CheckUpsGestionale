@@ -44,9 +44,9 @@
                      </rowConstraints>
                      <children>
                         <Label text="Nome" GridPane.rowIndex="1" />
-                        <TextField fx:id="modificaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="modificaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Descrizione" GridPane.rowIndex="2" />
-                        <DatePicker fx:id="modificaDescReparto" editable="false" prefHeight="25.0" prefWidth="280.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="modificaDescReparto" editable="false" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

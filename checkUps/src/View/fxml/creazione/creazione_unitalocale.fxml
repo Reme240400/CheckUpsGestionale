@@ -69,6 +69,18 @@
             </HBox>
               <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="752.0">
                   <children>
+                  <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="848.0" layoutY="10.0" onAction="#goBack" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/angle-left.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </JFXButton>
                       <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#aggiorna" ripplerFill="#32a834" textFill="WHITE" textOverrun="CLIP">
                           <graphic>
                               <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
