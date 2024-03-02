@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="672.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
     <center>
@@ -52,57 +53,65 @@
         </HBox>
     </center>
     <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="752.0" BorderPane.alignment="CENTER_LEFT">
-            <children>
-                <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#aggiorna" prefHeight="32.0" prefWidth="27.0" ripplerFill="#32a834" textFill="WHITE" textOverrun="CLIP">
-                    <graphic>
-                        <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../icons/save_icon.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
-                </JFXButton>
-                <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#pulisciDati" prefHeight="32.0" prefWidth="27.0" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
-                    <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../icons/cross.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                    <HBox.margin>
-                        <Insets left="20.0" />
-                    </HBox.margin>
-                </JFXButton>
-            <Pane prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
-            <TextField fx:id="textFieldSocieta" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="265.0" promptText="Societa" styleClass="transparent" stylesheets="@../../css/style.css" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </HBox.margin>
-            </TextField>
-                <JFXComboBox fx:id="cercaUnita" editable="true" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
-                <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="44.0" />
-            <Pane layoutX="137.0" layoutY="10.0" prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
-                <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#saveAndGoNext" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
-                    <HBox.margin>
-                        <Insets right="20.0" />
-                    </HBox.margin>
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../icons/angle-right.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </JFXButton>
-            </children>
-            <BorderPane.margin>
-                <Insets bottom="15.0" top="5.0" />
-            </BorderPane.margin>
-        </HBox>
+      <VBox BorderPane.alignment="CENTER_LEFT">
+         <BorderPane.margin>
+            <Insets bottom="15.0" top="5.0" />
+         </BorderPane.margin>
+         <children>
+            <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
+               <children>
+                  <Label text="Unita Locale">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+              <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="752.0">
+                  <children>
+                      <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#aggiorna" ripplerFill="#32a834" textFill="WHITE" textOverrun="CLIP">
+                          <graphic>
+                              <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../../icons/save_icon.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                          <HBox.margin>
+                              <Insets left="15.0" />
+                          </HBox.margin>
+                      </JFXButton>
+                      <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#pulisciDati" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
+                          <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../../icons/cross.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                          <HBox.margin>
+                              <Insets left="15.0" />
+                          </HBox.margin>
+                      </JFXButton>
+                  <Pane prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
+                      <JFXComboBox fx:id="cercaUnita" editable="true" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+                      <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="44.0" />
+                  <Pane layoutX="137.0" layoutY="10.0" prefHeight="38.0" prefWidth="75.0" HBox.hgrow="SOMETIMES" />
+                      <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#saveAndGoNext" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                          <HBox.margin>
+                              <Insets right="15.0" />
+                          </HBox.margin>
+                          <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                      <Image url="@../../icons/angle-right.png" />
+                                  </image>
+                              </ImageView>
+                          </graphic>
+                      </JFXButton>
+                  </children>
+              </HBox>
+         </children>
+      </VBox>
     </top>
 </BorderPane>
