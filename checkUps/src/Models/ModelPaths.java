@@ -244,7 +244,7 @@ public class ModelPaths {
 
             Home home = loader.getController();
 
-            home.setModel( modelValutaRischi, this);
+            home.setModel(modelValutaRischi, this);
 
             loadedFXMLs = fxmlURL.toString();
 
@@ -257,30 +257,31 @@ public class ModelPaths {
     // * *************** Cambia la scena a Creazione Unita Locale *************** //
     public Parent switchToCreazioneUnitaLocale(ModelCreazione modelCreazione) throws IOException {
 
-            FXMLLoader loaderUnitaLocale = new FXMLLoader(
-                    getClass().getResource("/View/fxml/creazione/creazione_unitalocale.fxml"));
+        FXMLLoader loaderUnitaLocale = new FXMLLoader(
+                getClass().getResource("/View/fxml/creazione/creazione_unitalocale.fxml"));
 
-            Parent root = loaderUnitaLocale.load();
-            CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
+        Parent root = loaderUnitaLocale.load();
+        CreazioneUnitaLocale creazioneUnita = loaderUnitaLocale.getController();
 
-            creazioneUnita.setModel(modelCreazione, this);
+        creazioneUnita.setModel(modelCreazione, this);
+        creazioneUnita.setOldTextFields();
 
-            //creazioneUnita.setSocieta();
+        // creazioneUnita.setSocieta();
 
-            return root;
-        
+        return root;
+
     }
 
     // ------------------ Cambia la scena a Creazione Societa ------------------ //
     public Parent switchToCreazioneSocieta(ModelCreazione modelCreazione) throws IOException {
-        
+
         FXMLLoader loaderSocieta = new FXMLLoader(
                 getClass().getResource("/View/fxml/creazione/creazione_societa.fxml"));
         Parent root = loaderSocieta.load();
         CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
         creazioneSocieta.setModel(modelCreazione, this);
-        creazioneSocieta.setTextFields();
+        creazioneSocieta.setOldTextFields();
 
         return root;
     }
@@ -326,7 +327,8 @@ public class ModelPaths {
         return root;
     }
 
-    // ------------------ Cambia la scena a Creazione Provvedimento ------------------ //
+    // ------------------ Cambia la scena a Creazione Provvedimento
+    // ------------------ //
     public Parent switchToCreazioneProvvedimento(ModelCreazione modelCreazione) throws IOException {
 
         FXMLLoader loaderProvvedimento = new FXMLLoader(

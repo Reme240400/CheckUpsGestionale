@@ -355,12 +355,54 @@ public class ModelDb {
         }
     }
 
+    public static void modificaCampoStringa(String tableName, String pkName, int recordId, String campo,
+            String nuovoValore) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE " + pkName
+                            + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, nuovoValore);
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Metodo generico per la modifica di un campo in qualsiasi tabella
     public static void modificaCampoIntero(String tableName, int recordId, String campo, int nuovoValore) {
         try (Connection connection = connessioneDb()) {
             if (connection != null) {
                 try (Statement statement = connection.createStatement()) {
                     String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
+                            + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, nuovoValore);
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modificaCampoIntero(String tableName, String pkName, int recordId, String campo,
+            int nuovoValore) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE " + pkName
                             + " = ?";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setInt(1, nuovoValore);
@@ -435,20 +477,16 @@ public class ModelDb {
                 break;
 
             case "Titolo":
-
                 Titolo titolo = ((Titolo) obj);
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        titolo.getId(),
+                modificaCampoStringa("titoli",
                         "id_titolo",
-                        titolo.getId());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
                         titolo.getId(),
                         "descrizione",
                         titolo.getDescrizione());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("titoli",
+                        "id_titolo",
                         titolo.getId(),
                         "id_reparto",
                         titolo.getIdReparto());
@@ -458,16 +496,13 @@ public class ModelDb {
             case "Reparto":
                 Reparto reparto = ((Reparto) obj);
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        reparto.getId(),
+                modificaCampoStringa("reparti",
                         "id_reparto",
-                        reparto.getId());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
                         reparto.getId(), "nome",
                         reparto.getNome());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("reparti",
+                        "id_reparto",
                         reparto.getId(),
                         "descrizione",
                         reparto.getDescrizione());
@@ -550,16 +585,13 @@ public class ModelDb {
             case "Oggetto":
                 Oggetto oggetto = ((Oggetto) obj);
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        oggetto.getId(),
-                        "id_oggetto",
-                        oggetto.getId());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("oggetti",
+                        "id",
                         oggetto.getId(), "nome",
                         oggetto.getNome());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("oggetti",
+                        "id",
                         oggetto.getId(),
                         "id_titolo",
                         oggetto.getIdTitolo());
@@ -663,7 +695,7 @@ public class ModelDb {
                     action.accept(pStatement);
                     pStatement.executeUpdate();
                 } catch (SQLException e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -672,95 +704,98 @@ public class ModelDb {
     }
 
     // Metodo per inserire un nuovo elemento nella lista
-   /* public static void inserisciRecordInLista(Object obj) {
-        switch (obj.getClass().getSimpleName()) {
-            case "Mansione":
-                Mansione mansione = new Mansione(((Mansione) obj).getId(),
-                        ((Mansione) obj).getNome(),
-                        ((Mansione) obj).getResponsabile());
-
-                ClassHelper.getListMansione().add(mansione);
-                break;
-            case "Titolo":
-                Titolo titolo = new Titolo(((Titolo) obj).getId(),
-                        ((Titolo) obj).getIdReparto(),
-                        ((Titolo) obj).getDescrizione());
-
-                ClassHelper.getListTitolo().add(titolo);
-                break;
-            case "Reparto":
-                Reparto reparto = new Reparto(((Reparto) obj).getId(),
-                        ((Reparto) obj).getIdUnitaLocale(),
-                        ((Reparto) obj).getNome(),
-                        ((Reparto) obj).getDescrizione(),
-                        ((Reparto) obj).getRevisione(),
-                        ((Reparto) obj).getData());
-
-                ClassHelper.getListReparto().add(reparto);
-                break;
-            
-             * case "Rischio":
-             * Rischio rischio = new Rischio(((Rischio) obj).getId(),
-             * ((Rischio) obj).getNome(),
-             * ((Rischio) obj).getP(),
-             * ((Rischio) obj).getD(),
-             * ((Rischio) obj).getR(),
-             * ((Rischio) obj).getIdReparto());
-             * 
-             * ClassHelper.getListRischio().add(rischio);
-             * break;
-             
-            case "Societa":
-                Societa societa = (Societa) obj;
-                // Societa societa = new Societa(
-                // ((Societa) obj).getId(),
-                // ((Societa) obj).getNome(),
-                // ((Societa) obj).getIndirizzo(),
-                // ((Societa) obj).getLocalita(),
-                // ((Societa) obj).getProvincia(),
-                // ((Societa) obj).getTelefono(),
-                // ((Societa) obj).getDescrizione());
-
-                ClassHelper.getListSocieta().add(societa);
-                break;
-            case "Oggetto":
-                Oggetto oggetto = new Oggetto(((Oggetto) obj).getId(),
-                        ((Oggetto) obj).getNome(),
-                        ((Oggetto) obj).getIdTitolo());
-
-                ClassHelper.getListOggetto().add(oggetto);
-                break;
-            case "Provvedimento":
-                Provvedimento provvedimento = new Provvedimento(((Provvedimento) obj).getId(),
-                        ((Provvedimento) obj).getIdOggetto(),
-                        ((Provvedimento) obj).getNome(),
-                        ((Provvedimento) obj).getRischio(),
-                        ((Provvedimento) obj).getSoggettiEsposti(),
-                        ((Provvedimento) obj).getStimaR(),
-                        ((Provvedimento) obj).getStimaD(),
-                        ((Provvedimento) obj).getStimaP(),
-                        ((Provvedimento) obj).getEmail(),
-                        ((Provvedimento) obj).getDataInizio(),
-                        ((Provvedimento) obj).getDataScadenza());
-
-                ClassHelper.getListProvvedimento().add(provvedimento);
-                break;
-            case "UnitaLocale":
-                UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getId(),
-                        ((UnitaLocale) obj).getNome(),
-                        ((UnitaLocale) obj).getIndirizzo(),
-                        ((UnitaLocale) obj).getLocalita(),
-                        ((UnitaLocale) obj).getProvincia(),
-                        ((UnitaLocale) obj).getTelefono(),
-                        ((UnitaLocale) obj).getIdSocieta());
-
-                ClassHelper.getListUnitaLocale().add(unitaLocale);
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected value: " + obj.getClass().getSimpleName());
-        }
-    }*/
+    /*
+     * public static void inserisciRecordInLista(Object obj) {
+     * switch (obj.getClass().getSimpleName()) {
+     * case "Mansione":
+     * Mansione mansione = new Mansione(((Mansione) obj).getId(),
+     * ((Mansione) obj).getNome(),
+     * ((Mansione) obj).getResponsabile());
+     * 
+     * ClassHelper.getListMansione().add(mansione);
+     * break;
+     * case "Titolo":
+     * Titolo titolo = new Titolo(((Titolo) obj).getId(),
+     * ((Titolo) obj).getIdReparto(),
+     * ((Titolo) obj).getDescrizione());
+     * 
+     * ClassHelper.getListTitolo().add(titolo);
+     * break;
+     * case "Reparto":
+     * Reparto reparto = new Reparto(((Reparto) obj).getId(),
+     * ((Reparto) obj).getIdUnitaLocale(),
+     * ((Reparto) obj).getNome(),
+     * ((Reparto) obj).getDescrizione(),
+     * ((Reparto) obj).getRevisione(),
+     * ((Reparto) obj).getData());
+     * 
+     * ClassHelper.getListReparto().add(reparto);
+     * break;
+     * 
+     * case "Rischio":
+     * Rischio rischio = new Rischio(((Rischio) obj).getId(),
+     * ((Rischio) obj).getNome(),
+     * ((Rischio) obj).getP(),
+     * ((Rischio) obj).getD(),
+     * ((Rischio) obj).getR(),
+     * ((Rischio) obj).getIdReparto());
+     * 
+     * ClassHelper.getListRischio().add(rischio);
+     * break;
+     * 
+     * case "Societa":
+     * Societa societa = (Societa) obj;
+     * // Societa societa = new Societa(
+     * // ((Societa) obj).getId(),
+     * // ((Societa) obj).getNome(),
+     * // ((Societa) obj).getIndirizzo(),
+     * // ((Societa) obj).getLocalita(),
+     * // ((Societa) obj).getProvincia(),
+     * // ((Societa) obj).getTelefono(),
+     * // ((Societa) obj).getDescrizione());
+     * 
+     * ClassHelper.getListSocieta().add(societa);
+     * break;
+     * case "Oggetto":
+     * Oggetto oggetto = new Oggetto(((Oggetto) obj).getId(),
+     * ((Oggetto) obj).getNome(),
+     * ((Oggetto) obj).getIdTitolo());
+     * 
+     * ClassHelper.getListOggetto().add(oggetto);
+     * break;
+     * case "Provvedimento":
+     * Provvedimento provvedimento = new Provvedimento(((Provvedimento)
+     * obj).getId(),
+     * ((Provvedimento) obj).getIdOggetto(),
+     * ((Provvedimento) obj).getNome(),
+     * ((Provvedimento) obj).getRischio(),
+     * ((Provvedimento) obj).getSoggettiEsposti(),
+     * ((Provvedimento) obj).getStimaR(),
+     * ((Provvedimento) obj).getStimaD(),
+     * ((Provvedimento) obj).getStimaP(),
+     * ((Provvedimento) obj).getEmail(),
+     * ((Provvedimento) obj).getDataInizio(),
+     * ((Provvedimento) obj).getDataScadenza());
+     * 
+     * ClassHelper.getListProvvedimento().add(provvedimento);
+     * break;
+     * case "UnitaLocale":
+     * UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getId(),
+     * ((UnitaLocale) obj).getNome(),
+     * ((UnitaLocale) obj).getIndirizzo(),
+     * ((UnitaLocale) obj).getLocalita(),
+     * ((UnitaLocale) obj).getProvincia(),
+     * ((UnitaLocale) obj).getTelefono(),
+     * ((UnitaLocale) obj).getIdSocieta());
+     * 
+     * ClassHelper.getListUnitaLocale().add(unitaLocale);
+     * break;
+     * default:
+     * throw new IllegalArgumentException(
+     * "Unexpected value: " + obj.getClass().getSimpleName());
+     * }
+     * }
+     */
 
     public void visualizzaTabellaSocieta() {
         Connection connection = connessioneDb();
@@ -1072,7 +1107,9 @@ public class ModelDb {
                         ps.setString(3, reparto.getNome());
                         ps.setString(4, reparto.getDescrizione());
                         ps.setString(5, reparto.getRevisione());
-                        ps.setDate(6, reparto.getData().orElse(null) != null ? java.sql.Date.valueOf(reparto.getData().get()) : null);
+                        ps.setDate(6,
+                                reparto.getData().orElse(null) != null ? java.sql.Date.valueOf(reparto.getData().get())
+                                        : null);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

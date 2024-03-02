@@ -159,7 +159,8 @@ public class ModelCreazione extends ModelListe {
         resetProvvedimentoTmp();
     }
 
-    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
+    // ------------------ Controllo se i campi sono stati inseriti
+    // ------------------ //
     public void areTextFieldsFilled(TextField... textField) {
         boolean areAllEmpty = Stream.of(textField).allMatch(t -> t.getText().isEmpty());
         boolean isAnyEmpty = Stream.of(textField).anyMatch(t -> t.getText().isEmpty());
@@ -170,25 +171,8 @@ public class ModelCreazione extends ModelListe {
     }
     // ------------------ THE END ------------------ //
 
-    // ------------------ Setta i campi come sono stati salvati ------------------ //
-    public void setOldSocietaTextFields(TextArea desc, TextField... textField ) {
-        if (getSocietaTmp() != null) {
-            textField[0].setText(getSocietaTmp().getNome());
-            textField[1].setText(getSocietaTmp().getIndirizzo());
-            textField[2].setText(getSocietaTmp().getLocalita());
-            textField[3].setText(getSocietaTmp().getProvincia());
-            textField[4].setText(String.valueOf(getSocietaTmp().getTelefono()));
-            textField[5].setText(getSocietaTmp().getPartitaIva());
-            textField[6].setText(getSocietaTmp().getCodiceFiscale());
-            textField[7].setText(getSocietaTmp().getBancaAppoggio());
-            textField[8].setText(getSocietaTmp().getCodiceAteco());
-            desc.setText(getSocietaTmp().getDescrizione());
-
-            areTextFieldsFilled(textField);
-        }
-    }
-
-    // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
+    // ------------------ Riempie i campi con le informazioni prese dalle liste
+    // ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
             TextField textFieldTel) {
@@ -242,7 +226,7 @@ public class ModelCreazione extends ModelListe {
         return allReparti;
     }
 
-    public List<Reparto> fillAllRepartiTable( List<UnitaLocale> listUnitaLocale) {
+    public List<Reparto> fillAllRepartiTable(List<UnitaLocale> listUnitaLocale) {
         List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
                 .filter(unita -> unita.getIdSocieta() == getSocietaTmp().getId())
                 .toList();

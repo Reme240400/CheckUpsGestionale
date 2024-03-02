@@ -19,6 +19,8 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddO;
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaOggetto;
+import View.Controllers.Modifiche.DialogPane.DialogPaneModificaReparto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -97,24 +99,32 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
     @FXML
     public void modifica() {
-        // if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/View/fxml/dialogPaneModifica/modifica_oggetto_dialogPane.fxml"));
+            DialogPane dialogPane;
+            try {
+                dialogPane = loader.load();
 
-        // Parent root = new Parent() {};
-        // modelModifica = new ModelModifica();
+                DialogPaneModificaOggetto dialogController = loader.getController();
 
-        // if (modelCreazione.getUnitaLocaleTmp() != null)
-        // modelModifica.setUnitaLocale(modelCreazione.getUnitaLocaleTmp());
-        // else if (localUnita != null)
-        // modelModifica.setUnitaLocale(localUnita);
+                dialogController.setModel(modelModifica);
 
-        // try {
-        // root = modelPaths.switchToModificaOggetti(modelModifica);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setDialogPane(dialogPane);
+                dialog.setTitle("Modifica Oggetto");
 
-        // Controller.changePane(modelPaths.getStackPaneHome(), root);
-        // }
+                Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+                if (clickedButton.get() == ButtonType.APPLY) {
+                    updateChanges(dialogController.getNome());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita", "L'oggetto selezionato non è valido");
+        }
     }
 
     @FXML
@@ -165,12 +175,31 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
         }
     }
 
+    private void updateChanges(String nome) throws IOException {
+        if (modelModifica.getOggettoTmp() != null &&
+                modelModifica.getOggettoTmp().getNome() != "") {
+
+            modelModifica.getOggettoTmp().setNome(nome);
+
+            Controller.modificaCampo(modelModifica.getOggettoTmp());
+        } else {
+            Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita", "L'oggetto selezionato non è valido");
+        }
+    }
+
     public void importa() {
 
     }
 
     public void goBack() {
+        try {
+            modelCreazione.resetOggettoTmp();
+            Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);
 
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -215,6 +244,15 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
             fillTableView();
         }
 
+        tableOggetti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                modelCreazione.setCanGoNext(true);
+            }
+        });
+
+        if (modelCreazione.getOggettoTmp() != null) {
+            tableOggetti.selectionModelProperty().get().select(modelCreazione.getOggettoTmp());
+        }
     }
 
 }

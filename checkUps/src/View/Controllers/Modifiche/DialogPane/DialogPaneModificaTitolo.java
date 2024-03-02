@@ -25,12 +25,9 @@ public class DialogPaneModificaTitolo implements Initializable {
         return modificaNomeTitolo.getText();
     }
 
-
     public void setModel(ModelModifica modelModifica) {
         this.modelModifica = modelModifica;
-
         modificaNomeTitolo.setText(modelModifica.getTitoloTmp().getDescrizione());
-
     }
-    
+
 }

@@ -89,6 +89,17 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     }
 
+    public void setOldTextFields() {
+        if (modelCreazione.getUnitaLocaleTmp() != null) {
+            textFieldUnitaLocale.setText(modelCreazione.getUnitaLocaleTmp().getNome());
+            textFieldLocalita.setText(modelCreazione.getUnitaLocaleTmp().getLocalita());
+            textFieldIndirizzo.setText(modelCreazione.getUnitaLocaleTmp().getIndirizzo());
+            textFieldProvincia.setText(modelCreazione.getUnitaLocaleTmp().getProvincia());
+            textFieldTel.setText(String.valueOf(modelCreazione.getUnitaLocaleTmp().getTelefono()));
+            cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
+        }
+    }
+
     public void selezionaUnita() {
         Optional<UnitaLocale> curUnita = listUnitaLocale.stream()
                 .filter(u -> u.getIdSocieta() == localSocieta.getId())
@@ -111,7 +122,14 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     }
 
     public void goBack() {
+        try {
+            modelCreazione.resetUnitaLocaleTmp();
+            Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
 
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void aggiorna() {

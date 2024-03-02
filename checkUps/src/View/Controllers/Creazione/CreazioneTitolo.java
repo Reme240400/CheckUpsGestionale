@@ -32,10 +32,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CreazioneTitolo implements Initializable, CreazioneTInterface {
-
-    @FXML
-    private TableView<Reparto> tableReparti;
-
     @FXML
     private TableView<Titolo> tableTitoli;
 
@@ -65,7 +61,12 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         listaTitolo = ClassHelper.getListTitolo();
 
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
-
+        // tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable,
+        // oldValue, newValue) -> {
+        // if (newValue != null) {
+        // modelModifica.setTitolo(newValue);
+        // }
+        // });
     }
 
     // --------------- popola la tabella dei titoli --------------- //
@@ -84,7 +85,13 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     }
 
     public void goBack() {
-
+        try {
+            modelCreazione.resetTitoloTmp();
+            Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void modifica() {
@@ -108,14 +115,25 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
 
                 if (clickedButton.get() == ButtonType.APPLY) {
-
-                    // updateChanges(dialogController);
+                    updateChanges(dialogController.getDescTitolo());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else
             Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
+    }
+
+    private void updateChanges(String desc) throws IOException {
+        if (modelModifica.getTitoloTmp() != null &&
+                modelModifica.getTitoloTmp().getDescrizione() != "") {
+
+            modelModifica.getTitoloTmp().setDescrizione(desc);
+
+            Controller.modificaCampo(modelModifica.getTitoloTmp());
+        } else {
+            Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+        }
     }
 
     @FXML
@@ -206,11 +224,11 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         this.modelModifica = modelModifica;
 
         // if (modelCreazione.getSocietaTmp() != null) {
-        //     this.localSocieta = modelCreazione.getSocietaTmp();
+        // this.localSocieta = modelCreazione.getSocietaTmp();
         // }
 
         // if (modelCreazione.getUnitaLocaleTmp() != null) {
-        //     this.localUnita = modelCreazione.getUnitaLocaleTmp();
+        // this.localUnita = modelCreazione.getUnitaLocaleTmp();
         // }
 
         if (modelCreazione.getRepartoTmp() != null) {
@@ -224,6 +242,9 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
             }
         });
 
+        if (modelCreazione.getTitoloTmp() != null) {
+            tableTitoli.selectionModelProperty().get().select(modelCreazione.getTitoloTmp());
+        }
     }
 
 }

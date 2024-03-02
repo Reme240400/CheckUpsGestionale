@@ -28,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -65,7 +66,7 @@ public class CreazioneProvvedimento implements Initializable {
     private ModelPaths modelPaths;
     private ModelModifica modelModifica;
 
-    private List<Provvedimento> listProv ;
+    private List<Provvedimento> listProv;
 
     private Societa localSocieta;
     private UnitaLocale localUnita;
@@ -86,7 +87,13 @@ public class CreazioneProvvedimento implements Initializable {
     }
 
     public void goBack() {
-
+        try {
+            modelCreazione.resetProvvedimentoTmp();
+            Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void fillTableViewP() {
@@ -99,7 +106,7 @@ public class CreazioneProvvedimento implements Initializable {
 
             observableList = FXCollections.observableArrayList(specificList);
             tableProvvedimenti.setItems(observableList);
-        }else
+        } else
             Alerts.errorAllert("Errore", "Oggetto non selezionato",
                     "Impossibile riempire la tabella provvedimenti se non si è selezionato un Oggetto");
     }
@@ -160,7 +167,7 @@ public class CreazioneProvvedimento implements Initializable {
                         "Qualcosa non è stato inserito correttamente");
             }
         }
-        
+
     }
 
     @FXML
@@ -193,6 +200,19 @@ public class CreazioneProvvedimento implements Initializable {
         // Controller.changePane(modelPaths.getStackPaneHome(), root);
         // }
     }
+
+    // private void updateChanges(String nome) throws IOException {
+    // if (modelModifica.getProvTmp() != null &&
+    // modelModifica.getProvTmp().getNome() != "") {
+
+    // modelModifica.getOggettoTmp().setNome(nome);
+
+    // Controller.modificaCampo(modelModifica.getOggettoTmp());
+    // } else {
+    // Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto
+    // selezionato non è valido");
+    // }
+    // }
 
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
         this.modelCreazione = modelCreazione;

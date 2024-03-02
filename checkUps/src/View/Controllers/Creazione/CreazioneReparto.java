@@ -74,13 +74,6 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
-
-        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                // selectReparto(); // Chiama il metodo quando viene selezionato un elemento
-                modelModifica.setReparto(newValue);
-            }
-        });
     }
 
     // --------------- popola la tabella dei reparti --------------- //
@@ -119,8 +112,8 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
                 Optional<ButtonType> clickedButton = dialog.showAndWait();
 
                 if (clickedButton.get() == ButtonType.APPLY) {
+                    updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto());
                 }
-                // updateChanges(dialogController);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -131,8 +124,31 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
     }
 
-    public void goBack() {
+    private void updateChanges(String nome, String desc) throws IOException {
 
+        if (modelModifica.getRepartoTmp() != null &&
+                modelModifica.getRepartoTmp().getNome() != "" &&
+                modelModifica.getRepartoTmp().getDescrizione() != "") {
+
+            modelModifica.getRepartoTmp().setNome(nome);
+            modelModifica.getRepartoTmp().setDescrizione(desc);
+
+            Controller.modificaCampo(modelModifica.getRepartoTmp());
+
+        } else {
+            Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+        }
+    }
+
+    public void goBack() {
+        try {
+            modelCreazione.resetRepartoTmp();
+            Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
+
+            Controller.changePane(modelPaths.getStackPaneCrea(), root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // --------------- elimina il reparto selezionato --------------- //
@@ -239,6 +255,10 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         });
 
         fillTableView();
+
+        if (modelCreazione.getRepartoTmp() != null) {
+            tableReparti.selectionModelProperty().get().select(modelCreazione.getRepartoTmp());
+        }
     }
 
 }
