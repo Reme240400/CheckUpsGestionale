@@ -278,4 +278,12 @@ public class ModelCreazione extends ModelListe {
         return specificList;
     }
 
+    public List<Provvedimento> fillProvvedimentiTable(List<Provvedimento> listProv, Oggetto localOggetto) {
+        List<Provvedimento> specificList = listProv.stream()
+                .filter(provvedimento -> provvedimento.getIdOggetto() == localOggetto.getId())
+                .toList();
+
+        return specificList;
+    }
+
 }

@@ -66,6 +66,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
 
     private Societa localSocieta = null;
     private UnitaLocale localUnita = null;
+    private Reparto localReparto = null;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -197,9 +198,9 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     // --------------- va alla schermata di creazione Titolo --------------- //
     public void saveAndGoNext() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
-            Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
+            localReparto = tableReparti.getSelectionModel().getSelectedItem();
 
-            modelCreazione.createRepartoTmp(reparto);
+            modelCreazione.createRepartoTmp(localReparto);
 
             try {
                 Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);

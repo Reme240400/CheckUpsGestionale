@@ -5,27 +5,21 @@ import java.util.List;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Interfaces.CreazioneTInterface;
 import Models.Alerts;
-import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.Tables.Reparto;
-import Models.Tables.Societa;
 import Models.Tables.Titolo;
-import Models.Tables.UnitaLocale;
 
-import View.Controllers.ViewController;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddT;
 import View.Controllers.Modifiche.DialogPane.DialogPaneModificaTitolo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,8 +58,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     private List<Titolo> listaTitolo;
 
     private Reparto localReparto;
-    private UnitaLocale localUnita;
-    private Societa localSocieta;
+    private Titolo localTitolo;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -187,9 +180,9 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     @FXML
     public void saveAndGoNext() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
-            Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
+            localTitolo = tableTitoli.getSelectionModel().getSelectedItem();
 
-            modelCreazione.createTitoloTmp(titolo);
+            modelCreazione.createTitoloTmp(localTitolo);
 
             modelCreazione.setSaved(false);
             modelCreazione.setCanGoNext(false);
@@ -212,13 +205,13 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         this.modelPaths = modelPaths;
         this.modelModifica = modelModifica;
 
-        if (modelCreazione.getSocietaTmp() != null) {
-            this.localSocieta = modelCreazione.getSocietaTmp();
-        }
+        // if (modelCreazione.getSocietaTmp() != null) {
+        //     this.localSocieta = modelCreazione.getSocietaTmp();
+        // }
 
-        if (modelCreazione.getUnitaLocaleTmp() != null) {
-            this.localUnita = modelCreazione.getUnitaLocaleTmp();
-        }
+        // if (modelCreazione.getUnitaLocaleTmp() != null) {
+        //     this.localUnita = modelCreazione.getUnitaLocaleTmp();
+        // }
 
         if (modelCreazione.getRepartoTmp() != null) {
             this.localReparto = modelCreazione.getRepartoTmp();
@@ -228,7 +221,6 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
         tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 modelCreazione.setCanGoNext(true);
-                System.out.println("Titolo selezionato: " + newValue.getDescrizione());
             }
         });
 

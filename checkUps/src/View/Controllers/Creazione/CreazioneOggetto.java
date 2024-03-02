@@ -138,8 +138,7 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
 
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-            // ------------------- Se viene premuto il tasto "Applica" -------------------
-            // //
+            // ------------------- Se viene premuto il tasto "Applica" ------------------ //
 
             if (clickedButton.get() == ButtonType.APPLY) {
                 if (dialogController.getNome() != null
@@ -177,9 +176,9 @@ public class CreazioneOggetto implements Initializable, CreazioneTInterface {
     @FXML
     public void saveAndGoNext() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
-            Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
+            localOggetto = tableOggetti.getSelectionModel().getSelectedItem();
 
-            modelCreazione.createOggettoTmp(oggetto);
+            modelCreazione.createOggettoTmp(localOggetto);
 
             try {
                 Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
