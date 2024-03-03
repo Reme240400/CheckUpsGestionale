@@ -180,16 +180,16 @@ public class CreazioneOggetto extends CreazioneBaseTable implements Initializabl
         this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
         this.btnModifica.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
-        if (this.localOggetto != null) {
-            tableOggetti.selectionModelProperty().get().select(this.localOggetto);
-        }
-
         tableOggetti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedOggetto) -> {
             if (selectedOggetto != null) {
                 modelCreazione.setCanGoNext(true);
                 modelCreazione.createOggettoTmp(selectedOggetto);
             }
         });
+
+        if (this.localOggetto != null) {
+            tableOggetti.selectionModelProperty().get().select(this.localOggetto);
+        }
     }
 
 }

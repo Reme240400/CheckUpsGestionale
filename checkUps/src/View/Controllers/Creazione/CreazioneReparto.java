@@ -190,10 +190,6 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
         this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
         this.btnModifica.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
-        if (this.localReparto != null) {
-            tableReparti.selectionModelProperty().get().select(this.localReparto);
-        }
-
         tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedReparto) -> {
             // Handle the selection change, newValue contains the selected Reparto
             if (selectedReparto != null) {
@@ -201,6 +197,10 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
                 modelCreazione.createRepartoTmp(selectedReparto);
             }
         });
+
+        if (this.localReparto != null) {
+            tableReparti.selectionModelProperty().get().select(this.localReparto);
+        }
     }
 
 }

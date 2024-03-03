@@ -177,16 +177,16 @@ public class CreazioneTitolo extends CreazioneBaseTable implements Initializable
         this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
         this.btnModifica.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
-        if (this.localTitolo != null) {
-            tableTitoli.selectionModelProperty().get().select(this.localTitolo);
-        }
-
         tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedTitolo) -> {
             if (selectedTitolo != null) {
                 modelCreazione.setCanGoNext(true);
                 modelCreazione.createTitoloTmp(selectedTitolo);
             }
         });
+
+        if (this.localTitolo != null) {
+            tableTitoli.selectionModelProperty().get().select(this.localTitolo);
+        }
     }
 
 }
