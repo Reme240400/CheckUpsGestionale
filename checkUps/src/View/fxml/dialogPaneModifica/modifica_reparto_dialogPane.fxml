@@ -14,6 +14,9 @@
 <?import javafx.scene.text.Font?>
 
 <DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPane.DialogPaneModificaReparto">
+<DialogPane expanded="true"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaReparto">
     <buttonTypes>
         <ButtonType fx:constant="APPLY" />
         <ButtonType fx:constant="CANCEL" />

@@ -8,22 +8,17 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Interfaces.CreazioneTInterface;
 import Models.Alerts;
 import Models.ModelCreazione;
-import Models.ModelModifica;
 import Models.ModelPaths;
-import Models.Tables.Reparto;
+import Models.TipoCreazionePagina;
 import Models.Tables.Titolo;
 
 import View.Controllers.Creazione.dialogPane.DialogPaneAddT;
-import View.Controllers.Modifiche.DialogPane.DialogPaneModificaTitolo;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import View.Controllers.Modifiche.DialogPaneModificaTitolo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -31,7 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo implements Initializable, CreazioneTInterface {
+public class CreazioneTitolo extends CreazioneBaseTable implements Initializable {
     @FXML
     private TableView<Titolo> tableTitoli;
 
@@ -47,51 +42,13 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     @FXML
     private JFXButton btnModifica;
 
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-    private ModelModifica modelModifica;
-
     private List<Titolo> listaTitolo;
-
-    private Reparto localReparto;
-    private Titolo localTitolo;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         listaTitolo = ClassHelper.getListTitolo();
 
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
-        // tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable,
-        // oldValue, newValue) -> {
-        // if (newValue != null) {
-        // modelModifica.setTitolo(newValue);
-        // }
-        // });
-    }
-
-    // --------------- popola la tabella dei titoli --------------- //
-    private void fillTableViewTitoli() {
-        List<Titolo> specificList = null;
-        ObservableList<Titolo> observableList = null;
-
-        if (localReparto != null) {
-            specificList = modelCreazione.fillTitoliTable(listaTitolo, localReparto);
-
-            observableList = FXCollections.observableArrayList(specificList);
-            tableTitoli.setItems(observableList);
-        } else
-            Alerts.errorAllert("Errore", "Reparto non selezionata",
-                    "Impossibile riempire la tabella titoli se non si è selezionato un Reparto");
-    }
-
-    public void goBack() {
-        try {
-            modelCreazione.resetTitoloTmp();
-            Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
-            Controller.changePane(modelPaths.getStackPaneCrea(), root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void modifica() {
@@ -106,7 +63,7 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
                 DialogPaneModificaTitolo dialogController = loader.getController();
 
-                dialogController.setModel(modelModifica);
+                dialogController.setModel(modelCreazione);
 
                 Dialog<ButtonType> dialog = new Dialog<>();
                 dialog.setDialogPane(dialogPane);
@@ -125,15 +82,15 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
     }
 
     private void updateChanges(String desc) throws IOException {
-        if (modelModifica.getTitoloTmp() != null &&
-                modelModifica.getTitoloTmp().getDescrizione() != "") {
-
-            modelModifica.getTitoloTmp().setDescrizione(desc);
-
-            Controller.modificaCampo(modelModifica.getTitoloTmp());
-        } else {
+        if (modelCreazione.getTitoloTmp() == null ||
+                modelCreazione.getTitoloTmp().getDescrizione().equals("")) {
             Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+            return;
         }
+
+        modelCreazione.getTitoloTmp().setDescrizione(desc);
+        Controller.modificaCampo(modelCreazione.getTitoloTmp());
+        tableTitoli.refresh();
     }
 
     @FXML
@@ -195,55 +152,40 @@ public class CreazioneTitolo implements Initializable, CreazioneTInterface {
 
     }
 
-    @FXML
-    public void saveAndGoNext() {
-        if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
-            localTitolo = tableTitoli.getSelectionModel().getSelectedItem();
+    // CODICE "SISTEMATO"
 
-            modelCreazione.createTitoloTmp(localTitolo);
-
-            modelCreazione.setSaved(false);
-            modelCreazione.setCanGoNext(false);
-
-            try {
-                Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
-
-                Controller.changePane(modelPaths.getStackPaneCrea(), root);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else
+    public void save() {
+        if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Errore nella Selezione del Titolo",
                     "Non è stato selezionato nessun titolo");
-    }
-
-    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
-
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = modelPaths;
-        this.modelModifica = modelModifica;
-
-        // if (modelCreazione.getSocietaTmp() != null) {
-        // this.localSocieta = modelCreazione.getSocietaTmp();
-        // }
-
-        // if (modelCreazione.getUnitaLocaleTmp() != null) {
-        // this.localUnita = modelCreazione.getUnitaLocaleTmp();
-        // }
-
-        if (modelCreazione.getRepartoTmp() != null) {
-            this.localReparto = modelCreazione.getRepartoTmp();
-            fillTableViewTitoli();
+            return;
         }
 
-        tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+        super.changePage(TipoCreazionePagina.OGGETTO, true);
+    }
+
+    public void back() {
+        modelCreazione.resetTitoloTmp();
+        super.changePage(TipoCreazionePagina.REPARTO, false);
+    }
+
+    @Override
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+        super.setModel(modelCreazione, modelPaths);
+        super.fillTable(tableTitoli, listaTitolo, localReparto);
+
+        this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
+        this.btnModifica.disableProperty().bind(modelCreazione.canGoNextProperty().not());
+
+        tableTitoli.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedTitolo) -> {
+            if (selectedTitolo != null) {
                 modelCreazione.setCanGoNext(true);
+                modelCreazione.createTitoloTmp(selectedTitolo);
             }
         });
 
-        if (modelCreazione.getTitoloTmp() != null) {
-            tableTitoli.selectionModelProperty().get().select(modelCreazione.getTitoloTmp());
+        if (this.localTitolo != null) {
+            tableTitoli.selectionModelProperty().get().select(this.localTitolo);
         }
     }
 

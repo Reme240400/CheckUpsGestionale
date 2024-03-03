@@ -1,36 +1,23 @@
 package View.Controllers.Creazione;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Interfaces.CreazioneInterface;
-import Interfaces.CreazioneTInterface;
 import Models.Alerts;
-import Models.Model;
 import Models.ModelCreazione;
-import Models.ModelModifica;
 import Models.ModelPaths;
+import Models.TipoCreazionePagina;
 import Models.Tables.Reparto;
-import Models.Tables.Societa;
-import Models.Tables.UnitaLocale;
-import View.Controllers.ViewController;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddR;
-import View.Controllers.Modifiche.DialogPane.DialogPaneModificaReparto;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
+import View.Controllers.Modifiche.DialogPaneModificaReparto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -38,7 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneReparto implements Initializable, CreazioneTInterface {
+public class CreazioneReparto extends CreazioneBaseTable implements Initializable {
 
     @FXML
     private TableView<Reparto> tableReparti;
@@ -58,15 +45,7 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
     @FXML
     private JFXButton btnNext;
 
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-    private ModelModifica modelModifica;
-
     private List<Reparto> listaReparto;
-
-    private Societa localSocieta = null;
-    private UnitaLocale localUnita = null;
-    private Reparto localReparto = null;
 
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
@@ -76,79 +55,53 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
     }
 
-    // --------------- popola la tabella dei reparti --------------- //
-    private void fillTableView() {
-        List<Reparto> specificList = null;
-        ObservableList<Reparto> observableList = null;
-
-        if (localSocieta != null && localUnita != null) {
-            specificList = modelCreazione.fillRepartiTable(listaReparto, localUnita);
-
-            observableList = FXCollections.observableArrayList(specificList);
-            tableReparti.setItems(observableList);
-        } else
-            Alerts.errorAllert("Errore2", "Societa non selezionata",
-                    "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
-    }
-
     // --------------- va alla schermata di modifica --------------- //
     public void modifica() {
-        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/View/fxml/dialogPaneModifica/modifica_reparto_dialogPane.fxml"));
-            DialogPane dialogPane;
-            try {
-                dialogPane = loader.load();
-
-                DialogPaneModificaReparto dialogController = loader.getController();
-
-                dialogController.setModel(modelModifica);
-
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Modifica Reparto");
-
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-                if (clickedButton.get() == ButtonType.APPLY) {
-                    updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto());
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
+        if (tableReparti.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/View/fxml/dialogPaneModifica/modifica_reparto_dialogPane.fxml"));
+        DialogPane dialogPane;
+        try {
+            dialogPane = loader.load();
+
+            DialogPaneModificaReparto dialogController = loader.getController();
+
+            dialogController.setModel(modelCreazione);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Modifica Reparto");
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            if (clickedButton.get() == ButtonType.APPLY) {
+                updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
 
     private void updateChanges(String nome, String desc) throws IOException {
 
-        if (modelModifica.getRepartoTmp() != null &&
-                modelModifica.getRepartoTmp().getNome() != "" &&
-                modelModifica.getRepartoTmp().getDescrizione() != "") {
-
-            modelModifica.getRepartoTmp().setNome(nome);
-            modelModifica.getRepartoTmp().setDescrizione(desc);
-
-            Controller.modificaCampo(modelModifica.getRepartoTmp());
-
-        } else {
+        if (modelCreazione.getRepartoTmp() == null ||
+                modelCreazione.getRepartoTmp().getNome().equals("") ||
+                modelCreazione.getRepartoTmp().getDescrizione().equals("")) {
             Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+            return;
         }
-    }
 
-    public void goBack() {
-        try {
-            modelCreazione.resetRepartoTmp();
-            Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
+        modelCreazione.getRepartoTmp().setNome(nome);
+        modelCreazione.getRepartoTmp().setDescrizione(desc);
 
-            Controller.changePane(modelPaths.getStackPaneCrea(), root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Controller.modificaCampo(modelCreazione.getRepartoTmp());
+        tableReparti.refresh();
     }
 
     // --------------- elimina il reparto selezionato --------------- //
@@ -211,53 +164,42 @@ public class CreazioneReparto implements Initializable, CreazioneTInterface {
         }
     }
 
-    // --------------- va alla schermata di creazione Titolo --------------- //
-    public void saveAndGoNext() {
-        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
-            localReparto = tableReparti.getSelectionModel().getSelectedItem();
+    // CODICE "SISTEMATO"
 
-            modelCreazione.createRepartoTmp(localReparto);
-
-            try {
-                Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);
-
-                Controller.changePane(modelPaths.getStackPaneCrea(), root);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else
+    // Va alla schermata di creazione Titolo
+    public void save() {
+        if (tableReparti.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
                     "Non è stato selezionato nessun reparto");
+            return;
+        }
+
+        super.changePage(TipoCreazionePagina.TITOLO, true);
     }
 
-    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
+    public void back() {
+        modelCreazione.resetRepartoTmp();
+        super.changePage(TipoCreazionePagina.UNITA_LOCALE, false);
+    }
 
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = modelPaths;
-        this.modelModifica = modelModifica;
+    @Override
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+        super.setModel(modelCreazione, modelPaths);
+        super.fillTable(tableReparti, listaReparto, localUnita);
 
         this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
         this.btnModifica.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
-        if (modelCreazione.getSocietaTmp() != null) {
-            this.localSocieta = modelCreazione.getSocietaTmp();
-        }
-
-        if (modelCreazione.getUnitaLocaleTmp() != null) {
-            this.localUnita = modelCreazione.getUnitaLocaleTmp();
-        }
-
-        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        tableReparti.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedReparto) -> {
             // Handle the selection change, newValue contains the selected Reparto
-            if (newValue != null) {
+            if (selectedReparto != null) {
                 modelCreazione.setCanGoNext(true);
+                modelCreazione.createRepartoTmp(selectedReparto);
             }
         });
 
-        fillTableView();
-
-        if (modelCreazione.getRepartoTmp() != null) {
-            tableReparti.selectionModelProperty().get().select(modelCreazione.getRepartoTmp());
+        if (this.localReparto != null) {
+            tableReparti.selectionModelProperty().get().select(this.localReparto);
         }
     }
 

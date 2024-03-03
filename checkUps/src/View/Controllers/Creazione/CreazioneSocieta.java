@@ -1,6 +1,5 @@
 package View.Controllers.Creazione;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +11,9 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Interfaces.CreazioneInterface;
 import Models.ModelCreazione;
 import Models.ModelPaths;
+import Models.TipoCreazionePagina;
 import Models.Tables.Societa;
 import View.Controllers.ViewController;
 
@@ -23,7 +22,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -31,7 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneSocieta implements Initializable, CreazioneInterface {
+public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
     @FXML
     private JFXButton btnNext;
@@ -74,9 +72,6 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
 
     @FXML
     private JFXComboBox<String> cercaSocieta;
-
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
 
     Optional<Societa> curSocieta = Optional.empty();
     List<Societa> listSocieta = ClassHelper.getListSocieta();
@@ -180,40 +175,6 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         modelCreazione.setCanGoNext(false);
     }
 
-    public void saveAndGoNext() {
-        if (cercaSocieta.getValue() == null) {
-
-            int id = Controller.getNewId(listSocieta);
-
-            Societa societaTmp = new Societa(id,
-                    textFieldSocieta.getText(),
-                    textFieldIndirizzo.getText(),
-                    textFieldLocalita.getText(),
-                    textFieldProvincia.getText(),
-                    textFieldTel.getText(),
-                    textAreaDesc.getText(),
-                    textFieldPartitaIva.getText(),
-                    textFieldCodiceFiscale.getText(),
-                    textFieldBancaAppoggio.getText(),
-                    textFieldCodiceAteco.getText(),
-                    logoImageView.getImage().getUrl());
-
-            Controller.inserisciNuovoRecord(societaTmp);
-            modelCreazione.createSocietaTmp(societaTmp);
-        }
-
-        modelCreazione.setSaved(false);
-        modelCreazione.setCanGoNext(false);
-
-        try {
-            Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
-
-            Controller.changePane(modelPaths.getStackPaneCrea(), root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void pulisciDati() {
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
@@ -236,6 +197,8 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
         modelCreazione.setCanGoNext(false);
     }
 
+    // CODICE "SISTEMATO"
+
     // ---------------------- controlla se i campi sono vuoti ----------------------
     // //
     public void keyReleasedProperty() {
@@ -243,9 +206,33 @@ public class CreazioneSocieta implements Initializable, CreazioneInterface {
                 textFieldProvincia, textFieldTel, textFieldCodiceAteco);
     }
 
+    public void save() {
+        if (cercaSocieta.getValue() == null) {
+            int id = Controller.getNewId(listSocieta);
+
+            Societa societaTmp = new Societa(id,
+                    textFieldSocieta.getText(),
+                    textFieldIndirizzo.getText(),
+                    textFieldLocalita.getText(),
+                    textFieldProvincia.getText(),
+                    textFieldTel.getText(),
+                    textAreaDesc.getText(),
+                    textFieldPartitaIva.getText(),
+                    textFieldCodiceFiscale.getText(),
+                    textFieldBancaAppoggio.getText(),
+                    textFieldCodiceAteco.getText(),
+                    logoImageView.getImage().getUrl());
+
+            Controller.inserisciNuovoRecord(societaTmp);
+            modelCreazione.createSocietaTmp(societaTmp);
+        }
+
+        super.changePage(TipoCreazionePagina.UNITA_LOCALE, true);
+    }
+
+    @Override
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = modelPaths;
+        super.setModel(modelCreazione, modelPaths);
 
         this.btnNext.disableProperty().bind(modelCreazione.canGoNextProperty().not());
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());

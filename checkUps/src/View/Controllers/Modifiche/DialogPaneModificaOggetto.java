@@ -1,19 +1,17 @@
-package View.Controllers.Modifiche.DialogPane;
+package View.Controllers.Modifiche;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Models.ModelModifica;
+import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-public class DialogPaneModificaOggetto implements Initializable{
+public class DialogPaneModificaOggetto implements Initializable {
 
     @FXML
     private TextField modificaNomeOggetto;
-
-    private ModelModifica modelModifica;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -23,12 +21,8 @@ public class DialogPaneModificaOggetto implements Initializable{
         return modificaNomeOggetto.getText();
     }
 
-
-    public void setModel(ModelModifica modelModifica) {
-        this.modelModifica = modelModifica;
-
-        modificaNomeOggetto.setText(modelModifica.getOggettoTmp().getNome());
-
+    public void setModel(ModelCreazione model) {
+        modificaNomeOggetto.setText(model.getOggettoTmp().getNome());
     }
 
 }
