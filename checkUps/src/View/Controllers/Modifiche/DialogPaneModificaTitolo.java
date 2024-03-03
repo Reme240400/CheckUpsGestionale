@@ -1,9 +1,9 @@
-package View.Controllers.Modifiche.DialogPane;
+package View.Controllers.Modifiche;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Models.ModelModifica;
+import Models.ModelCreazione;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,8 +14,6 @@ public class DialogPaneModificaTitolo implements Initializable {
     @FXML
     private TextField modificaNomeTitolo;
 
-    private ModelModifica modelModifica;
-
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -25,9 +23,8 @@ public class DialogPaneModificaTitolo implements Initializable {
         return modificaNomeTitolo.getText();
     }
 
-    public void setModel(ModelModifica modelModifica) {
-        this.modelModifica = modelModifica;
-        modificaNomeTitolo.setText(modelModifica.getTitoloTmp().getDescrizione());
+    public void setModel(ModelCreazione model) {
+        modificaNomeTitolo.setText(model.getTitoloTmp().getDescrizione());
     }
 
 }

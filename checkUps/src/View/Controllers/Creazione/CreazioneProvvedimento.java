@@ -13,22 +13,14 @@ import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.ModelCreazione;
-import Models.ModelModifica;
 import Models.ModelPaths;
-import Models.Tables.Oggetto;
+import Models.TipoCreazionePagina;
 import Models.Tables.Provvedimento;
-import Models.Tables.Reparto;
-import Models.Tables.Societa;
-import Models.Tables.Titolo;
-import Models.Tables.UnitaLocale;
 
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -36,7 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneProvvedimento implements Initializable {
+public class CreazioneProvvedimento extends CreazioneBaseTable implements Initializable {
 
     @FXML
     private JFXButton btnAdd;
@@ -62,17 +54,7 @@ public class CreazioneProvvedimento implements Initializable {
     @FXML
     private TableView<Provvedimento> tableProvvedimenti;
 
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-    private ModelModifica modelModifica;
-
     private List<Provvedimento> listProv;
-
-    private Societa localSocieta;
-    private UnitaLocale localUnita;
-    private Reparto localReparto;
-    private Titolo localTitolo;
-    private Oggetto localOggetto;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,31 +66,6 @@ public class CreazioneProvvedimento implements Initializable {
         soggetiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
         stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
 
-    }
-
-    public void goBack() {
-        try {
-            modelCreazione.resetProvvedimentoTmp();
-            Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
-            Controller.changePane(modelPaths.getStackPaneCrea(), root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void fillTableViewP() {
-
-        List<Provvedimento> specificList = null;
-        ObservableList<Provvedimento> observableList = null;
-
-        if (localOggetto != null) {
-            specificList = modelCreazione.fillProvvedimentiTable(listProv, localOggetto);
-
-            observableList = FXCollections.observableArrayList(specificList);
-            tableProvvedimenti.setItems(observableList);
-        } else
-            Alerts.errorAllert("Errore", "Oggetto non selezionato",
-                    "Impossibile riempire la tabella provvedimenti se non si è selezionato un Oggetto");
     }
 
     @FXML
@@ -208,38 +165,25 @@ public class CreazioneProvvedimento implements Initializable {
     // modelModifica.getOggettoTmp().setNome(nome);
 
     // Controller.modificaCampo(modelModifica.getOggettoTmp());
+    // tableOggetti.refresh();
     // } else {
     // Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto
     // selezionato non è valido");
     // }
     // }
 
-    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths, ModelModifica modelModifica) {
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = modelPaths;
-        this.modelModifica = modelModifica;
+    public void back() {
+        modelCreazione.resetProvvedimentoTmp();
+        super.changePage(TipoCreazionePagina.OGGETTO, false);
 
-        if (modelCreazione.getSocietaTmp() != null) {
-            localSocieta = modelCreazione.getSocietaTmp();
-        }
+    }
 
-        if (modelCreazione.getUnitaLocaleTmp() != null) {
-            localUnita = modelCreazione.getUnitaLocaleTmp();
-        }
+    @Override
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+        super.setModel(modelCreazione, modelPaths);
+        super.fillTable(tableProvvedimenti, listProv, this.localOggetto);
 
-        if (modelCreazione.getRepartoTmp() != null) {
-            localReparto = modelCreazione.getRepartoTmp();
-        }
-
-        if (modelCreazione.getTitoloTmp() != null) {
-            localTitolo = modelCreazione.getTitoloTmp();
-        }
-
-        if (modelCreazione.getOggettoTmp() != null) {
-            localOggetto = modelCreazione.getOggettoTmp();
-            fillTableViewP();
-        }
-
+        this.btnModify.disableProperty().bind(modelCreazione.canGoNextProperty().not());
     }
 
 }

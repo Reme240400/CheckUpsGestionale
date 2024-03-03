@@ -1,11 +1,11 @@
-package View.Controllers.Modifiche.DialogPane;
+package View.Controllers.Modifiche;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import Models.ModelModifica;
+import Models.ModelCreazione;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,8 +20,6 @@ public class DialogPaneModificaReparto implements Initializable {
     @FXML
     private TextField modificaNomeReparto;
 
-    private ModelModifica modelModifica;
-
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -35,16 +33,15 @@ public class DialogPaneModificaReparto implements Initializable {
         return modificaDescReparto.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
-    public void setModel(ModelModifica modelModifica) {
-        this.modelModifica = modelModifica;
+    public void setModel(ModelCreazione model) {
+        modificaNomeReparto.setText(model.getRepartoTmp().getNome());
 
-        modificaNomeReparto.setText(modelModifica.getRepartoTmp().getNome());
-        if (modelModifica.getRepartoTmp().getDescrizione().contains("T"))
-            modificaDescReparto.setValue(LocalDate.parse(modelModifica.getRepartoTmp().getDescrizione(),
+        if (model.getRepartoTmp().getDescrizione().contains("T"))
+            modificaDescReparto.setValue(LocalDate.parse(model.getRepartoTmp().getDescrizione(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
         else
-            modificaDescReparto.setValue(LocalDate.parse(modelModifica.getRepartoTmp().getDescrizione(),
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            modificaDescReparto.setValue(LocalDate.parse(model.getRepartoTmp().getDescrizione(),
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy")));
     }
 
 }

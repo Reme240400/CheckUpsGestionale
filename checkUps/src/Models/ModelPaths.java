@@ -20,7 +20,6 @@ import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
 
-    private ModelModifica modelModifica = new ModelModifica();
     private ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
 
     private String loadedFXMLs = null;
@@ -232,6 +231,32 @@ public class ModelPaths {
         }
     }
 
+    public Parent switchToCreazioneByTipo(TipoCreazionePagina tipo, ModelCreazione modelCreazione) {
+        try {
+            switch (tipo) {
+                case SOCIETA:
+                    return this.switchToCreazioneSocieta(modelCreazione);
+                case UNITA_LOCALE:
+                    return this.switchToCreazioneUnitaLocale(modelCreazione);
+                case REPARTO:
+                    return this.switchToCreazioneReparti(modelCreazione);
+                case TITOLO:
+                    return this.switchToCreazioneTitolo(modelCreazione);
+                case OGGETTO:
+                    return this.switchToCreazioneOggetto(modelCreazione);
+                case PROVVEDIMENTO:
+                    return this.switchToCreazioneProvvedimento(modelCreazione);
+                default:
+                    break;
+            }
+        } catch (IOException e) {
+            System.out.println("Errore durante il cambio di pagina (Pagina: " + tipo + ")\n");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     // * *************** Cambia la scena a home *************** //
     public Parent switchToHome() throws IOException {
 
@@ -295,7 +320,7 @@ public class ModelPaths {
 
         CreazioneReparto creazioneReparto = loaderReparti.getController();
 
-        creazioneReparto.setModel(modelCreazione, this, modelModifica);
+        creazioneReparto.setModel(modelCreazione, this);
 
         return root;
     }
@@ -308,7 +333,7 @@ public class ModelPaths {
 
         CreazioneTitolo creazioneTitolo = loaderTitoli.getController();
 
-        creazioneTitolo.setModel(modelCreazione, this, modelModifica);
+        creazioneTitolo.setModel(modelCreazione, this);
 
         return root;
     }
@@ -322,7 +347,7 @@ public class ModelPaths {
 
         CreazioneOggetto creazioneOggetto = loaderOggetto.getController();
 
-        creazioneOggetto.setModel(modelCreazione, this, modelModifica);
+        creazioneOggetto.setModel(modelCreazione, this);
 
         return root;
     }
@@ -337,7 +362,7 @@ public class ModelPaths {
 
         CreazioneProvvedimento creazioneProvvedimento = loaderProvvedimento.getController();
 
-        creazioneProvvedimento.setModel(modelCreazione, this, modelModifica);
+        creazioneProvvedimento.setModel(modelCreazione, this);
 
         return root;
     }

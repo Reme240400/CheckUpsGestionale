@@ -16,7 +16,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="495.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
+<BorderPane prefHeight="495.0" prefWidth="752.0"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneSocieta">
     <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
@@ -61,7 +63,7 @@
                                 <Pane prefHeight="0.0" prefWidth="235.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                     <children>
                                         <Label layoutX="14.0" layoutY="23.0" text="Descrizione:" />
-                              <TextArea fx:id="textAreaDesc" layoutX="81.0" layoutY="4.0" prefHeight="56.0" prefWidth="154.0" wrapText="true" />
+                                        <TextArea fx:id="textAreaDesc" layoutX="81.0" layoutY="4.0" prefHeight="56.0" prefWidth="154.0" wrapText="true" />
                                     </children>
                                 </Pane>
                                 <Label text="Codice Fiscale:" GridPane.rowIndex="4" />
@@ -117,7 +119,7 @@
                 <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
                 <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#selezionaSocieta" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
                 <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
-                <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#saveAndGoNext" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                     <HBox.margin>
                         <Insets right="25.0" />
                     </HBox.margin>

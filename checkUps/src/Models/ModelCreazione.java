@@ -1,7 +1,5 @@
 package Models;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.jfoenix.controls.JFXComboBox;
@@ -15,7 +13,6 @@ import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ModelCreazione extends ModelListe {
@@ -196,78 +193,4 @@ public class ModelCreazione extends ModelListe {
             setDiscard(false);
         }
     }
-
-    public List<Reparto> fillRepartiTable(List<Reparto> listaReparti, UnitaLocale unitaLocale) {
-        List<Reparto> specificList = listaReparti.stream()
-                .filter(reparto -> reparto.getIdUnitaLocale() == unitaLocale.getId())
-                .toList();
-
-        return specificList;
-    }
-
-    public List<Reparto> fillRepartiTable(List<Reparto> listaReparti) {
-        List<Reparto> specificList = listaReparti.stream()
-                .filter(reparto -> reparto.getIdUnitaLocale() == getUnitaLocaleTmp().getId())
-                .toList();
-
-        return specificList;
-    }
-
-    public List<Reparto> fillAllRepartiTable(List<Reparto> listaReparto, List<UnitaLocale> listUnitaLocale,
-            Societa societa) {
-        List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
-                .filter(unita -> unita.getIdSocieta() == societa.getId())
-                .toList();
-
-        List<Reparto> allReparti = allUnitaLocali.stream()
-                .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
-                .collect(Collectors.toList());
-
-        return allReparti;
-    }
-
-    public List<Reparto> fillAllRepartiTable(List<UnitaLocale> listUnitaLocale) {
-        List<UnitaLocale> allUnitaLocali = listUnitaLocale.stream()
-                .filter(unita -> unita.getIdSocieta() == getSocietaTmp().getId())
-                .toList();
-
-        List<Reparto> allReparti = allUnitaLocali.stream()
-                .flatMap(unita -> filtraRepartoDaUnita(unita.getId()).stream())
-                .collect(Collectors.toList());
-
-        return allReparti;
-    }
-
-    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo, Reparto reparto) {
-        List<Titolo> specificList = listaTitolo.stream()
-                .filter(titolo -> titolo.getIdReparto() == reparto.getId())
-                .toList();
-
-        return specificList;
-    }
-
-    public List<Titolo> fillTitoliTable(List<Titolo> listaTitolo) {
-        List<Titolo> specificList = listaTitolo.stream()
-                .filter(titolo -> titolo.getIdReparto() == getRepartoTmp().getId())
-                .toList();
-
-        return specificList;
-    }
-
-    public List<Oggetto> fillOggettiTable(List<Oggetto> listaOggetti, Titolo titolo) {
-        List<Oggetto> specificList = listaOggetti.stream()
-                .filter(oggetto -> oggetto.getIdTitolo() == titolo.getId())
-                .toList();
-
-        return specificList;
-    }
-
-    public List<Provvedimento> fillProvvedimentiTable(List<Provvedimento> listProv, Oggetto localOggetto) {
-        List<Provvedimento> specificList = listProv.stream()
-                .filter(provvedimento -> provvedimento.getIdOggetto() == localOggetto.getId())
-                .toList();
-
-        return specificList;
-    }
-
 }

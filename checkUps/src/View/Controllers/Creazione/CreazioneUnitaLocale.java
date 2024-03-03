@@ -1,6 +1,5 @@
 package View.Controllers.Creazione;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,11 +12,10 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Interfaces.CreazioneInterface;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.Tables.Societa;
+import Models.TipoCreazionePagina;
 import Models.Tables.UnitaLocale;
 import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
@@ -25,12 +23,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
 
-public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
+public class CreazioneUnitaLocale extends CreazioneBase implements Initializable {
 
     @FXML
     private JFXComboBox<String> cercaUnita;
@@ -59,10 +56,6 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
     @FXML
     private TextField textFieldTel;
 
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-
-    private Societa localSocieta;
     private List<UnitaLocale> listUnitaLocale;
 
     @Override
@@ -121,17 +114,6 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         modelCreazione.setDiscard(true);
     }
 
-    public void goBack() {
-        try {
-            modelCreazione.resetUnitaLocaleTmp();
-            Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
-
-            Controller.changePane(modelPaths.getStackPaneCrea(), root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void aggiorna() {
 
         int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
@@ -151,36 +133,6 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
 
     }
 
-    public void saveAndGoNext() {
-
-        if (cercaUnita.getValue() == null) {
-            int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
-
-            UnitaLocale unitaLocale = new UnitaLocale(id,
-                    textFieldUnitaLocale.getText(),
-                    textFieldIndirizzo.getText(),
-                    textFieldLocalita.getText(),
-                    textFieldProvincia.getText(),
-                    textFieldTel.getText(),
-                    localSocieta.getId());
-
-            Controller.inserisciNuovoRecord(unitaLocale);
-
-            modelCreazione.createUnitaLocaleTmp(unitaLocale);
-        }
-
-        modelCreazione.setCanGoNext(false);
-        modelCreazione.setSaved(false);
-
-        try {
-            Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
-
-            Controller.changePane(modelPaths.getStackPaneCrea(), root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void pulisciDati() {
 
         textFieldIndirizzo.clear();
@@ -197,34 +149,51 @@ public class CreazioneUnitaLocale implements Initializable, CreazioneInterface {
         modelCreazione.setDiscard(false);
     }
 
-    public void keyReleasedProperty() {
+    // CODICE "SISTEMATO"
 
+    public void keyReleasedProperty() {
         modelCreazione.areTextFieldsFilled(textFieldUnitaLocale, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel);
-
     }
 
-    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+    public void save() {
+        if (cercaUnita.getValue() == null) {
+            int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
-        this.modelCreazione = modelCreazione;
-        this.modelPaths = modelPaths;
+            UnitaLocale unitaLocale = new UnitaLocale(id,
+                    textFieldUnitaLocale.getText(),
+                    textFieldIndirizzo.getText(),
+                    textFieldLocalita.getText(),
+                    textFieldProvincia.getText(),
+                    textFieldTel.getText(),
+                    localSocieta.getId());
+
+            Controller.inserisciNuovoRecord(unitaLocale);
+            modelCreazione.createUnitaLocaleTmp(unitaLocale);
+        }
+
+        super.changePage(TipoCreazionePagina.REPARTO, true);
+    }
+
+    public void back() {
+        modelCreazione.resetUnitaLocaleTmp();
+        super.changePage(TipoCreazionePagina.SOCIETA, false);
+    }
+
+    @Override
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+        super.setModel(modelCreazione, modelPaths);
 
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
         this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
         this.btnSalva.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
-        if (modelCreazione.getSocietaTmp() != null) {
+        ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
+                .filter(u -> u.getIdSocieta() == this.localSocieta.getId())
+                .map(UnitaLocale::getNome)
+                .collect(Collectors.toList()));
 
-            this.localSocieta = modelCreazione.getSocietaTmp();
-
-            ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
-                    .filter(u -> u.getIdSocieta() == localSocieta.getId())
-                    .map(UnitaLocale::getNome)
-                    .collect(Collectors.toList()));
-
-            FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
-            cercaUnita.setItems(filteredItems);
-
-        }
+        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
+        cercaUnita.setItems(filteredItems);
     }
 }

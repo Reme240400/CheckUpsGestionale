@@ -1,9 +1,8 @@
-package View.Controllers.Modifiche.DialogPane;
+package View.Controllers.Modifiche;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Models.ModelCreazione;
 import Models.ModelModifica;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +11,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class DialogPaneModificaProv implements Initializable{
+public class DialogPaneModificaProv implements Initializable {
 
     @FXML
     private TextField modificaNome;
@@ -31,8 +30,6 @@ public class DialogPaneModificaProv implements Initializable{
 
     @FXML
     private Spinner<Integer> valStimaR;
-    
-    private ModelModifica modelModifica;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,38 +39,36 @@ public class DialogPaneModificaProv implements Initializable{
 
     }
 
-    public String getNome(){
+    public String getNome() {
         return modificaNome.getText();
     }
 
-    public String getRischio(){
+    public String getRischio() {
         return modificaRischio.getText();
     }
 
-    public String getSoggettiEsposti(){
+    public String getSoggettiEsposti() {
         return modificaSoggettiEsposti.getText();
     }
 
-    public int getStimaD(){
+    public int getStimaD() {
         return valStimaD.getValue();
     }
 
-    public int getStimaP(){
+    public int getStimaP() {
         return valStimaP.getValue();
     }
 
-    public int getStimaR(){
+    public int getStimaR() {
         return valStimaR.getValue();
     }
 
     public void setModel(ModelModifica modelModifica) {
-        this.modelModifica = modelModifica;
-
         modificaNome.setText(modelModifica.getProvTmp().getNome());
         modificaRischio.setText(modelModifica.getProvTmp().getRischio());
         modificaSoggettiEsposti.setText(modelModifica.getProvTmp().getSoggettiEsposti());
         valStimaD.getValueFactory().setValue(modelModifica.getProvTmp().getStimaD());
         valStimaP.getValueFactory().setValue(modelModifica.getProvTmp().getStimaP());
         valStimaR.getValueFactory().setValue(modelModifica.getProvTmp().getStimaR());
-    }    
+    }
 }

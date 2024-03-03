@@ -15,67 +15,18 @@ public class Creazione implements Initializable {
     @FXML
     private StackPane stackPaneCreazione;
 
-    private ModelCreazione modelCreazione;
-    private ModelPaths modelPaths;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    // * cambia scena in UnitaLocale
-    public void switchToSocieta() throws IOException {
-
-        Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
-
-        stackPaneCreazione.getChildren().removeAll();
-        stackPaneCreazione.getChildren().setAll(root);
-    }
-
-    // * cambia scena in UnitaLocale
-    /*public void switchToUnitaLocali() throws IOException {
-
-        Parent root = modelPaths.switchToCreazioneUnitaLocale(modelCreazione);
-        stackPaneCreazione.getChildren().removeAll();
-        stackPaneCreazione.getChildren().setAll(root);
-    }
-
-    // * cambia scena in Reparti
-    public void switchToReparto() throws IOException {
-
-        Parent root = modelPaths.switchToCreazioneReparti(modelCreazione);
-        stackPaneCreazione.getChildren().removeAll();
-        stackPaneCreazione.getChildren().setAll(root);
-    }
-
-    public void switchToTitoli() throws IOException {
-
-        Parent root = modelPaths.switchToCreazioneTitolo(modelCreazione);
-        stackPaneCreazione.getChildren().removeAll();
-        stackPaneCreazione.getChildren().setAll(root);
-    }
-
-    public void switchToOggetti() throws IOException {
-
-        Parent root = modelPaths.switchToCreazioneOggetto(modelCreazione);
-        stackPaneCreazione.getChildren().removeAll();
-        stackPaneCreazione.getChildren().setAll(root);
-    }
-
-    public void switchToProvvedimenti() throws IOException {
-
-        Parent root = modelPaths.switchToCreazioneProvvedimento(modelCreazione);
-        stackPaneCreazione.getChildren().removeAll();
-        stackPaneCreazione.getChildren().setAll(root);
-    }*/
-
     // * setta il modello
-    public void setModelCreazione(ModelCreazione model, ModelPaths modelPaths) {
-        this.modelCreazione = model;
-        this.modelPaths = modelPaths;
-
-        modelPaths.setStackPaneCrea(stackPaneCreazione);
+    public void setModelCreazione(ModelCreazione modelCreazione, ModelPaths modelPaths) {
         try {
-            switchToSocieta();
+            modelPaths.setStackPaneCrea(stackPaneCreazione);
+            Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
+
+            stackPaneCreazione.getChildren().removeAll();
+            stackPaneCreazione.getChildren().setAll(root);
         } catch (IOException e) {
             e.printStackTrace();
         }

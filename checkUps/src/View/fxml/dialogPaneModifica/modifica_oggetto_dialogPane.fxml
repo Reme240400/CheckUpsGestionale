@@ -12,42 +12,44 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPane.DialogPaneModificaOggetto">
-   <buttonTypes>
-      <ButtonType fx:constant="APPLY" />
-      <ButtonType fx:constant="CANCEL" />
-   </buttonTypes>
-   <content>
-      <HBox alignment="CENTER">
-         <children>
-            <VBox HBox.hgrow="SOMETIMES">
-               <children>
-                  <Pane prefHeight="58.0" prefWidth="355.0">
-                     <children>
-                        <Label layoutX="14.0" layoutY="12.0" text="Modifica Oggetto">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <GridPane alignment="CENTER">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="95.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="260.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Nome" GridPane.rowIndex="1" />
-                        <TextField fx:id="modificaNomeOggetto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </content>
+<DialogPane expanded="true"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaOggetto">
+    <buttonTypes>
+        <ButtonType fx:constant="APPLY" />
+        <ButtonType fx:constant="CANCEL" />
+    </buttonTypes>
+    <content>
+        <HBox alignment="CENTER">
+            <children>
+                <VBox HBox.hgrow="SOMETIMES">
+                    <children>
+                        <Pane prefHeight="58.0" prefWidth="355.0">
+                            <children>
+                                <Label layoutX="14.0" layoutY="12.0" text="Modifica Oggetto">
+                                    <font>
+                                        <Font size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <GridPane alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="95.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="260.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Nome" GridPane.rowIndex="1" />
+                                <TextField fx:id="modificaNomeOggetto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="155.0" styleClass="transparent" stylesheets="@../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </content>
 </DialogPane>
