@@ -26,7 +26,7 @@
                   </Label>
                </children>
             </HBox>
-              <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0" stylesheets="@../../css/style.css">
+              <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0">
                   <children>
                   <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" onAction="#goBack" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                      <graphic>
