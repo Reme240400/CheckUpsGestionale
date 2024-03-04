@@ -30,7 +30,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0">
                     <children>
-                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" onAction="#back" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" onAction="#onActionBack" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -77,7 +77,7 @@
                             </HBox.margin>
                         </VBox>
                         <Pane HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" onAction="#save" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" onAction="#onActionSave" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

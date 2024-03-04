@@ -13,6 +13,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Reparto;
+import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddR;
 import View.Controllers.Modifiche.DialogPaneModificaReparto;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneReparto extends CreazioneBaseTable implements Initializable {
+public class CreazioneReparto extends CreazioneBase implements Initializable {
 
     @FXML
     private TableView<Reparto> tableReparti;
@@ -64,10 +65,8 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
 
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/View/fxml/dialogPaneModifica/modifica_reparto_dialogPane.fxml"));
-        DialogPane dialogPane;
         try {
-            dialogPane = loader.load();
-
+            DialogPane dialogPane = loader.load();
             DialogPaneModificaReparto dialogController = loader.getController();
 
             dialogController.setModel(modelCreazione);
@@ -88,8 +87,7 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
 
     }
 
-    private void updateChanges(String nome, String desc) throws IOException {
-
+    private void updateChanges(String nome, String desc) {
         if (modelCreazione.getRepartoTmp() == null ||
                 modelCreazione.getRepartoTmp().getNome().equals("") ||
                 modelCreazione.getRepartoTmp().getDescrizione().equals("")) {
@@ -99,7 +97,6 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
 
         modelCreazione.getRepartoTmp().setNome(nome);
         modelCreazione.getRepartoTmp().setDescrizione(desc);
-
         Controller.modificaCampo(modelCreazione.getRepartoTmp());
         tableReparti.refresh();
     }
@@ -167,7 +164,7 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
     // CODICE "SISTEMATO"
 
     // Va alla schermata di creazione Titolo
-    public void save() {
+    public void onActionSave() {
         if (tableReparti.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
                     "Non è stato selezionato nessun reparto");
@@ -177,7 +174,7 @@ public class CreazioneReparto extends CreazioneBaseTable implements Initializabl
         super.changePage(TipoCreazionePagina.TITOLO, true);
     }
 
-    public void back() {
+    public void onActionBack() {
         modelCreazione.resetRepartoTmp();
         super.changePage(TipoCreazionePagina.UNITA_LOCALE, false);
     }

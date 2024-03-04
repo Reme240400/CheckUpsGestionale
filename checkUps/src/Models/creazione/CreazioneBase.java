@@ -1,18 +1,64 @@
-package View.Controllers.Creazione;
+package Models.creazione;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import Controllers.Controller;
 import Models.Alerts;
+import Models.ModelCreazione;
+import Models.ModelPaths;
+import Models.TipoCreazionePagina;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
+import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 
-public abstract class CreazioneBaseTable extends CreazioneBase {
+public class CreazioneBase implements CreazioneInterface {
+    protected ModelCreazione modelCreazione;
+    protected ModelPaths modelPaths;
+
+    protected Societa localSocieta;
+    protected UnitaLocale localUnita;
+    protected Reparto localReparto;
+    protected Titolo localTitolo;
+    protected Oggetto localOggetto;
+    protected Provvedimento localProvvedimento;
+
+    @Override
+    public void changePage(TipoCreazionePagina tipo, boolean buttonReset) {
+        if (buttonReset) {
+            modelCreazione.setCanGoNext(false);
+            modelCreazione.setSaved(false);
+        }
+
+        Parent root = modelPaths.switchToCreazioneByTipo(tipo, modelCreazione);
+        Controller.changePane(modelPaths.getStackPaneCrea(), root);
+    }
+
+    @Override
+    public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
+        this.modelCreazione = modelCreazione;
+        this.modelPaths = modelPaths;
+
+        this.localSocieta = modelCreazione.getSocietaTmp();
+        this.localUnita = modelCreazione.getUnitaLocaleTmp();
+        this.localReparto = modelCreazione.getRepartoTmp();
+        this.localTitolo = modelCreazione.getTitoloTmp();
+        this.localOggetto = modelCreazione.getOggettoTmp();
+        this.localProvvedimento = modelCreazione.getProvvedimentoTmp();
+    }
+
+    // Metodo generico che riempie una tabella con i dati di una lista (usato solo
+    // in CreazioneReparto, CreazioneTitolo, CreazioneOggetto,
+    // CreazioneProvvedimento)
     public <T, X> void fillTable(TableView<T> table, List<T> list, X local) {
         List<T> specificList = null;
         ObservableList<T> observableList = null;

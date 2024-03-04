@@ -16,7 +16,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Provvedimento;
-
+import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneProvvedimento extends CreazioneBaseTable implements Initializable {
+public class CreazioneProvvedimento extends CreazioneBase implements Initializable {
 
     @FXML
     private JFXButton btnAdd;
@@ -172,10 +172,9 @@ public class CreazioneProvvedimento extends CreazioneBaseTable implements Initia
     // }
     // }
 
-    public void back() {
+    public void onActionBack() {
         modelCreazione.resetProvvedimentoTmp();
         super.changePage(TipoCreazionePagina.OGGETTO, false);
-
     }
 
     @Override

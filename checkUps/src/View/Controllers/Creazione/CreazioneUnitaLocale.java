@@ -12,11 +12,13 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.UnitaLocale;
+import Models.creazione.CreazioneBase;
 import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -99,8 +101,11 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
                 .filter(s -> s.getNome().equals(cercaUnita.getValue()))
                 .findFirst();
 
-        if (curUnita.isEmpty())
+        if (curUnita.isEmpty()) {
+            Alerts.errorAllert("Errore", "Errore durante la selezione dell'Unità Locale",
+                    "Provare nuovamente a selezionare l'unità locale desiderata.");
             return;
+        }
 
         UnitaLocale unita = curUnita.get();
         textFieldUnitaLocale.setText(unita.getNome());
@@ -115,7 +120,6 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     }
 
     public void aggiorna() {
-
         int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
         UnitaLocale unitaLocale = new UnitaLocale(id,
@@ -130,8 +134,9 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
         modelCreazione.resetSocietaTmp();
         pulisciDati();
-
     }
+
+    // CODICE "SISTEMATO"
 
     public void pulisciDati() {
 
@@ -149,14 +154,12 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         modelCreazione.setDiscard(false);
     }
 
-    // CODICE "SISTEMATO"
-
     public void keyReleasedProperty() {
         modelCreazione.areTextFieldsFilled(textFieldUnitaLocale, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel);
     }
 
-    public void save() {
+    public void onActionSave() {
         if (cercaUnita.getValue() == null) {
             int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
@@ -175,7 +178,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         super.changePage(TipoCreazionePagina.REPARTO, true);
     }
 
-    public void back() {
+    public void onActionBack() {
         modelCreazione.resetUnitaLocaleTmp();
         super.changePage(TipoCreazionePagina.SOCIETA, false);
     }

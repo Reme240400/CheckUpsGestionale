@@ -13,6 +13,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Oggetto;
+import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddO;
 import View.Controllers.Modifiche.DialogPaneModificaOggetto;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneOggetto extends CreazioneBaseTable implements Initializable {
+public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
     @FXML
     private JFXButton btnAggiungi;
@@ -157,7 +158,7 @@ public class CreazioneOggetto extends CreazioneBaseTable implements Initializabl
 
     }
 
-    public void save() {
+    public void onActionSave() {
         if (tableOggetti.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
                     "Non è stato selezionato nessun reparto");
@@ -167,7 +168,7 @@ public class CreazioneOggetto extends CreazioneBaseTable implements Initializabl
         super.changePage(TipoCreazionePagina.PROVVEDIMENTO, true);
     }
 
-    public void back() {
+    public void onActionBack() {
         modelCreazione.resetOggettoTmp();
         super.changePage(TipoCreazionePagina.TITOLO, false);
     }

@@ -15,6 +15,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Societa;
+import Models.creazione.CreazioneBase;
 import View.Controllers.ViewController;
 
 import javafx.collections.FXCollections;
@@ -175,6 +176,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         modelCreazione.setCanGoNext(false);
     }
 
+    // CODICE "SISTEMATO"
+
     public void pulisciDati() {
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
@@ -191,22 +194,17 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
         cercaSocieta.setValue(null);
 
-        modelCreazione.setCanGoNext(false);
         modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
         modelCreazione.setCanGoNext(false);
     }
 
-    // CODICE "SISTEMATO"
-
-    // ---------------------- controlla se i campi sono vuoti ----------------------
-    // //
     public void keyReleasedProperty() {
         modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
                 textFieldProvincia, textFieldTel, textFieldCodiceAteco);
     }
 
-    public void save() {
+    public void onActionSave() {
         if (cercaSocieta.getValue() == null) {
             int id = Controller.getNewId(listSocieta);
 

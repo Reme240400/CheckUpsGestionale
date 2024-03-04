@@ -71,7 +71,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="752.0">
                     <children>
-                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="848.0" layoutY="10.0" onAction="#back" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="848.0" layoutY="10.0" onAction="#onActionBack" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -111,7 +111,7 @@
                         <JFXComboBox fx:id="cercaUnita" editable="true" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
                         <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="44.0" />
                         <Pane layoutX="137.0" layoutY="10.0" prefHeight="38.0" prefWidth="75.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                        <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onActionSave" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                             <HBox.margin>
                                 <Insets right="15.0" />
                             </HBox.margin>

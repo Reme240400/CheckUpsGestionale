@@ -119,7 +119,7 @@
                 <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
                 <JFXComboBox fx:id="cercaSocieta" editable="true" onHiding="#selezionaSocieta" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
                 <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" />
-                <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#save" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onActionSave" prefHeight="30.0" prefWidth="0.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                     <HBox.margin>
                         <Insets right="25.0" />
                     </HBox.margin>

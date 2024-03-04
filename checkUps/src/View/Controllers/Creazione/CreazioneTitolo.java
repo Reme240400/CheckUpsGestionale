@@ -13,7 +13,7 @@ import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Titolo;
-
+import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddT;
 import View.Controllers.Modifiche.DialogPaneModificaTitolo;
 import javafx.fxml.FXML;
@@ -26,7 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class CreazioneTitolo extends CreazioneBaseTable implements Initializable {
+public class CreazioneTitolo extends CreazioneBase implements Initializable {
     @FXML
     private TableView<Titolo> tableTitoli;
 
@@ -52,39 +52,39 @@ public class CreazioneTitolo extends CreazioneBaseTable implements Initializable
     }
 
     public void modifica() {
-
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/View/fxml/dialogPaneModifica/modifica_titolo_dialogPane.fxml"));
-            DialogPane dialogPane;
-            try {
-                dialogPane = loader.load();
-
-                DialogPaneModificaTitolo dialogController = loader.getController();
-
-                dialogController.setModel(modelCreazione);
-
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Modifica Titolo");
-
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-                if (clickedButton.get() == ButtonType.APPLY) {
-                    updateChanges(dialogController.getDescTitolo());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else
             Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/View/fxml/dialogPaneModifica/modifica_titolo_dialogPane.fxml"));
+
+        try {
+            DialogPane dialogPane = loader.load();
+            DialogPaneModificaTitolo dialogController = loader.getController();
+
+            dialogController.setModel(modelCreazione);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Modifica Titolo");
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            if (clickedButton.get() == ButtonType.APPLY) {
+                updateChanges(dialogController.getDescTitolo());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void updateChanges(String desc) throws IOException {
+    private void updateChanges(String desc) {
         if (modelCreazione.getTitoloTmp() == null ||
                 modelCreazione.getTitoloTmp().getDescrizione().equals("")) {
-            Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il reparto selezionato non è valido");
             return;
         }
 
@@ -154,7 +154,7 @@ public class CreazioneTitolo extends CreazioneBaseTable implements Initializable
 
     // CODICE "SISTEMATO"
 
-    public void save() {
+    public void onActionSave() {
         if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Errore nella Selezione del Titolo",
                     "Non è stato selezionato nessun titolo");
@@ -164,7 +164,7 @@ public class CreazioneTitolo extends CreazioneBaseTable implements Initializable
         super.changePage(TipoCreazionePagina.OGGETTO, true);
     }
 
-    public void back() {
+    public void onActionBack() {
         modelCreazione.resetTitoloTmp();
         super.changePage(TipoCreazionePagina.REPARTO, false);
     }

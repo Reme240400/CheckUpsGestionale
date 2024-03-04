@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
 import Models.ModelPaths;
+import Models.TipoCreazionePagina;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -21,16 +22,11 @@ public class Creazione implements Initializable {
 
     // * setta il modello
     public void setModelCreazione(ModelCreazione modelCreazione, ModelPaths modelPaths) {
-        try {
-            modelPaths.setStackPaneCrea(stackPaneCreazione);
-            Parent root = modelPaths.switchToCreazioneSocieta(modelCreazione);
+        modelPaths.setStackPaneCrea(stackPaneCreazione);
+        Parent root = modelPaths.switchToCreazioneByTipo(TipoCreazionePagina.SOCIETA, modelCreazione);
 
-            stackPaneCreazione.getChildren().removeAll();
-            stackPaneCreazione.getChildren().setAll(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        stackPaneCreazione.getChildren().removeAll();
+        stackPaneCreazione.getChildren().setAll(root);
     }
 
 }
