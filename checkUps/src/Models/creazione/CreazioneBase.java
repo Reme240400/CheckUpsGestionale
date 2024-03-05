@@ -1,8 +1,6 @@
 package Models.creazione;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import Controllers.Controller;
 import Models.Alerts;
@@ -15,9 +13,9 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 

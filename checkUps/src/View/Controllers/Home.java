@@ -42,7 +42,7 @@ public class Home implements Initializable{
 
     private StackPane stackPane;
 
-    private Label title;
+    //private Label title;
 
     private ModelPaths modelPaths;
     private ModelValutaRischi modelValutaRischi;
@@ -100,7 +100,7 @@ public class Home implements Initializable{
                 stackPane = modelPaths.getStackPaneHome();
 
                 if(root != null){
-                    title.setText("Valuta Rischi");
+                    //title.setText("Valuta Rischi");
                     Controller.changePane(stackPane,root);
                 }
                 
@@ -121,7 +121,7 @@ public class Home implements Initializable{
 
     }
 
-    public void setTitleValuta(Label title) {
-        this.title = title;
-    }
+    // public void setTitleValuta(Label title) {
+    //     this.title = title;
+    // }
 }

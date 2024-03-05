@@ -1,12 +1,12 @@
 package View.Controllers.Creazione;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;

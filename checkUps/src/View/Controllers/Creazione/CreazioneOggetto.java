@@ -14,8 +14,9 @@ import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Oggetto;
 import Models.creazione.CreazioneBase;
-import View.Controllers.Creazione.DialogPane.DialogPaneAddO;
+import View.Controllers.Creazione.dialogPane.DialogPaneAddO;
 import View.Controllers.Modifiche.DialogPaneModificaOggetto;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

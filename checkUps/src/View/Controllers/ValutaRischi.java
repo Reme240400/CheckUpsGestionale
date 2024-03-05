@@ -29,11 +29,7 @@ import javafx.scene.input.MouseEvent;
 public class ValutaRischi implements Initializable {
 
     @FXML
-    private TableColumn<Reparto, String> descriptionCol;
-
-    @FXML
-    private TableColumn<Reparto, Integer> idCol;
-
+    private TableColumn<Reparto, String> descCol;
     @FXML
     private TableColumn<Reparto, String> nameCol;
 
@@ -63,9 +59,8 @@ public class ValutaRischi implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        idCol.setCellValueFactory(new PropertyValueFactory<Reparto, Integer>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
+        descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
         tableView.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
@@ -82,7 +77,6 @@ public class ValutaRischi implements Initializable {
                 // Impedisci ulteriori gestioni
                 evt.consume();
 
-                @SuppressWarnings("unchecked")
                 TableRow<Reparto> row = (TableRow<Reparto>) node;
                 TableView<Reparto> tv = row.getTableView();
 

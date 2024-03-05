@@ -14,8 +14,9 @@ import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Reparto;
 import Models.creazione.CreazioneBase;
-import View.Controllers.Creazione.DialogPane.DialogPaneAddR;
+import View.Controllers.Creazione.dialogPane.DialogPaneAddR;
 import View.Controllers.Modifiche.DialogPaneModificaReparto;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
