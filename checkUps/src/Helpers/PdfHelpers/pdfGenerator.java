@@ -38,7 +38,6 @@ public class pdfGenerator {
             String nomeFile) {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
-
         try {
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
@@ -50,23 +49,52 @@ public class pdfGenerator {
                 // Apre il documento
                 document.open();
 
-                // Crea una tabella per visualizzare le informazioni sulla società, la sede e il
-                // reparto
+                // Creazione pagina iniziale
+                PdfPTable tableIniziale = new PdfPTable(3);
+                tableIniziale.setWidthPercentage(100);
+                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 10);
+                societaCellIniziale.setBorderWidthRight(0);
+                tableIniziale.addCell(societaCellIniziale);
+                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD,
+                        10);
+                unitaLocaleCellIniziale.setBorderWidthLeft(0);
+                tableIniziale.addCell(unitaLocaleCellIniziale);
+                tableIniziale.setSpacingAfter(200f);
+                // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
+                document.add(tableIniziale);
+
+                PdfPTable tableBody = new PdfPTable(1);
+                tableBody.setWidthPercentage(100);
+
+                PdfPCell body = createCell(
+                        "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
+                        1, Font.BOLD, 20);
+                body.setHorizontalAlignment(Element.ALIGN_CENTER);
+                body.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                body.setBorder(Rectangle.NO_BORDER);
+                tableBody.addCell(body);
+                document.add(tableBody);
+                tableIniziale.setSpacingAfter(10f);
+
+                document.newPage();
+
+                // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
+                // il reparto
                 PdfPTable table = new PdfPTable(3);
                 table.setWidthPercentage(100);
 
                 // Popola la tabella con dettagli sulla società, la sede e il reparto
-                PdfPCell societaCell = createCell("Società:", 1, Font.BOLD);
+                PdfPCell societaCell = createCell("Società:", 1, Font.BOLD, 10);
                 table.addCell(societaCell);
-                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD);
+                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD, 10);
                 table.addCell(unitaLocaleCell);
-                PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD);
+                PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD, 10);
                 table.addCell(repartiCell);
-                PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD);
+                PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD, 10);
                 table.addCell(societaValueCell);
-                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD);
+                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD, 10);
                 table.addCell(unitaLocaleValueCell);
-                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD);
+                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD, 10);
                 table.addCell(repartiValueCell);
 
                 table.setSpacingAfter(10f);
@@ -136,10 +164,10 @@ public class pdfGenerator {
 
                             // Visualizza gli header solo nella prima iterazione
                             if (j == 0) {
-                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD));
-                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD));
-                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD));
-                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD));
+                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD, 10));
                             }
                             j++;
 
@@ -148,15 +176,16 @@ public class pdfGenerator {
 
                             // Popola la tabella con i dettagli della misura
                             provvedimentoTable.addCell(
-                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD));
+                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD, 10));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
-                            provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD));
+                            provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD, 10));
                             provvedimentoTable.addCell(
                                     createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
-                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
+                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD, 10));
 
-                            provvedimentoTable.addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD));
+                            provvedimentoTable
+                                    .addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD, 10));
 
                             // Aggiunge la tabella delle misure al documento
                             document.add(provvedimentoTable);
@@ -196,16 +225,29 @@ public class pdfGenerator {
                 // Creazione pagina iniziale
                 PdfPTable tableIniziale = new PdfPTable(3);
                 tableIniziale.setWidthPercentage(100);
-                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD);
+                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 10);
                 societaCellIniziale.setBorderWidthRight(0);
                 tableIniziale.addCell(societaCellIniziale);
-                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD);
+                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD,
+                        10);
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
                 tableIniziale.addCell(unitaLocaleCellIniziale);
-                tableIniziale.setSpacingAfter(10f);
-
+                tableIniziale.setSpacingAfter(200f);
                 // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
                 document.add(tableIniziale);
+
+                PdfPTable tableBody = new PdfPTable(1);
+                tableBody.setWidthPercentage(100);
+
+                PdfPCell body = createCell(
+                        "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
+                        1, Font.BOLD, 20);
+                body.setHorizontalAlignment(Element.ALIGN_CENTER);
+                body.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                body.setBorder(Rectangle.NO_BORDER);
+                tableBody.addCell(body);
+                document.add(tableBody);
+                tableIniziale.setSpacingAfter(10f);
 
                 document.newPage();
 
@@ -215,17 +257,17 @@ public class pdfGenerator {
                 table.setWidthPercentage(100);
 
                 // Popola la tabella con dettagli sulla società, la sede e il reparto
-                PdfPCell societaCell = createCell("Società:", 1, Font.BOLD);
+                PdfPCell societaCell = createCell("Società:", 1, Font.BOLD, 10);
                 table.addCell(societaCell);
-                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD);
+                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD, 10);
                 table.addCell(unitaLocaleCell);
-                PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD);
+                PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD, 10);
                 table.addCell(repartiCell);
-                PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD);
+                PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD, 10);
                 table.addCell(societaValueCell);
-                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD);
+                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD, 10);
                 table.addCell(unitaLocaleValueCell);
-                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD);
+                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD, 10);
                 table.addCell(repartiValueCell);
 
                 table.setSpacingAfter(10f);
@@ -295,10 +337,10 @@ public class pdfGenerator {
 
                             // Visualizza gli header solo nella prima iterazione
                             if (j == 0) {
-                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD));
-                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD));
-                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD));
-                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD));
+                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD, 10));
                             }
                             j++;
 
@@ -307,15 +349,16 @@ public class pdfGenerator {
 
                             // Popola la tabella con i dettagli della misura
                             provvedimentoTable.addCell(
-                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD));
+                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD, 10));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
-                            provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD));
+                            provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD, 10));
                             provvedimentoTable.addCell(
                                     createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
-                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD));
+                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD, 10));
 
-                            provvedimentoTable.addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD));
+                            provvedimentoTable
+                                    .addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD, 10));
 
                             // Aggiunge la tabella delle misure al documento
                             document.add(provvedimentoTable);
@@ -336,8 +379,8 @@ public class pdfGenerator {
 
     // Metodo di supporto per creare una PdfPCell con contenuto, colspan e stile del
     // carattere specificati
-    private static PdfPCell createCell(String content, int colspan, int fontStyle) {
-        Font font = new Font(Font.FontFamily.HELVETICA, 10, fontStyle);
+    private static PdfPCell createCell(String content, int colspan, int fontStyle, int size) {
+        Font font = new Font(Font.FontFamily.HELVETICA, size, fontStyle);
         PdfPCell cell = new PdfPCell(new Phrase(content, font));
         cell.setColspan(colspan);
         return cell;
@@ -347,28 +390,33 @@ public class pdfGenerator {
     // PDF
     private static class PdfFooter extends PdfPageEventHelper {
         public void onEndPage(PdfWriter writer, Document document) {
-            // Crea una tabella per il piè di pagina con tre colonne
-            PdfPTable table = new PdfPTable(3);
-            currentPage++;
-            // Formatta la data corrente
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String formattedDate = dateFormat.format(new Date());
+            if (currentPage > 0) {
+                // Crea una tabella per il piè di pagina con tre colonne
+                PdfPTable table = new PdfPTable(3);
+                currentPage++;
+                // Formatta la data corrente
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String formattedDate = dateFormat.format(new Date());
 
-            // Imposta il colore del bordo delle celle su bianco
-            table.getDefaultCell().setBorderColor(BaseColor.WHITE);
-            table.setTotalWidth(document.right() - document.left());
-            table.getDefaultCell().setFixedHeight(20);
-            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+                // Imposta il colore del bordo delle celle su bianco
+                table.getDefaultCell().setBorderColor(BaseColor.WHITE);
+                table.setTotalWidth(document.right() - document.left());
+                table.getDefaultCell().setFixedHeight(20);
+                table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-            // Aggiunge data, logo e numero di pagina al piè di pagina
-            table.addCell(new Phrase("Data:  " + formattedDate));
-            table.addCell("LOGO");
-            if (pagineTotali != 0) {
-                table.addCell("Pagina " + currentPage + " di " + pagineTotali);
+                // Aggiunge data, logo e numero di pagina al piè di pagina
+                table.addCell(new Phrase("Data:  " + formattedDate));
+                table.addCell("LOGO");
+                if (pagineTotali != 0) {
+                    table.addCell("Pagina " + (currentPage - 1) + " di " + (pagineTotali-1));
+                }
+
+                // Scrive il piè di pagina nel documento
+                table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
+            } else {
+                currentPage++;
             }
 
-            // Scrive il piè di pagina nel documento
-            table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
         }
     }
 
