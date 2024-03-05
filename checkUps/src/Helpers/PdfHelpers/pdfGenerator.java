@@ -193,8 +193,24 @@ public class pdfGenerator {
                 // Apre il documento
                 document.open();
 
-                // Crea una tabella per visualizzare le informazioni sulla società, la sede e il
-                // reparto
+                // Creazione pagina iniziale
+                PdfPTable tableIniziale = new PdfPTable(3);
+                tableIniziale.setWidthPercentage(100);
+                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD);
+                societaCellIniziale.setBorderWidthRight(0);
+                tableIniziale.addCell(societaCellIniziale);
+                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD);
+                unitaLocaleCellIniziale.setBorderWidthLeft(0);
+                tableIniziale.addCell(unitaLocaleCellIniziale);
+                tableIniziale.setSpacingAfter(10f);
+
+                // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
+                document.add(tableIniziale);
+
+                document.newPage();
+
+                // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
+                // il reparto
                 PdfPTable table = new PdfPTable(3);
                 table.setWidthPercentage(100);
 
