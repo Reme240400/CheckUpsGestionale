@@ -32,6 +32,7 @@ public class pdfGenerator {
     // Variabile statica per tenere traccia del numero di pagina corrente
     public static int currentPage = 0;
     public static int pagineTotali = 0;
+    public static String urlLogo;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
     public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
@@ -39,6 +40,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         try {
+            urlLogo = societa.getLogoUrl();
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
                 // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
@@ -59,7 +61,7 @@ public class pdfGenerator {
                         10);
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
                 tableIniziale.addCell(unitaLocaleCellIniziale);
-                tableIniziale.setSpacingAfter(200f);
+                tableIniziale.setSpacingAfter(170f);
                 // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
                 document.add(tableIniziale);
 
@@ -73,8 +75,41 @@ public class pdfGenerator {
                 body.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 body.setBorder(Rectangle.NO_BORDER);
                 tableBody.addCell(body);
+                tableBody.setSpacingAfter(0f);
                 document.add(tableBody);
-                tableIniziale.setSpacingAfter(10f);
+                
+                PdfPTable tableUnderBody = new PdfPTable(2);
+                tableUnderBody.setWidthPercentage(100);
+                PdfPCell underBodyLeft = createCell(
+                        "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
+                        1, Font.BOLD, 10);
+
+                PdfPCell underBodyRight = createCell(
+                        "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
+                        1, Font.BOLD, 10);
+                underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
+                underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                underBodyLeft.setBorder(Rectangle.NO_BORDER);
+                underBodyRight.setHorizontalAlignment(Element.ALIGN_CENTER);
+                underBodyRight.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                underBodyRight.setBorder(Rectangle.NO_BORDER);
+                tableUnderBody.addCell(underBodyLeft);
+                tableUnderBody.addCell(underBodyRight);
+                tableUnderBody.setSpacingAfter(150f);
+                document.add(tableUnderBody);
+
+                PdfPTable tableLogo = new PdfPTable(1);
+                tableLogo.setWidthPercentage(100);
+
+                PdfPCell logo = createCell(
+                        societa.getLogoUrl(),
+                        1, Font.BOLD, 20);
+                logo.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logo.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logo);
+                tableLogo.setSpacingAfter(30f);
+                document.add(tableLogo);
 
                 document.newPage();
 
@@ -232,7 +267,7 @@ public class pdfGenerator {
                         10);
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
                 tableIniziale.addCell(unitaLocaleCellIniziale);
-                tableIniziale.setSpacingAfter(200f);
+                tableIniziale.setSpacingAfter(170f);
                 // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
                 document.add(tableIniziale);
 
@@ -246,13 +281,45 @@ public class pdfGenerator {
                 body.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 body.setBorder(Rectangle.NO_BORDER);
                 tableBody.addCell(body);
+                tableBody.setSpacingAfter(0f);
                 document.add(tableBody);
-                tableIniziale.setSpacingAfter(10f);
+                
+                PdfPTable tableUnderBody = new PdfPTable(2);
+                tableUnderBody.setWidthPercentage(100);
+                PdfPCell underBodyLeft = createCell(
+                        "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
+                        1, Font.BOLD, 10);
+
+                PdfPCell underBodyRight = createCell(
+                        "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
+                        1, Font.BOLD, 10);
+                underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
+                underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                underBodyLeft.setBorder(Rectangle.NO_BORDER);
+                underBodyRight.setHorizontalAlignment(Element.ALIGN_CENTER);
+                underBodyRight.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                underBodyRight.setBorder(Rectangle.NO_BORDER);
+                tableUnderBody.addCell(underBodyLeft);
+                tableUnderBody.addCell(underBodyRight);
+                tableUnderBody.setSpacingAfter(150f);
+                document.add(tableUnderBody);
+
+                PdfPTable tableLogo = new PdfPTable(1);
+                tableLogo.setWidthPercentage(100);
+
+                PdfPCell logo = createCell(
+                        societa.getLogoUrl(),
+                        1, Font.BOLD, 20);
+                logo.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logo.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logo.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logo);
+                tableLogo.setSpacingAfter(30f);
+                document.add(tableLogo);
 
                 document.newPage();
 
-                // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
-                // il reparto
+                // Crea una tabella per visualizzare le informazioni sulla società, la sede ed il reparto
                 PdfPTable table = new PdfPTable(3);
                 table.setWidthPercentage(100);
 
@@ -406,9 +473,9 @@ public class pdfGenerator {
 
                 // Aggiunge data, logo e numero di pagina al piè di pagina
                 table.addCell(new Phrase("Data:  " + formattedDate));
-                table.addCell("LOGO");
+                table.addCell(urlLogo);
                 if (pagineTotali != 0) {
-                    table.addCell("Pagina " + (currentPage - 1) + " di " + (pagineTotali-1));
+                    table.addCell("Pagina " + (currentPage - 1) + " di " + (pagineTotali - 1));
                 }
 
                 // Scrive il piè di pagina nel documento
