@@ -4,7 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import Models.ModelCreazione;
+import Interfaces.DialogInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -13,8 +13,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class DialogPaneAddP implements Initializable{ 
-
+public class DialogPaneAddP implements DialogInterface, Initializable {
     @FXML
     private TextField creaNome;
 
@@ -25,19 +24,19 @@ public class DialogPaneAddP implements Initializable{
     private TextField creaSoggettiEsposti;
 
     @FXML
-    private Spinner<Integer> setStimaD;
-
-    @FXML
-    private Spinner<Integer> setStimaP;
-
-    @FXML
-    private Spinner<Integer> setStimaR;
-
-    @FXML
     private TextField creaEmail;
 
     @FXML
     private DatePicker creaDataFine;
+
+    @FXML
+    private Spinner<Integer> stimaD;
+
+    @FXML
+    private Spinner<Integer> stimaP;
+
+    @FXML
+    private TextField stimaR;
 
     @FXML
     private TextField textFieldOggetto;
@@ -53,46 +52,50 @@ public class DialogPaneAddP implements Initializable{
 
     @FXML
     private TextField textFieldUnitaLocale;
-    
-    private ModelCreazione modelCreazione;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setStimaD.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
-        setStimaP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
-        setStimaR.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
+        stimaD.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
+        stimaP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
+
+        stimaD.valueProperty().addListener((observable, oldValue, newValue) -> {
+            stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+        });
+
+        stimaP.valueProperty().addListener((observable, oldValue, newValue) -> {
+            stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+        });
     }
 
-    public String getNome(){
+    public String getNome() {
         return creaNome.getText();
     }
 
-    public String getRischio(){
+    public String getRischio() {
         return creaRischio.getText();
     }
 
-    public String getSoggettiEsposti(){
+    public String getSoggettiEsposti() {
         return creaSoggettiEsposti.getText();
     }
 
-    public int getStimaD(){
-        return setStimaD.getValue();
+    public int getStimaD() {
+        return stimaD.getValue();
     }
 
-    public int getStimaP(){
-        return setStimaP.getValue();
+    public int getStimaP() {
+        return stimaP.getValue();
     }
 
-    public int getStimaR(){
-        return setStimaR.getValue();
+    public int getStimaR() {
+        try {
+            return Integer.parseInt(stimaR.getText());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
-    public void setModel(ModelCreazione modelCreazione) {
-        this.modelCreazione = modelCreazione;
-    }
-
-    public void fillTextBox(String nomeS, String nomeU, String nomeR, String nomeT, String nomeO ) {
-
+    public void fillTextBox(String nomeS, String nomeU, String nomeR, String nomeT, String nomeO) {
         textFieldSocieta.setText(nomeS);
         textFieldUnitaLocale.setText(nomeU);
         textFieldReparto.setText(nomeR);
@@ -101,20 +104,39 @@ public class DialogPaneAddP implements Initializable{
     }
 
     public String getEmail() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEmail'");
-    }
-
-    public LocalDate getDataInizio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDataInizio'");
+        return this.creaEmail.getText();
     }
 
     public LocalDate getDataFine() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDataFine'");
+        return this.creaDataFine.getValue();
     }
 
+    @Override
+    public FieldsCheckResponse areFieldsValid() {
+        if (this.getNome() == null || this.getNome().equals("")) {
+            return new FieldsCheckResponse("Nome non valido");
+        }
 
+        if (this.getRischio() == null || this.getRischio().equals("")) {
+            return new FieldsCheckResponse("Rischio non valido");
+        }
 
+        if (this.getSoggettiEsposti() == null || this.getSoggettiEsposti().equals("")) {
+            return new FieldsCheckResponse("Soggetti Esposti non validi");
+        }
+
+        if (this.getEmail() == null || this.getEmail().equals("")) {
+            return new FieldsCheckResponse("Email non valida");
+        }
+
+        if (this.getDataFine() == null || this.getDataFine().isBefore(LocalDate.now())) {
+            return new FieldsCheckResponse("La data di fine deve essere valida e nel futuro");
+        }
+
+        if (this.getStimaR() == -1) {
+            return new FieldsCheckResponse("Stime non valide");
+        }
+
+        return new FieldsCheckResponse();
+    }
 }

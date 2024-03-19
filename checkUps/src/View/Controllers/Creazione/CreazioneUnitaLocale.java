@@ -12,7 +12,6 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelPaths;
@@ -102,8 +101,6 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
                 .findFirst();
 
         if (curUnita.isEmpty()) {
-            Alerts.errorAllert("Errore", "Errore durante la selezione dell'Unità Locale",
-                    "Provare nuovamente a selezionare l'unità locale desiderata.");
             return;
         }
 

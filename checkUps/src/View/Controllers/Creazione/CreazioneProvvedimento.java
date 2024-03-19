@@ -18,7 +18,8 @@ import Models.TipoCreazionePagina;
 import Models.Tables.Provvedimento;
 import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
-
+import View.Controllers.Modifiche.DialogPaneModificaProv;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,16 +42,25 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     private JFXButton btnModify;
 
     @FXML
-    private TableColumn<Provvedimento, String> nomeColP;
-
-    @FXML
     private TableColumn<Provvedimento, String> rischioCol;
 
     @FXML
-    private TableColumn<Provvedimento, String> soggetiCol;
+    private TableColumn<Provvedimento, String> nomeCol;
 
     @FXML
-    private TableColumn<Provvedimento, Integer> stimaCol;
+    private TableColumn<Provvedimento, String> soggettiCol;
+
+    @FXML
+    private TableColumn<Provvedimento, String> emailCol;
+
+    @FXML
+    private TableColumn<Provvedimento, Integer> stimaRCol;
+
+    @FXML
+    private TableColumn<Provvedimento, String> datainizioCol;
+
+    @FXML
+    private TableColumn<Provvedimento, String> datascadenzaCol;
 
     @FXML
     private TableView<Provvedimento> tableProvvedimenti;
@@ -59,50 +69,56 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         listProv = ClassHelper.getListProvvedimento();
 
-        nomeColP.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
-        soggetiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        stimaCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
-
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
+        soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
+        emailCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("email"));
+        stimaRCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
+        datainizioCol.setCellValueFactory(data -> {
+            var dataInizio = data.getValue().getDataInizio();
+            return dataInizio.isPresent() ? new SimpleStringProperty(dataInizio.get().toString())
+                    : new SimpleStringProperty("");
+        });
+        datascadenzaCol.setCellValueFactory(data -> {
+            var dataScadenza = data.getValue().getDataInizio();
+            return dataScadenza.isPresent() ? new SimpleStringProperty(dataScadenza.get().toString())
+                    : new SimpleStringProperty("");
+        });
     }
 
     @FXML
-    public void aggiungi() throws IOException {
+    public void aggiungi() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/View/fxml/dialogPaneCreazione/creaProv_dialogPane.fxml"));
+            DialogPane dialogPane = loader.load();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/creaProv_dialogPane.fxml"));
-        DialogPane dialogPane = loader.load();
+            DialogPaneAddP dialogController = loader.getController();
 
-        DialogPaneAddP dialogController = loader.getController();
+            dialogController.fillTextBox(localSocieta.getNome(),
+                    localUnita.getNome(),
+                    localReparto.getNome(),
+                    localTitolo.getDescrizione(),
+                    localOggetto.getNome());
 
-        dialogController.setModel(modelCreazione);
-        dialogController.fillTextBox(localSocieta.getNome(),
-                localUnita.getNome(),
-                localReparto.getNome(),
-                localTitolo.getDescrizione(),
-                localOggetto.getNome());
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Crea provvedimento");
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(dialogPane);
-        dialog.setTitle("Crea provvedimento");
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-        if (clickedButton.get() == ButtonType.APPLY) {
-            if (dialogController.getNome() != null
-                    && !dialogController.getNome().equals("")
-                    && dialogController.getRischio() != null
-                    && !dialogController.getRischio().equals("")
-                    && dialogController.getSoggettiEsposti() != null
-                    && !dialogController.getSoggettiEsposti().equals("")
-                    && dialogController.getStimaR() != 0
-                    && dialogController.getStimaD() != 0
-                    && dialogController.getStimaP() != 0) {
+            if (clickedButton.get() == ButtonType.APPLY) {
+                var checkResponse = dialogController.areFieldsValid();
+                if (!checkResponse.isValid()) {
+                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente\nErrore: '" + checkResponse.getErrorMessage()
+                                    + "'");
+                    return;
+                }
 
                 int id = Controller.getNewId(listProv);
-                LocalDate data = LocalDate.now();
                 Provvedimento newProvvedimento = new Provvedimento(id,
                         localOggetto.getId(),
                         dialogController.getNome(),
@@ -112,20 +128,16 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                         dialogController.getStimaD(),
                         dialogController.getStimaP(),
                         dialogController.getEmail(),
-                        Optional.of(data),
+                        Optional.of(LocalDate.now()),
                         Optional.of(dialogController.getDataFine()));
 
                 Controller.inserisciNuovoRecord(newProvvedimento);
-
                 tableProvvedimenti.getItems().add(newProvvedimento);
-
                 tableProvvedimenti.refresh();
-            } else {
-                Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                        "Qualcosa non è stato inserito correttamente");
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -139,39 +151,38 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
 
     @FXML
     public void modifica() {
-        // if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
+        if (tableProvvedimenti.getSelectionModel().getSelectedItem() == null) {
+            Alerts.errorAllert("Errore", "Selezione del Provvedimento fallita",
+                    "Il provvedimento selezionato non è valido");
+            return;
+        }
 
-        // Parent root = new Parent() {};
-        // modelModifica = new ModelModifica();
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/View/fxml/dialogPaneModifica/modifica_prov_dialogPane.fxml"));
 
-        // if(modelCreazione.getOggettoTmp() != null)
-        // modelModifica.setOggetto(modelCreazione.getOggettoTmp());
-        // else if(localOggetto != null)
-        // modelModifica.setOggetto(localOggetto);
+        try {
+            DialogPane dialogPane = loader.load();
+            DialogPaneModificaProv dialogController = loader.getController();
 
-        // try {
-        // root = modelPaths.switchToModificaProvvedimenti(modelModifica);
-        // } catch (IOException e) {
-        // e.printStackTrace();
-        // }
+            dialogController.setModel(modelCreazione);
 
-        // Controller.changePane(modelPaths.getStackPaneHome(), root);
-        // }
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle("Modifica Titolo");
+
+            Optional<ButtonType> clickedButton = dialog.showAndWait();
+
+            if (clickedButton.get() == ButtonType.APPLY) {
+                updateChanges();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    // private void updateChanges(String nome) throws IOException {
-    // if (modelModifica.getProvTmp() != null &&
-    // modelModifica.getProvTmp().getNome() != "") {
+    private void updateChanges() {
 
-    // modelModifica.getOggettoTmp().setNome(nome);
-
-    // Controller.modificaCampo(modelModifica.getOggettoTmp());
-    // tableOggetti.refresh();
-    // } else {
-    // Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto
-    // selezionato non è valido");
-    // }
-    // }
+    }
 
     public void onActionBack() {
         modelCreazione.resetProvvedimentoTmp();
@@ -182,6 +193,15 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     public void setModel(ModelCreazione modelCreazione, ModelPaths modelPaths) {
         super.setModel(modelCreazione, modelPaths);
         super.fillTable(tableProvvedimenti, listProv, this.localOggetto);
+
+        tableProvvedimenti.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, selectedProvvedimento) -> {
+                    // Handle the selection change, newValue contains the selected Reparto
+                    if (selectedProvvedimento != null) {
+                        modelCreazione.setCanGoNext(true);
+                        modelCreazione.createProvvedimentoTmp(selectedProvvedimento);
+                    }
+                });
 
         this.btnModify.disableProperty().bind(modelCreazione.canGoNextProperty().not());
     }

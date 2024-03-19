@@ -3,12 +3,11 @@ package View.Controllers.Creazione.dialogPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-public class DialogPaneAddO implements Initializable{
+public class DialogPaneAddO implements Initializable {
 
     @FXML
     private TextField creaNomeOggetto;
@@ -25,17 +24,12 @@ public class DialogPaneAddO implements Initializable{
     @FXML
     private TextField textFieldUnitaLocale;
 
-    private ModelCreazione modelCreazione;
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {}
-
-    public String getNome(){
-        return creaNomeOggetto.getText();
+    public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public void setModel(ModelCreazione modelCreazione) {
-        this.modelCreazione = modelCreazione;
+    public String getNome() {
+        return creaNomeOggetto.getText();
     }
 
     public void fillTextBox(String nomeS, String nomeO, String nomeR, String nomeT) {

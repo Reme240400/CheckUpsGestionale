@@ -1176,8 +1176,12 @@ public class ModelDb {
                         ps.setInt(7, prov.getStimaD());
                         ps.setInt(8, prov.getStimaP());
                         ps.setString(9, prov.getEmail());
-                        // ps.setDate(10, prov.getDataInizio());
-                        // ps.setDate(11, prov.getDataScadenza());
+                        ps.setDate(10,
+                                prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
+                                        : null);
+                        ps.setDate(11,
+                                prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
+                                        : null);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

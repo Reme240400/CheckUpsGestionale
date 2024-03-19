@@ -53,7 +53,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
     }
 
     public void modifica() {
-        if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
+        if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
             return;
         }
@@ -114,7 +114,6 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
             DialogPaneAddT dialogController = loader.getController();
 
-            dialogController.setModel(modelCreazione);
             dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
                     modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
 

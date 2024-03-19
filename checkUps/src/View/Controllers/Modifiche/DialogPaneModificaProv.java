@@ -3,9 +3,10 @@ package View.Controllers.Modifiche;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Models.ModelModifica;
+import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -23,6 +24,9 @@ public class DialogPaneModificaProv implements Initializable {
     private TextField modificaSoggettiEsposti;
 
     @FXML
+    private DatePicker modificaData;
+
+    @FXML
     private Spinner<Integer> valStimaP;
 
     @FXML
@@ -36,7 +40,6 @@ public class DialogPaneModificaProv implements Initializable {
         valStimaD.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
         valStimaP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
         valStimaR.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
-
     }
 
     public String getNome() {
@@ -63,12 +66,13 @@ public class DialogPaneModificaProv implements Initializable {
         return valStimaR.getValue();
     }
 
-    public void setModel(ModelModifica modelModifica) {
-        modificaNome.setText(modelModifica.getProvTmp().getNome());
-        modificaRischio.setText(modelModifica.getProvTmp().getRischio());
-        modificaSoggettiEsposti.setText(modelModifica.getProvTmp().getSoggettiEsposti());
-        valStimaD.getValueFactory().setValue(modelModifica.getProvTmp().getStimaD());
-        valStimaP.getValueFactory().setValue(modelModifica.getProvTmp().getStimaP());
-        valStimaR.getValueFactory().setValue(modelModifica.getProvTmp().getStimaR());
+    public void setModel(ModelCreazione model) {
+        modificaNome.setText(model.getProvvedimentoTmp().getNome());
+        modificaRischio.setText(model.getProvvedimentoTmp().getRischio());
+        modificaSoggettiEsposti.setText(model.getProvvedimentoTmp().getSoggettiEsposti());
+        valStimaD.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaD());
+        valStimaP.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaP());
+        valStimaR.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaR());
     }
+
 }

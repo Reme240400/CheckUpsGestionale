@@ -123,7 +123,6 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
 
             DialogPaneAddR dialogController = loader.getController();
 
-            dialogController.setModel(modelCreazione);
             dialogController.fillTextBox(localSocieta.getNome(),
                     localUnita.getNome());
 

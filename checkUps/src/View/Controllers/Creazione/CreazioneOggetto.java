@@ -105,7 +105,6 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
             DialogPaneAddO dialogController = loader.getController();
 
-            dialogController.setModel(modelCreazione);
             dialogController.fillTextBox(localSocieta.getNome(),
                     localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione());
 
