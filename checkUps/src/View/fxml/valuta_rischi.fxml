@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ValutaRischi">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="824.0" styleClass="background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ValutaRischi">
    <top>
       <HBox alignment="CENTER" prefHeight="66.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,7 +24,7 @@
                <children>
                   <Label layoutX="14.0" layoutY="25.0" text="Società">
                      <font>
-                        <Font size="16.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                   <TextField fx:id="nomeSocieta" editable="false" layoutX="83.0" layoutY="22.0" prefHeight="25.0" prefWidth="198.0" styleClass="transparent" stylesheets="@../css/style.css" />

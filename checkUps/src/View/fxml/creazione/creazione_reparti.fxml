@@ -59,7 +59,7 @@
                         </VBox>
                         <VBox alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="btnAggiungi" contentDisplay="CENTER" ellipsisString="" onAction="#aggiungi" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" text="Button" textOverrun="CLIP">
+                                <JFXButton fx:id="btnAggiungi" contentDisplay="CENTER" ellipsisString="" onAction="#aggiungi" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                                     <graphic>
                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
