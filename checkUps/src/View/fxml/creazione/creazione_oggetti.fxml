@@ -13,9 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="547.0" prefWidth="862.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
+<BorderPane prefHeight="547.0" prefWidth="862.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
     <center>
         <TableView fx:id="tableOggetti" prefHeight="461.0" prefWidth="297.0">
             <columns>
@@ -31,7 +29,7 @@
             <children>
                 <HBox alignment="CENTER">
                     <children>
-                        <Label alignment="CENTER" text="Oggetti">
+                        <Label alignment="CENTER" text="Oggetto">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>

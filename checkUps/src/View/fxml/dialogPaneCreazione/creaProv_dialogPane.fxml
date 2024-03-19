@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DatePicker?>
@@ -21,9 +22,9 @@
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
-      <HBox alignment="CENTER" prefHeight="439.0" prefWidth="708.0">
+      <HBox alignment="CENTER">
          <children>
-            <VBox prefHeight="528.0" prefWidth="688.0">
+            <VBox>
                <children>
                   <GridPane alignment="CENTER" prefHeight="313.0" prefWidth="688.0">
                      <columnConstraints>
@@ -40,13 +41,25 @@
                      </rowConstraints>
                      <children>
                         <Label text="Nome" GridPane.rowIndex="1" />
-                        <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="511.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="511.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                         <Label layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="2" />
                         <TextArea fx:id="creaRischio" prefHeight="68.0" prefWidth="511.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="creaSoggettiEsposti" alignment="CENTER" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="creaSoggettiEsposti" alignment="CENTER" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                         <Label layoutX="84.0" layoutY="36.0" text="Soggetti Esposti" GridPane.rowIndex="3" />
                         <Label text="Email" GridPane.rowIndex="4" />
-                        <TextField fx:id="creaEmail" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="creaEmail" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                         <Label text="Scadenza" GridPane.rowIndex="5" />
                         <DatePicker fx:id="creaDataFine" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
@@ -79,7 +92,7 @@
       </HBox>
    </content>
    <header>
-      <VBox>
+      <VBox alignment="CENTER">
          <children>
             <GridPane alignment="CENTER" prefHeight="71.0" prefWidth="708.0">
                <columnConstraints>

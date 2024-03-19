@@ -13,9 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="547.0" prefWidth="862.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneReparto">
+<BorderPane prefHeight="547.0" prefWidth="862.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneReparto">
     <top>
         <VBox>
             <children>
@@ -95,7 +93,7 @@
         </VBox>
     </top>
     <center>
-        <TableView fx:id="tableReparti" prefHeight="415.0" prefWidth="543.0" styleClass="transparent" stylesheets="@../../css/style.css">
+        <TableView fx:id="tableReparti" prefHeight="415.0" prefWidth="543.0" stylesheets="@../../css/style.css">
             <columns>
                 <TableColumn fx:id="nomeCol" prefWidth="294.0" text="Nome" />
                 <TableColumn fx:id="descCol" prefWidth="273.0" text="Data" />

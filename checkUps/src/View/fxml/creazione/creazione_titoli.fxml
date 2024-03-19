@@ -13,11 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="547.0" prefWidth="862.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneTitolo">
+<BorderPane prefHeight="547.0" prefWidth="862.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneTitolo">
     <center>
-        <TableView fx:id="tableTitoli" prefHeight="461.0" prefWidth="297.0" styleClass="transparent" stylesheets="@../../css/style.css">
+        <TableView fx:id="tableTitoli" prefHeight="461.0" prefWidth="297.0" stylesheets="@../../css/style.css">
             <columns>
                 <TableColumn fx:id="descColT" prefWidth="791.0" text="Descrizione" />
             </columns>
@@ -31,7 +29,7 @@
             <children>
                 <HBox alignment="CENTER">
                     <children>
-                        <Label text="Titoli">
+                        <Label text="Titoli D.Lgs. 81/08">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font>

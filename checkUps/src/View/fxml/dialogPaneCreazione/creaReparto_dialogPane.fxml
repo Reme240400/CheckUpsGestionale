@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DatePicker?>
@@ -13,13 +14,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane expanded="true" prefHeight="437.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DialogPaneAddR">
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DialogPaneAddR">
    <buttonTypes>
       <ButtonType fx:constant="APPLY" />
       <ButtonType fx:constant="CANCEL" />
    </buttonTypes>
    <content>
-      <HBox alignment="CENTER" prefHeight="302.0" prefWidth="482.0">
+      <HBox alignment="CENTER">
          <children>
             <GridPane alignment="CENTER" prefHeight="171.0" prefWidth="422.0">
                <columnConstraints>
@@ -34,16 +35,32 @@
                </rowConstraints>
                <children>
                   <Label text="Nome" />
-                  <TextField fx:id="creaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="creaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1">
+                     <styleClass>
+                        <String fx:value="input-field" />
+                        <String fx:value="rounded-md" />
+                     </styleClass>
+                  </TextField>
                   <Label text="Data" GridPane.rowIndex="2" />
-                  <DatePicker fx:id="creaDataReparto" editable="false" prefHeight="25.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="creaDataReparto" editable="false" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label layoutX="62.0" layoutY="39.0" text="Descrizione" GridPane.rowIndex="3" />
-                  <TextArea fx:id="creaDescReparto" prefHeight="83.0" prefWidth="280.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextArea fx:id="creaDescReparto" prefHeight="83.0" prefWidth="280.0" stylesheets="@../../css/style.css" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label layoutX="67.0" layoutY="15.0" text="Revisione" GridPane.rowIndex="1" />
-                  <TextField fx:id="creaRevisioneReparto" layoutX="159.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="281.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="creaRevisioneReparto" layoutX="159.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="281.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <styleClass>
+                        <String fx:value="input-field" />
+                        <String fx:value="rounded-md" />
+                     </styleClass>
+                  </TextField>
                </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
             </GridPane>
          </children>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </HBox>
    </content>
    <header>
@@ -51,18 +68,18 @@
          <children>
             <Pane>
                <children>
-                  <TextField fx:id="textFieldSocieta" editable="false" layoutY="56.0" styleClass="transparent" stylesheets="@../../css/style.css" />
-                  <Label layoutY="41.0" text="Società" />
+                  <TextField fx:id="textFieldSocieta" editable="false" layoutY="19.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="4.0" text="Società" />
                </children>
                <HBox.margin>
                   <Insets left="25.0" />
                </HBox.margin>
             </Pane>
-            <Pane prefHeight="81.0" prefWidth="108.0" />
+            <Pane HBox.hgrow="SOMETIMES" />
             <Pane>
                <children>
-                  <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="56.0" styleClass="transparent" stylesheets="@../../css/style.css" />
-                  <Label layoutY="41.0" text="Unità Locale" />
+                  <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="21.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="6.0" text="Unità Locale" />
                </children>
                <HBox.margin>
                   <Insets right="25.0" />

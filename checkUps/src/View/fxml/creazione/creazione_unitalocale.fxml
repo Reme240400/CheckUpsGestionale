@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -16,9 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="672.0" prefWidth="908.0"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
+<BorderPane prefHeight="672.0" prefWidth="908.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
     <center>
         <HBox alignment="CENTER" prefHeight="509.0" prefWidth="832.0" BorderPane.alignment="CENTER">
             <children>
@@ -38,15 +37,35 @@
                             </rowConstraints>
                             <children>
                                 <Label prefHeight="17.0" prefWidth="93.0" text="Nome:" />
-                                <TextField fx:id="textFieldUnitaLocale" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" GridPane.columnIndex="1" />
+                                <TextField fx:id="textFieldUnitaLocale" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
-                                <TextField fx:id="textFieldLocalita" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldLocalita" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="2" />
-                                <TextField fx:id="textFieldIndirizzo" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="textFieldIndirizzo" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="3" />
-                                <TextField fx:id="textFieldProvincia" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="textFieldProvincia" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="4" />
-                                <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass></TextField>
                             </children>
                         </GridPane>
                     </children>
@@ -108,7 +127,7 @@
                             </HBox.margin>
                         </JFXButton>
                         <Pane prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
-                        <JFXComboBox fx:id="cercaUnita" editable="true" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." />
+                        <JFXComboBox fx:id="cercaUnita" editable="true" focusColor="#ffffff00" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." styleClass="rounded-md" stylesheets="@../../css/style.css" unFocusColor="#ffffff00" />
                         <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="44.0" />
                         <Pane layoutX="137.0" layoutY="10.0" prefHeight="38.0" prefWidth="75.0" HBox.hgrow="SOMETIMES" />
                         <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onActionSave" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">

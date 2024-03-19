@@ -23,17 +23,17 @@
                                 <Insets left="20.0" />
                             </HBox.margin>
                         </ImageView>
-                        <Pane layoutX="516.0" layoutY="10.0" prefHeight="70.0" prefWidth="118.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnHome" onAction="#switchToHome" prefHeight="73.0" prefWidth="50.0" text="Home" />
+                        <Pane layoutX="516.0" layoutY="10.0" prefHeight="70.0" prefWidth="205.0" HBox.hgrow="SOMETIMES" />
+                        <JFXButton fx:id="btnHome" onAction="#switchToHome" prefHeight="50.0" prefWidth="280.0" stylesheets="@../css/style.css" text="Home" />
                         <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnCreate" onAction="#switchToCreazione" prefHeight="78.0" prefWidth="42.0" text="Crea" />
-                        <Pane layoutX="137.0" layoutY="10.0" prefHeight="70.0" prefWidth="118.0" HBox.hgrow="SOMETIMES" />
+                        <JFXButton fx:id="btnCreate" onAction="#switchToCreazione" prefHeight="50.0" prefWidth="280.0" stylesheets="@../css/style.css" text="Crea" />
+                        <Pane layoutX="137.0" layoutY="10.0" prefHeight="70.0" prefWidth="267.0" HBox.hgrow="SOMETIMES" />
                     </children>
                 </HBox>
             </children>
         </HBox>
     </top>
     <center>
-        <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" styleClass="background" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />
     </center>
 </BorderPane>

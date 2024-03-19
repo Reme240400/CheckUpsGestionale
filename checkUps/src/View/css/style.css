@@ -1,93 +1,51 @@
-.root {
-    -fx-background-color: #353A56;
+.background {
+    -fx-background-color: #e9e9e9;
+}
+
+.rounded-md {
+    -fx-background-radius: 8px;
+}
+
+.button {
+    -fx-background-color: #b4b4b4;
     
 }
 
-.VBox_options {
-    -fx-background-color:  #505b9b;
-    /* -fx-border-color:  #2207bb; */
-    /* -fx-border-width: 2px 2px 2px 2px; */
-    /* -fx-border-style: solid; */
-
+.button:hover {
+    -fx-background-color: #a4a4a4;
 }
 
-.bordered {
-    -fx-background-radius: 20px 20px 20px 20px;
-    -fx-border-radius: 20px 20px 20px 20px;
-}
-
-.half_bordered {
-    -fx-background-radius: 20px 0px 0px 20px;
-    -fx-border-radius: 20px 0px 0px 20px;
-}
-
-.bordered_style{
-    -fx-border-width: 2px 2px 2px 2px;
-    -fx-border-style: solid;
-}
-
-
-/* .logo_img:hover {
-    -fx-opacity: 0.5;
-} */
-
-/* .btn_home:hover {
-
-} */
-
-.btn_homePage {
-    -fx-background-color: #353A56;
-    -fx-border-color: #4c5585;
-    -fx-text-fill: #80ffff;
-    -fx-padding: 10px;
-}
-
-.btn_homePage:hover {
-    -fx-background-color: #4c5585;
-    /* -fx-border-style: solid; */
-}
-
-.top_pane {
+.combo-box {
     -fx-background-color: #ffffff;
-    /* -fx-border-width: 2px 2px 2px 2px; */ 
+    -fx-border-color: #b4b4b4;
+   
+    -fx-border-radius: 8px;
 }
 
-.main_creazione_top_pane {
-    -fx-background-color: #aaadbd;
-    /* -fx-border-width: 2px 2px 2px 2px; */ 
+.combo-box:hover {
+    -fx-border-color: #e0e0e0;
 }
 
-.grid_img {
-    -fx-start-margin: 10px;
-}
-
-.grid_img:hover {
-    -fx-opacity: 0.5;
-
-}
-
-.grid {
-    -fx-background-color: #4c5585 ;
-    /* -fx-border-color:  #2207bb; */
-    /* -fx-border-width: 2px 2px 2px 2px; */
-    /* -fx-border-style: solid; */
-}
-
-.separator_pane{
-    -fx-min-height: 10px;
-    -fx-max-height: 50px;
-}
-
-.top_separator_pane{
-    -fx-min-height: 50px;
-    -fx-max-height: 130px;
-}
-
-.grid_img_pane{
-    -fx-min-width: 100px;
-    -fx-max-width: 300px;
+.combo-box:focused {
+    -fx-border-color: #0077B6;
 }
 
 .transparent {
     -fx-background-color: rgba(187, 187, 187, 0.445);
 }
+
+.input-field {
+    -fx-border-color: #b4b4b4;
+    -fx-border-radius: 10px;
+}
+
+.input-field:focused {
+    -fx-border-color: #0077B6;
+} 
+
+.text-area .content {
+    -fx-border-color: #b4b4b4;
+}
+
+/* ---------------------------------------------------------- DA TESTARE ---------------------------------------------------------- */
+
