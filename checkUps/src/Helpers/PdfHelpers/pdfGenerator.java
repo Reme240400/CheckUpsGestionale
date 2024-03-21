@@ -9,6 +9,7 @@ import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -26,14 +27,16 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Image;
 
 public class pdfGenerator {
 
     // Variabile statica per tenere traccia del numero di pagina corrente
     public static int currentPage = 0;
     public static int pagineTotali = 0;
-    public static String urlLogo;
-    public static String urlLogoCheckUps = "DA SISTEMARE";// Da aggiungere
+    public static String urlLogoSocieta;
+    public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\View\\images\\logo con sfondo transpartente.png"; // Da
+                                                                                                                                                    // sistemare
     public static String revisione;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
@@ -42,7 +45,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         try {
-            urlLogo = societa.getLogoUrl();
+            urlLogoSocieta = societa.getLogoUrl();
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
                 // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
@@ -265,33 +268,35 @@ public class pdfGenerator {
                 // Creazione pagina iniziale
                 PdfPTable tableIniziale = new PdfPTable(3);
                 tableIniziale.setWidthPercentage(100);
-                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 10);
+                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 15);
                 societaCellIniziale.setBorderWidthRight(0);
                 tableIniziale.addCell(societaCellIniziale);
                 PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD,
-                        10);
+                        15);
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
                 tableIniziale.addCell(unitaLocaleCellIniziale);
-                tableIniziale.setSpacingAfter(120f);
+                tableIniziale.setSpacingAfter(70f);
                 // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
                 document.add(tableIniziale);
 
-                // Logo CheckUps
+                //LOGO CHECKUPS
                 PdfPTable tableLogoChekups = new PdfPTable(1);
                 tableLogoChekups.setWidthPercentage(100);
-                PdfPCell logoChekups = createCell(
-                        urlLogoCheckUps,
-                        1, Font.BOLD, 20);
+                Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
+                // Imposta le dimensioni dell'immagine 
+                //logoCheckUpsImage.scaleToFit(1f, 1f);
+                PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
                 logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
                 logoChekups.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 logoChekups.setBorder(Rectangle.NO_BORDER);
+                logoChekups.setFixedHeight(90f);
                 tableLogoChekups.addCell(logoChekups);
-                tableLogoChekups.setSpacingAfter(50f);
+                tableLogoChekups.setSpacingAfter(80f);
                 document.add(tableLogoChekups);
 
+                //SCRITTE SOTTO LOGO
                 PdfPTable tableBody = new PdfPTable(1);
                 tableBody.setWidthPercentage(100);
-
                 PdfPCell body = createCell(
                         "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
                         1, Font.BOLD, 20);
@@ -299,18 +304,18 @@ public class pdfGenerator {
                 body.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 body.setBorder(Rectangle.NO_BORDER);
                 tableBody.addCell(body);
-                tableBody.setSpacingAfter(20f);
+                tableBody.setSpacingAfter(35f);
                 document.add(tableBody);
 
                 PdfPTable tableUnderBody = new PdfPTable(2);
                 tableUnderBody.setWidthPercentage(100);
                 PdfPCell underBodyLeft = createCell(
                         "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
-                        1, Font.BOLD, 10);
+                        1, Font.BOLD, 15);
 
                 PdfPCell underBodyRight = createCell(
                         "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
-                        1, Font.BOLD, 10);
+                        1, Font.BOLD, 15);
                 underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
                 underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 underBodyLeft.setBorder(Rectangle.NO_BORDER);
@@ -319,7 +324,7 @@ public class pdfGenerator {
                 underBodyRight.setBorder(Rectangle.NO_BORDER);
                 tableUnderBody.addCell(underBodyLeft);
                 tableUnderBody.addCell(underBodyRight);
-                tableUnderBody.setSpacingAfter(150f);
+                tableUnderBody.setSpacingAfter(40f);
                 document.add(tableUnderBody);
 
                 PdfPTable tableLogo = new PdfPTable(1);
@@ -444,7 +449,8 @@ public class pdfGenerator {
                                             .replace("\r", "").replace("€", " euro"), 3, Font.BOLD, 10));
                             String soggettiEsposti = provvedimento.getSoggettiEsposti();
                             if (soggettiEsposti != null) {
-                                soggettiEsposti = replaceInvalidCharacters(soggettiEsposti).replace("&lt;","<").replace("&gt;", ">");
+                                soggettiEsposti = replaceInvalidCharacters(soggettiEsposti).replace("&lt;", "<")
+                                        .replace("&gt;", ">");
                             }
                             provvedimentoTable.addCell(createCell(soggettiEsposti, 1, Font.BOLD, 10));
 
@@ -454,7 +460,7 @@ public class pdfGenerator {
                     }
                 }
             }
-        } catch (DocumentException | FileNotFoundException e) {
+        } catch (DocumentException | IOException e) {
             // Gestisce le eccezioni legate al documento
             e.printStackTrace();
         } finally {
@@ -473,6 +479,12 @@ public class pdfGenerator {
     private static PdfPCell createCell(String content, int colspan, int fontStyle, int size) {
         Font font = new Font(Font.FontFamily.HELVETICA, size, fontStyle);
         PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setColspan(colspan);
+        return cell;
+    }
+
+    private static PdfPCell createImageCell(Image image, int colspan) {
+        PdfPCell cell = new PdfPCell(image, true);
         cell.setColspan(colspan);
         return cell;
     }
@@ -497,7 +509,7 @@ public class pdfGenerator {
 
                 // Aggiunge data, logo e numero di pagina al piè di pagina
                 table.addCell(new Phrase("Revisione n." + revisione + " del:  " + formattedDate));
-                table.addCell(urlLogo);
+                table.addCell(urlLogoSocieta);
                 if (pagineTotali != 0) {
                     table.addCell("Pagina " + (currentPage - 1) + " di " + (pagineTotali));
                 }
