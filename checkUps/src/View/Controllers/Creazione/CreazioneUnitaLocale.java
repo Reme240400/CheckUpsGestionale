@@ -69,9 +69,9 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
                 change.setText(change.getText().replaceAll("[^\\d]", ""));
             }
 
-            if (change.getControlNewText().length() > 15) {
+            /*if (change.getControlNewText().length() > 15) {
                 return null;
-            }
+            }*/
 
             return change;
         };
