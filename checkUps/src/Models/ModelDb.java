@@ -738,7 +738,6 @@ public class ModelDb {
                         unitaLocale.getIndirizzo());
 
                 modificaCampoStringa("unita_locali",
-                        "id_unita_locale",
                         unitaLocale.getId(),
                         "localita",
                         unitaLocale.getLocalita());
