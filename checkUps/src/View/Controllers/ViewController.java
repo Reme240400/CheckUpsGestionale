@@ -63,6 +63,7 @@ public class ViewController implements Initializable {
 
     public void switchToCreazione() throws IOException {
         Parent root = modelPaths.switchToCreazione(modelCreazione);
+        modelCreazione.resetAllTmp();
 
         if (root != null) {
             Controller.changePane(stackPane, root);
