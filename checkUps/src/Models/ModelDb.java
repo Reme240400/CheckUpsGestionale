@@ -647,31 +647,37 @@ public class ModelDb {
                 UnitaLocale unitaLocale = ((UnitaLocale) obj);
 
                 modificaCampoIntero("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "id_unita_locale",
                         unitaLocale.getId());
 
                 modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "nome",
                         unitaLocale.getNome());
 
                 modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "indirizzo",
                         unitaLocale.getIndirizzo());
 
                 modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "localita",
                         unitaLocale.getLocalita());
 
                 modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "provincia",
                         unitaLocale.getProvincia());
 
                 modificaCampoIntero("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "id_societa",
                         unitaLocale.getIdSocieta());
