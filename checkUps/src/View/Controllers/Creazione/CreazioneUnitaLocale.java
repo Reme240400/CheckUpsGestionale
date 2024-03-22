@@ -27,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 
 public class CreazioneUnitaLocale extends CreazioneBase implements Initializable {
 
@@ -62,20 +63,20 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        UnaryOperator<TextFormatter.Change> filter = change -> {
+        listUnitaLocale = ClassHelper.getListUnitaLocale();
 
-            // remove any non-digit characters from inserted text:
-            if (!change.getText().matches("\\d*")) {
-                change.setText(change.getText().replaceAll("[^\\d]", ""));
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+
+            if (text.matches("[0-9]*") && change.getControlNewText().length() <= 15){
+                return change;
             }
 
-            return change;
+            return null;
         };
 
-        TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
+        TextFormatter<Long> formatter = new TextFormatter<Long>(new LongStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
-
-        listUnitaLocale = ClassHelper.getListUnitaLocale();
 
     }
 
@@ -113,9 +114,8 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     }
 
     public void aggiorna() {
-        int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
-        UnitaLocale unitaLocale = new UnitaLocale(id,
+        UnitaLocale unitaLocale = new UnitaLocale(modelCreazione.getUnitaLocaleTmp().getId(),
                 textFieldUnitaLocale.getText(),
                 textFieldIndirizzo.getText(),
                 textFieldLocalita.getText(),
@@ -123,10 +123,8 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
                 textFieldTel.getText(),
                 localSocieta.getId());
 
-        Controller.inserisciNuovoRecord(unitaLocale);
+        Controller.modificaCampo(unitaLocale);
 
-        modelCreazione.resetSocietaTmp();
-        pulisciDati();
     }
 
     // CODICE "SISTEMATO"
@@ -167,7 +165,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
             Controller.inserisciNuovoRecord(unitaLocale);
             modelCreazione.createUnitaLocaleTmp(unitaLocale);
         }else
-            Controller.modificaCampo(modelCreazione.getUnitaLocaleTmp());
+            aggiorna();
 
         super.changePage(TipoCreazionePagina.REPARTO, true);
     }

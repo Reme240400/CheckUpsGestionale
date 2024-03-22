@@ -29,6 +29,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.LongStringConverter;
 
 public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
@@ -77,27 +78,23 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     Optional<Societa> curSocieta = Optional.empty();
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
-    // ------------------------------------------------------- INITIALIZE
-    // -------------------------------------------------------------------- //
+    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // * controlla se vengono inseriti solo numeri
-        UnaryOperator<TextFormatter.Change> filter = change -> {
+        // * controlla se vengono inseriti solo numeri nel campo telefono
 
-            // remove any non-digit characters from inserted text:
-            if (!change.getText().matches("\\d*")) {
-                change.setText(change.getText().replaceAll("[^\\d]", ""));
+        UnaryOperator<TextFormatter.Change> filter = change -> {
+            String text = change.getText();
+
+            if (text.matches("[0-9]*") && change.getControlNewText().length() <= 15){
+                return change;
             }
 
-            /*if (change.getControlNewText().length() > 15) {
-                return null;
-            }*/
-
-            return change;
+            return null;
         };
 
-        TextFormatter<Integer> formatter = new TextFormatter<Integer>(new IntegerStringConverter(), null, filter);
+        TextFormatter<Long> formatter = new TextFormatter<Long>(new LongStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
 
         ObservableList<String> societies = FXCollections
@@ -153,9 +150,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
     // -------------------- salva la societa -------------------- //
     public void aggiorna() {
-        int id = Controller.getNewId(listSocieta);
 
-        Societa societaTmp = new Societa(id,
+        Societa societaTmp = new Societa(modelCreazione.getSocietaTmp().getId(),
                 textFieldSocieta.getText(),
                 textFieldIndirizzo.getText(),
                 textFieldLocalita.getText(),
@@ -168,12 +164,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
                 textFieldCodiceAteco.getText(),
                 logoImageView.getImage().getUrl());
 
-        Controller.inserisciNuovoRecord(societaTmp);
+        Controller.modificaCampo(societaTmp);
 
-        pulisciDati();
-
-        modelCreazione.setSaved(false);
-        modelCreazione.setCanGoNext(false);
     }
 
     // CODICE "SISTEMATO"

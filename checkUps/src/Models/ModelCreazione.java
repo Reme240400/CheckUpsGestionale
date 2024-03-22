@@ -158,8 +158,12 @@ public class ModelCreazione extends ModelListe {
 
     // ------------------ Controllo se i campi sono stati inseriti ------------------ //
     public void areTextFieldsFilled(TextField... textField) {
-        boolean areAllEmpty = Stream.of(textField).allMatch(t -> t.getText().isEmpty());
-        boolean isAnyEmpty = Stream.of(textField).anyMatch(t -> t.getText().isEmpty());
+        
+        boolean areAllEmpty = Stream.of(textField)
+        .allMatch(t -> t.getText() == null || t.getText().isEmpty());
+        
+        boolean isAnyEmpty = Stream.of(textField)
+        .anyMatch(t -> t.getText() == null || t.getText().isEmpty());
 
         setSaved(!isAnyEmpty);
         setCanGoNext(!isAnyEmpty);
