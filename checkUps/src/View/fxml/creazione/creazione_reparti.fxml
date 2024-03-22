@@ -96,7 +96,9 @@
         <TableView fx:id="tableReparti" prefHeight="415.0" prefWidth="543.0" stylesheets="@../../css/style.css">
             <columns>
                 <TableColumn fx:id="nomeCol" prefWidth="294.0" text="Nome" />
-                <TableColumn fx:id="descCol" prefWidth="273.0" text="Data" />
+            <TableColumn fx:id="revisioneCol" prefWidth="294.0" text="Revisione" />
+                <TableColumn fx:id="dataCol" prefWidth="273.0" text="Data" />
+            <TableColumn fx:id="descCol" prefWidth="294.0" text="Descrizione" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
