@@ -418,6 +418,48 @@ public class ModelDb {
         }
     }
 
+    public static void modificaCampoData(String tableName, String pkName, int recordId, String campo,
+            LocalDate nuovoValore) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE " + pkName
+                            + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setDate(1, java.sql.Date.valueOf(nuovoValore));
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void modificaCampoData(String tableName, int recordId, String campo,
+            LocalDate nuovoValore) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
+                            + " = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setDate(1, java.sql.Date.valueOf(nuovoValore));
+                    preparedStatement.setInt(2, recordId);
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Metodo generico per l'inserimento di un record in una tabella
     public static void inserisciRecord(Object obj) {
 
@@ -485,12 +527,6 @@ public class ModelDb {
                         "descrizione",
                         titolo.getDescrizione());
 
-                modificaCampoIntero("titoli",
-                        "id_titolo",
-                        titolo.getId(),
-                        "id_reparto",
-                        titolo.getIdReparto());
-
                 break;
 
             case "Reparto":
@@ -498,14 +534,27 @@ public class ModelDb {
 
                 modificaCampoStringa("reparti",
                         "id_reparto",
-                        reparto.getId(), "nome",
-                        reparto.getNome());
+                        reparto.getId(),
+                        "descrizione",
+                        reparto.getDescrizione());
 
                 modificaCampoStringa("reparti",
                         "id_reparto",
                         reparto.getId(),
-                        "descrizione",
+                        "nome",
                         reparto.getDescrizione());
+
+                modificaCampoStringa("reparti",
+                        "id_reparto",
+                        reparto.getId(),
+                        "revisione",
+                        reparto.getDescrizione());
+
+                modificaCampoData("reparti",
+                        "id_reparto",
+                        reparto.getId(),
+                        "data",
+                        reparto.getData().get());
 
                 break;
 
@@ -546,11 +595,6 @@ public class ModelDb {
             case "Societa":
                 Societa societa = ((Societa) obj);
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        societa.getId(),
-                        "id_societa",
-                        societa.getId());
-
                 modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
                         societa.getId(), "nome",
                         societa.getNome());
@@ -580,6 +624,31 @@ public class ModelDb {
                         "descrizione",
                         societa.getDescrizione());
 
+                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                        societa.getId(),
+                        "logo",
+                        societa.getLogoUrl());
+
+                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                        societa.getId(),
+                        "codice_ateco",
+                        societa.getCodiceAteco());
+
+                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                        societa.getId(),
+                        "banca_appoggio",
+                        societa.getBancaAppoggio());
+
+                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                        societa.getId(),
+                        "codice_fiscale",
+                        societa.getCodiceFiscale());
+
+                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                        societa.getId(),
+                        "partita_iva",
+                        societa.getPartitaIva());
+
                 break;
 
             case "Oggetto":
@@ -600,11 +669,6 @@ public class ModelDb {
 
             case "Provvedimento":
                 Provvedimento provvedimento = ((Provvedimento) obj);
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        provvedimento.getId(),
-                        "id_provvedimento",
-                        provvedimento.getId());
 
                 modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
                         provvedimento.getId(),
@@ -641,16 +705,25 @@ public class ModelDb {
                         "stima_p",
                         provvedimento.getStimaP());
 
+                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                        provvedimento.getId(),
+                        "email",
+                        provvedimento.getEmail());
+
+                modificaCampoData(obj.getClass().getSimpleName().toLowerCase(),
+                        provvedimento.getId(),
+                        "data_inizio",
+                        provvedimento.getDataInizio().get());
+
+                modificaCampoData(obj.getClass().getSimpleName().toLowerCase(),
+                        provvedimento.getId(),
+                        "data_scadenza",
+                        provvedimento.getDataScadenza().get());
+
                 break;
 
             case "UnitaLocale":
                 UnitaLocale unitaLocale = ((UnitaLocale) obj);
-
-                modificaCampoIntero("unita_locali",
-                        "id_unita_locale",
-                        unitaLocale.getId(),
-                        "id_unita_locale",
-                        unitaLocale.getId());
 
                 modificaCampoStringa("unita_locali",
                         "id_unita_locale",
@@ -675,6 +748,12 @@ public class ModelDb {
                         unitaLocale.getId(),
                         "provincia",
                         unitaLocale.getProvincia());
+
+                modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
+                        unitaLocale.getId(),
+                        "telefono",
+                        unitaLocale.getTelefono());
 
                 modificaCampoIntero("unita_locali",
                         "id_unita_locale",
