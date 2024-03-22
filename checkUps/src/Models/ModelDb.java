@@ -646,32 +646,32 @@ public class ModelDb {
             case "UnitaLocale":
                 UnitaLocale unitaLocale = ((UnitaLocale) obj);
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("unita_locali",
                         unitaLocale.getId(),
                         "id_unita_locale",
                         unitaLocale.getId());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("unita_locali",
                         unitaLocale.getId(),
                         "nome",
                         unitaLocale.getNome());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("unita_locali",
                         unitaLocale.getId(),
                         "indirizzo",
                         unitaLocale.getIndirizzo());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("unita_locali",
                         unitaLocale.getId(),
                         "localita",
                         unitaLocale.getLocalita());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("unita_locali",
                         unitaLocale.getId(),
                         "provincia",
                         unitaLocale.getProvincia());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("unita_locali",
                         unitaLocale.getId(),
                         "id_societa",
                         unitaLocale.getIdSocieta());
