@@ -1,6 +1,7 @@
 package View.Controllers.Creazione;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ import Models.Tables.Reparto;
 import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddR;
 import View.Controllers.Modifiche.DialogPaneModificaReparto;
-
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,6 +40,12 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
     private TableColumn<Reparto, String> descCol;
 
     @FXML
+    private TableColumn<Reparto, String> revisioneCol;
+
+    @FXML
+    private TableColumn<Reparto, String> dataCol;
+
+    @FXML
     private JFXButton btnAggiungi;
 
     @FXML
@@ -54,6 +61,12 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
         listaReparto = ClassHelper.getListReparto();
 
         nomeCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
+        revisioneCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("revisione"));
+        dataCol.setCellValueFactory(data -> {
+            var dataInizio = data.getValue().getData();
+            return dataInizio.isPresent() ? new SimpleStringProperty(dataInizio.get().toString())
+                    : new SimpleStringProperty("");
+        });
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
     }
 
@@ -79,7 +92,8 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
             if (clickedButton.get() == ButtonType.APPLY) {
-                updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto());
+                updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto(), dialogController.getRevisioneReparto(),
+                        dialogController.getDataReparto());
             }
 
         } catch (IOException e) {
@@ -88,16 +102,21 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
 
     }
 
-    private void updateChanges(String nome, String desc) {
+    private void updateChanges(String nome, String desc, String rev, String data) {
         if (modelCreazione.getRepartoTmp() == null ||
                 modelCreazione.getRepartoTmp().getNome().equals("") ||
+                modelCreazione.getRepartoTmp().getData().equals("") ||
+                modelCreazione.getRepartoTmp().getRevisione().equals("") ||
                 modelCreazione.getRepartoTmp().getDescrizione().equals("")) {
             Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
             return;
         }
 
         modelCreazione.getRepartoTmp().setNome(nome);
+        modelCreazione.getRepartoTmp().setRevisione(rev);
+        modelCreazione.getRepartoTmp().setData(Optional.of(LocalDate.parse(data)));
         modelCreazione.getRepartoTmp().setDescrizione(desc);
+        
         Controller.modificaCampo(modelCreazione.getRepartoTmp());
         tableReparti.refresh();
     }

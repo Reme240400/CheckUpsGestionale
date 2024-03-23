@@ -13,19 +13,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="929.0" styleClass="background" stylesheets="@../../css/style.css"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneProvvedimento">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="929.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneProvvedimento">
     <center>
         <TableView fx:id="tableProvvedimenti" editable="true" prefHeight="487.0" prefWidth="745.0">
             <columns>
                 <TableColumn fx:id="rischioCol" maxWidth="110.0" minWidth="-Infinity" prefWidth="110.0" text="Rischio" />
-                <TableColumn fx:id="nomeCol" minWidth="-Infinity" prefWidth="187.0" text="Nome" />
-                <TableColumn fx:id="soggettiCol" minWidth="-Infinity" prefWidth="182.0" text="Soggetti Esposti" />
+                <TableColumn fx:id="nomeCol" minWidth="-Infinity" prefWidth="258.0" text="Nome" />
+                <TableColumn fx:id="soggettiCol" minWidth="-Infinity" prefWidth="114.0" text="Soggetti Esposti" />
                 <TableColumn fx:id="emailCol" minWidth="-Infinity" prefWidth="191.0" text="Email" />
                 <TableColumn fx:id="stimaRCol" minWidth="-Infinity" prefWidth="51.0" text="Stima" />
-                <TableColumn fx:id="datainizioCol" minWidth="-Infinity" prefWidth="89.0" text="Data inizio" />
-                <TableColumn fx:id="datascadenzaCol" minWidth="-Infinity" prefWidth="108.0" text="Data scadenza" />
+                <TableColumn fx:id="datainizioCol" minWidth="-Infinity" prefWidth="101.0" text="Data inizio" />
+                <TableColumn fx:id="datascadenzaCol" minWidth="-Infinity" prefWidth="98.0" text="Data scadenza" />
             </columns>
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

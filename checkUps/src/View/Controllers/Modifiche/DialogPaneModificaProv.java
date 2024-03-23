@@ -1,6 +1,7 @@
 package View.Controllers.Modifiche;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
@@ -64,6 +65,10 @@ public class DialogPaneModificaProv implements Initializable {
 
     public int getStimaR() {
         return valStimaR.getValue();
+    }
+
+    public LocalDate getModificaData() {
+        return modificaData.getValue();
     }
 
     public void setModel(ModelCreazione model) {

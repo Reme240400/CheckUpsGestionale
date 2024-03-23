@@ -59,4 +59,8 @@ public class Reparto extends TablesId implements Serializable {
         return this.data;
     }
 
+    public void setData(Optional<LocalDate> data) {
+        this.data = data;
+    }
+
 }

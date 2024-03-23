@@ -10,15 +10,23 @@ import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class DialogPaneModificaReparto implements Initializable {
 
     @FXML
-    private DatePicker modificaDescReparto;
+    private DatePicker modificaDataReparto;
 
     @FXML
     private TextField modificaNomeReparto;
+
+    @FXML
+    private TextArea modificaDescReparto;
+
+    @FXML
+    private TextField modificaRevisioneReparto;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -29,18 +37,26 @@ public class DialogPaneModificaReparto implements Initializable {
         return modificaNomeReparto.getText();
     }
 
+    public String getDataReparto() {
+        return modificaDataReparto.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+
+    public String getRevisioneReparto() {
+        return modificaRevisioneReparto.getText();
+    }
+
     public String getDescReparto() {
-        return modificaDescReparto.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return modificaDescReparto.getText();
     }
 
     public void setModel(ModelCreazione model) {
         modificaNomeReparto.setText(model.getRepartoTmp().getNome());
 
-        if (model.getRepartoTmp().getDescrizione().contains("T"))
-            modificaDescReparto.setValue(LocalDate.parse(model.getRepartoTmp().getDescrizione(),
+        if (String.valueOf(model.getRepartoTmp().getData()).contains("T"))
+            modificaDataReparto.setValue(LocalDate.parse(model.getRepartoTmp().getDescrizione(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
         else
-            modificaDescReparto.setValue(LocalDate.parse(model.getRepartoTmp().getDescrizione(),
+            modificaDataReparto.setValue(LocalDate.parse(model.getRepartoTmp().getDescrizione(),
                     DateTimeFormatter.ofPattern("dd-MM-yyyy")));
     }
 

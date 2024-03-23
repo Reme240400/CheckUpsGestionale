@@ -181,7 +181,21 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     }
 
     private void updateChanges() {
+        if (modelCreazione.getProvvedimentoTmp() == null ||
+                modelCreazione.getProvvedimentoTmp().getNome().equals("") ||
+                modelCreazione.getProvvedimentoTmp().getRischio().equals("") ||
+                modelCreazione.getProvvedimentoTmp().getSoggettiEsposti().equals("") ||
+                modelCreazione.getProvvedimentoTmp().getEmail().equals("") ||
+                modelCreazione.getProvvedimentoTmp().getStimaR() == 0 ||
+                modelCreazione.getProvvedimentoTmp().getStimaD() == 0 ||
+                modelCreazione.getProvvedimentoTmp().getStimaP() == 0) {
+            Alerts.errorAllert("Errore", "Selezione del Provvedimento fallita",
+                    "Il provvedimento selezionato non è valido");
+            return;
+        }
 
+        Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
+        tableProvvedimenti.refresh();
     }
 
     public void onActionBack() {
