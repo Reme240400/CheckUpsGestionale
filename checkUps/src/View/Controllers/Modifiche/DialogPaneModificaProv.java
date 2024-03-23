@@ -28,19 +28,32 @@ public class DialogPaneModificaProv implements Initializable {
     private DatePicker modificaData;
 
     @FXML
-    private Spinner<Integer> valStimaP;
+    private Spinner<Integer> stimaP;
 
     @FXML
-    private Spinner<Integer> valStimaD;
+    private Spinner<Integer> stimaD;
 
     @FXML
-    private Spinner<Integer> valStimaR;
+    private TextField stimaR;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        valStimaD.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
-        valStimaP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
-        valStimaR.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
+        stimaD.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
+        stimaP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
+
+        stimaD.valueProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+            } catch (NullPointerException e) {
+            }
+        });
+
+        stimaP.valueProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+            } catch (NullPointerException e) {
+            }
+        });
     }
 
     public String getNome() {
@@ -56,15 +69,19 @@ public class DialogPaneModificaProv implements Initializable {
     }
 
     public int getStimaD() {
-        return valStimaD.getValue();
+        return stimaD.getValue();
     }
 
     public int getStimaP() {
-        return valStimaP.getValue();
+        return stimaP.getValue();
     }
 
     public int getStimaR() {
-        return valStimaR.getValue();
+        try {
+            return Integer.parseInt(stimaR.getText());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public LocalDate getModificaData() {
@@ -75,9 +92,10 @@ public class DialogPaneModificaProv implements Initializable {
         modificaNome.setText(model.getProvvedimentoTmp().getNome());
         modificaRischio.setText(model.getProvvedimentoTmp().getRischio());
         modificaSoggettiEsposti.setText(model.getProvvedimentoTmp().getSoggettiEsposti());
-        valStimaD.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaD());
-        valStimaP.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaP());
-        valStimaR.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaR());
+        stimaD.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaD());
+        stimaP.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaP());
+        stimaR.setText(
+                String.valueOf(model.getProvvedimentoTmp().getStimaD() * model.getProvvedimentoTmp().getStimaP()));
     }
 
 }

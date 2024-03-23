@@ -59,11 +59,17 @@ public class DialogPaneAddP implements DialogInterface, Initializable {
         stimaP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE));
 
         stimaD.valueProperty().addListener((observable, oldValue, newValue) -> {
-            stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+            try {
+                stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+            } catch (NullPointerException e) {
+            }
         });
 
         stimaP.valueProperty().addListener((observable, oldValue, newValue) -> {
-            stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+            try {
+                stimaR.setText(String.valueOf(stimaD.getValue() * stimaP.getValue()));
+            } catch (NullPointerException e) {
+            }
         });
     }
 

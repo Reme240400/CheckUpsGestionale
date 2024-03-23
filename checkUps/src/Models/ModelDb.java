@@ -348,6 +348,7 @@ public class ModelDb {
                 } catch (SQLException e) {
                     System.out.println(
                             "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -369,6 +370,7 @@ public class ModelDb {
                 } catch (SQLException e) {
                     System.out.println(
                             "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -390,6 +392,7 @@ public class ModelDb {
                 } catch (SQLException e) {
                     System.out.println(
                             "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -411,6 +414,7 @@ public class ModelDb {
                 } catch (SQLException e) {
                     System.out.println(
                             "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -432,6 +436,7 @@ public class ModelDb {
                 } catch (SQLException e) {
                     System.out.println(
                             "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -453,6 +458,7 @@ public class ModelDb {
                 } catch (SQLException e) {
                     System.out.println(
                             "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (SQLException e) {
@@ -558,40 +564,6 @@ public class ModelDb {
 
                 break;
 
-            /*
-             * case "Rischio":
-             * 
-             * Rischio rischio = ((Rischio) obj);
-             * 
-             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-             * rischio.getId(),
-             * "id_rischio",
-             * rischio.getId());
-             * 
-             * modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
-             * rischio.getId(), "nome",
-             * rischio.getNome());
-             * 
-             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-             * rischio.getId(), "p",
-             * rischio.getP());
-             * 
-             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-             * rischio.getId(), "d",
-             * rischio.getD());
-             * 
-             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-             * rischio.getId(), "r",
-             * rischio.getR());
-             * 
-             * modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-             * rischio.getId(),
-             * "id_reparto",
-             * rischio.getIdReparto());
-             * 
-             * break;
-             */
-
             case "Societa":
                 Societa societa = ((Societa) obj);
 
@@ -670,52 +642,62 @@ public class ModelDb {
             case "Provvedimento":
                 Provvedimento provvedimento = ((Provvedimento) obj);
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "nome",
                         provvedimento.getNome());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "id_oggetto",
                         provvedimento.getIdOggetto());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "rischio",
                         provvedimento.getRischio());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "soggetti_esposti",
                         provvedimento.getSoggettiEsposti());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "stima_r",
                         provvedimento.getStimaR());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "stima_d",
                         provvedimento.getStimaD());
 
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoIntero("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "stima_p",
                         provvedimento.getStimaP());
 
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoStringa("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "email",
                         provvedimento.getEmail());
 
-                modificaCampoData(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoData("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "data_inizio",
                         provvedimento.getDataInizio().get());
 
-                modificaCampoData(obj.getClass().getSimpleName().toLowerCase(),
+                modificaCampoData("provvedimenti",
+                        "id_provvedimento",
                         provvedimento.getId(),
                         "data_scadenza",
                         provvedimento.getDataScadenza().get());
@@ -738,6 +720,7 @@ public class ModelDb {
                         unitaLocale.getIndirizzo());
 
                 modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
                         unitaLocale.getId(),
                         "localita",
                         unitaLocale.getLocalita());

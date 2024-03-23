@@ -92,7 +92,14 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
             Optional<ButtonType> clickedButton = dialog.showAndWait();
 
             if (clickedButton.get() == ButtonType.APPLY) {
-                updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto(), dialogController.getRevisioneReparto(),
+                var checkResponse = dialogController.areFieldsValid();
+                if (!checkResponse.isValid()) {
+                    Alerts.errorAllert("Errore", "Errore nella modifica", checkResponse.getErrorMessage());
+                    return;
+                }
+
+                updateChanges(dialogController.getNomeReparto(), dialogController.getDescReparto(),
+                        dialogController.getRevisioneReparto(),
                         dialogController.getDataReparto());
             }
 
@@ -102,21 +109,12 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
 
     }
 
-    private void updateChanges(String nome, String desc, String rev, String data) {
-        if (modelCreazione.getRepartoTmp() == null ||
-                modelCreazione.getRepartoTmp().getNome().equals("") ||
-                modelCreazione.getRepartoTmp().getData().equals("") ||
-                modelCreazione.getRepartoTmp().getRevisione().equals("") ||
-                modelCreazione.getRepartoTmp().getDescrizione().equals("")) {
-            Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
-            return;
-        }
-
+    private void updateChanges(String nome, String desc, String rev, LocalDate data) {
         modelCreazione.getRepartoTmp().setNome(nome);
         modelCreazione.getRepartoTmp().setRevisione(rev);
-        modelCreazione.getRepartoTmp().setData(Optional.of(LocalDate.parse(data)));
+        modelCreazione.getRepartoTmp().setData(Optional.of(data));
         modelCreazione.getRepartoTmp().setDescrizione(desc);
-        
+
         Controller.modificaCampo(modelCreazione.getRepartoTmp());
         tableReparti.refresh();
     }

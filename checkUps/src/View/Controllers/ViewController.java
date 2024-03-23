@@ -55,6 +55,7 @@ public class ViewController implements Initializable {
 
     public void switchToHome() throws IOException {
         Parent root = modelPaths.switchToHome();
+        modelCreazione.resetAllTmp();
         if (root != null) {
             Controller.changePane(stackPane, root);
         }
