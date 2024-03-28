@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <header>
+      <HBox alignment="CENTER">
+         <children>
+            <Pane>
+               <children>
+                  <TextField fx:id="textFieldSocieta" editable="false" layoutY="19.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="4.0" text="Società" />
+               </children>
+               <HBox.margin>
+                  <Insets left="25.0" />
+               </HBox.margin>
+            </Pane>
+            <Pane HBox.hgrow="SOMETIMES" />
+            <Pane>
+               <children>
+                  <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="21.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="6.0" text="Unità Locale" />
+               </children>
+               <HBox.margin>
+                  <Insets right="25.0" />
+               </HBox.margin>
+            </Pane>
+         </children>
+      </HBox>
+   </header>
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CLOSE" />
+   </buttonTypes>
+   <content>
+      <HBox alignment="CENTER">
+         <children>
+            <ListView prefHeight="179.0" prefWidth="336.0" stylesheets="../../css/style.css" HBox.hgrow="SOMETIMES" />
+         </children>
+      </HBox>
+   </content>
+</DialogPane>
