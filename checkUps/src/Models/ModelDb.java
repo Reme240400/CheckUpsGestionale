@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import com.healthmarketscience.jackcess.BatchUpdateException;
-
 import Helpers.ClassHelper;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
@@ -1193,49 +1191,38 @@ public class ModelDb {
                 connection.commit();
                 connection.setAutoCommit(true);
 
-                newProvs.size();
-                bulkInsertProvvedimenti(newProvs);
+                ps = connection
+                        .prepareStatement(
+                                "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)");
+
+                connection.setAutoCommit(false);
+
+                for (Provvedimento prov : provvedimenti) {
+                    ps.setInt(1, prov.getId());
+                    ps.setInt(2, prov.getIdOggetto());
+                    ps.setString(3, prov.getRischio());
+                    ps.setString(4, prov.getNome());
+                    ps.setString(5, prov.getSoggettiEsposti());
+                    ps.setInt(6, prov.getStimaR());
+                    ps.setInt(7, prov.getStimaD());
+                    ps.setInt(8, prov.getStimaP());
+                    ps.setDate(9,
+                            prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
+                                    : null);
+                    ps.setDate(10,
+                            prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
+                                    : null);
+
+                    ps.addBatch();
+                }
+
+                updated = ps.executeBatch();
+                System.out.println("Importati " + updated.length + " provvedimenti");
+                connection.commit();
+                connection.setAutoCommit(true);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-
-    private static void bulkInsertProvvedimenti(List<Provvedimento> provvedimenti) {
-    try (Connection connection = connessioneDb()) {
-        if (connection != null) {
-            PreparedStatement ps = connection
-                    .prepareStatement(
-                            "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)");
-
-            connection.setAutoCommit(false);
-
-            for (Provvedimento prov : provvedimenti) {
-                ps.setInt(1, prov.getId());
-                ps.setInt(2, prov.getIdOggetto());
-                ps.setString(3, prov.getRischio());
-                ps.setString(4, prov.getNome());
-                ps.setString(5, prov.getSoggettiEsposti());
-                ps.setInt(6, prov.getStimaR());
-                ps.setInt(7, prov.getStimaD());
-                ps.setInt(8, prov.getStimaP());
-                ps.setDate(9,
-                        prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
-                                : null);
-                ps.setDate(10,
-                        prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
-                                : null);
-
-                ps.addBatch();
-            }
-
-            int[] updated = ps.executeBatch();
-            System.out.println("Importati " + updated.length + " provvedimenti");
-            connection.commit();
-            connection.setAutoCommit(true);
-        }
-    }catch (SQLException ex) {
-        ex.printStackTrace();
-    }
     }
 }
