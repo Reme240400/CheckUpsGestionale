@@ -1161,10 +1161,9 @@ public class ModelDb {
                 PreparedStatement ps = connection
                         .prepareStatement("INSERT INTO public.oggetti (id, nome, id_titolo) VALUES (?, ?, ?)");
                 connection.setAutoCommit(false);
-                var listaOggettiLocali = ClassHelper.getListOggetto();
 
                 for (Oggetto oggetto : oggetti) {
-                    Oggetto nuovoOggetto = new Oggetto(Model.autoSetId(listaOggettiLocali), oggetto.getNome(),
+                    Oggetto nuovoOggetto = new Oggetto(Model.autoSetId(ClassHelper.getListOggetto()), oggetto.getNome(),
                             nuovoIdTitolo);
 
                     ps.setInt(1, nuovoOggetto.getId());
@@ -1197,7 +1196,8 @@ public class ModelDb {
 
                 connection.setAutoCommit(false);
 
-                for (Provvedimento prov : provvedimenti) {
+                for (Provvedimento prov : newProvs) {
+
                     ps.setInt(1, prov.getId());
                     ps.setInt(2, prov.getIdOggetto());
                     ps.setString(3, prov.getRischio());
@@ -1233,27 +1233,26 @@ public class ModelDb {
                         .prepareStatement(
                                 "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)");
                 connection.setAutoCommit(false);
-                var listaProvLocali = ClassHelper.getListProvvedimento();
 
                 for (Provvedimento prov : provvedimenti) {
-                    Provvedimento tmpProv = new Provvedimento(Model.autoSetId(listaProvLocali),
+                    Provvedimento tmpProv = new Provvedimento(Model.autoSetId(ClassHelper.getListProvvedimento()),
                             nuovoIdOggetto, prov.getRischio(), prov.getNome(), prov.getSoggettiEsposti(),
                             prov.getStimaR(), prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
                             prov.getDataScadenza());
 
-                    ps.setInt(1, prov.getId());
-                    ps.setInt(2, prov.getIdOggetto());
-                    ps.setString(3, prov.getRischio());
-                    ps.setString(4, prov.getNome());
-                    ps.setString(5, prov.getSoggettiEsposti());
-                    ps.setInt(6, prov.getStimaR());
-                    ps.setInt(7, prov.getStimaD());
-                    ps.setInt(8, prov.getStimaP());
+                    ps.setInt(1, tmpProv.getId());
+                    ps.setInt(2, tmpProv.getIdOggetto());
+                    ps.setString(3, tmpProv.getRischio());
+                    ps.setString(4, tmpProv.getNome());
+                    ps.setString(5, tmpProv.getSoggettiEsposti());
+                    ps.setInt(6, tmpProv.getStimaR());
+                    ps.setInt(7, tmpProv.getStimaD());
+                    ps.setInt(8, tmpProv.getStimaP());
                     ps.setDate(9,
-                            prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
+                                tmpProv.getDataInizio().isPresent() ? java.sql.Date.valueOf(tmpProv.getDataInizio().get())
                                     : null);
                     ps.setDate(10,
-                            prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
+                                tmpProv.getDataScadenza().isPresent() ? java.sql.Date.valueOf(tmpProv.getDataScadenza().get())
                                     : null);
                     ps.addBatch();
 

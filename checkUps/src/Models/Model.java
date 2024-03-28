@@ -37,7 +37,6 @@ public class Model {
 
             if (!idExists) {
                 return i;
-
             }
         }
         return maxId + 1;
