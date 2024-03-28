@@ -3,17 +3,26 @@ package View.Controllers.Creazione;
 import java.util.List;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
+import Models.Model;
 import Models.ModelCreazione;
+import Models.ModelDb;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Oggetto;
+import Models.Tables.Provvedimento;
+import Models.Tables.Titolo;
 import Models.creazione.CreazioneBase;
+import Models.imports.ImportOggettoElement;
+import Models.imports.ImportTitoloElement;
+import View.Controllers.Creazione.dialogPane.DPImportOggetto;
+import View.Controllers.Creazione.dialogPane.DPImportTitolo;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddO;
 import View.Controllers.Modifiche.DialogPaneModificaOggetto;
 
@@ -113,7 +122,34 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
     }
 
     public void onImporta() {
+        this.showDialog("dialogPaneImporta/importa_oggetto.fxml", "Importa Oggetto",
+                (DPImportOggetto controller) -> {
+                    controller.fillInfo(modelCreazione.getSocietaTmp().getNome(),
+                            modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome(), modelCreazione.getTitoloTmp().getDescrizione());
+                    controller.populateTable(modelCreazione.getRepartoTmp().getId());
+                },
+                (DPImportOggetto controller) -> {
+                    if (controller.getSelectedData() == null) {
+                        Alerts.errorAllert("Errore", "Errore nell'importazione",
+                                "Non è stato selezionato nessun titolo");
+                        return;
+                    }
 
+                    ImportOggettoElement selected = controller.getSelectedData();
+                    Oggetto oggetto = selected.getOggetto();
+
+                    List<Provvedimento> provvedimenti = ClassHelper.getListProvvedimento().stream()
+                            .filter(provvedimento -> provvedimento.getIdOggetto() == oggetto.getId()).toList();
+
+                    Oggetto nuovoOggetto = new Oggetto(Model.autoSetId(ClassHelper.getListOggetto()), oggetto.getNome(),
+                            modelCreazione.getTitoloTmp().getId());
+
+                    Controller.inserisciNuovoRecord(nuovoOggetto);
+                    tableOggetti.getItems().add(nuovoOggetto);
+                    tableOggetti.refresh();
+
+                    ModelDb.bulkInsertTitolo(nuovoOggetto.getId(), provvedimenti);
+                });
     }
 
     public void onActionSave() {

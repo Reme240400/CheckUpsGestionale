@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-import com.healthmarketscience.jackcess.BatchUpdateException;
-
 import Helpers.ClassHelper;
 import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
@@ -1156,7 +1154,7 @@ public class ModelDb {
                 });
     }
 
-    public static void bulkInsertOggetti(int nuovoIdTitolo, List<Oggetto> oggetti, List<Provvedimento> provvedimenti) {
+    public static void bulkInsertTitolo(int nuovoIdTitolo, List<Oggetto> oggetti, List<Provvedimento> provvedimenti) {
         List<Provvedimento> newProvs = new ArrayList<>();
         try (Connection connection = connessioneDb()) {
             if (connection != null) {

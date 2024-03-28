@@ -131,6 +131,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
                     ImportTitoloElement selected = controller.getSelectedData();
                     Titolo titolo = selected.getTitolo();
+
                     List<Oggetto> oggetti = ClassHelper.getListOggetto().stream()
                             .filter(oggetto -> oggetto.getIdTitolo() == titolo.getId()).toList();
                     List<Provvedimento> provvedimenti = ClassHelper.getListProvvedimento().stream()
@@ -140,11 +141,12 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
                     Titolo nuovoTitolo = new Titolo(Model.autoSetId(ClassHelper.getListTitolo()),
                             modelCreazione.getRepartoTmp().getId(), titolo.getDescrizione());
+
                     Controller.inserisciNuovoRecord(nuovoTitolo);
                     tableTitoli.getItems().add(nuovoTitolo);
                     tableTitoli.refresh();
 
-                    ModelDb.bulkInsertOggetti(nuovoTitolo.getId(), oggetti, provvedimenti);
+                    ModelDb.bulkInsertTitolo(nuovoTitolo.getId(), oggetti, provvedimenti);
                 });
     }
 
