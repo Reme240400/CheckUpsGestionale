@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.scene.control.DialogPane?>
@@ -7,6 +8,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -56,9 +59,30 @@
     <content>
         <VBox alignment="CENTER">
             <children>
+                <HBox alignment="CENTER" prefHeight="48.0" prefWidth="626.0">
+                    <children>
+                        <ImageView fitHeight="30.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../icons/filter_funnel_icon.png" />
+                            </image>
+                            <HBox.margin>
+                                <Insets right="2.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <TextField fx:id="filtra" onKeyReleased="#onSearch" prefHeight="25.0" prefWidth="213.0" promptText="Filtra" stylesheets="@../../css/style.css">
+                            <styleClass>
+                                <String fx:value="text-area" />
+                                <String fx:value="rounded-md" />
+                            </styleClass>
+                            <padding>
+                                <Insets left="5.0" />
+                            </padding>
+                        </TextField>
+                    </children>
+                </HBox>
                 <HBox alignment="CENTER" prefHeight="420.0" prefWidth="508.0" VBox.vgrow="SOMETIMES">
                     <children>
-                        <TableView fx:id="tableImportaTitoli" HBox.hgrow="SOMETIMES">
+                        <TableView fx:id="tableImportaTitoli" stylesheets="@../../css/style.css" HBox.hgrow="SOMETIMES">
                             <columns>
                                 <TableColumn fx:id="colReparto" prefWidth="75.0" text="Reparto" />
                                 <TableColumn fx:id="colTitolo" prefWidth="75.0" text="Titolo" />
