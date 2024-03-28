@@ -1194,15 +1194,15 @@ public class ModelDb {
                 connection.setAutoCommit(true);
 
                 newProvs.size();
-                bulkInsertProvvedimenti(connection, newProvs);
+                bulkInsertProvvedimenti(newProvs);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    private static void bulkInsertProvvedimenti(Connection connection, List<Provvedimento> provvedimenti)
-            throws SQLException {
+    private static void bulkInsertProvvedimenti(List<Provvedimento> provvedimenti) {
+    try (Connection connection = connessioneDb()) {
         if (connection != null) {
             PreparedStatement ps = connection
                     .prepareStatement(
@@ -1234,5 +1234,8 @@ public class ModelDb {
             connection.commit();
             connection.setAutoCommit(true);
         }
+    }catch (SQLException ex) {
+        ex.printStackTrace();
+    }
     }
 }
