@@ -16,139 +16,138 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane expanded="true" prefHeight="637.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DialogPaneAddP">
-   <buttonTypes>
-      <ButtonType fx:constant="APPLY" />
-      <ButtonType fx:constant="CANCEL" />
-   </buttonTypes>
-   <content>
-      <HBox alignment="CENTER">
-         <children>
-            <VBox>
-               <children>
-                  <GridPane alignment="CENTER" prefHeight="313.0" prefWidth="688.0">
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="149.0" />
-                        <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="591.0" minWidth="10.0" prefWidth="539.0" />
-                     </columnConstraints>
-                     <rowConstraints>
+<DialogPane expanded="true" prefHeight="637.0" prefWidth="708.0"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DialogPaneAddP">
+    <buttonTypes>
+        <ButtonType fx:constant="APPLY" />
+        <ButtonType fx:constant="CANCEL" />
+    </buttonTypes>
+    <content>
+        <HBox alignment="CENTER">
+            <children>
+                <VBox>
+                    <children>
+                        <GridPane alignment="CENTER" prefHeight="313.0" prefWidth="688.0">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="149.0" />
+                                <ColumnConstraints fillWidth="false" halignment="LEFT" hgrow="SOMETIMES" maxWidth="591.0" minWidth="10.0" prefWidth="539.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Nome" GridPane.rowIndex="1" />
+                                <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="511.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <styleClass>
+                                        <String fx:value="input-field" />
+                                        <String fx:value="rounded-md" />
+                                    </styleClass>
+                                </TextField>
+                                <Label layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="2" />
+                                <TextArea fx:id="creaRischio" prefHeight="68.0" prefWidth="511.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="creaSoggettiEsposti" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                    <styleClass>
+                                        <String fx:value="input-field" />
+                                        <String fx:value="rounded-md" />
+                                    </styleClass>
+                                </TextField>
+                                <Label layoutX="84.0" layoutY="36.0" text="Soggetti Esposti" GridPane.rowIndex="3" />
+                                <Label text="Scadenza" GridPane.rowIndex="5" />
+                                <DatePicker fx:id="creaDataFine" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                            </children>
+                        </GridPane>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label text="Stima R" GridPane.columnIndex="2" />
+                                <Label layoutX="82.0" layoutY="17.0" text="Stima P" />
+                                <Label layoutX="254.0" layoutY="17.0" text="Stima D" GridPane.columnIndex="1" />
+                                <Spinner fx:id="stimaP" editable="true" layoutX="67.0" layoutY="43.0" prefHeight="25.0" prefWidth="60.0" GridPane.rowIndex="1" />
+                                <Spinner fx:id="stimaD" editable="true" layoutX="239.0" layoutY="43.0" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="stimaR" editable="false" prefWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                            </children>
+                            <VBox.margin>
+                                <Insets top="15.0" />
+                            </VBox.margin>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </content>
+    <header>
+        <VBox alignment="CENTER">
+            <children>
+                <GridPane alignment="CENTER" prefHeight="71.0" prefWidth="708.0">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
                         <RowConstraints />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Nome" GridPane.rowIndex="1" />
-                        <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="511.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <styleClass>
-                              <String fx:value="input-field" />
-                              <String fx:value="rounded-md" />
-                           </styleClass></TextField>
-                        <Label layoutX="84.0" layoutY="93.0" text="Rischio" GridPane.rowIndex="2" />
-                        <TextArea fx:id="creaRischio" prefHeight="68.0" prefWidth="511.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="creaSoggettiEsposti" layoutX="191.0" layoutY="32.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <styleClass>
-                              <String fx:value="input-field" />
-                              <String fx:value="rounded-md" />
-                           </styleClass></TextField>
-                        <Label layoutX="84.0" layoutY="36.0" text="Soggetti Esposti" GridPane.rowIndex="3" />
-                        <Label text="Email" GridPane.rowIndex="4" />
-                        <TextField fx:id="creaEmail" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="512.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <styleClass>
-                              <String fx:value="input-field" />
-                              <String fx:value="rounded-md" />
-                           </styleClass></TextField>
-                        <Label text="Scadenza" GridPane.rowIndex="5" />
-                        <DatePicker fx:id="creaDataFine" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                     </children>
-                  </GridPane>
-                  <GridPane>
-                     <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Label text="Stima R" GridPane.columnIndex="2" />
-                        <Label layoutX="82.0" layoutY="17.0" text="Stima P" />
-                        <Label layoutX="254.0" layoutY="17.0" text="Stima D" GridPane.columnIndex="1" />
-                        <Spinner fx:id="stimaP" editable="true" layoutX="67.0" layoutY="43.0" prefHeight="25.0" prefWidth="60.0" GridPane.rowIndex="1" />
-                        <Spinner fx:id="stimaD" editable="true" layoutX="239.0" layoutY="43.0" prefHeight="25.0" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="stimaR" editable="false" prefWidth="60.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </GridPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </content>
-   <header>
-      <VBox alignment="CENTER">
-         <children>
-            <GridPane alignment="CENTER" prefHeight="71.0" prefWidth="708.0">
-               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Pane GridPane.rowIndex="1">
-                     <children>
-                        <TextField fx:id="textFieldSocieta" editable="false" layoutX="44.0" layoutY="32.0" styleClass="transparent" stylesheets="@../../css/style.css" />
-                        <Label layoutX="44.0" layoutY="14.0" text="Società" />
-                     </children>
-                  </Pane>
-                  <Pane GridPane.columnIndex="2" GridPane.rowIndex="1">
-                     <children>
-                        <TextField fx:id="textFieldUnitaLocale" editable="false" layoutX="44.0" layoutY="32.0" styleClass="transparent" stylesheets="@../../css/style.css" /> <Label layoutX="44.0" layoutY="15.0" text="Reparto" />
-                     </children>
-                  </Pane>
-                  <Pane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                       
-                              <TextField fx:id="textFieldReparto" editable="false" layoutX="44.0" layoutY="32.0" styleClass="transparent" stylesheets="@../../css/style.css" />
-                        <Label layoutX="44.0" layoutY="15.0" text="Unità Locale" />
-                     </children>
-                  </Pane>
-               </children>
-            </GridPane>
-            <GridPane prefHeight="71.0" prefWidth="708.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Pane>
-                     <children>
-                        <TextField fx:id="textFieldOggetto" editable="false" layoutX="141.0" layoutY="24.0" styleClass="transparent" stylesheets="@../../css/style.css" />
-                        <Label layoutX="141.0" layoutY="3.0" text="Oggetto" />
-                     </children>
-                  </Pane>
-                  <Pane GridPane.columnIndex="1">
-                     <children>
-                        <TextField fx:id="textFieldTitolo" editable="false" layoutX="28.0" layoutY="25.0" styleClass="transparent" stylesheets="@../../css/style.css" />
-                        <Label layoutX="28.0" layoutY="8.0" text="Titolo" />
-                     </children>
-                  </Pane>
-               </children>
-            </GridPane>
-         </children>
-      </VBox>
-   </header>
+                    </rowConstraints>
+                    <children>
+                        <Pane GridPane.rowIndex="1">
+                            <children>
+                                <TextField fx:id="textFieldSocieta" editable="false" layoutX="44.0" layoutY="32.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                                <Label layoutX="44.0" layoutY="14.0" text="Società" />
+                            </children>
+                        </Pane>
+                        <Pane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <children>
+                                <TextField fx:id="textFieldUnitaLocale" editable="false" layoutX="44.0" layoutY="32.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                                <Label layoutX="44.0" layoutY="15.0" text="Reparto" />
+                            </children>
+                        </Pane>
+                        <Pane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <children>
+
+                                <TextField fx:id="textFieldReparto" editable="false" layoutX="44.0" layoutY="32.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                                <Label layoutX="44.0" layoutY="15.0" text="Unità Locale" />
+                            </children>
+                        </Pane>
+                    </children>
+                </GridPane>
+                <GridPane prefHeight="71.0" prefWidth="708.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Pane>
+                            <children>
+                                <TextField fx:id="textFieldOggetto" editable="false" layoutX="141.0" layoutY="24.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                                <Label layoutX="141.0" layoutY="3.0" text="Oggetto" />
+                            </children>
+                        </Pane>
+                        <Pane GridPane.columnIndex="1">
+                            <children>
+                                <TextField fx:id="textFieldTitolo" editable="false" layoutX="28.0" layoutY="25.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                                <Label layoutX="28.0" layoutY="8.0" text="Titolo" />
+                            </children>
+                        </Pane>
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </header>
 </DialogPane>

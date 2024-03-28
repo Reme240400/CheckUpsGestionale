@@ -24,9 +24,6 @@ public class DialogPaneAddP implements DialogInterface, Initializable {
     private TextField creaSoggettiEsposti;
 
     @FXML
-    private TextField creaEmail;
-
-    @FXML
     private DatePicker creaDataFine;
 
     @FXML
@@ -109,10 +106,6 @@ public class DialogPaneAddP implements DialogInterface, Initializable {
         textFieldOggetto.setText(nomeO);
     }
 
-    public String getEmail() {
-        return this.creaEmail.getText();
-    }
-
     public LocalDate getDataFine() {
         return this.creaDataFine.getValue();
     }
@@ -129,10 +122,6 @@ public class DialogPaneAddP implements DialogInterface, Initializable {
 
         if (this.getSoggettiEsposti() == null || this.getSoggettiEsposti().equals("")) {
             return new FieldsCheckResponse("Soggetti Esposti non validi");
-        }
-
-        if (this.getEmail() == null || this.getEmail().equals("")) {
-            return new FieldsCheckResponse("Email non valida");
         }
 
         if (this.getDataFine() == null || this.getDataFine().isBefore(LocalDate.now())) {

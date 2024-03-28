@@ -13,14 +13,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="929.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneProvvedimento">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="929.0" styleClass="background" stylesheets="@../../css/style.css"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneProvvedimento">
     <center>
         <TableView fx:id="tableProvvedimenti" editable="true" prefHeight="487.0" prefWidth="745.0">
             <columns>
                 <TableColumn fx:id="rischioCol" maxWidth="110.0" minWidth="-Infinity" prefWidth="110.0" text="Rischio" />
                 <TableColumn fx:id="nomeCol" minWidth="-Infinity" prefWidth="258.0" text="Nome" />
                 <TableColumn fx:id="soggettiCol" minWidth="-Infinity" prefWidth="114.0" text="Soggetti Esposti" />
-                <TableColumn fx:id="emailCol" minWidth="-Infinity" prefWidth="191.0" text="Email" />
                 <TableColumn fx:id="stimaRCol" minWidth="-Infinity" prefWidth="51.0" text="Stima" />
                 <TableColumn fx:id="datainizioCol" minWidth="-Infinity" prefWidth="101.0" text="Data inizio" />
                 <TableColumn fx:id="datascadenzaCol" minWidth="-Infinity" prefWidth="98.0" text="Data scadenza" />
@@ -58,7 +59,7 @@
                         </JFXButton>
                         <VBox alignment="CENTER" prefHeight="54.0" prefWidth="67.0">
                             <children>
-                                <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#modifica" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
+                                <JFXButton fx:id="btnModify" contentDisplay="CENTER" ellipsisString="" onAction="#onModifica" prefHeight="35.0" prefWidth="69.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                                     <graphic>
                                         <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -75,7 +76,7 @@
                         </VBox>
                         <VBox alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="btnAdd" contentDisplay="CENTER" ellipsisString="" onAction="#aggiungi" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                                <JFXButton fx:id="btnAdd" contentDisplay="CENTER" ellipsisString="" onAction="#onAggiungi" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                                     <graphic>
                                         <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                             <image>

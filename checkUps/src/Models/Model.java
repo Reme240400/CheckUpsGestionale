@@ -11,32 +11,33 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TextField;
 
 public class Model {
-    
+
     /**
      ** Serve a creare un nuovo id senza conflitti
+     * 
      * @param path: file da controllare
      */
-    public static <T extends TablesId> int autoSetId(List<T> list){
+    public static <T extends TablesId> int autoSetId(List<T> list) {
 
         int maxId = 0;
 
-        for(T t : list){
-            if( t.getId() > maxId)
+        for (T t : list) {
+            if (t.getId() > maxId)
                 maxId = t.getId();
         }
 
-        for(int i = 1; i <= maxId; i++) {
+        for (int i = 1; i <= maxId; i++) {
             boolean idExists = false;
-            for(T t : list){
-                if(t.getId() == i) {
+            for (T t : list) {
+                if (t.getId() == i) {
                     idExists = true;
                     break;
                 }
             }
-    
+
             if (!idExists) {
                 return i;
-                
+
             }
         }
         return maxId + 1;
@@ -76,7 +77,8 @@ public class Model {
 
     }
 
-    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id, ObservableList<String> units) {
+    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,
+            ObservableList<String> units) {
 
         FilteredList<String> filteredList = new FilteredList<String>(units, p -> true);
 
@@ -95,7 +97,8 @@ public class Model {
                         // We return true for any items that starts with the
                         // same letters as the input. We use toUpperCase to
                         // avoid case sensitivity.
-                        if (item.toUpperCase().startsWith(newValue.toUpperCase()) && item.contains(String.valueOf(id))) {
+                        if (item.toUpperCase().startsWith(newValue.toUpperCase())
+                                && item.contains(String.valueOf(id))) {
                             return true;
                         } else {
                             return false;

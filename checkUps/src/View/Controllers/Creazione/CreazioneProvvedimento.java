@@ -51,9 +51,6 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     private TableColumn<Provvedimento, String> soggettiCol;
 
     @FXML
-    private TableColumn<Provvedimento, String> emailCol;
-
-    @FXML
     private TableColumn<Provvedimento, Integer> stimaRCol;
 
     @FXML
@@ -74,7 +71,6 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("email"));
         stimaRCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
         datainizioCol.setCellValueFactory(data -> {
             var dataInizio = data.getValue().getDataInizio();
@@ -89,55 +85,40 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     }
 
     @FXML
-    public void aggiungi() {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/View/fxml/dialogPaneCreazione/creaProv_dialogPane.fxml"));
-            DialogPane dialogPane = loader.load();
+    public void onAggiungi() {
+        this.showDialog("dialogPaneCreazione/creaProv_dialogPane.fxml",
+                "Crea Provvedimento",
+                (DialogPaneAddP controller) -> controller.fillTextBox(localSocieta.getNome(),
+                        localUnita.getNome(),
+                        localReparto.getNome(),
+                        localTitolo.getDescrizione(),
+                        localOggetto.getNome()),
+                (DialogPaneAddP controller) -> {
+                    var checkResponse = controller.areFieldsValid();
+                    if (!checkResponse.isValid()) {
+                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                                "Qualcosa non è stato inserito correttamente\nErrore: '"
+                                        + checkResponse.getErrorMessage()
+                                        + "'");
+                        return;
+                    }
 
-            DialogPaneAddP dialogController = loader.getController();
+                    int id = Controller.getNewId(listProv);
+                    Provvedimento newProvvedimento = new Provvedimento(id,
+                            localOggetto.getId(),
+                            controller.getNome(),
+                            controller.getRischio(),
+                            controller.getSoggettiEsposti(),
+                            controller.getStimaR(),
+                            controller.getStimaD(),
+                            controller.getStimaP(),
+                            Optional.of(LocalDate.now()),
+                            Optional.of(controller.getDataFine()));
 
-            dialogController.fillTextBox(localSocieta.getNome(),
-                    localUnita.getNome(),
-                    localReparto.getNome(),
-                    localTitolo.getDescrizione(),
-                    localOggetto.getNome());
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Crea provvedimento");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-            if (clickedButton.get() == ButtonType.APPLY) {
-                var checkResponse = dialogController.areFieldsValid();
-                if (!checkResponse.isValid()) {
-                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                            "Qualcosa non è stato inserito correttamente\nErrore: '" + checkResponse.getErrorMessage()
-                                    + "'");
-                    return;
-                }
-
-                int id = Controller.getNewId(listProv);
-                Provvedimento newProvvedimento = new Provvedimento(id,
-                        localOggetto.getId(),
-                        dialogController.getNome(),
-                        dialogController.getRischio(),
-                        dialogController.getSoggettiEsposti(),
-                        dialogController.getStimaR(),
-                        dialogController.getStimaD(),
-                        dialogController.getStimaP(),
-                        dialogController.getEmail(),
-                        Optional.of(LocalDate.now()),
-                        Optional.of(dialogController.getDataFine()));
-
-                Controller.inserisciNuovoRecord(newProvvedimento);
-                tableProvvedimenti.getItems().add(newProvvedimento);
-                tableProvvedimenti.refresh();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    Controller.inserisciNuovoRecord(newProvvedimento);
+                    tableProvvedimenti.getItems().add(newProvvedimento);
+                    tableProvvedimenti.refresh();
+                });
     }
 
     @FXML
@@ -150,52 +131,27 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     }
 
     @FXML
-    public void modifica() {
+    public void onModifica() {
         if (tableProvvedimenti.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Selezione del Provvedimento fallita",
                     "Il provvedimento selezionato non è valido");
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/View/fxml/dialogPaneModifica/modifica_prov_dialogPane.fxml"));
+        this.showDialog("dialogPaneModifica/modifica_prov_dialogPane.fxml",
+                "Modifica Provvedimento",
+                (DialogPaneModificaProv controller) -> controller.setModel(modelCreazione),
+                (DialogPaneModificaProv controller) -> {
+                    var result = controller.areFieldsValid();
+                    if (!result.isValid()) {
+                        Alerts.errorAllert("Errore", "Errore durante la modifica",
+                                result.getErrorMessage());
+                        return;
+                    }
 
-        try {
-            DialogPane dialogPane = loader.load();
-            DialogPaneModificaProv dialogController = loader.getController();
-
-            dialogController.setModel(modelCreazione);
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Modifica Titolo");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-            if (clickedButton.get() == ButtonType.APPLY) {
-                updateChanges();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateChanges() {
-        if (modelCreazione.getProvvedimentoTmp() == null ||
-                modelCreazione.getProvvedimentoTmp().getNome().equals("") ||
-                modelCreazione.getProvvedimentoTmp().getRischio().equals("") ||
-                modelCreazione.getProvvedimentoTmp().getSoggettiEsposti().equals("") ||
-                modelCreazione.getProvvedimentoTmp().getEmail().equals("") ||
-                modelCreazione.getProvvedimentoTmp().getStimaR() == 0 ||
-                modelCreazione.getProvvedimentoTmp().getStimaD() == 0 ||
-                modelCreazione.getProvvedimentoTmp().getStimaP() == 0) {
-            Alerts.errorAllert("Errore", "Selezione del Provvedimento fallita",
-                    "Il provvedimento selezionato non è valido");
-            return;
-        }
-
-        Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
-        tableProvvedimenti.refresh();
+                    Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
+                    tableProvvedimenti.refresh();
+                });
     }
 
     public void onActionBack() {

@@ -7,22 +7,26 @@ import java.util.Optional;
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
+import Controllers.ControllerDb;
 import Helpers.ClassHelper;
 import Models.Alerts;
+import Models.Model;
 import Models.ModelCreazione;
+import Models.ModelDb;
+import Models.ModelListe;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
+import Models.Tables.Oggetto;
+import Models.Tables.Provvedimento;
 import Models.Tables.Titolo;
 import Models.creazione.CreazioneBase;
+import Models.imports.ImportTitoloElement;
+import View.Controllers.Creazione.dialogPane.DPImportTitolo;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddT;
 import View.Controllers.Modifiche.DialogPaneModificaTitolo;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -52,48 +56,6 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
         descColT.setCellValueFactory(new PropertyValueFactory<Titolo, String>("descrizione"));
     }
 
-    public void modifica() {
-        if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
-            return;
-        }
-
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/View/fxml/dialogPaneModifica/modifica_titolo_dialogPane.fxml"));
-
-        try {
-            DialogPane dialogPane = loader.load();
-            DialogPaneModificaTitolo dialogController = loader.getController();
-
-            dialogController.setModel(modelCreazione);
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Modifica Titolo");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-            if (clickedButton.get() == ButtonType.APPLY) {
-                updateChanges(dialogController.getDescTitolo());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void updateChanges(String desc) {
-        if (modelCreazione.getTitoloTmp() == null ||
-                modelCreazione.getTitoloTmp().getDescrizione().equals("")) {
-            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il reparto selezionato non è valido");
-            return;
-        }
-
-        modelCreazione.getTitoloTmp().setDescrizione(desc);
-        Controller.modificaCampo(modelCreazione.getTitoloTmp());
-        tableTitoli.refresh();
-    }
-
     @FXML
     public void delete() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
@@ -105,51 +67,85 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
     @FXML
     public void aggiungi() {
+        this.showDialog("dialogPaneCreazione/creaTitolo_dialogPane.fxml", "Crea Reparto",
+                (DialogPaneAddT controller) -> {
+                    controller.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                            modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+                },
+                (DialogPaneAddT controller) -> {
+                    if (controller.getNome() != null && !controller.getNome().equals("")) {
+                        int id = Controller.getNewId(listaTitolo);
+                        Titolo newTitolo = new Titolo(id,
+                                modelCreazione.getRepartoTmp().getId(),
+                                controller.getNome());
+                        modelCreazione.createTitoloTmp(newTitolo);
+                        Controller.inserisciNuovoRecord(newTitolo);
+                        tableTitoli.getItems().add(newTitolo);
+                        tableTitoli.refresh();
+                    } else {
+                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                                "Qualcosa non è stato inserito correttamente");
+                    }
+                });
 
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/View/fxml/dialogPaneCreazione/creaTitolo_dialogPane.fxml"));
-        DialogPane dialogPane;
-        try {
-            dialogPane = loader.load();
-
-            DialogPaneAddT dialogController = loader.getController();
-
-            dialogController.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-                    modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Crea Reparto");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-            // ------------------- Se viene premuto il tasto "Applica" -------------------
-            // //
-
-            if (clickedButton.get() == ButtonType.APPLY) {
-                if (dialogController.getNome() != null && !dialogController.getNome().equals("")) {
-                    int id = Controller.getNewId(listaTitolo);
-                    Titolo newTitolo = new Titolo(id,
-                            modelCreazione.getRepartoTmp().getId(),
-                            dialogController.getNome());
-                    modelCreazione.createTitoloTmp(newTitolo);
-                    Controller.inserisciNuovoRecord(newTitolo);
-
-                    tableTitoli.getItems().add(newTitolo);
-
-                    tableTitoli.refresh();
-                } else {
-                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                            "Qualcosa non è stato inserito correttamente");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public void importa() {
+    @FXML
+    public void onModifica() {
+        if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
+            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
+            return;
+        }
 
+        this.showDialog("dialogPaneModifica/modifica_titolo_dialogPane.fxml", "Modifica Titolo",
+                (DialogPaneModificaTitolo controller) -> controller.setModel(modelCreazione),
+                (DialogPaneModificaTitolo controller) -> {
+                    var desc = controller.getDescTitolo();
+                    if (modelCreazione.getTitoloTmp() == null ||
+                            modelCreazione.getTitoloTmp().getDescrizione().equals("")) {
+                        Alerts.errorAllert("Errore", "Selezione del Titolo fallita",
+                                "Il reparto selezionato non è valido");
+                        return;
+                    }
+
+                    modelCreazione.getTitoloTmp().setDescrizione(desc);
+                    Controller.modificaCampo(modelCreazione.getTitoloTmp());
+                    tableTitoli.refresh();
+                });
+    }
+
+    @FXML
+    public void onImporta() {
+        this.showDialog("dialogPaneImporta/importa_titolo.fxml", "Importa Titolo",
+                (DPImportTitolo controller) -> {
+                    controller.fillInfo(modelCreazione.getSocietaTmp().getNome(),
+                            modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+                    controller.populateTable(modelCreazione.getRepartoTmp().getId());
+                },
+                (DPImportTitolo controller) -> {
+                    if (controller.getSelectedData() == null) {
+                        Alerts.errorAllert("Errore", "Errore nell'importazione",
+                                "Non è stato selezionato nessun titolo");
+                        return;
+                    }
+
+                    ImportTitoloElement selected = controller.getSelectedData();
+                    Titolo titolo = selected.getTitolo();
+                    List<Oggetto> oggetti = ClassHelper.getListOggetto().stream()
+                            .filter(oggetto -> oggetto.getIdTitolo() == titolo.getId()).toList();
+                    List<Provvedimento> provvedimenti = ClassHelper.getListProvvedimento().stream()
+                            .filter(provvedimento -> oggetti.stream()
+                                    .anyMatch(oggetto -> oggetto.getId() == provvedimento.getIdOggetto()))
+                            .toList();
+
+                    Titolo nuovoTitolo = new Titolo(Model.autoSetId(ClassHelper.getListTitolo()),
+                            modelCreazione.getRepartoTmp().getId(), titolo.getDescrizione());
+                    Controller.inserisciNuovoRecord(nuovoTitolo);
+                    tableTitoli.getItems().add(nuovoTitolo);
+                    tableTitoli.refresh();
+
+                    ModelDb.bulkInsertOggetti(nuovoTitolo.getId(), oggetti, provvedimenti);
+                });
     }
 
     // CODICE "SISTEMATO"

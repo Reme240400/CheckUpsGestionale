@@ -8,9 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+
+import com.healthmarketscience.jackcess.BatchUpdateException;
 
 import Helpers.ClassHelper;
 import Models.Tables.Mansione;
@@ -227,7 +230,6 @@ public class ModelDb {
                         int stima_r = resultSet.getInt("stima_r");
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
-                        String email = resultSet.getString("email");
 
                         Optional<LocalDate> data_inizio = Optional.empty();
                         Date data_inizio_db = resultSet.getDate("data_inizio");
@@ -240,7 +242,7 @@ public class ModelDb {
                             data_scadenza = Optional.of(data_scadenza_db.toLocalDate());
 
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, idOggetto, rischio, nome,
-                                soggettiEsposti, stima_r, stima_d, stima_p, email, data_inizio, data_scadenza);
+                                soggettiEsposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -684,12 +686,6 @@ public class ModelDb {
                         "stima_p",
                         provvedimento.getStimaP());
 
-                modificaCampoStringa("provvedimenti",
-                        "id_provvedimento",
-                        provvedimento.getId(),
-                        "email",
-                        provvedimento.getEmail());
-
                 modificaCampoData("provvedimenti",
                         "id_provvedimento",
                         provvedimento.getId(),
@@ -769,100 +765,6 @@ public class ModelDb {
             e.printStackTrace();
         }
     }
-
-    // Metodo per inserire un nuovo elemento nella lista
-    /*
-     * public static void inserisciRecordInLista(Object obj) {
-     * switch (obj.getClass().getSimpleName()) {
-     * case "Mansione":
-     * Mansione mansione = new Mansione(((Mansione) obj).getId(),
-     * ((Mansione) obj).getNome(),
-     * ((Mansione) obj).getResponsabile());
-     * 
-     * ClassHelper.getListMansione().add(mansione);
-     * break;
-     * case "Titolo":
-     * Titolo titolo = new Titolo(((Titolo) obj).getId(),
-     * ((Titolo) obj).getIdReparto(),
-     * ((Titolo) obj).getDescrizione());
-     * 
-     * ClassHelper.getListTitolo().add(titolo);
-     * break;
-     * case "Reparto":
-     * Reparto reparto = new Reparto(((Reparto) obj).getId(),
-     * ((Reparto) obj).getIdUnitaLocale(),
-     * ((Reparto) obj).getNome(),
-     * ((Reparto) obj).getDescrizione(),
-     * ((Reparto) obj).getRevisione(),
-     * ((Reparto) obj).getData());
-     * 
-     * ClassHelper.getListReparto().add(reparto);
-     * break;
-     * 
-     * case "Rischio":
-     * Rischio rischio = new Rischio(((Rischio) obj).getId(),
-     * ((Rischio) obj).getNome(),
-     * ((Rischio) obj).getP(),
-     * ((Rischio) obj).getD(),
-     * ((Rischio) obj).getR(),
-     * ((Rischio) obj).getIdReparto());
-     * 
-     * ClassHelper.getListRischio().add(rischio);
-     * break;
-     * 
-     * case "Societa":
-     * Societa societa = (Societa) obj;
-     * // Societa societa = new Societa(
-     * // ((Societa) obj).getId(),
-     * // ((Societa) obj).getNome(),
-     * // ((Societa) obj).getIndirizzo(),
-     * // ((Societa) obj).getLocalita(),
-     * // ((Societa) obj).getProvincia(),
-     * // ((Societa) obj).getTelefono(),
-     * // ((Societa) obj).getDescrizione());
-     * 
-     * ClassHelper.getListSocieta().add(societa);
-     * break;
-     * case "Oggetto":
-     * Oggetto oggetto = new Oggetto(((Oggetto) obj).getId(),
-     * ((Oggetto) obj).getNome(),
-     * ((Oggetto) obj).getIdTitolo());
-     * 
-     * ClassHelper.getListOggetto().add(oggetto);
-     * break;
-     * case "Provvedimento":
-     * Provvedimento provvedimento = new Provvedimento(((Provvedimento)
-     * obj).getId(),
-     * ((Provvedimento) obj).getIdOggetto(),
-     * ((Provvedimento) obj).getNome(),
-     * ((Provvedimento) obj).getRischio(),
-     * ((Provvedimento) obj).getSoggettiEsposti(),
-     * ((Provvedimento) obj).getStimaR(),
-     * ((Provvedimento) obj).getStimaD(),
-     * ((Provvedimento) obj).getStimaP(),
-     * ((Provvedimento) obj).getEmail(),
-     * ((Provvedimento) obj).getDataInizio(),
-     * ((Provvedimento) obj).getDataScadenza());
-     * 
-     * ClassHelper.getListProvvedimento().add(provvedimento);
-     * break;
-     * case "UnitaLocale":
-     * UnitaLocale unitaLocale = new UnitaLocale(((UnitaLocale) obj).getId(),
-     * ((UnitaLocale) obj).getNome(),
-     * ((UnitaLocale) obj).getIndirizzo(),
-     * ((UnitaLocale) obj).getLocalita(),
-     * ((UnitaLocale) obj).getProvincia(),
-     * ((UnitaLocale) obj).getTelefono(),
-     * ((UnitaLocale) obj).getIdSocieta());
-     * 
-     * ClassHelper.getListUnitaLocale().add(unitaLocale);
-     * break;
-     * default:
-     * throw new IllegalArgumentException(
-     * "Unexpected value: " + obj.getClass().getSimpleName());
-     * }
-     * }
-     */
 
     public void visualizzaTabellaSocieta() {
         Connection connection = connessioneDb();
@@ -1230,7 +1132,7 @@ public class ModelDb {
     // corrispondnome
     public static void inserisciElementoProvvedimenti(List<Provvedimento> provvedimentoList) {
         doUpdateQuery(
-                "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, email, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?,?)",
+                "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)",
                 (ps) -> {
                     try {
                         Provvedimento prov = provvedimentoList.get(provvedimentoList.size() - 1);
@@ -1242,11 +1144,10 @@ public class ModelDb {
                         ps.setInt(6, prov.getStimaR());
                         ps.setInt(7, prov.getStimaD());
                         ps.setInt(8, prov.getStimaP());
-                        ps.setString(9, prov.getEmail());
-                        ps.setDate(10,
+                        ps.setDate(9,
                                 prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
                                         : null);
-                        ps.setDate(11,
+                        ps.setDate(10,
                                 prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
                                         : null);
                     } catch (SQLException e) {
@@ -1254,90 +1155,84 @@ public class ModelDb {
                     }
                 });
     }
-    /*
-     * // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-     * // corrispondente
-     * public static void inserisciElementoRischi(List<Rischio> rischioList) {
-     * doUpdateQuery("INSERT INTO public.rischi (id_rischio, nome, P, D, R, id_reparto) VALUES (?, ?, ?, ?, ?, ?)"
-     * ,
-     * (ps) -> {
-     * try {
-     * Rischio rischio = rischioList.get(rischioList.size() - 1);
-     * ps.setInt(1, rischio.getId());
-     * ps.setString(2, rischio.getNome());
-     * ps.setInt(3, rischio.getP());
-     * ps.setInt(4, rischio.getD());
-     * ps.setInt(5, rischio.getR());
-     * ps.setInt(6, rischio.getIdReparto());
-     * } catch (SQLException e) {
-     * e.printStackTrace();
-     * }
-     * });
-     * }
-     * 
-     * public static void popolaListaRischi() {
-     * try (Connection connection = connessioneDb()) {
-     * if (connection != null) {
-     * ClassHelper.svuotaListaRischi();
-     * try (Statement statement = connection.createStatement();
-     * ResultSet resultSet = statement.executeQuery("SELECT * FROM public.rischi"))
-     * {
-     * 
-     * while (resultSet.next()) {
-     * int idRischio = resultSet.getInt("id_rischio");
-     * String nome = resultSet.getString("nome");
-     * int p = resultSet.getInt("P");
-     * int d = resultSet.getInt("D");
-     * int r = resultSet.getInt("R");
-     * int idReparto = resultSet.getInt("id_reparto");
-     * 
-     * Rischio rischio = new Rischio(idRischio, nome, p, d, r, idReparto);
-     * ModelListe.inserisciRecordInLista(rischio);
-     * }
-     * } catch (SQLException e) {
-     * System.out.println("Errore durante la lettura della tabella rischi: " +
-     * e.getMessage());
-     * } finally {
-     * try {
-     * connection.close();
-     * } catch (SQLException e) {
-     * System.out.println("Errore durante la chiusura della connessione: " +
-     * e.getMessage());
-     * }
-     * }
-     * }
-     * } catch (SQLException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * }
-     * }
-     * public void visualizzaTabellaElencoRischi() {
-     * Connection connection = connessioneDb();
-     * if (connection != null) {
-     * try (Statement statement = connection.createStatement();
-     * ResultSet resultSet =
-     * statement.executeQuery("SELECT * FROM public.elenco_rischi")) {
-     * 
-     * while (resultSet.next()) {
-     * int idProvvedimento = resultSet.getInt("id_provvedimento");
-     * int idRischio = resultSet.getInt("id_rischio");
-     * 
-     * System.out.println("ID Provvedimento: " + idProvvedimento);
-     * System.out.println("ID Rischio: " + idRischio);
-     * System.out.println();
-     * }
-     * } catch (SQLException e) {
-     * System.out.println("Errore durante la lettura della tabella elenco_rischi: "
-     * + e.getMessage());
-     * } finally {
-     * try {
-     * connection.close(); // Chiude la connessione in modo controllato
-     * } catch (SQLException e) {
-     * System.out.println("Errore durante la chiusura della connessione: " +
-     * e.getMessage());
-     * }
-     * }
-     * }
-     * }
-     */
+
+    public static void bulkInsertOggetti(int nuovoIdTitolo, List<Oggetto> oggetti, List<Provvedimento> provvedimenti) {
+        List<Provvedimento> newProvs = new ArrayList<>();
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                PreparedStatement ps = connection
+                        .prepareStatement("INSERT INTO public.oggetti (id, nome, id_titolo) VALUES (?, ?, ?)");
+                connection.setAutoCommit(false);
+                var listaOggettiLocali = ClassHelper.getListOggetto();
+
+                for (Oggetto oggetto : oggetti) {
+                    Oggetto nuovoOggetto = new Oggetto(Model.autoSetId(listaOggettiLocali), oggetto.getNome(),
+                            nuovoIdTitolo);
+
+                    ps.setInt(1, nuovoOggetto.getId());
+                    ps.setString(2, nuovoOggetto.getNome());
+                    ps.setInt(3, nuovoOggetto.getIdTitolo());
+                    ps.addBatch();
+
+                    List<Provvedimento> relatedProv = provvedimenti.stream()
+                            .filter(p -> p.getIdOggetto() == oggetto.getId()).toList();
+                    for (Provvedimento prov : relatedProv) {
+                        Provvedimento tmpProv = new Provvedimento(Model.autoSetId(ClassHelper.getListProvvedimento()),
+                                nuovoOggetto.getId(), prov.getRischio(), prov.getNome(), prov.getSoggettiEsposti(),
+                                prov.getStimaR(), prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
+                                prov.getDataScadenza());
+                        newProvs.add(tmpProv);
+                        ClassHelper.getListProvvedimento().add(tmpProv);
+                    }
+
+                    ClassHelper.getListOggetto().add(nuovoOggetto);
+                }
+
+                int[] updated = ps.executeBatch();
+                System.out.println("Importati " + updated.length + " oggetti");
+                connection.commit();
+                connection.setAutoCommit(true);
+
+                newProvs.size();
+                bulkInsertProvvedimenti(connection, newProvs);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void bulkInsertProvvedimenti(Connection connection, List<Provvedimento> provvedimenti)
+            throws SQLException {
+        if (connection != null) {
+            PreparedStatement ps = connection
+                    .prepareStatement(
+                            "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)");
+
+            connection.setAutoCommit(false);
+
+            for (Provvedimento prov : provvedimenti) {
+                ps.setInt(1, prov.getId());
+                ps.setInt(2, prov.getIdOggetto());
+                ps.setString(3, prov.getRischio());
+                ps.setString(4, prov.getNome());
+                ps.setString(5, prov.getSoggettiEsposti());
+                ps.setInt(6, prov.getStimaR());
+                ps.setInt(7, prov.getStimaD());
+                ps.setInt(8, prov.getStimaP());
+                ps.setDate(9,
+                        prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
+                                : null);
+                ps.setDate(10,
+                        prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
+                                : null);
+
+                ps.addBatch();
+            }
+
+            int[] updated = ps.executeBatch();
+            System.out.println("Importati " + updated.length + " provvedimenti");
+            connection.commit();
+            connection.setAutoCommit(true);
+        }
+    }
 }

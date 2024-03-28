@@ -65,93 +65,51 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
     }
 
     @FXML
-    public void modifica() {
-        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/View/fxml/dialogPaneModifica/modifica_oggetto_dialogPane.fxml"));
-            DialogPane dialogPane;
-            try {
-                dialogPane = loader.load();
-
-                DialogPaneModificaOggetto dialogController = loader.getController();
-
-                dialogController.setModel(modelCreazione);
-
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setDialogPane(dialogPane);
-                dialog.setTitle("Modifica Oggetto");
-
-                Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-                if (clickedButton.get() == ButtonType.APPLY) {
-                    updateChanges(dialogController.getNome());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
+    public void onModifica() {
+        if (tableOggetti.getSelectionModel().getSelectedItem() == null) {
             Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita", "L'oggetto selezionato non è valido");
+            return;
         }
+
+        this.showDialog("dialogPaneModifica/modifica_oggetto_dialogPane.fxml", "Modifica Oggetto",
+                (DialogPaneModificaOggetto controller) -> controller.setModel(modelCreazione),
+                (DialogPaneModificaOggetto controller) -> {
+                    if (modelCreazione.getOggettoTmp() != null &&
+                            modelCreazione.getOggettoTmp().getNome() != "") {
+
+                        modelCreazione.getOggettoTmp().setNome(controller.getNome());
+
+                        Controller.modificaCampo(modelCreazione.getOggettoTmp());
+                        tableOggetti.refresh();
+                    } else {
+                        Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita",
+                                "L'oggetto selezionato non è valido");
+                    }
+                });
     }
 
     @FXML
-    public void aggiungi() {
+    public void onAggiungi() {
+        this.showDialog("dialogPaneCreazione/creaOggetto_dialogPane.fxml",
+                "Crea Oggetto",
+                (DialogPaneAddO controller) -> controller.fillTextBox(localSocieta.getNome(),
+                        localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione()),
+                (DialogPaneAddO controller) -> {
+                    if (controller.getNome() != null && !controller.getNome().equals("")) {
 
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/View/fxml/dialogPaneCreazione/creaOggetto_dialogPane.fxml"));
-        DialogPane dialogPane;
-        try {
-            dialogPane = loader.load();
+                        int id = Controller.getNewId(listaOggetti);
+                        Oggetto newOggetto = new Oggetto(id,
+                                controller.getNome(),
+                                localTitolo.getId());
 
-            DialogPaneAddO dialogController = loader.getController();
-
-            dialogController.fillTextBox(localSocieta.getNome(),
-                    localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione());
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle("Crea Oggetto");
-
-            Optional<ButtonType> clickedButton = dialog.showAndWait();
-
-            // ------------------- Se viene premuto il tasto "Applica" ------------------ //
-
-            if (clickedButton.get() == ButtonType.APPLY) {
-                if (dialogController.getNome() != null
-                        && !dialogController.getNome().equals("")) {
-
-                    int id = Controller.getNewId(listaOggetti);
-                    Oggetto newOggetto = new Oggetto(id,
-                            dialogController.getNome(),
-                            localTitolo.getId());
-
-                    Controller.inserisciNuovoRecord(newOggetto);
-
-                    tableOggetti.getItems().add(newOggetto);
-
-                    tableOggetti.refresh();
-
-                } else {
-                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
-                            "Qualcosa non è stato inserito correttamente");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void updateChanges(String nome) throws IOException {
-        if (modelCreazione.getOggettoTmp() != null &&
-                modelCreazione.getOggettoTmp().getNome() != "") {
-
-            modelCreazione.getOggettoTmp().setNome(nome);
-
-            Controller.modificaCampo(modelCreazione.getOggettoTmp());
-            tableOggetti.refresh();
-        } else {
-            Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita", "L'oggetto selezionato non è valido");
-        }
+                        Controller.inserisciNuovoRecord(newOggetto);
+                        tableOggetti.getItems().add(newOggetto);
+                        tableOggetti.refresh();
+                    } else {
+                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                                "Qualcosa non è stato inserito correttamente");
+                    }
+                });
     }
 
     public void importa() {

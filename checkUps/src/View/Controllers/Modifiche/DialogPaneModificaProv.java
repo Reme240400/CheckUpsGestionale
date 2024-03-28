@@ -4,6 +4,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import Interfaces.DialogInterface;
+import Interfaces.DialogInterface.FieldsCheckResponse;
 import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +15,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class DialogPaneModificaProv implements Initializable {
+public class DialogPaneModificaProv implements DialogInterface, Initializable {
 
     @FXML
     private TextField modificaNome;
@@ -25,7 +27,7 @@ public class DialogPaneModificaProv implements Initializable {
     private TextField modificaSoggettiEsposti;
 
     @FXML
-    private DatePicker modificaData;
+    private DatePicker modificaDataFine;
 
     @FXML
     private Spinner<Integer> stimaP;
@@ -54,6 +56,8 @@ public class DialogPaneModificaProv implements Initializable {
             } catch (NullPointerException e) {
             }
         });
+
+        modificaDataFine.disableProperty().set(true);
     }
 
     public String getNome() {
@@ -84,18 +88,39 @@ public class DialogPaneModificaProv implements Initializable {
         }
     }
 
-    public LocalDate getModificaData() {
-        return modificaData.getValue();
+    public LocalDate getDataFine() {
+        return modificaDataFine.getValue();
     }
 
     public void setModel(ModelCreazione model) {
         modificaNome.setText(model.getProvvedimentoTmp().getNome());
         modificaRischio.setText(model.getProvvedimentoTmp().getRischio());
         modificaSoggettiEsposti.setText(model.getProvvedimentoTmp().getSoggettiEsposti());
+        modificaDataFine.setValue(model.getProvvedimentoTmp().getDataScadenza().orElse(null));
         stimaD.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaD());
         stimaP.getValueFactory().setValue(model.getProvvedimentoTmp().getStimaP());
         stimaR.setText(
                 String.valueOf(model.getProvvedimentoTmp().getStimaD() * model.getProvvedimentoTmp().getStimaP()));
     }
 
+    @Override
+    public FieldsCheckResponse areFieldsValid() {
+        if (this.getNome() == null || this.getNome().equals("")) {
+            return new FieldsCheckResponse("Nome non valido");
+        }
+
+        if (this.getRischio() == null || this.getRischio().equals("")) {
+            return new FieldsCheckResponse("Rischio non valido");
+        }
+
+        if (this.getSoggettiEsposti() == null || this.getSoggettiEsposti().equals("")) {
+            return new FieldsCheckResponse("Soggetti Esposti non validi");
+        }
+
+        if (this.getStimaR() == -1) {
+            return new FieldsCheckResponse("Stime non valide");
+        }
+
+        return new FieldsCheckResponse();
+    }
 }

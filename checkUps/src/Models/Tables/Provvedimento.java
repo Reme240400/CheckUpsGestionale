@@ -13,12 +13,11 @@ public class Provvedimento extends TablesId implements Serializable {
     private int stima_r;
     private int stima_d;
     private int stima_p;
-    private String email;
     private Optional<LocalDate> data_inizio;
     private Optional<LocalDate> data_scadenza;
 
     public Provvedimento(int idProvvedimento, int idOggetto, String rischio, String nome,
-            String soggettiEsposti, int stima_r, int stima_d, int stima_p, String email,
+            String soggettiEsposti, int stima_r, int stima_d, int stima_p,
             Optional<LocalDate> data_inizio,
             Optional<LocalDate> data_scadenza) {
         super(idProvvedimento);
@@ -30,7 +29,6 @@ public class Provvedimento extends TablesId implements Serializable {
         this.stima_r = stima_r;
         this.stima_d = stima_d;
         this.stima_p = stima_p;
-        this.email = email;
         this.data_inizio = data_inizio;
         this.data_scadenza = data_scadenza;
     }
@@ -89,14 +87,6 @@ public class Provvedimento extends TablesId implements Serializable {
 
     public void setStimaP(int stima_p) {
         this.stima_p = stima_p;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Optional<LocalDate> getDataInizio() {

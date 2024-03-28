@@ -1,6 +1,11 @@
 package Models.creazione;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import Controllers.Controller;
 import Models.Alerts;
@@ -16,7 +21,11 @@ import Models.Tables.UnitaLocale;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
 
 public class CreazioneBase implements CreazioneInterface {
@@ -29,6 +38,29 @@ public class CreazioneBase implements CreazioneInterface {
     protected Titolo localTitolo;
     protected Oggetto localOggetto;
     protected Provvedimento localProvvedimento;
+
+    protected <T> void showDialog(String relativePath, String title, Consumer<T> prepareDialogPane,
+            Consumer<T> updateChanges) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/" + relativePath));
+        DialogPane dialogPane = null;
+
+        try {
+            dialogPane = loader.load();
+            T controller = loader.getController();
+            prepareDialogPane.accept(controller);
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.setTitle(title);
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.get() == ButtonType.APPLY) {
+                updateChanges.accept(controller);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void changePage(TipoCreazionePagina tipo, boolean buttonReset) {
