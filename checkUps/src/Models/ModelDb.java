@@ -1154,7 +1154,7 @@ public class ModelDb {
                 });
     }
 
-    public static void bulkInsertOggetti(int nuovoIdTitolo, List<Oggetto> oggetti, List<Provvedimento> provvedimenti) {
+    public static void bulkInsertTitolo(int nuovoIdTitolo, List<Oggetto> oggetti, List<Provvedimento> provvedimenti) {
         List<Provvedimento> newProvs = new ArrayList<>();
         try (Connection connection = connessioneDb()) {
             if (connection != null) {

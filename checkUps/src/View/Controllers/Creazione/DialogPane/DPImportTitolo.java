@@ -5,27 +5,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.jfoenix.controls.JFXButton;
-
 import Helpers.ClassHelper;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import Models.imports.ImportTitoloElement;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.util.Pair;
 
 public class DPImportTitolo implements Initializable {
     @FXML
