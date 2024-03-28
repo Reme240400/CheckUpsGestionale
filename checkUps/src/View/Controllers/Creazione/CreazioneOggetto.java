@@ -112,7 +112,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
                 });
     }
 
-    public void importa() {
+    public void onImporta() {
 
     }
 
