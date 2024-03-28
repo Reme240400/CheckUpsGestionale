@@ -69,7 +69,7 @@
                                 <Insets right="2.0" />
                             </HBox.margin>
                         </ImageView>
-                        <TextField fx:id="filtra" onKeyReleased="#onSearch" prefHeight="25.0" prefWidth="213.0" promptText="Filtra" stylesheets="@../../css/style.css">
+                        <TextField fx:id="textFieldFiltra" prefHeight="25.0" prefWidth="213.0" promptText="Filtra per titolo" stylesheets="@../../css/style.css">
                             <styleClass>
                                 <String fx:value="text-area" />
                                 <String fx:value="rounded-md" />
