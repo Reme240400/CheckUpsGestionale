@@ -4,10 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
 import java.util.function.Predicate;
-=======
->>>>>>> 7add8566859de4a89eedc28a70082c60d13213be
 
 import Helpers.ClassHelper;
 import Models.Tables.Reparto;
