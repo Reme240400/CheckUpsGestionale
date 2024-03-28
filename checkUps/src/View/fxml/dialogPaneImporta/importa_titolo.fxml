@@ -12,7 +12,7 @@
 
 <DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <header>
-      <HBox alignment="CENTER">
+      <HBox alignment="CENTER" fillHeight="false">
          <children>
             <Pane>
                <children>
@@ -23,11 +23,21 @@
                   <Insets left="25.0" />
                </HBox.margin>
             </Pane>
-            <Pane HBox.hgrow="SOMETIMES" />
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="0.0" prefWidth="71.0" HBox.hgrow="SOMETIMES" />
             <Pane>
                <children>
                   <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="21.0" styleClass="transparent" stylesheets="@../../css/style.css" />
                   <Label layoutY="6.0" text="Unità Locale" />
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Pane>
+            <Pane layoutX="188.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="0.0" prefWidth="71.0" />
+            <Pane layoutX="300.0" layoutY="10.0">
+               <children>
+                  <TextField fx:id="textFieldReparto" editable="false" layoutY="21.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label layoutY="6.0" text="Reparto" />
                </children>
                <HBox.margin>
                   <Insets right="25.0" />
@@ -41,9 +51,9 @@
       <ButtonType fx:constant="CLOSE" />
    </buttonTypes>
    <content>
-      <HBox alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="420.0" prefWidth="508.0">
          <children>
-            <ListView prefHeight="179.0" prefWidth="336.0" stylesheets="../../css/style.css" HBox.hgrow="SOMETIMES" />
+            <ListView fx:id="lista_titoli" styleClass="rounded-md" stylesheets="@../../css/style.css" HBox.hgrow="SOMETIMES" />
          </children>
       </HBox>
    </content>
