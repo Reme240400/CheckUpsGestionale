@@ -1225,4 +1225,48 @@ public class ModelDb {
             ex.printStackTrace();
         }
     }
+
+    public static void bulkInsertOggetto(int nuovoIdOggetto, List<Provvedimento> provvedimenti) {
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                PreparedStatement ps = connection
+                        .prepareStatement(
+                                "INSERT INTO public.provvedimenti (id_provvedimento, id_oggetto, rischio, nome, soggetti_esposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)");
+                connection.setAutoCommit(false);
+                var listaProvLocali = ClassHelper.getListProvvedimento();
+
+                for (Provvedimento prov : provvedimenti) {
+                    Provvedimento tmpProv = new Provvedimento(Model.autoSetId(listaProvLocali),
+                            nuovoIdOggetto, prov.getRischio(), prov.getNome(), prov.getSoggettiEsposti(),
+                            prov.getStimaR(), prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
+                            prov.getDataScadenza());
+
+                    ps.setInt(1, prov.getId());
+                    ps.setInt(2, prov.getIdOggetto());
+                    ps.setString(3, prov.getRischio());
+                    ps.setString(4, prov.getNome());
+                    ps.setString(5, prov.getSoggettiEsposti());
+                    ps.setInt(6, prov.getStimaR());
+                    ps.setInt(7, prov.getStimaD());
+                    ps.setInt(8, prov.getStimaP());
+                    ps.setDate(9,
+                            prov.getDataInizio().isPresent() ? java.sql.Date.valueOf(prov.getDataInizio().get())
+                                    : null);
+                    ps.setDate(10,
+                            prov.getDataScadenza().isPresent() ? java.sql.Date.valueOf(prov.getDataScadenza().get())
+                                    : null);
+                    ps.addBatch();
+
+                    ClassHelper.getListProvvedimento().add(tmpProv);
+                }
+
+                int[] updated = ps.executeBatch();
+                System.out.println("Importati " + updated.length + " provvedimenti");
+                connection.commit();
+                connection.setAutoCommit(true);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

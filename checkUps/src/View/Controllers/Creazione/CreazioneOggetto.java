@@ -125,7 +125,8 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
         this.showDialog("dialogPaneImporta/importa_oggetto.fxml", "Importa Oggetto",
                 (DPImportOggetto controller) -> {
                     controller.fillInfo(modelCreazione.getSocietaTmp().getNome(),
-                            modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome(), modelCreazione.getTitoloTmp().getDescrizione());
+                            modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome(),
+                            modelCreazione.getTitoloTmp().getDescrizione());
                     controller.populateTable(modelCreazione.getRepartoTmp().getId());
                 },
                 (DPImportOggetto controller) -> {
@@ -148,7 +149,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
                     tableOggetti.getItems().add(nuovoOggetto);
                     tableOggetti.refresh();
 
-                    ModelDb.bulkInsertTitolo(nuovoOggetto.getId(), provvedimenti);
+                    ModelDb.bulkInsertOggetto(nuovoOggetto.getId(), provvedimenti);
                 });
     }
 
