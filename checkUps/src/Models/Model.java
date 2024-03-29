@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 import com.jfoenix.controls.JFXComboBox;
 
 import Models.Tables.TablesId;
-import Models.imports.ImportTitoloElement;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;

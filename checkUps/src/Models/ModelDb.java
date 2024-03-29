@@ -225,7 +225,6 @@ public class ModelDb {
                         int idOggetto = resultSet.getInt("id_oggetto");
                         String rischio = resultSet.getString("rischio");
                         String soggettiEsposti = resultSet.getString("soggetti_esposti");
-                        int stima_r = resultSet.getInt("stima_r");
                         int stima_d = resultSet.getInt("stima_d");
                         int stima_p = resultSet.getInt("stima_p");
 
@@ -240,7 +239,7 @@ public class ModelDb {
                             data_scadenza = Optional.of(data_scadenza_db.toLocalDate());
 
                         Provvedimento provvedimento = new Provvedimento(idProvvedimento, idOggetto, rischio, nome,
-                                soggettiEsposti, stima_r, stima_d, stima_p, data_inizio, data_scadenza);
+                                soggettiEsposti, stima_d, stima_p, data_inizio, data_scadenza);
                         ModelListe.inserisciRecordInLista(provvedimento);
                     }
                 } catch (SQLException e) {
@@ -1176,7 +1175,7 @@ public class ModelDb {
                     for (Provvedimento prov : relatedProv) {
                         Provvedimento tmpProv = new Provvedimento(Model.autoSetId(ClassHelper.getListProvvedimento()),
                                 nuovoOggetto.getId(), prov.getRischio(), prov.getNome(), prov.getSoggettiEsposti(),
-                                prov.getStimaR(), prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
+                                prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
                                 prov.getDataScadenza());
                         newProvs.add(tmpProv);
                         ClassHelper.getListProvvedimento().add(tmpProv);
@@ -1237,7 +1236,7 @@ public class ModelDb {
                 for (Provvedimento prov : provvedimenti) {
                     Provvedimento tmpProv = new Provvedimento(Model.autoSetId(ClassHelper.getListProvvedimento()),
                             nuovoIdOggetto, prov.getRischio(), prov.getNome(), prov.getSoggettiEsposti(),
-                            prov.getStimaR(), prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
+                            prov.getStimaD(), prov.getStimaP(), prov.getDataInizio(),
                             prov.getDataScadenza());
 
                     ps.setInt(1, tmpProv.getId());
@@ -1249,10 +1248,11 @@ public class ModelDb {
                     ps.setInt(7, tmpProv.getStimaD());
                     ps.setInt(8, tmpProv.getStimaP());
                     ps.setDate(9,
-                                tmpProv.getDataInizio().isPresent() ? java.sql.Date.valueOf(tmpProv.getDataInizio().get())
+                            tmpProv.getDataInizio().isPresent() ? java.sql.Date.valueOf(tmpProv.getDataInizio().get())
                                     : null);
                     ps.setDate(10,
-                                tmpProv.getDataScadenza().isPresent() ? java.sql.Date.valueOf(tmpProv.getDataScadenza().get())
+                            tmpProv.getDataScadenza().isPresent()
+                                    ? java.sql.Date.valueOf(tmpProv.getDataScadenza().get())
                                     : null);
                     ps.addBatch();
 

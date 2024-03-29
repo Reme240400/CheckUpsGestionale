@@ -18,6 +18,7 @@ import Models.Tables.Provvedimento;
 import Models.creazione.CreazioneBase;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
 import View.Controllers.Modifiche.DialogPaneModificaProv;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,7 +67,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        stimaRCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
+        stimaRCol.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getStimaR()).asObject());
         datainizioCol.setCellValueFactory(data -> {
             var dataInizio = data.getValue().getDataInizio();
             return dataInizio.isPresent() ? new SimpleStringProperty(dataInizio.get().toString())
@@ -104,7 +105,6 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                             controller.getNome(),
                             controller.getRischio(),
                             controller.getSoggettiEsposti(),
-                            controller.getStimaR(),
                             controller.getStimaD(),
                             controller.getStimaP(),
                             Optional.of(LocalDate.now()),
