@@ -28,7 +28,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
 public class CreazioneSocieta extends CreazioneBase implements Initializable {
@@ -78,7 +77,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     Optional<Societa> curSocieta = Optional.empty();
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
-    // ------------------------------------------------------- INITIALIZE -------------------------------------------------------------------- //
+    // ------------------------------------------------------- INITIALIZE
+    // -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -87,7 +87,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
 
-            if (text.matches("[0-9]*") && change.getControlNewText().length() <= 15){
+            if (text.matches("[0-9]*") && change.getControlNewText().length() <= 15) {
                 return change;
             }
 

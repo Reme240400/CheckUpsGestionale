@@ -1,19 +1,15 @@
 package View.Controllers.Creazione;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
-import Controllers.ControllerDb;
 import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelDb;
-import Models.ModelListe;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Oggetto;

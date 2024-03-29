@@ -69,7 +69,6 @@ public class ModelPaths {
         return stackPaneModificaO;
     }
 
-
     // *************** Cambia la scena a valuta rischi *************** //
     public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita)
             throws IOException {
@@ -94,20 +93,18 @@ public class ModelPaths {
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/main_creazione.fxml");
 
         // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
-            Parent root = loader.load();
-            Creazione creazione = loader.getController();
-
-            creazione.setModelCreazione(modelCreazione, this);
-
-            // Add the loaded FXML URL to the set
-            loadedFXMLs = fxmlURL.toString();
-
-            return root;
-        } else {
+        if (fxmlURL == null || isAlreadyLoaded(stackPaneHome, fxmlURL.toString()))
             return null;
-        }
+
+        FXMLLoader loader = new FXMLLoader(fxmlURL);
+        Parent root = loader.load();
+        Creazione creazione = loader.getController();
+
+        creazione.setModelCreazione(modelCreazione, this);
+
+        // Add the loaded FXML URL to the set
+        loadedFXMLs = fxmlURL.toString();
+        return root;
     }
 
     public Parent switchToCreazioneByTipo(TipoCreazionePagina tipo, ModelCreazione modelCreazione) {
@@ -178,12 +175,11 @@ public class ModelPaths {
 
     // ------------------ Cambia la scena a Creazione Societa ------------------ //
     public Parent switchToCreazioneSocieta(ModelCreazione modelCreazione) throws IOException {
-
         FXMLLoader loaderSocieta = new FXMLLoader(
                 getClass().getResource("/View/fxml/creazione/creazione_societa.fxml"));
         Parent root = loaderSocieta.load();
-        CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
 
+        CreazioneSocieta creazioneSocieta = loaderSocieta.getController();
         creazioneSocieta.setModel(modelCreazione, this);
         creazioneSocieta.setOldTextFields();
 
@@ -246,7 +242,8 @@ public class ModelPaths {
         return root;
     }
 
-    // ------------------ Verifica che il contenuto dello stackPane sia già stato caricato ------------------ //
+    // ------------------ Verifica che il contenuto dello stackPane sia già stato
+    // caricato ------------------ //
     private boolean isAlreadyLoaded(StackPane stackPane, String fxmlURL) {
         if (loadedFXMLs != null) {
             return loadedFXMLs.equals(fxmlURL);

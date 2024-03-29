@@ -26,7 +26,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
 public class CreazioneUnitaLocale extends CreazioneBase implements Initializable {
@@ -68,7 +67,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
 
-            if (text.matches("[0-9]*") && change.getControlNewText().length() <= 15){
+            if (text.matches("[0-9]*") && change.getControlNewText().length() <= 15) {
                 return change;
             }
 
@@ -164,7 +163,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
             Controller.inserisciNuovoRecord(unitaLocale);
             modelCreazione.createUnitaLocaleTmp(unitaLocale);
-        }else
+        } else
             aggiorna();
 
         super.changePage(TipoCreazionePagina.REPARTO, true);

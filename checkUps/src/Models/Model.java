@@ -1,11 +1,17 @@
 package Models;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import com.jfoenix.controls.JFXComboBox;
 
 import Models.Tables.TablesId;
+import Models.imports.ImportTitoloElement;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TextField;
@@ -109,5 +115,16 @@ public class Model {
 
         return filteredList;
 
+    }
+
+    public static <T> ObjectProperty<Predicate<T>> genericTableViewFilter(Function<T, String> fieldFun,
+            TextField filterField) {
+        var property = new SimpleObjectProperty<Predicate<T>>();
+        property.bind(Bindings.createObjectBinding(
+                () -> elem -> elem != null
+                        && fieldFun.apply(elem).toLowerCase().trim()
+                                .startsWith(filterField.getText().toLowerCase().trim()),
+                filterField.textProperty()));
+        return property;
     }
 }

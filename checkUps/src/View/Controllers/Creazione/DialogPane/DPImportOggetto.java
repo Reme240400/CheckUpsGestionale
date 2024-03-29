@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Helpers.ClassHelper;
+import Models.Model;
 import Models.Tables.Oggetto;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
@@ -13,6 +14,7 @@ import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import Models.imports.ImportOggettoElement;
 import Models.imports.ImportTitoloElement;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -21,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class DPImportOggetto implements Initializable {
 
@@ -50,6 +53,21 @@ public class DPImportOggetto implements Initializable {
 
     @FXML
     private TextField textFieldFiltraO;
+
+    @FXML
+    private ImageView clearO;
+
+    @FXML
+    private ImageView clearT;
+
+    @FXML
+    private ImageView clearR;
+
+    @FXML
+    private ImageView clearU;
+
+    @FXML
+    private ImageView clearS;
 
     @FXML
     private TableView<ImportOggettoElement> tableImportaOggetti;
@@ -86,6 +104,12 @@ public class DPImportOggetto implements Initializable {
             }
         });
 
+        clearO.onMouseClickedProperty().set(e -> textFieldFiltraO.clear());
+        clearT.onMouseClickedProperty().set(e -> textFieldFiltraT.clear());
+        clearR.onMouseClickedProperty().set(e -> textFieldFiltraR.clear());
+        clearU.onMouseClickedProperty().set(e -> textFieldFiltraU.clear());
+        clearS.onMouseClickedProperty().set(e -> textFieldFiltraS.clear());
+
         // btnImport.disableProperty().bind(tableImportaTitoli.getSelectionModel().selectedItemProperty().isNull());
     }
 
@@ -119,6 +143,23 @@ public class DPImportOggetto implements Initializable {
         }
 
         FilteredList<ImportOggettoElement> filteredData = new FilteredList<>(FXCollections.observableArrayList(list));
+
+        var societaFilter = Model.genericTableViewFilter((ImportOggettoElement e) -> e.getSocieta().getNome(),
+                textFieldFiltraS);
+        var unitaLocaleFilter = Model.genericTableViewFilter((ImportOggettoElement e) -> e.getUnitaLocale().getNome(),
+                textFieldFiltraU);
+        var repartoFilter = Model.genericTableViewFilter((ImportOggettoElement e) -> e.getReparto().getNome(),
+                textFieldFiltraR);
+        var titoloFilter = Model.genericTableViewFilter((ImportOggettoElement e) -> e.getTitolo().getDescrizione(),
+                textFieldFiltraT);
+        var oggettoFilter = Model.genericTableViewFilter((ImportOggettoElement e) -> e.getOggetto().getNome(),
+                textFieldFiltraO);
+
+        filteredData.predicateProperty().bind(Bindings.createObjectBinding(
+                () -> societaFilter.get().and(unitaLocaleFilter.get()).and(repartoFilter.get()).and(titoloFilter.get())
+                        .and(oggettoFilter.get()),
+                societaFilter, unitaLocaleFilter, repartoFilter, titoloFilter, oggettoFilter));
+
         tableImportaOggetti.setItems(filteredData);
     }
 

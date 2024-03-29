@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Interfaces.DialogInterface;
-import Interfaces.DialogInterface.FieldsCheckResponse;
 import Models.ModelCreazione;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

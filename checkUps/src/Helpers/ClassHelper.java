@@ -7,7 +7,6 @@ import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
-import Models.Tables.Rischio;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
@@ -18,7 +17,6 @@ public class ClassHelper {
     private static List<Mansione> listMansione = new ArrayList<>();
     private static List<Titolo> listTitolo = new ArrayList<>();
     private static List<Reparto> listReparto = new ArrayList<>();
-    private static List<Rischio> listRischio = new ArrayList<>();
     private static List<Societa> listSocieta = new ArrayList<>();
     private static List<Oggetto> listOggetto = new ArrayList<>();
     private static List<Provvedimento> listProvvedimento = new ArrayList<>();
@@ -35,10 +33,6 @@ public class ClassHelper {
 
     public static List<Reparto> getListReparto() {
         return listReparto;
-    }
-
-    public static List<Rischio> getListRischio() {
-        return listRischio;
     }
 
     public static List<Societa> getListSocieta() {
@@ -63,10 +57,6 @@ public class ClassHelper {
 
     public static void svuotaListaReparti() {
         listReparto.clear();
-    }
-
-    public static void svuotaListaRischi() {
-        listRischio.clear();
     }
 
     public static void svuotaListaMansioni() {

@@ -1,9 +1,6 @@
 package View.Controllers.Creazione;
 
 import java.util.List;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.function.Consumer;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -17,21 +14,14 @@ import Models.ModelPaths;
 import Models.TipoCreazionePagina;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
-import Models.Tables.Titolo;
 import Models.creazione.CreazioneBase;
 import Models.imports.ImportOggettoElement;
-import Models.imports.ImportTitoloElement;
 import View.Controllers.Creazione.dialogPane.DPImportOggetto;
-import View.Controllers.Creazione.dialogPane.DPImportTitolo;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddO;
 import View.Controllers.Modifiche.DialogPaneModificaOggetto;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;

@@ -4,9 +4,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import Helpers.ClassHelper;
+import Models.Model;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
@@ -18,7 +21,6 @@ import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class DPImportTitolo implements Initializable {
     @FXML
@@ -48,6 +51,18 @@ public class DPImportTitolo implements Initializable {
 
     @FXML
     private TextField textFieldFiltraTitolo;
+
+    @FXML
+    private ImageView clearTitolo;
+
+    @FXML
+    private ImageView clearReparto;
+
+    @FXML
+    private ImageView clearUnitaLocale;
+
+    @FXML
+    private ImageView clearSocieta;
 
     @FXML
     private TableView<ImportTitoloElement> tableImportaTitoli;
@@ -80,6 +95,11 @@ public class DPImportTitolo implements Initializable {
             }
         });
 
+        clearTitolo.onMouseClickedProperty().set(e -> textFieldFiltraTitolo.clear());
+        clearReparto.onMouseClickedProperty().set(e -> textFieldFiltraReparto.clear());
+        clearUnitaLocale.onMouseClickedProperty().set(e -> textFieldFiltraUnitaLocale.clear());
+        clearSocieta.onMouseClickedProperty().set(e -> textFieldFiltraSocieta.clear());
+
         // btnImport.disableProperty().bind(tableImportaTitoli.getSelectionModel().selectedItemProperty().isNull());
     }
 
@@ -111,54 +131,18 @@ public class DPImportTitolo implements Initializable {
 
         FilteredList<ImportTitoloElement> filteredData = new FilteredList<>(FXCollections.observableArrayList(list));
 
-        ObjectProperty<Predicate<Societa>> societaFilter = new SimpleObjectProperty<>();
-        societaFilter.bind(Bindings.createObjectBinding(
-                () -> soc -> soc != null && soc.getNome().toString().toLowerCase().trim()
-                        .startsWith(textFieldFiltraSocieta.getText().toLowerCase().trim()),
-                textFieldFiltraSocieta.textProperty()));
+        var societaFilter = Model.genericTableViewFilter((ImportTitoloElement e) -> e.getSocieta().getNome(),
+                textFieldFiltraSocieta);
+        var unitaLocaleFilter = Model.genericTableViewFilter((ImportTitoloElement e) -> e.getUnitaLocale().getNome(),
+                textFieldFiltraUnitaLocale);
+        var repartoFilter = Model.genericTableViewFilter((ImportTitoloElement e) -> e.getReparto().getNome(),
+                textFieldFiltraReparto);
+        var titoloFilter = Model.genericTableViewFilter((ImportTitoloElement e) -> e.getTitolo().getDescrizione(),
+                textFieldFiltraTitolo);
 
-        ObjectProperty<Predicate<UnitaLocale>> unitaLocaleFilter = new SimpleObjectProperty<>();
-        unitaLocaleFilter.bind(Bindings.createObjectBinding(
-                () -> uLocale -> uLocale != null && uLocale.getNome().toString().toLowerCase().trim()
-                        .startsWith(textFieldFiltraUnitaLocale.getText().toLowerCase().trim()),
-                textFieldFiltraUnitaLocale.textProperty()));
-
-        ObjectProperty<Predicate<Reparto>> repartoFilter = new SimpleObjectProperty<>();
-        repartoFilter.bind(Bindings.createObjectBinding(
-                () -> reparto -> reparto != null && reparto.getNome().toString().toLowerCase().trim()
-                        .startsWith(textFieldFiltraReparto.getText().toLowerCase().trim()),
-                textFieldFiltraReparto.textProperty()));
-
-        ObjectProperty<Predicate<Reparto>> titoloFilter = new SimpleObjectProperty<>();
-        titoloFilter.bind(Bindings.createObjectBinding(
-                () -> titolo -> titolo != null && titolo.getNome().toString().toLowerCase().trim()
-                        .startsWith(textFieldFiltraTitolo.getText().toLowerCase().trim()),
-                textFieldFiltraTitolo.textProperty()));
-
-        // filteredData.predicateProperty().bind(Bindings.createObjectBinding(
-        // () -> societaFilter.get().and(unitaLocaleFilter.get()),
-        // societaFilter, unitaLocaleFilter));
-
-        // filteredData.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-        // String text = textFieldFiltraTitolo.getText();
-
-        // if (text == null || text.isEmpty())
-        // return null;
-
-        // final String filterText = text.toLowerCase();
-
-        // return o -> {
-        // ObservableValue<?> observable = colTitolo.getCellObservableValue(o);
-        // if (observable != null) {
-        // Object value = observable.getValue();
-        // if (value != null &&
-        // value.toString().toLowerCase().trim().startsWith(filterText)) {
-        // return true;
-        // }
-        // }
-        // return false;
-        // };
-        // }, textFieldFiltraTitolo.textProperty()));
+        filteredData.predicateProperty().bind(Bindings.createObjectBinding(
+                () -> societaFilter.get().and(unitaLocaleFilter.get()).and(repartoFilter.get()).and(titoloFilter.get()),
+                societaFilter, unitaLocaleFilter, repartoFilter, titoloFilter));
 
         tableImportaTitoli.setItems(filteredData);
     }

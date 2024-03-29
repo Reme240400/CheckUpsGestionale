@@ -22,11 +22,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
-
-public class Home implements Initializable{
+public class Home implements Initializable {
 
     private List<UnitaLocale> listUnitaLocale = ClassHelper.getListUnitaLocale();
     private List<Societa> listSocieta = ClassHelper.getListSocieta();
@@ -42,7 +40,7 @@ public class Home implements Initializable{
 
     private StackPane stackPane;
 
-    //private Label title;
+    // private Label title;
 
     private ModelPaths modelPaths;
     private ModelValutaRischi modelValutaRischi;
@@ -52,7 +50,8 @@ public class Home implements Initializable{
 
         // * *************** inizializza i campi *************** //
 
-        ObservableList<String> societies = FXCollections.observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
+        ObservableList<String> societies = FXCollections
+                .observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
 
         // * filtra i Combobox
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
@@ -69,14 +68,14 @@ public class Home implements Initializable{
             String selectedSocieta = cercaSocieta.getValue();
 
             int id = listSocieta.stream()
-                                .filter(s -> s.getNome().equals(selectedSocieta))
-                                .findFirst().get().getId();
+                    .filter(s -> s.getNome().equals(selectedSocieta))
+                    .findFirst().get().getId();
 
             // Retrieve the list of UnitaLocale based on the selected Societa
             ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
-                                                                                            .filter(u -> u.getIdSocieta() == id)
-                                                                                            .map(UnitaLocale::getNome)
-                                                                                            .toList());
+                    .filter(u -> u.getIdSocieta() == id)
+                    .map(UnitaLocale::getNome)
+                    .toList());
 
             FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnitaLocale, unitalocali);
             cercaUnitaLocale.setItems(filteredItems);
@@ -84,44 +83,44 @@ public class Home implements Initializable{
     }
 
     public void goToValutaRischi() {
-        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null && !cercaSocieta.getValue().isEmpty() && !cercaUnitaLocale.getValue().isEmpty()) {
+        if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null && !cercaSocieta.getValue().isEmpty()
+                && !cercaUnitaLocale.getValue().isEmpty()) {
             try {
                 Societa societa = listSocieta.stream()
-                                                .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
-                                                .findFirst().get();
-                    
+                        .filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+                        .findFirst().get();
+
                 UnitaLocale unitaLocale = listUnitaLocale.stream()
-                                                            .filter(u -> u.getIdSocieta() == societa.getId())
-                                                            .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
-                                                            .findFirst().get();
+                        .filter(u -> u.getIdSocieta() == societa.getId())
+                        .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
+                        .findFirst().get();
 
                 Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
 
                 stackPane = modelPaths.getStackPaneHome();
 
-                if(root != null){
-                    //title.setText("Valuta Rischi");
-                    Controller.changePane(stackPane,root);
+                if (root != null) {
+                    // title.setText("Valuta Rischi");
+                    Controller.changePane(stackPane, root);
                 }
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
-            } 
-        }else {
+            }
+        } else {
             Alerts.errorAllert();
         }
-        
+
     }
 
-    public void setModel( ModelValutaRischi modelValutaRischi, ModelPaths modelPaths){
-    
+    public void setModel(ModelValutaRischi modelValutaRischi, ModelPaths modelPaths) {
+
         this.modelPaths = modelPaths;
         this.modelValutaRischi = modelValutaRischi;
-
 
     }
 
     // public void setTitleValuta(Label title) {
-    //     this.title = title;
+    // this.title = title;
     // }
 }

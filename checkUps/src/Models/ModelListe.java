@@ -15,7 +15,6 @@ import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
-import Models.Tables.Rischio;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
@@ -35,9 +34,6 @@ public class ModelListe {
                 break;
             case "Reparto":
                 ClassHelper.getListReparto().remove((Reparto) obj);
-                break;
-            case "Rischio":
-                ClassHelper.getListRischio().remove((Rischio) obj);
                 break;
             case "Societa":
                 ClassHelper.getListSocieta().remove((Societa) obj);
@@ -96,22 +92,6 @@ public class ModelListe {
                         });
 
                 break;
-
-            case "Rischio":
-
-                Rischio rischio = ((Rischio) obj);
-
-                ClassHelper.getListRischio().stream().filter(r -> r.getId() == rischio.getId())
-                        .forEach(r -> {
-                            r.setNome(rischio.getNome());
-                            r.setP(rischio.getP());
-                            r.setD(rischio.getD());
-                            r.setR(rischio.getR());
-                            r.setIdReparto(rischio.getIdReparto());
-                        });
-
-                break;
-
             case "Societa":
                 Societa societa = ((Societa) obj);
 
@@ -191,11 +171,6 @@ public class ModelListe {
                 Reparto reparto = (Reparto) obj;
 
                 ClassHelper.getListReparto().add(reparto);
-                break;
-            case "Rischio":
-                Rischio rischio = (Rischio) obj;
-
-                ClassHelper.getListRischio().add(rischio);
                 break;
             case "Societa":
                 Societa societa = (Societa) obj;

@@ -97,7 +97,7 @@
                                                 <Insets left="5.0" />
                                             </padding>
                                         </TextField>
-                                        <ImageView fx:id="delT" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="clearT" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../icons/cross.png" />
                                             </image>
@@ -115,7 +115,7 @@
                                                 <Insets left="5.0" />
                                             </padding>
                                         </TextField>
-                                        <ImageView fx:id="delS" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="clearS" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../icons/cross.png" />
                                             </image>
@@ -133,7 +133,7 @@
                                                 <Insets left="5.0" />
                                             </padding>
                                         </TextField>
-                                        <ImageView fx:id="delU" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="clearU" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../icons/cross.png" />
                                             </image>
@@ -151,7 +151,7 @@
                                                 <Insets left="5.0" />
                                             </padding>
                                         </TextField>
-                                        <ImageView fx:id="delR" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="clearR" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../icons/cross.png" />
                                             </image>
@@ -169,7 +169,7 @@
                                                 <Insets left="5.0" />
                                             </padding>
                                         </TextField>
-                                        <ImageView fx:id="delT1" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="clearO" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../icons/cross.png" />
                                             </image>
