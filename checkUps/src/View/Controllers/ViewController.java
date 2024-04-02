@@ -2,6 +2,8 @@ package View.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -9,12 +11,13 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Controllers.ControllerDb;
+import Helpers.ClassHelper;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
-
+import Models.Tables.Provvedimento;
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -43,6 +46,7 @@ public class ViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ControllerDb.popolaListeDaDatabase();
+        mostraScadenze();
 
         try {
             switchToHome();
@@ -50,6 +54,21 @@ public class ViewController implements Initializable {
             modelPaths.setStackPaneHome(stackPane);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void mostraScadenze() {
+        var expired = new ArrayList<Provvedimento>();
+        var provs = ClassHelper.getListProvvedimento();
+
+        for (Provvedimento p : provs) {
+            var scadenza = p.getDataScadenza();
+            if (scadenza.isEmpty())
+                continue;
+
+            if (scadenza.get().isBefore(LocalDate.now()) || scadenza.get().isEqual(LocalDate.now())) {
+                expired.add(p);
+            }
         }
     }
 

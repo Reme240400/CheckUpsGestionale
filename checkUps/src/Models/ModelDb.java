@@ -729,13 +729,6 @@ public class ModelDb {
                         unitaLocale.getId(),
                         "telefono",
                         unitaLocale.getTelefono());
-
-                modificaCampoIntero("unita_locali",
-                        "id_unita_locale",
-                        unitaLocale.getId(),
-                        "id_societa",
-                        unitaLocale.getIdSocieta());
-
                 break;
 
             default:

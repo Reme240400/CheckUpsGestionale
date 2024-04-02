@@ -35,14 +35,8 @@ public class myMain extends Application {
         // }
     }
 
-    public static void verificaScadenze() {
-
-    }
-
     public static void main(String[] args) {
-        verificaScadenze();
         launch(args);
-
     }
 
 }
