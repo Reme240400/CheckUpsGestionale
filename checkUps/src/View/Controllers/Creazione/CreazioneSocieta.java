@@ -1,18 +1,21 @@
 package View.Controllers.Creazione;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOError;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
 import javax.imageio.ImageIO;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -165,12 +168,10 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         FileChooser fChooser = new FileChooser();
         fChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
 
-        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
-        FileChooser.ExtensionFilter extFilterjpg = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
-        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
-        FileChooser.ExtensionFilter extFilterpng = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Immagini",
+                Arrays.asList("*.jpg", "*.JPG", "*.png", "*.PNG", "*.jpeg", "*.JPEG"));
 
-        fChooser.getExtensionFilters().addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
+        fChooser.getExtensionFilters().addAll(extFilter);
         File file = fChooser.showOpenDialog(null);
 
         if (file == null)
