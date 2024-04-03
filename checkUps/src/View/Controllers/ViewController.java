@@ -18,6 +18,7 @@ import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
 import Models.Tables.Provvedimento;
+
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
