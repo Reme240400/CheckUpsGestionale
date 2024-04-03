@@ -48,6 +48,7 @@ public class pdfGenerator {
             urlLogoSocieta = societa.getLogoUrl();
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
+
                 // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
                 // documento
                 revisione = reparto.getRevisione();
@@ -253,7 +254,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         currentPage = 0;
-        pagineTotali = pagine - 1;
+        pagineTotali = pagine;
         try {
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
@@ -279,12 +280,12 @@ public class pdfGenerator {
                 // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
                 document.add(tableIniziale);
 
-                //LOGO CHECKUPS
+                // LOGO CHECKUPS
                 PdfPTable tableLogoChekups = new PdfPTable(1);
                 tableLogoChekups.setWidthPercentage(100);
                 Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
-                // Imposta le dimensioni dell'immagine 
-                //logoCheckUpsImage.scaleToFit(1f, 1f);
+                // Imposta le dimensioni dell'immagine
+                // logoCheckUpsImage.scaleToFit(1f, 1f);
                 PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
                 logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
                 logoChekups.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -294,7 +295,7 @@ public class pdfGenerator {
                 tableLogoChekups.setSpacingAfter(80f);
                 document.add(tableLogoChekups);
 
-                //SCRITTE SOTTO LOGO
+                // SCRITTE SOTTO LOGO
                 PdfPTable tableBody = new PdfPTable(1);
                 tableBody.setWidthPercentage(100);
                 PdfPCell body = createCell(
@@ -493,34 +494,29 @@ public class pdfGenerator {
     // PDF
     private static class PdfFooter extends PdfPageEventHelper {
         public void onEndPage(PdfWriter writer, Document document) {
-            if (currentPage > 0) {
-                // Crea una tabella per il piè di pagina con tre colonne
-                PdfPTable table = new PdfPTable(3);
-                currentPage++;
-                // Formatta la data corrente
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String formattedDate = dateFormat.format(new Date());
+            // Crea una tabella per il piè di pagina con tre colonne
+            PdfPTable table = new PdfPTable(3);
+            currentPage++;
+            // Formatta la data corrente
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = dateFormat.format(new Date());
 
-                // Imposta il colore del bordo delle celle su bianco
-                table.getDefaultCell().setBorderColor(BaseColor.WHITE);
-                table.setTotalWidth(document.right() - document.left());
-                table.getDefaultCell().setFixedHeight(20);
-                table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+            // Imposta il colore del bordo delle celle su bianco
+            table.getDefaultCell().setBorderColor(BaseColor.WHITE);
+            table.setTotalWidth(document.right() - document.left());
+            table.getDefaultCell().setFixedHeight(20);
+            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-                // Aggiunge data, logo e numero di pagina al piè di pagina
-                table.addCell(new Phrase("Revisione n." + revisione + " del:  " + formattedDate));
-                table.addCell(urlLogoSocieta);
-                if (pagineTotali != 0) {
-                    table.addCell("Pagina " + (currentPage - 1) + " di " + (pagineTotali));
-                }
+            // Aggiunge data, logo e numero di pagina al piè di pagina
+            table.addCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
+            table.addCell(urlLogoSocieta);
 
-                // Scrive il piè di pagina nel documento
-                table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
-            } else {
-                currentPage++;
-            }
+            table.addCell("Pagina " + (currentPage) + " di " + (pagineTotali));
 
+            // Scrive il piè di pagina nel documento
+            table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
         }
+
     }
 
     // Metodo di supporto per sostituire caratteri non validi in un testo
