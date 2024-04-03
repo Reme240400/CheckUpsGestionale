@@ -192,8 +192,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     }
 
     public void keyReleasedProperty() {
-        modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
-                textFieldProvincia, textFieldTel, textFieldCodiceAteco);
+        modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldLocalita,
+                textFieldProvincia, textFieldPartitaIva);
     }
 
     public void onActionSave() {
