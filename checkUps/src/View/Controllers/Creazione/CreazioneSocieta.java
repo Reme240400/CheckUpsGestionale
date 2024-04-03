@@ -1,16 +1,25 @@
 package View.Controllers.Creazione;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOError;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import javax.imageio.ImageIO;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Models.Alerts;
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
@@ -21,6 +30,7 @@ import View.Controllers.ViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.embed.swt.SWTFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -28,6 +38,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
 import javafx.util.converter.LongStringConverter;
 
 public class CreazioneSocieta extends CreazioneBase implements Initializable {
@@ -83,7 +95,6 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         // * controlla se vengono inseriti solo numeri nel campo telefono
-
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
 
@@ -102,13 +113,13 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
         cercaSocieta.setItems(filteredItems);
-
-        logoImageView
-                .setImage(new Image(
-                        "https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
     }
 
     public void selezionaSocieta() {
+        // Reset dei bottoni
+        modelCreazione.setSaved(false);
+        modelCreazione.setCanGoNext(false);
+
         curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                 .findFirst();
 
@@ -126,7 +137,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         textFieldCodiceFiscale.setText(soc.getCodiceFiscale());
         textFieldBancaAppoggio.setText(soc.getBancaAppoggio());
         textFieldCodiceAteco.setText(soc.getCodiceAteco());
-        logoImageView.setImage(new Image(soc.getLogoUrl()));
+        logoImageView.setImage(soc.getLogoImage());
 
         modelCreazione.setCanGoNext(true);
         modelCreazione.createSocietaTmp(soc);
@@ -144,13 +155,42 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
             textFieldBancaAppoggio.setText(modelCreazione.getSocietaTmp().getBancaAppoggio());
             textFieldCodiceAteco.setText(modelCreazione.getSocietaTmp().getCodiceAteco());
             textAreaDesc.setText(modelCreazione.getSocietaTmp().getDescrizione());
+            logoImageView.setImage(modelCreazione.getSocietaTmp().getLogoImage());
             cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
         }
     }
 
-    // -------------------- salva la societa -------------------- //
-    public void aggiorna() {
+    @FXML
+    public void onImageUpload() {
+        FileChooser fChooser = new FileChooser();
+        fChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Desktop"));
 
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.JPG)", "*.JPG");
+        FileChooser.ExtensionFilter extFilterjpg = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.PNG)", "*.PNG");
+        FileChooser.ExtensionFilter extFilterpng = new FileChooser.ExtensionFilter("png files (*.png)", "*.png");
+
+        fChooser.getExtensionFilters().addAll(extFilterJPG, extFilterjpg, extFilterPNG, extFilterpng);
+        File file = fChooser.showOpenDialog(null);
+
+        if (file == null)
+            return;
+        else if (!file.exists() || !file.isFile()) {
+            Alerts.errorAllert("Errore", "Errore durante la selezione del file: file non valido!", null);
+            return;
+        }
+
+        try {
+            Image img = new Image(file.toURI().toURL().toExternalForm());
+            logoImageView.setImage(img);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // -------------------- salva la societa -------------------- //
+    @FXML
+    public void onAggiorna() {
         Societa societaTmp = new Societa(modelCreazione.getSocietaTmp().getId(),
                 textFieldSocieta.getText(),
                 textFieldIndirizzo.getText(),
@@ -162,13 +202,13 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
                 textFieldCodiceFiscale.getText(),
                 textFieldBancaAppoggio.getText(),
                 textFieldCodiceAteco.getText(),
-                logoImageView.getImage().getUrl());
+                Optional.ofNullable(logoImageView.getImage()));
 
         Controller.modificaCampo(societaTmp);
+        modelCreazione.createSocietaTmp(societaTmp);
 
+        modelCreazione.setSaved(false);
     }
-
-    // CODICE "SISTEMATO"
 
     public void pulisciDati() {
         textFieldIndirizzo.clear();
@@ -181,8 +221,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         textFieldBancaAppoggio.clear();
         textFieldCodiceAteco.clear();
         textAreaDesc.clear();
-        logoImageView.setImage(new Image(
-                "https://t3.ftcdn.net/jpg/03/45/05/92/360_F_345059232_CPieT8RIWOUk4JqBkkWkIETYAkmz2b75.jpg"));
+        logoImageView.setImage(null);
 
         cercaSocieta.setValue(null);
 
@@ -192,11 +231,13 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     }
 
     public void keyReleasedProperty() {
-        modelCreazione.areTextFieldsFilled(textFieldSocieta, textFieldIndirizzo, textFieldLocalita,
+        modelCreazione.areTextFieldsFilled(cercaSocieta.getValue() == null, textFieldSocieta, textFieldIndirizzo,
+                textFieldLocalita,
                 textFieldProvincia, textFieldTel, textFieldCodiceAteco);
     }
 
-    public void onActionSave() {
+    @FXML
+    public void onSaveAndGoNext() {
         if (cercaSocieta.getValue() == null) {
             int id = Controller.getNewId(listSocieta);
 
@@ -211,7 +252,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
                     textFieldCodiceFiscale.getText(),
                     textFieldBancaAppoggio.getText(),
                     textFieldCodiceAteco.getText(),
-                    logoImageView.getImage().getUrl());
+                    Optional.ofNullable(logoImageView.getImage()));
 
             Controller.inserisciNuovoRecord(societaTmp);
             modelCreazione.createSocietaTmp(societaTmp);

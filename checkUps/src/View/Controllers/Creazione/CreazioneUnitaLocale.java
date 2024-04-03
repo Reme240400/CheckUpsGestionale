@@ -145,7 +145,8 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     }
 
     public void keyReleasedProperty() {
-        modelCreazione.areTextFieldsFilled(textFieldUnitaLocale, textFieldIndirizzo, textFieldLocalita,
+        modelCreazione.areTextFieldsFilled(cercaUnita.getValue() == null, textFieldUnitaLocale, textFieldIndirizzo,
+                textFieldLocalita,
                 textFieldProvincia, textFieldTel);
     }
 
