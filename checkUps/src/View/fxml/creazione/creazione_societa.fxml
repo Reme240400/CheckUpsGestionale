@@ -124,7 +124,7 @@
                                         <ImageView fx:id="logoImageView" fitHeight="123.0" fitWidth="122.0" layoutX="124.0" layoutY="-28.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>
                                 </Pane>
-                                <JFXButton ripplerFill="#39d0e1" stylesheets="@../../css/style.css" text="File Immagine" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                <JFXButton onAction="#onImageUpload" ripplerFill="#39d0e1" stylesheets="@../../css/style.css" text="File Immagine" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                     <GridPane.margin>
                                         <Insets left="10.0" />
                                     </GridPane.margin>
@@ -216,7 +216,7 @@
                 </HBox>
                 <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="752.0">
                     <children>
-                        <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#aggiorna" ripplerFill="#ffffff00" styleClass="rounded-md" stylesheets="@../../css/style.css" textFill="WHITE" textOverrun="CLIP">
+                        <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onAggiorna" ripplerFill="#ffffff00" styleClass="rounded-md" stylesheets="@../../css/style.css" textFill="WHITE" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -247,7 +247,7 @@
                             </padding>
                         </JFXComboBox>
                         <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="220.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onActionSave" ripplerFill="#ffffff00" stylesheets="@../../css/style.css" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
+                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onSaveAndGoNext" ripplerFill="#ffffff00" stylesheets="@../../css/style.css" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" HBox.hgrow="SOMETIMES">
                             <HBox.margin>
                                 <Insets right="25.0" />
                             </HBox.margin>

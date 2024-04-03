@@ -1,6 +1,9 @@
 package Models.Tables;
 
 import java.io.Serializable;
+import java.util.Optional;
+
+import javafx.scene.image.Image;
 
 public class Societa extends TablesId implements Serializable {
 
@@ -14,11 +17,11 @@ public class Societa extends TablesId implements Serializable {
     private String codiceFiscale;
     private String bancaAppoggio;
     private String codiceAteco;
-    private String logoUrl;
+    private Optional<Image> logoImage;
 
     public Societa(int idSocieta, String nome, String indirizzo, String localita, String provincia, String telefono,
             String descrizione, String pIva, String codFiscale, String bancaAppoggio, String codAteco,
-            String logoUrl) {
+            Optional<Image> logo) {
         super(idSocieta);
         this.indirizzo = indirizzo;
         this.localita = localita;
@@ -30,7 +33,7 @@ public class Societa extends TablesId implements Serializable {
         this.codiceFiscale = codFiscale;
         this.bancaAppoggio = bancaAppoggio;
         this.codiceAteco = codAteco;
-        this.logoUrl = logoUrl;
+        this.logoImage = logo;
     }
 
     public String getIndirizzo() {
@@ -113,12 +116,11 @@ public class Societa extends TablesId implements Serializable {
         this.codiceAteco = codiceAteco;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public Image getLogoImage() {
+        return this.logoImage.orElse(null);
     }
 
-    public void setLogoURl(String logoUrl) {
-        this.logoUrl = logoUrl;
+    public boolean hasImage() {
+        return this.logoImage.isPresent();
     }
-
 }

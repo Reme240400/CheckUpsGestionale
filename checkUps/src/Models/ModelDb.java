@@ -1,5 +1,15 @@
 package Models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -22,10 +32,9 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+import javafx.scene.image.Image;
 
 public class ModelDb {
-
-    private static final String placeholderLogo = "https://via.placeholder.com/150";
     private static final String connectionUrl = "jdbc:postgresql://localhost:5432/checkups_db";
     private static final String username = "postgres";
     private static final String password = "postgres";
@@ -59,11 +68,15 @@ public class ModelDb {
                         String codiceFiscale = resultSet.getString("codice_fiscale");
                         String bancaAppoggio = resultSet.getString("banca_appoggio");
                         String codiceAteco = resultSet.getString("codice_ateco");
-                        String logoUrl = resultSet.getString("logo");
+
+                        InputStream logoStream = resultSet.getBinaryStream("logo");
+                        Optional<Image> img = Optional.empty();
+                        if (logoStream != null) {
+                            img = Optional.of(new Image(logoStream));
+                        }
 
                         Societa societa = new Societa(id_societa, nome, indirizzo, localita, provincia, telefono,
-                                descrizione, partitaIva, codiceFiscale, bancaAppoggio, codiceAteco,
-                                logoUrl == null ? placeholderLogo : logoUrl);
+                                descrizione, partitaIva, codiceFiscale, bancaAppoggio, codiceAteco, img);
 
                         ModelListe.inserisciRecordInLista(societa);
                     }
@@ -377,6 +390,39 @@ public class ModelDb {
         }
     }
 
+    public static void modificaCampoImmagine(String tableName, int recordId, String campo, Image img) {
+        if (img == null)
+            return;
+
+        try (Connection connection = connessioneDb()) {
+            if (connection != null) {
+                try (Statement statement = connection.createStatement()) {
+                    URL u = new URL(img.getUrl());
+                    File f = new File(u.getPath());
+                    String query = "UPDATE public." + tableName + " SET " + campo + " = ? WHERE id_" + tableName
+                            + " = ?";
+                    try (FileInputStream fInputStream = new FileInputStream(f)) {
+                        PreparedStatement preparedStatement = connection.prepareStatement(query);
+                        preparedStatement.setBinaryStream(1, fInputStream, f.length());
+                        preparedStatement.setInt(2, recordId);
+                        preparedStatement.executeUpdate();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (SQLException e) {
+                    System.out.println(
+                            "Errore durante la modifica del campo nella tabella " + tableName + ": " + e.getMessage());
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    System.out.println("URL NON VALIDO!");
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Metodo generico per la modifica di un campo in qualsiasi tabella
     public static void modificaCampoIntero(String tableName, int recordId, String campo, int nuovoValore) {
         try (Connection connection = connessioneDb()) {
@@ -478,11 +524,6 @@ public class ModelDb {
             case "Reparto":
                 inserisciElementoReparti(ClassHelper.getListReparto());
                 break;
-            /*
-             * case "Rischio":
-             * inserisciElementoRischi(ClassHelper.getListRischio());
-             * break;
-             */
             case "Societa":
                 inserisciElementoSocieta(ClassHelper.getListSocieta());
                 break;
@@ -597,11 +638,6 @@ public class ModelDb {
 
                 modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
                         societa.getId(),
-                        "logo",
-                        societa.getLogoUrl());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
-                        societa.getId(),
                         "codice_ateco",
                         societa.getCodiceAteco());
 
@@ -619,6 +655,11 @@ public class ModelDb {
                         societa.getId(),
                         "partita_iva",
                         societa.getPartitaIva());
+
+                modificaCampoImmagine(obj.getClass().getSimpleName().toLowerCase(),
+                        societa.getId(),
+                        "logo",
+                        societa.getLogoImage());
 
                 break;
 
@@ -1007,13 +1048,14 @@ public class ModelDb {
     }
 
     // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondnome
+    // corrispondente
     public static void inserisciElementoSocieta(List<Societa> societaList) {
         doUpdateQuery(
                 "INSERT INTO public.societa (id_societa, nome, localita, provincia, telefono, descrizione, indirizzo, partita_iva, codice_fiscale, banca_appoggio, codice_ateco, logo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                 (ps) -> {
+                    Societa soc = societaList.get(societaList.size() - 1);
+
                     try {
-                        Societa soc = societaList.get(societaList.size() - 1);
                         ps.setInt(1, soc.getId());
                         ps.setString(2, soc.getNome());
                         ps.setString(3, soc.getLocalita());
@@ -1025,9 +1067,23 @@ public class ModelDb {
                         ps.setString(9, soc.getCodiceFiscale());
                         ps.setString(10, soc.getBancaAppoggio());
                         ps.setString(11, soc.getCodiceAteco());
-                        ps.setString(12, soc.getLogoUrl().equals(placeholderLogo) ? null : soc.getLogoUrl());
+
+                        if (soc.hasImage()) {
+                            Image img = soc.getLogoImage();
+                            URL u = new URL(img.getUrl());
+                            File logo = new File(u.getPath());
+
+                            ps.setBinaryStream(12, new FileInputStream(logo), (int) logo.length());
+                        } else {
+                            ps.setBinaryStream(12, null);
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException ex) {
+                        System.out.println("Errore durante l'apertura del logo");
+                        ex.printStackTrace();
                     }
                 });
     }

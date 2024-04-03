@@ -156,22 +156,23 @@ public class ModelCreazione extends ModelListe {
         resetProvvedimentoTmp();
     }
 
-    // ------------------ Controllo se i campi sono stati inseriti ------------------ //
-    public void areTextFieldsFilled(TextField... textField) {
-        
+    // ------------------ Controllo se i campi sono stati inseriti
+    // ------------------ //
+    public void areTextFieldsFilled(boolean comboBoxEmpty, TextField... textField) {
         boolean areAllEmpty = Stream.of(textField)
-        .allMatch(t -> t.getText() == null || t.getText().isEmpty());
-        
-        boolean isAnyEmpty = Stream.of(textField)
-        .anyMatch(t -> t.getText() == null || t.getText().isEmpty());
+                .allMatch(t -> t.getText() == null || t.getText().isEmpty());
 
-        setSaved(!isAnyEmpty);
+        boolean isAnyEmpty = Stream.of(textField)
+                .anyMatch(t -> t.getText() == null || t.getText().isEmpty());
+
+        setSaved(!isAnyEmpty && !comboBoxEmpty);
         setCanGoNext(!isAnyEmpty);
         setDiscard(!areAllEmpty);
     }
     // ------------------ THE END ------------------ //
 
-    // ------------------ Riempie i campi con le informazioni prese dalle liste ------------------ //
+    // ------------------ Riempie i campi con le informazioni prese dalle liste
+    // ------------------ //
     public void fillTextField(JFXComboBox<String> cercaRecord, TextField textFieldSocieta,
             TextField textFieldIndirizzo, TextField textFieldLocalita, TextField textFieldProvincia,
             TextField textFieldTel) {

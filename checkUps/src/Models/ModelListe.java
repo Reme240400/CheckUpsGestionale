@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import Helpers.ClassHelper;
@@ -93,18 +94,15 @@ public class ModelListe {
 
                 break;
             case "Societa":
-                Societa societa = ((Societa) obj);
+                Societa newSocieta = ((Societa) obj);
 
-                ClassHelper.getListSocieta().stream().filter(s -> s.getId() == societa.getId())
-                        .forEach(s -> {
-                            s.setNome(societa.getNome());
-                            s.setIndirizzo(societa.getIndirizzo());
-                            s.setLocalita(societa.getLocalita());
-                            s.setProvincia(societa.getProvincia());
-                            s.setTelefono(societa.getTelefono());
-                            s.setDescrizione(societa.getDescrizione());
-                        });
+                Optional<Societa> toReplace = ClassHelper.getListSocieta().stream()
+                        .filter(s -> s.getId() == newSocieta.getId()).findFirst();
+                if (toReplace.isEmpty())
+                    return;
 
+                var index = ClassHelper.getListSocieta().indexOf(toReplace.get());
+                ClassHelper.getListSocieta().set(index, newSocieta);
                 break;
 
             case "Oggetto":
