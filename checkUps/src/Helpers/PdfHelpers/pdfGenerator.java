@@ -7,12 +7,18 @@ import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+import javafx.embed.swing.SwingFXUtils;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -34,9 +40,8 @@ public class pdfGenerator {
     // Variabile statica per tenere traccia del numero di pagina corrente
     public static int currentPage = 0;
     public static int pagineTotali = 0;
-    public static String urlLogoSocieta;
-    public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\View\\images\\logo con sfondo transpartente.png"; // Da
-                                                                                                                                                    // sistemare
+    public static Image logoSocieta;
+    public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
     public static String revisione;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
@@ -45,7 +50,6 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         try {
-            urlLogoSocieta = societa.getLogoUrl();
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
 
@@ -107,18 +111,19 @@ public class pdfGenerator {
 
                 PdfPTable tableLogo = new PdfPTable(1);
                 tableLogo.setWidthPercentage(100);
-
-                PdfPCell logo = createCell(
-                        societa.getLogoUrl(),
-                        1, Font.BOLD, 20);
-                logo.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logo.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logo.setBorder(Rectangle.NO_BORDER);
-                tableLogo.addCell(logo);
+                
+                if(societa.hasImage()){
+                PdfPCell logoSocieta = createImageCell(
+                        societa.getLogoImage(),
+                        1);
+                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logoSocieta.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logoSocieta);
                 tableLogo.setSpacingAfter(30f);
                 document.add(tableLogo);
                 document.newPage();
-
+                }
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
                 // il reparto
                 PdfPTable table = new PdfPTable(3);
@@ -254,7 +259,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         currentPage = 0;
-        pagineTotali = pagine;
+        pagineTotali = pagine + 1;
         try {
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
@@ -285,7 +290,6 @@ public class pdfGenerator {
                 tableLogoChekups.setWidthPercentage(100);
                 Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
                 // Imposta le dimensioni dell'immagine
-                // logoCheckUpsImage.scaleToFit(1f, 1f);
                 PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
                 logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
                 logoChekups.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -294,6 +298,7 @@ public class pdfGenerator {
                 tableLogoChekups.addCell(logoChekups);
                 tableLogoChekups.setSpacingAfter(80f);
                 document.add(tableLogoChekups);
+
 
                 // SCRITTE SOTTO LOGO
                 PdfPTable tableBody = new PdfPTable(1);
@@ -331,16 +336,17 @@ public class pdfGenerator {
                 PdfPTable tableLogo = new PdfPTable(1);
                 tableLogo.setWidthPercentage(100);
 
-                PdfPCell logo = createCell(
-                        societa.getLogoUrl(),
-                        1, Font.BOLD, 20);
-                logo.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logo.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logo.setBorder(Rectangle.NO_BORDER);
-                tableLogo.addCell(logo);
+                if(societa.hasImage()){
+                PdfPCell logoSocieta = createImageCell(
+                        societa.getLogoImage(),
+                        1);
+                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logoSocieta.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logoSocieta);
                 tableLogo.setSpacingAfter(30f);
                 document.add(tableLogo);
-
+                }
                 document.newPage();
 
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
@@ -490,6 +496,37 @@ public class pdfGenerator {
         return cell;
     }
 
+    private static PdfPCell createImageCell(javafx.scene.image.Image image, int colspan) {
+    // Converti l'immagine JavaFX in un'immagine iTextPDF
+    Image pdfImage = javafxImageToPdfImage(image);
+    
+    PdfPCell cell = new PdfPCell(pdfImage, true);
+    cell.setColspan(colspan);
+    cell.setBorder(Rectangle.NO_BORDER); // Assicurati che non ci siano bordi attorno all'immagine
+    return cell;
+}
+
+// Metodo per convertire un'immagine JavaFX in un'immagine iTextPDF
+private static Image javafxImageToPdfImage(javafx.scene.image.Image javafxImage) {
+    // Converti l'immagine JavaFX in un'immagine AWT
+    BufferedImage awtImage = SwingFXUtils.fromFXImage(javafxImage, null);
+    
+    // Converti l'immagine AWT in un'immagine iTextPDF
+    Image pdfImage = null;
+    try {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(awtImage, "png", baos);
+        baos.flush();
+        byte[] imageInByte = baos.toByteArray();
+        baos.close();
+        pdfImage = Image.getInstance(imageInByte);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+    return pdfImage;
+}
+
     // Classe interna per definire un piè di pagina personalizzato per il documento
     // PDF
     private static class PdfFooter extends PdfPageEventHelper {
@@ -509,8 +546,13 @@ public class pdfGenerator {
 
             // Aggiunge data, logo e numero di pagina al piè di pagina
             table.addCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
-            table.addCell(urlLogoSocieta);
-
+            
+            if(currentPage!=1){
+                table.addCell(logoSocieta);
+            }else{
+                table.addCell("");
+            }
+            
             table.addCell("Pagina " + (currentPage) + " di " + (pagineTotali));
 
             // Scrive il piè di pagina nel documento
