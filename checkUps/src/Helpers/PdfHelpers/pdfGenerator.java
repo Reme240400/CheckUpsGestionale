@@ -40,8 +40,8 @@ public class pdfGenerator {
     // Variabile statica per tenere traccia del numero di pagina corrente
     public static int currentPage = 0;
     public static int pagineTotali = 0;
-    public static Image urlLogoSocieta;
-    public static String urlLogoCheckUps = "checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
+    public static Image logoSocieta;
+    public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
     public static String revisione;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
@@ -112,16 +112,18 @@ public class pdfGenerator {
                 PdfPTable tableLogo = new PdfPTable(1);
                 tableLogo.setWidthPercentage(100);
                 
-                PdfPCell logo = createImageCell(
+                if(societa.hasImage()){
+                PdfPCell logoSocieta = createImageCell(
                         societa.getLogoImage(),
                         1);
-                logo.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logo.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logo.setBorder(Rectangle.NO_BORDER);
-                tableLogo.addCell(logo);
+                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logoSocieta.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logoSocieta);
                 tableLogo.setSpacingAfter(30f);
                 document.add(tableLogo);
                 document.newPage();
+                }
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
                 // il reparto
                 PdfPTable table = new PdfPTable(3);
@@ -257,7 +259,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         currentPage = 0;
-        pagineTotali = pagine;
+        pagineTotali = pagine + 1;
         try {
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
@@ -286,12 +288,9 @@ public class pdfGenerator {
                 // LOGO CHECKUPS
                 PdfPTable tableLogoChekups = new PdfPTable(1);
                 tableLogoChekups.setWidthPercentage(100);
+                Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
                 // Imposta le dimensioni dell'immagine
-                // logoCheckUpsImage.scaleToFit(1f, 1f);
-                PdfPCell logoChekups = createCell(
-                        urlLogoCheckUps,
-                        1, Font.BOLD, 20);
-
+                PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
                 logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
                 logoChekups.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 logoChekups.setBorder(Rectangle.NO_BORDER);
@@ -299,6 +298,7 @@ public class pdfGenerator {
                 tableLogoChekups.addCell(logoChekups);
                 tableLogoChekups.setSpacingAfter(80f);
                 document.add(tableLogoChekups);
+
 
                 // SCRITTE SOTTO LOGO
                 PdfPTable tableBody = new PdfPTable(1);
@@ -336,16 +336,17 @@ public class pdfGenerator {
                 PdfPTable tableLogo = new PdfPTable(1);
                 tableLogo.setWidthPercentage(100);
 
-                PdfPCell logo = createImageCell(
+                if(societa.hasImage()){
+                PdfPCell logoSocieta = createImageCell(
                         societa.getLogoImage(),
                         1);
-                logo.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logo.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logo.setBorder(Rectangle.NO_BORDER);
-                tableLogo.addCell(logo);
+                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logoSocieta.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logoSocieta);
                 tableLogo.setSpacingAfter(30f);
                 document.add(tableLogo);
-
+                }
                 document.newPage();
 
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
@@ -489,6 +490,12 @@ public class pdfGenerator {
         return cell;
     }
 
+    private static PdfPCell createImageCell(Image image, int colspan) {
+        PdfPCell cell = new PdfPCell(image, true);
+        cell.setColspan(colspan);
+        return cell;
+    }
+
     private static PdfPCell createImageCell(javafx.scene.image.Image image, int colspan) {
     // Converti l'immagine JavaFX in un'immagine iTextPDF
     Image pdfImage = javafxImageToPdfImage(image);
@@ -540,8 +547,10 @@ private static Image javafxImageToPdfImage(javafx.scene.image.Image javafxImage)
             // Aggiunge data, logo e numero di pagina al piè di pagina
             table.addCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
             
-            if(currentPage!=0){
-                table.addCell(urlLogoSocieta);
+            if(currentPage!=1){
+                table.addCell(logoSocieta);
+            }else{
+                table.addCell("");
             }
             
             table.addCell("Pagina " + (currentPage) + " di " + (pagineTotali));
