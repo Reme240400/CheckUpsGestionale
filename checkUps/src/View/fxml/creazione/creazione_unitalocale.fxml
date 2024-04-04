@@ -33,6 +33,7 @@
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
@@ -50,8 +51,8 @@
                               <String fx:value="rounded-md" />
                            </styleClass></TextField>
                                 <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="3" />
-                                <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="4" />
-                                <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="5" />
+                                <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <styleClass>
                               <String fx:value="input-field" />
                               <String fx:value="rounded-md" />
@@ -63,6 +64,13 @@
                            </styleClass>
                         </TextField>
                         <TextField fx:id="textFieldLocalita" layoutX="326.0" layoutY="55.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <styleClass>
+                              <String fx:value="input-field" />
+                              <String fx:value="rounded-md" />
+                           </styleClass>
+                        </TextField>
+                        <Label layoutX="65.0" layoutY="434.0" prefHeight="17.0" prefWidth="56.0" text="Email:" GridPane.rowIndex="4" />
+                        <TextField fx:id="textFieldTel1" accessibleText="INTEGER" layoutX="326.0" layoutY="429.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <styleClass>
                               <String fx:value="input-field" />
                               <String fx:value="rounded-md" />
