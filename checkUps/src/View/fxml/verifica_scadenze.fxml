@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 
-<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DPScadenze">
    <buttonTypes>
       <ButtonType fx:constant="OK" />
    </buttonTypes>
@@ -16,7 +16,7 @@
             <TableView fx:id="tableScadenze" prefHeight="400.0" prefWidth="572.0" HBox.hgrow="SOMETIMES">
               <columns>
                 <TableColumn fx:id="societaCol" editable="false" prefWidth="75.0" text="Società" />
-                <TableColumn fx:id="provCol" editable="false" prefWidth="75.0" text="Provvediemento" />
+                <TableColumn fx:id="provCol" editable="false" prefWidth="75.0" text="Provvedimento" />
                   <TableColumn fx:id="dataCol" editable="false" prefWidth="75.0" text="data scadenza" />
                   <TableColumn fx:id="emailCol" editable="false" prefWidth="75.0" text="email" />
               </columns>

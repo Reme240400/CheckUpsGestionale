@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
+import Models.Dialogs;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelDb;
@@ -70,7 +71,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
             return;
         }
 
-        this.showDialog("dialogPaneModifica/modifica_oggetto_dialogPane.fxml", "Modifica Oggetto",
+        Dialogs.showDialogWithResponse("dialogPaneModifica/modifica_oggetto_dialogPane.fxml", "Modifica Oggetto",
                 (DialogPaneModificaOggetto controller) -> controller.setModel(modelCreazione),
                 (DialogPaneModificaOggetto controller) -> {
                     if (modelCreazione.getOggettoTmp() != null &&
@@ -89,7 +90,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
     @FXML
     public void onAggiungi() {
-        this.showDialog("dialogPaneCreazione/creaOggetto_dialogPane.fxml",
+        Dialogs.showDialogWithResponse("dialogPaneCreazione/creaOggetto_dialogPane.fxml",
                 "Crea Oggetto",
                 (DialogPaneAddO controller) -> controller.fillTextBox(localSocieta.getNome(),
                         localUnita.getNome(), localReparto.getNome(), localTitolo.getDescrizione()),
@@ -112,7 +113,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
     }
 
     public void onImporta() {
-        this.showDialog("dialogPaneImporta/importa_oggetto.fxml", "Importa Oggetto",
+        Dialogs.showDialogWithResponse("dialogPaneImporta/importa_oggetto.fxml", "Importa Oggetto",
                 (DPImportOggetto controller) -> {
                     controller.fillInfo(modelCreazione.getSocietaTmp().getNome(),
                             modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome(),

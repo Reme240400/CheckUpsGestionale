@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXButton;
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
+import Models.Dialogs;
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.TipoCreazionePagina;
@@ -83,7 +84,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
 
     @FXML
     public void onAggiungi() {
-        this.showDialog("dialogPaneCreazione/creaProv_dialogPane.fxml",
+        Dialogs.showDialogWithResponse("dialogPaneCreazione/creaProv_dialogPane.fxml",
                 "Crea Provvedimento",
                 (DialogPaneAddP controller) -> controller.fillTextBox(localSocieta.getNome(),
                         localUnita.getNome(),
@@ -134,7 +135,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
             return;
         }
 
-        this.showDialog("dialogPaneModifica/modifica_prov_dialogPane.fxml",
+        Dialogs.showDialogWithResponse("dialogPaneModifica/modifica_prov_dialogPane.fxml",
                 "Modifica Provvedimento",
                 (DialogPaneModificaProv controller) -> controller.setModel(modelCreazione),
                 (DialogPaneModificaProv controller) -> {

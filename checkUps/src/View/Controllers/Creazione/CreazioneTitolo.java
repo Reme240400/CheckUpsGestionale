@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXButton;
 import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
+import Models.Dialogs;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelDb;
@@ -63,7 +64,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
     @FXML
     public void aggiungi() {
-        this.showDialog("dialogPaneCreazione/creaTitolo_dialogPane.fxml", "Crea Reparto",
+        Dialogs.showDialogWithResponse("dialogPaneCreazione/creaTitolo_dialogPane.fxml", "Crea Reparto",
                 (DialogPaneAddT controller) -> {
                     controller.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
                             modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
@@ -93,7 +94,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
             return;
         }
 
-        this.showDialog("dialogPaneModifica/modifica_titolo_dialogPane.fxml", "Modifica Titolo",
+        Dialogs.showDialogWithResponse("dialogPaneModifica/modifica_titolo_dialogPane.fxml", "Modifica Titolo",
                 (DialogPaneModificaTitolo controller) -> controller.setModel(modelCreazione),
                 (DialogPaneModificaTitolo controller) -> {
                     var desc = controller.getDescTitolo();
@@ -112,7 +113,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
     @FXML
     public void onImporta() {
-        this.showDialog("dialogPaneImporta/importa_titolo.fxml", "Importa Titolo",
+        Dialogs.showDialogWithResponse("dialogPaneImporta/importa_titolo.fxml", "Importa Titolo",
                 (DPImportTitolo controller) -> {
                     controller.fillInfo(modelCreazione.getSocietaTmp().getNome(),
                             modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());

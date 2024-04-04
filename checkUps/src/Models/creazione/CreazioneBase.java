@@ -36,29 +36,6 @@ public class CreazioneBase implements CreazioneInterface {
     protected Oggetto localOggetto;
     protected Provvedimento localProvvedimento;
 
-    protected <T> void showDialog(String relativePath, String title, Consumer<T> prepareDialogPane,
-            Consumer<T> updateChanges) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/" + relativePath));
-        DialogPane dialogPane = null;
-
-        try {
-            dialogPane = loader.load();
-            T controller = loader.getController();
-            prepareDialogPane.accept(controller);
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setDialogPane(dialogPane);
-            dialog.setTitle(title);
-
-            Optional<ButtonType> result = dialog.showAndWait();
-            if (result.get() == ButtonType.APPLY) {
-                updateChanges.accept(controller);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void changePage(TipoCreazionePagina tipo, boolean buttonReset) {
         if (buttonReset) {
