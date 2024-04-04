@@ -17,6 +17,8 @@
               <columns>
                 <TableColumn fx:id="societaCol" editable="false" prefWidth="75.0" text="Società" />
                 <TableColumn fx:id="provCol" editable="false" prefWidth="75.0" text="Provvediemento" />
+                  <TableColumn fx:id="dataCol" editable="false" prefWidth="75.0" text="data scadenza" />
+                  <TableColumn fx:id="emailCol" editable="false" prefWidth="75.0" text="email" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
