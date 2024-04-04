@@ -38,7 +38,7 @@ import com.itextpdf.text.Image;
 public class pdfGenerator {
 
     // Variabile statica per tenere traccia del numero di pagina corrente
-    public static int currentPage = 0;
+    public static int currentPage = 1;
     public static int pagineTotali = 0;
     public static Image logoSocieta;
     public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
@@ -259,7 +259,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         currentPage = 0;
-        pagineTotali = pagine + 1;
+        pagineTotali = pagine - 1;
         try {
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
@@ -276,10 +276,16 @@ public class pdfGenerator {
                 tableIniziale.setWidthPercentage(100);
                 PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 15);
                 societaCellIniziale.setBorderWidthRight(0);
+                societaCellIniziale.setBorderWidthLeft(0);
+                societaCellIniziale.setBorderWidthBottom(0);
+                societaCellIniziale.setBorderWidthTop(0);
                 tableIniziale.addCell(societaCellIniziale);
                 PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD,
                         15);
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
+                unitaLocaleCellIniziale.setBorderWidthRight(0);
+                unitaLocaleCellIniziale.setBorderWidthBottom(0);
+                unitaLocaleCellIniziale.setBorderWidthTop(0);
                 tableIniziale.addCell(unitaLocaleCellIniziale);
                 tableIniziale.setSpacingAfter(70f);
                 // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
@@ -305,7 +311,7 @@ public class pdfGenerator {
                 tableBody.setWidthPercentage(100);
                 PdfPCell body = createCell(
                         "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
-                        1, Font.BOLD, 20);
+                        1, Font.BOLD, 15);
                 body.setHorizontalAlignment(Element.ALIGN_CENTER);
                 body.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 body.setBorder(Rectangle.NO_BORDER);
@@ -316,12 +322,12 @@ public class pdfGenerator {
                 PdfPTable tableUnderBody = new PdfPTable(2);
                 tableUnderBody.setWidthPercentage(100);
                 PdfPCell underBodyLeft = createCell(
-                        "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
-                        1, Font.BOLD, 15);
+                        "Il Datore di Lavoro: _________________\n \n \nIl Medico Competente: _________________",
+                        1, Font.BOLD, 10);
 
                 PdfPCell underBodyRight = createCell(
-                        "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
-                        1, Font.BOLD, 15);
+                        "Il rappresentante dei lavoratori per la sicurezza: _________________\n \n \n Il responsabile del servizio di prevenzione e protezione: _________________\n \n \n in data: ___________",
+                        1, Font.BOLD, 10);
                 underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
                 underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 underBodyLeft.setBorder(Rectangle.NO_BORDER);
@@ -356,16 +362,22 @@ public class pdfGenerator {
 
                 // Popola la tabella con dettagli sulla società, la sede e il reparto
                 PdfPCell societaCell = createCell("Società:", 1, Font.BOLD, 10);
+                societaCell.setBorderWidthBottom(0);
                 table.addCell(societaCell);
                 PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD, 10);
+                unitaLocaleCell.setBorderWidthBottom(0);
                 table.addCell(unitaLocaleCell);
                 PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD, 10);
+                repartiCell.setBorderWidthBottom(0);
                 table.addCell(repartiCell);
                 PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD, 10);
+                societaValueCell.setBorderWidthTop(0);
                 table.addCell(societaValueCell);
                 PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD, 10);
+                unitaLocaleValueCell.setBorderWidthTop(0);
                 table.addCell(unitaLocaleValueCell);
                 PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD, 10);
+                repartiValueCell.setBorderWidthTop(0);
                 table.addCell(repartiValueCell);
 
                 table.setSpacingAfter(10f);
