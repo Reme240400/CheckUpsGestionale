@@ -131,7 +131,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
                 textFieldEmail.getText());
 
         Controller.modificaCampo(unitaLocale);
-
+        modelCreazione.createUnitaLocaleTmp(unitaLocale);
     }
 
     // CODICE "SISTEMATO"

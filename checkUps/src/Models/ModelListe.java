@@ -17,6 +17,7 @@ import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
+import Models.Tables.TablesId;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
@@ -55,7 +56,7 @@ public class ModelListe {
     }
 
     // Metodo per modificare il valore di una campo sia nella lista che nel db
-    public static void modificaCampoInLista(Object obj/* , String campo, String valore, int id */) {
+    public static void modificaCampoInLista(TablesId obj/* , String campo, String valore, int id */) {
 
         switch (obj.getClass().getSimpleName()) {
 
@@ -96,13 +97,13 @@ public class ModelListe {
             case "Societa":
                 Societa newSocieta = ((Societa) obj);
 
-                Optional<Societa> toReplace = ClassHelper.getListSocieta().stream()
+                Optional<Societa> toReplaceS = ClassHelper.getListSocieta().stream()
                         .filter(s -> s.getId() == newSocieta.getId()).findFirst();
-                if (toReplace.isEmpty())
+                if (toReplaceS.isEmpty())
                     return;
 
-                var index = ClassHelper.getListSocieta().indexOf(toReplace.get());
-                ClassHelper.getListSocieta().set(index, newSocieta);
+                var indexS = ClassHelper.getListSocieta().indexOf(toReplaceS.get());
+                ClassHelper.getListSocieta().set(indexS, newSocieta);
                 break;
 
             case "Oggetto":
@@ -117,7 +118,7 @@ public class ModelListe {
                 break;
 
             case "Provvedimento":
-                Provvedimento provvedimento = ((Provvedimento) obj);
+                Provvedimento provvedimento = (Provvedimento) obj;
 
                 ClassHelper.getListProvvedimento().stream()
                         .filter(p -> p.getId() == provvedimento.getId()).forEach(p -> {
@@ -132,17 +133,15 @@ public class ModelListe {
                 break;
 
             case "UnitaLocale":
-                UnitaLocale unitaLocale = ((UnitaLocale) obj);
+                UnitaLocale newUnitaLocale = (UnitaLocale) obj;
 
-                ClassHelper.getListUnitaLocale().stream()
-                        .filter(u -> u.getId() == unitaLocale.getId()).forEach(u -> {
-                            u.setNome(unitaLocale.getNome());
-                            u.setIndirizzo(unitaLocale.getIndirizzo());
-                            u.setLocalita(unitaLocale.getLocalita());
-                            u.setProvincia(unitaLocale.getProvincia());
-                            u.setIdSocieta(unitaLocale.getIdSocieta());
-                        });
+                Optional<UnitaLocale> toReplaceUL = ClassHelper.getListUnitaLocale().stream()
+                        .filter(u -> u.getId() == newUnitaLocale.getId()).findFirst();
+                if (toReplaceUL.isEmpty())
+                    return;
 
+                var indexUL = ClassHelper.getListUnitaLocale().indexOf(toReplaceUL.get());
+                ClassHelper.getListUnitaLocale().set(indexUL, newUnitaLocale);
                 break;
 
             default:

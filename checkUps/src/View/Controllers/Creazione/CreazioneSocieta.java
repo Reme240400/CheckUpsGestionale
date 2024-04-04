@@ -30,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -79,7 +80,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     @FXML
     private JFXComboBox<String> cercaSocieta;
 
-    Optional<Societa> curSocieta = Optional.empty();
+    private OldSocietaFields oldData = new OldSocietaFields();
+
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
     // ------------------------------------------------------- INITIALIZE
@@ -113,7 +115,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         modelCreazione.setSaved(false);
         modelCreazione.setCanGoNext(false);
 
-        curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
+        Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                 .findFirst();
 
         if (curSocieta.isEmpty())
@@ -137,20 +139,23 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     }
 
     public void setOldTextFields() {
-        if (modelCreazione.getSocietaTmp() != null) {
-            textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
-            textFieldIndirizzo.setText(modelCreazione.getSocietaTmp().getIndirizzo());
-            textFieldLocalita.setText(modelCreazione.getSocietaTmp().getLocalita());
-            textFieldProvincia.setText(modelCreazione.getSocietaTmp().getProvincia());
-            textFieldTel.setText(String.valueOf(modelCreazione.getSocietaTmp().getTelefono()));
-            textFieldPartitaIva.setText(modelCreazione.getSocietaTmp().getPartitaIva());
-            textFieldCodiceFiscale.setText(modelCreazione.getSocietaTmp().getCodiceFiscale());
-            textFieldBancaAppoggio.setText(modelCreazione.getSocietaTmp().getBancaAppoggio());
-            textFieldCodiceAteco.setText(modelCreazione.getSocietaTmp().getCodiceAteco());
-            textAreaDesc.setText(modelCreazione.getSocietaTmp().getDescrizione());
-            logoImageView.setImage(modelCreazione.getSocietaTmp().getLogoImage());
-            cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
-        }
+        if (modelCreazione.getSocietaTmp() == null)
+            return;
+
+        textFieldSocieta.setText(modelCreazione.getSocietaTmp().getNome());
+        textFieldIndirizzo.setText(modelCreazione.getSocietaTmp().getIndirizzo());
+        textFieldLocalita.setText(modelCreazione.getSocietaTmp().getLocalita());
+        textFieldProvincia.setText(modelCreazione.getSocietaTmp().getProvincia());
+        textFieldTel.setText(String.valueOf(modelCreazione.getSocietaTmp().getTelefono()));
+        textFieldPartitaIva.setText(modelCreazione.getSocietaTmp().getPartitaIva());
+        textFieldCodiceFiscale.setText(modelCreazione.getSocietaTmp().getCodiceFiscale());
+        textFieldBancaAppoggio.setText(modelCreazione.getSocietaTmp().getBancaAppoggio());
+        textFieldCodiceAteco.setText(modelCreazione.getSocietaTmp().getCodiceAteco());
+        textAreaDesc.setText(modelCreazione.getSocietaTmp().getDescrizione());
+        logoImageView.setImage(modelCreazione.getSocietaTmp().getLogoImage());
+        cercaSocieta.setValue(modelCreazione.getSocietaTmp().getNome());
+
+        modelCreazione.setCanGoNext(true);
     }
 
     @FXML
@@ -167,13 +172,15 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         if (file == null)
             return;
         else if (!file.exists() || !file.isFile()) {
-            Alerts.errorAllert("Errore", "Errore durante la selezione del file: file non valido!", null);
+            Alerts.errorAlert("Errore", "Errore durante la selezione del file: file non valido!", null);
             return;
         }
 
         try {
             Image img = new Image(file.toURI().toURL().toExternalForm());
             logoImageView.setImage(img);
+
+            this.keyReleasedProperty();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -197,7 +204,6 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
         Controller.modificaCampo(societaTmp);
         modelCreazione.createSocietaTmp(societaTmp);
-
         modelCreazione.setSaved(false);
     }
 
@@ -221,9 +227,22 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         modelCreazione.setCanGoNext(false);
     }
 
+    @FXML
     public void keyReleasedProperty() {
-        modelCreazione.areTextFieldsFilled(cercaSocieta.getValue() == null, textFieldSocieta, textFieldLocalita,
-                textFieldProvincia, textFieldPartitaIva);
+        boolean neededFieldsValid = this.checkNeededTextFields(textFieldSocieta, textFieldLocalita, textFieldProvincia,
+                textFieldPartitaIva);
+
+        // sto creando una società nuova
+        if (cercaSocieta.getValue() == null) {
+            modelCreazione.setSaved(neededFieldsValid);
+            modelCreazione.setCanGoNext(false);
+        } else {
+            var dataChanged = oldData.areFieldChanged();
+            var set = neededFieldsValid && dataChanged;
+
+            modelCreazione.setCanGoNext(neededFieldsValid);
+            modelCreazione.setSaved(set);
+        }
     }
 
     @FXML
@@ -246,7 +265,8 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
             Controller.inserisciNuovoRecord(societaTmp);
             modelCreazione.createSocietaTmp(societaTmp);
-        }
+        } else
+            onAggiorna();
 
         super.changePage(TipoCreazionePagina.UNITA_LOCALE, true);
     }
@@ -259,4 +279,52 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
     }
 
+    public class OldSocietaFields {
+        public boolean areFieldChanged() {
+            var soc = modelCreazione.getSocietaTmp();
+
+            return isSingleFieldChanged(soc.getNome(), textFieldSocieta) ||
+                    isSingleFieldChanged(soc.getLocalita(), textFieldLocalita) ||
+                    isSingleFieldChanged(soc.getIndirizzo(), textFieldIndirizzo) ||
+                    isSingleFieldChanged(soc.getProvincia(), textFieldProvincia) ||
+                    isSingleFieldChanged(soc.getTelefono(), textFieldTel) ||
+                    isSingleFieldChanged(soc.getDescrizione(), textAreaDesc) ||
+                    isSingleFieldChanged(soc.getPartitaIva(), textFieldPartitaIva) ||
+                    isSingleFieldChanged(soc.getCodiceFiscale(), textFieldCodiceFiscale) ||
+                    isSingleFieldChanged(soc.getBancaAppoggio(), textFieldBancaAppoggio) ||
+                    isSingleFieldChanged(soc.getCodiceAteco(), textFieldCodiceAteco);
+        }
+
+        private boolean isSingleFieldChanged(String text, TextInputControl field) {
+            return !text.equals(field.getText());
+        }
+
+        public boolean isImageChanged(ImageView newImageView) {
+            var soc = modelCreazione.getSocietaTmp();
+            Image oldImage = soc.getLogoImage();
+            Image newImage = newImageView.getImage();
+
+            if (oldImage == null && newImage != null)
+                return true;
+            if (oldImage != null && newImage == null)
+                return true;
+
+            if (oldImage.getWidth() != newImage.getWidth())
+                return true;
+            if (oldImage.getHeight() != newImage.getHeight())
+                return true;
+
+            for (int x = 0; x < oldImage.getWidth(); x++) {
+                for (int y = 0; y < oldImage.getHeight(); y++) {
+                    int firstArgb = oldImage.getPixelReader().getArgb(x, y);
+                    int secondArgb = newImage.getPixelReader().getArgb(x, y);
+
+                    if (firstArgb != secondArgb)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+    }
 }

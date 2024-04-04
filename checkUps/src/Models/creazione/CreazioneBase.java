@@ -1,6 +1,7 @@
 package Models.creazione;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import Controllers.Controller;
 import Models.Alerts;
@@ -18,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 public class CreazioneBase implements CreazioneInterface {
     protected ModelCreazione modelCreazione;
@@ -29,6 +31,12 @@ public class CreazioneBase implements CreazioneInterface {
     protected Titolo localTitolo;
     protected Oggetto localOggetto;
     protected Provvedimento localProvvedimento;
+
+    @Override
+    public boolean checkNeededTextFields(TextField... fields) {
+        boolean noFieldsEmpty = !Stream.of(fields).anyMatch(t -> t.getText() == null || t.getText().isEmpty());
+        return noFieldsEmpty;
+    }
 
     @Override
     public void changePage(TipoCreazionePagina tipo, boolean buttonReset) {
@@ -62,7 +70,7 @@ public class CreazioneBase implements CreazioneInterface {
         ObservableList<T> observableList = null;
 
         if (local == null) {
-            Alerts.errorAllert("Errore", "Impossibile riempire la tabella", null);
+            Alerts.errorAlert("Errore", "Impossibile riempire la tabella", null);
             return;
         }
 

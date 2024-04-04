@@ -184,7 +184,7 @@
                                 </Pane>
                                 <Pane prefHeight="81.0" prefWidth="339.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <children>
-                                        <TextArea fx:id="textAreaDesc" layoutX="8.0" layoutY="23.0" prefHeight="69.0" prefWidth="280.0" stylesheets="@../../css/style.css" wrapText="true" />
+                                        <TextArea fx:id="textAreaDesc" onKeyTyped="#keyReleasedProperty" layoutX="8.0" layoutY="23.0" prefHeight="69.0" prefWidth="280.0" stylesheets="@../../css/style.css" wrapText="true" />
                                         <Label layoutY="6.0" text="Descrizione:">
                                             <padding>
                                                 <Insets left="15.0" />

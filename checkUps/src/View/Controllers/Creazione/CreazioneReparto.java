@@ -74,7 +74,7 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
     // --------------- va alla schermata di modifica --------------- //
     public void modifica() {
         if (tableReparti.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
+            Alerts.errorAlert("Errore", "Selezione del Reparto fallita", "Il reparto selezionato non è valido");
             return;
         }
 
@@ -95,7 +95,7 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
             if (clickedButton.get() == ButtonType.APPLY) {
                 var checkResponse = dialogController.areFieldsValid();
                 if (!checkResponse.isValid()) {
-                    Alerts.errorAllert("Errore", "Errore nella modifica", checkResponse.getErrorMessage());
+                    Alerts.errorAlert("Errore", "Errore nella modifica", checkResponse.getErrorMessage());
                     return;
                 }
 
@@ -170,7 +170,7 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
                     tableReparti.refresh();
 
                 } else {
-                    Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                    Alerts.errorAlert("Errore", "Errore nell'inserimento",
                             "Qualcosa non è stato inserito correttamente");
                 }
             }
@@ -184,7 +184,7 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
     // Va alla schermata di creazione Titolo
     public void onActionSave() {
         if (tableReparti.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
+            Alerts.errorAlert("Errore", "Errore nella Selezione del Reparto",
                     "Non è stato selezionato nessun reparto");
             return;
         }

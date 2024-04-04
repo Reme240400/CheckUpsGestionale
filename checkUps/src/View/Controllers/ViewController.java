@@ -57,9 +57,7 @@ public class ViewController implements Initializable {
                 newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
                     if (newWindow != null) {
                         Stage mainStage = (Stage) newWindow;
-                        mainStage.setOnShown(evt -> {
-                            mostraScadenze();
-                        });
+                        mainStage.setOnShown(evt -> mostraScadenze());
                     }
                 });
             }

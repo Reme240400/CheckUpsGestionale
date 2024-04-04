@@ -80,7 +80,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
                         tableTitoli.getItems().add(newTitolo);
                         tableTitoli.refresh();
                     } else {
-                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                        Alerts.errorAlert("Errore", "Errore nell'inserimento",
                                 "Qualcosa non è stato inserito correttamente");
                     }
                 });
@@ -90,7 +90,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
     @FXML
     public void onModifica() {
         if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
+            Alerts.errorAlert("Errore", "Selezione del Titolo fallita", "Il titolo selezionato non è valido");
             return;
         }
 
@@ -100,7 +100,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
                     var desc = controller.getDescTitolo();
                     if (modelCreazione.getTitoloTmp() == null ||
                             modelCreazione.getTitoloTmp().getDescrizione().equals("")) {
-                        Alerts.errorAllert("Errore", "Selezione del Titolo fallita",
+                        Alerts.errorAlert("Errore", "Selezione del Titolo fallita",
                                 "Il reparto selezionato non è valido");
                         return;
                     }
@@ -121,7 +121,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
                 },
                 (DPImportTitolo controller) -> {
                     if (controller.getSelectedData() == null) {
-                        Alerts.errorAllert("Errore", "Errore nell'importazione",
+                        Alerts.errorAlert("Errore", "Errore nell'importazione",
                                 "Non è stato selezionato nessun titolo");
                         return;
                     }
@@ -151,7 +151,7 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
     public void onActionSave() {
         if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Errore nella Selezione del Titolo",
+            Alerts.errorAlert("Errore", "Errore nella Selezione del Titolo",
                     "Non è stato selezionato nessun titolo");
             return;
         }

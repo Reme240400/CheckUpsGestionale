@@ -94,7 +94,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                 (DialogPaneAddP controller) -> {
                     var checkResponse = controller.areFieldsValid();
                     if (!checkResponse.isValid()) {
-                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                        Alerts.errorAlert("Errore", "Errore nell'inserimento",
                                 "Qualcosa non è stato inserito correttamente\nErrore: '"
                                         + checkResponse.getErrorMessage()
                                         + "'");
@@ -130,7 +130,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     @FXML
     public void onModifica() {
         if (tableProvvedimenti.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Selezione del Provvedimento fallita",
+            Alerts.errorAlert("Errore", "Selezione del Provvedimento fallita",
                     "Il provvedimento selezionato non è valido");
             return;
         }
@@ -141,7 +141,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                 (DialogPaneModificaProv controller) -> {
                     var result = controller.areFieldsValid();
                     if (!result.isValid()) {
-                        Alerts.errorAllert("Errore", "Errore durante la modifica",
+                        Alerts.errorAlert("Errore", "Errore durante la modifica",
                                 result.getErrorMessage());
                         return;
                     }

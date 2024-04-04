@@ -18,7 +18,7 @@ public class Controller {
     }
 
     // Metodo per modificare un campo di un elemento sia da DB che da lista
-    public static void modificaCampo(Object obj/* , String campo, String valore, int id */) {
+    public static void modificaCampo(TablesId obj/* , String campo, String valore, int id */) {
         ModelListe.modificaCampoInLista(obj/* , campo, valore, id */);
         ModelDb.modificaCampo(obj/* , campo, valore, id */);
     }

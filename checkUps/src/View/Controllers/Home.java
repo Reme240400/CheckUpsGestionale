@@ -108,7 +108,7 @@ public class Home implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            Alerts.errorAllert();
+            Alerts.errorAlert();
         }
 
     }

@@ -26,6 +26,7 @@ import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 //import Models.Tables.Rischio;
 import Models.Tables.Societa;
+import Models.Tables.TablesId;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.scene.image.Image;
@@ -389,7 +390,7 @@ public class ModelDb {
     }
 
     public static void modificaCampoImmagine(String tableName, int recordId, String campo, Image img) {
-        if (img == null)
+        if (img == null || img.getUrl() == null)
             return;
 
         try (Connection connection = connessioneDb()) {
@@ -540,7 +541,7 @@ public class ModelDb {
 
     }
 
-    public static void modificaCampo(Object obj) {
+    public static void modificaCampo(TablesId obj) {
         switch (obj.getClass().getSimpleName()) {
             case "Mansione":
                 Mansione mansione = ((Mansione) obj);
@@ -768,6 +769,12 @@ public class ModelDb {
                         unitaLocale.getId(),
                         "telefono",
                         unitaLocale.getTelefono());
+
+                modificaCampoStringa("unita_locali",
+                        "id_unita_locale",
+                        unitaLocale.getId(),
+                        "email",
+                        unitaLocale.getEmail());
                 break;
 
             default:
@@ -1090,7 +1097,7 @@ public class ModelDb {
     // corrisponde nome
     public static void inserisciElementoUnitaLocali(List<UnitaLocale> unitaLocaleList) {
         doUpdateQuery(
-                "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO public.unita_locali (id_unita_locale, id_societa, nome, indirizzo, localita, provincia, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 (ps) -> {
                     try {
                         UnitaLocale uLocale = unitaLocaleList.get(unitaLocaleList.size() - 1);
@@ -1101,6 +1108,7 @@ public class ModelDb {
                         ps.setString(5, uLocale.getLocalita());
                         ps.setString(6, uLocale.getProvincia());
                         ps.setString(7, uLocale.getTelefono());
+                        ps.setString(8, uLocale.getEmail());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

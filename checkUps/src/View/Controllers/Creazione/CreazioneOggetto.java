@@ -67,7 +67,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
     @FXML
     public void onModifica() {
         if (tableOggetti.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita", "L'oggetto selezionato non è valido");
+            Alerts.errorAlert("Errore", "Selezione dell'Oggetto fallita", "L'oggetto selezionato non è valido");
             return;
         }
 
@@ -82,7 +82,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
                         Controller.modificaCampo(modelCreazione.getOggettoTmp());
                         tableOggetti.refresh();
                     } else {
-                        Alerts.errorAllert("Errore", "Selezione dell'Oggetto fallita",
+                        Alerts.errorAlert("Errore", "Selezione dell'Oggetto fallita",
                                 "L'oggetto selezionato non è valido");
                     }
                 });
@@ -106,7 +106,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
                         tableOggetti.getItems().add(newOggetto);
                         tableOggetti.refresh();
                     } else {
-                        Alerts.errorAllert("Errore", "Errore nell'inserimento",
+                        Alerts.errorAlert("Errore", "Errore nell'inserimento",
                                 "Qualcosa non è stato inserito correttamente");
                     }
                 });
@@ -122,7 +122,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
                 },
                 (DPImportOggetto controller) -> {
                     if (controller.getSelectedData() == null) {
-                        Alerts.errorAllert("Errore", "Errore nell'importazione",
+                        Alerts.errorAlert("Errore", "Errore nell'importazione",
                                 "Non è stato selezionato nessun titolo");
                         return;
                     }
@@ -146,7 +146,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
     public void onActionSave() {
         if (tableOggetti.getSelectionModel().getSelectedItem() == null) {
-            Alerts.errorAllert("Errore", "Errore nella Selezione del Reparto",
+            Alerts.errorAlert("Errore", "Errore nella Selezione del Reparto",
                     "Non è stato selezionato nessun reparto");
             return;
         }
