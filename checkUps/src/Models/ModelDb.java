@@ -5,11 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -286,8 +282,10 @@ public class ModelDb {
                         String localita = resultSet.getString("localita");
                         String provincia = resultSet.getString("provincia");
                         String telefono = resultSet.getString("telefono");
-                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, nome, provincia, indirizzo, localita,
-                                telefono, idSocieta);
+                        String email = resultSet.getString("email");
+
+                        UnitaLocale unitaLocale = new UnitaLocale(idUnitaLocale, idSocieta, nome, provincia, indirizzo,
+                                localita, telefono, email);
 
                         ModelListe.inserisciRecordInLista(unitaLocale);
                     }

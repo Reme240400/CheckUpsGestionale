@@ -1,8 +1,6 @@
 package Models.creazione;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 
 import Controllers.Controller;
 import Models.Alerts;
@@ -18,11 +16,7 @@ import Models.Tables.UnitaLocale;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
 
 public class CreazioneBase implements CreazioneInterface {
@@ -67,38 +61,40 @@ public class CreazioneBase implements CreazioneInterface {
         List<T> specificList = null;
         ObservableList<T> observableList = null;
 
-        if (local != null) {
-            if (local instanceof UnitaLocale) {
-                UnitaLocale localUnitaLocale = (UnitaLocale) local;
+        if (local == null) {
+            Alerts.errorAllert("Errore", "Impossibile riempire la tabella", null);
+            return;
+        }
 
-                specificList = list.stream()
-                        .filter(rep -> ((Reparto) rep).getIdUnitaLocale() == localUnitaLocale.getId())
-                        .toList();
+        if (local instanceof UnitaLocale) {
+            UnitaLocale localUnitaLocale = (UnitaLocale) local;
 
-            } else if (local instanceof Reparto) {
-                Reparto localReparto = (Reparto) local;
+            specificList = list.stream()
+                    .filter(rep -> ((Reparto) rep).getIdUnitaLocale() == localUnitaLocale.getId())
+                    .toList();
 
-                specificList = list.stream()
-                        .filter(titolo -> ((Titolo) titolo).getIdReparto() == localReparto.getId())
-                        .toList();
-            } else if (local instanceof Titolo) {
-                Titolo localTitolo = (Titolo) local;
+        } else if (local instanceof Reparto) {
+            Reparto localReparto = (Reparto) local;
 
-                specificList = list.stream()
-                        .filter(oggetto -> ((Oggetto) oggetto).getIdTitolo() == localTitolo.getId())
-                        .toList();
-            } else if (local instanceof Oggetto) {
-                Oggetto localOggetto = (Oggetto) local;
+            specificList = list.stream()
+                    .filter(titolo -> ((Titolo) titolo).getIdReparto() == localReparto.getId())
+                    .toList();
+        } else if (local instanceof Titolo) {
+            Titolo localTitolo = (Titolo) local;
 
-                specificList = list.stream()
-                        .filter(provvedimento -> ((Provvedimento) provvedimento).getIdOggetto() == localOggetto.getId())
-                        .toList();
-            }
+            specificList = list.stream()
+                    .filter(oggetto -> ((Oggetto) oggetto).getIdTitolo() == localTitolo.getId())
+                    .toList();
+        } else if (local instanceof Oggetto) {
+            Oggetto localOggetto = (Oggetto) local;
 
-            observableList = FXCollections.observableArrayList(specificList);
-            table.setItems(observableList);
-        } else
-            Alerts.errorAllert("Errore2", "Societa non selezionata",
-                    "Impossibile selezionare l'unita locale perchè non è stata selezionata una societa");
+            specificList = list.stream()
+                    .filter(provvedimento -> ((Provvedimento) provvedimento).getIdOggetto() == localOggetto.getId())
+                    .toList();
+        }
+
+        observableList = FXCollections.observableArrayList(specificList);
+        table.setItems(observableList);
+
     }
 }

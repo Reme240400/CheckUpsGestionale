@@ -29,6 +29,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class ViewController implements Initializable {
     @FXML
@@ -48,15 +49,21 @@ public class ViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ControllerDb.popolaListeDaDatabase();
-        mostraScadenze();
+        Parent root = switchToHome();
+        modelPaths.setStackPaneHome(stackPane);
 
-        try {
-            switchToHome();
-
-            modelPaths.setStackPaneHome(stackPane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        root.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
+                    if (newWindow != null) {
+                        Stage mainStage = (Stage) newWindow;
+                        mainStage.setOnShown(evt -> {
+                            mostraScadenze();
+                        });
+                    }
+                });
+            }
+        });
     }
 
     private void mostraScadenze() {
@@ -80,13 +87,14 @@ public class ViewController implements Initializable {
                 (DPScadenze controller) -> controller.populate(expired));
     }
 
-    public void switchToHome() throws IOException {
+    public Parent switchToHome() {
         Parent root = modelPaths.switchToHome();
         modelCreazione.resetAllTmp();
         if (root != null) {
             Controller.changePane(stackPane, root);
         }
 
+        return root;
     }
 
     public void switchToCreazione() throws IOException {

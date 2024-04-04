@@ -1,28 +1,28 @@
 package Models.Tables;
 
 import java.io.Serializable;
-import java.util.List;
 
-import Helpers.ClassHelper;
-
-public class UnitaLocale extends TablesId implements Serializable{
+public class UnitaLocale extends TablesId implements Serializable {
     private int idSocieta;
     private String nome;
     private String indirizzo;
     private String localita;
     private String provincia;
-    private List<Reparto> listaReparti = ClassHelper.getListReparto();
     private String telefono;
+    private String email;
 
-    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, String telefono, int idSocieta) {
+    public UnitaLocale(int idUnitaLocale, int idSocieta, String nome, String indirizzo, String localita,
+            String provincia,
+            String telefono, String email) {
         super(idUnitaLocale);
-        //this.idUnitaLocale = idUnitaLocale;
+        // this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
         this.telefono = telefono;
+        this.email = email;
     }
 
     public int getIdSocieta() {
@@ -65,20 +65,21 @@ public class UnitaLocale extends TablesId implements Serializable{
         this.provincia = provincia.toUpperCase();
     }
 
-    public List<Reparto> getReparti() {
-        return listaReparti.stream().filter(reparto -> reparto.getIdUnitaLocale() == getId()).toList();
-    }
-
-    public String getTelefono(){
+    public String getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(String telefono){
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
-    public void toStringUnitaLocale(){
-        System.out.println("ID: " + getId() + " Nome: " + getNome() + " Indirizzo: " + getIndirizzo() + " Localita: " + getLocalita() + " Provincia: " + getProvincia() + " Telefono: " + getTelefono());
+    public String getEmail() {
+        return email;
+    }
+
+    public void toStringUnitaLocale() {
+        System.out.println("ID: " + getId() + " Nome: " + getNome() + " Indirizzo: " + getIndirizzo() + " Localita: "
+                + getLocalita() + " Provincia: " + getProvincia() + " Telefono: " + getTelefono());
     }
 
 }

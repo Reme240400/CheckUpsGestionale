@@ -30,10 +30,19 @@ public class DPScadenze implements Initializable {
     @FXML
     private TableColumn<ScadenzaElement, String> provCol;
 
+    @FXML
+    private TableColumn<ScadenzaElement, String> emailCol;
+
+    @FXML
+    private TableColumn<ScadenzaElement, String> scadenzaCol;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         societaCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getSocieta().getNome()));
         provCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getProvvedimento().getNome()));
+        emailCol.setCellValueFactory(data -> new SimpleStringProperty(""));
+        scadenzaCol.setCellValueFactory(data -> new SimpleStringProperty(
+                data.getValue().getProvvedimento().getDataScadenza().get().toString()));
     }
 
     public void populate(List<Provvedimento> expired) {

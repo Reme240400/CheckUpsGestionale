@@ -134,25 +134,28 @@ public class ModelPaths {
     }
 
     // * *************** Cambia la scena a home *************** //
-    public Parent switchToHome() throws IOException {
+    public Parent switchToHome() {
+        try {
+            URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/home.fxml");
 
-        URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/home.fxml");
+            // Check if the stackPaneHome already contains the root of the new scene
+            if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
+                FXMLLoader loader = new FXMLLoader(fxmlURL);
+                Parent root = loader.load();
 
-        // Check if the stackPaneHome already contains the root of the new scene
-        if (fxmlURL != null && !isAlreadyLoaded(stackPaneHome, fxmlURL.toString())) {
-            FXMLLoader loader = new FXMLLoader(fxmlURL);
-            Parent root = loader.load();
+                Home home = loader.getController();
 
-            Home home = loader.getController();
+                home.setModel(modelValutaRischi, this);
 
-            home.setModel(modelValutaRischi, this);
+                loadedFXMLs = fxmlURL.toString();
 
-            loadedFXMLs = fxmlURL.toString();
-
-            return root;
-        } else {
-            return null;
+                return root;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+        return null;
     }
 
     // * *************** Cambia la scena a Creazione Unita Locale *************** //
