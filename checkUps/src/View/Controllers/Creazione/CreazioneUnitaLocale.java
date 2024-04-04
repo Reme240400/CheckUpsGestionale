@@ -58,6 +58,9 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     @FXML
     private TextField textFieldTel;
 
+    @FXML
+    private TextField textFieldEmail;
+
     private List<UnitaLocale> listUnitaLocale;
 
     @Override
@@ -81,14 +84,16 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     }
 
     public void setOldTextFields() {
-        if (modelCreazione.getUnitaLocaleTmp() != null) {
-            textFieldUnitaLocale.setText(modelCreazione.getUnitaLocaleTmp().getNome());
-            textFieldLocalita.setText(modelCreazione.getUnitaLocaleTmp().getLocalita());
-            textFieldIndirizzo.setText(modelCreazione.getUnitaLocaleTmp().getIndirizzo());
-            textFieldProvincia.setText(modelCreazione.getUnitaLocaleTmp().getProvincia());
-            textFieldTel.setText(String.valueOf(modelCreazione.getUnitaLocaleTmp().getTelefono()));
-            cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
-        }
+        if (modelCreazione.getUnitaLocaleTmp() == null)
+            return;
+
+        textFieldUnitaLocale.setText(modelCreazione.getUnitaLocaleTmp().getNome());
+        textFieldLocalita.setText(modelCreazione.getUnitaLocaleTmp().getLocalita());
+        textFieldIndirizzo.setText(modelCreazione.getUnitaLocaleTmp().getIndirizzo());
+        textFieldProvincia.setText(modelCreazione.getUnitaLocaleTmp().getProvincia());
+        textFieldTel.setText(String.valueOf(modelCreazione.getUnitaLocaleTmp().getTelefono()));
+        textFieldEmail.setText(modelCreazione.getUnitaLocaleTmp().getEmail());
+        cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
     }
 
     public void selezionaUnita() {
@@ -105,8 +110,9 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         textFieldUnitaLocale.setText(unita.getNome());
         textFieldLocalita.setText(unita.getLocalita());
         textFieldProvincia.setText(unita.getProvincia());
-        textFieldTel.setText(unita.getTelefono());
         textFieldIndirizzo.setText(unita.getIndirizzo());
+        textFieldTel.setText(unita.getTelefono());
+        textFieldEmail.setText(unita.getEmail());
 
         modelCreazione.createUnitaLocaleTmp(unita);
         modelCreazione.setCanGoNext(true);
@@ -116,12 +122,13 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     public void aggiorna() {
 
         UnitaLocale unitaLocale = new UnitaLocale(modelCreazione.getUnitaLocaleTmp().getId(),
+                localSocieta.getId(),
                 textFieldUnitaLocale.getText(),
                 textFieldIndirizzo.getText(),
                 textFieldLocalita.getText(),
                 textFieldProvincia.getText(),
                 textFieldTel.getText(),
-                localSocieta.getId());
+                textFieldEmail.getText());
 
         Controller.modificaCampo(unitaLocale);
 
@@ -130,12 +137,12 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     // CODICE "SISTEMATO"
 
     public void pulisciDati() {
-
         textFieldIndirizzo.clear();
         textFieldLocalita.clear();
         textFieldProvincia.clear();
         textFieldUnitaLocale.clear();
         textFieldTel.clear();
+        textFieldEmail.clear();
 
         modelCreazione.resetUnitaLocaleTmp();
 
@@ -148,7 +155,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     public void keyReleasedProperty() {
         modelCreazione.areTextFieldsFilled(cercaUnita.getValue() == null, textFieldUnitaLocale, textFieldIndirizzo,
                 textFieldLocalita,
-                textFieldProvincia, textFieldTel);
+                textFieldProvincia, textFieldTel, textFieldEmail);
     }
 
     public void onActionSave() {
@@ -156,12 +163,13 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
             int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
             UnitaLocale unitaLocale = new UnitaLocale(id,
+                    localSocieta.getId(),
                     textFieldUnitaLocale.getText(),
                     textFieldIndirizzo.getText(),
                     textFieldLocalita.getText(),
                     textFieldProvincia.getText(),
                     textFieldTel.getText(),
-                    localSocieta.getId());
+                    textFieldEmail.getText());
 
             Controller.inserisciNuovoRecord(unitaLocale);
             modelCreazione.createUnitaLocaleTmp(unitaLocale);

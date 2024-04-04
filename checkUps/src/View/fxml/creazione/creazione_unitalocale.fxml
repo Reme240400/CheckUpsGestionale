@@ -70,7 +70,7 @@
                            </styleClass>
                         </TextField>
                         <Label layoutX="65.0" layoutY="434.0" prefHeight="17.0" prefWidth="56.0" text="Email:" GridPane.rowIndex="4" />
-                        <TextField fx:id="textFieldTel1" accessibleText="INTEGER" layoutX="326.0" layoutY="429.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <TextField fx:id="textFieldEmail" accessibleText="INTEGER" layoutX="326.0" layoutY="429.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <styleClass>
                               <String fx:value="input-field" />
                               <String fx:value="rounded-md" />
