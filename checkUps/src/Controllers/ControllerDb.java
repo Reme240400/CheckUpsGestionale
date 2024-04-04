@@ -9,8 +9,7 @@ public class ControllerDb {
         ModelDb.popolaListaMansioni();
         ModelDb.popolaListaOggetti();
         ModelDb.popolaListaProvvedimenti();
-        //ModelDb.popolaListaReparti();
-        //ModelDb.popolaListaRischi();
+        ModelDb.popolaListaReparti();
         ModelDb.popolaListaSocieta();
         ModelDb.popolaListaTitoli();
         ModelDb.popolaListaUnitaLocali();
