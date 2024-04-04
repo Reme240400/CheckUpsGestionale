@@ -12,13 +12,14 @@ import com.jfoenix.controls.JFXComboBox;
 import Controllers.Controller;
 import Controllers.ControllerDb;
 import Helpers.ClassHelper;
+import Models.Dialogs;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
 import Models.Tables.Provvedimento;
-
+import View.Controllers.Creazione.dialogPane.DPScadenze;
 import javafx.fxml.Initializable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -71,6 +72,12 @@ public class ViewController implements Initializable {
                 expired.add(p);
             }
         }
+
+        if (expired.isEmpty())
+            return;
+
+        Dialogs.showDialog("verifica_scadenze.fxml", "Provvedimenti scaduti",
+                (DPScadenze controller) -> controller.populate(expired));
     }
 
     public void switchToHome() throws IOException {
