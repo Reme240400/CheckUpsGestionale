@@ -1,65 +1,26 @@
 package Models.Tables;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Optional;
 
-public class Reparto {
-    private int idReparto;
+public class Reparto extends TablesId implements Serializable {
+
     private int idUnitaLocale;
     private String nome;
     private String descrizione;
+    private String revisione;
+    private Optional<LocalDate> data;
 
-    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione) {
-        this.idReparto = idReparto;
+    public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione, String revisione,
+            Optional<LocalDate> data) {
+        super(idReparto);
+
         this.idUnitaLocale = idUnitaLocale;
         this.nome = nome;
         this.descrizione = descrizione;
-    }
-
-    //Metodo per modificare un campo
-    public void modificaCampo(String campo, Object nuovoValore) {
-        switch (campo.toLowerCase()) {
-            case "idreparto":
-                if (nuovoValore instanceof Integer) {
-                    this.idReparto = (int) nuovoValore;
-                } else {
-                    throw new IllegalArgumentException("Il valore per il campo 'idReparto' deve essere di tipo Integer.");
-                }
-                break;
-
-            case "idunitalocale":
-                if (nuovoValore instanceof Integer) {
-                    this.idUnitaLocale = (int) nuovoValore;
-                } else {
-                    throw new IllegalArgumentException("Il valore per il campo 'idUnitaLocale' deve essere di tipo Integer.");
-                }
-                break;
-
-            case "nome":
-                if (nuovoValore instanceof String) {
-                    this.nome = (String) nuovoValore;
-                } else {
-                    throw new IllegalArgumentException("Il valore per il campo 'nome' deve essere di tipo String.");
-                }
-                break;
-
-            case "descrizione":
-                if (nuovoValore instanceof String) {
-                    this.descrizione = (String) nuovoValore;
-                } else {
-                    throw new IllegalArgumentException("Il valore per il campo 'descrizione' deve essere di tipo String.");
-                }
-                break;
-
-            default:
-                throw new IllegalArgumentException("Campo non valido: " + campo);
-        }
-    }
-
-    public int getIdReparto() {
-        return idReparto;
-    }
-
-    public void setIdReparto(int idReparto) {
-        this.idReparto = idReparto;
+        this.revisione = revisione;
+        this.data = data;
     }
 
     public int getIdUnitaLocale() {
@@ -84,6 +45,22 @@ public class Reparto {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public String getRevisione() {
+        return this.revisione;
+    }
+
+    public void setRevisione(String revisione) {
+        this.revisione = revisione;
+    }
+
+    public Optional<LocalDate> getData() {
+        return this.data;
+    }
+
+    public void setData(Optional<LocalDate> data) {
+        this.data = data;
     }
 
 }

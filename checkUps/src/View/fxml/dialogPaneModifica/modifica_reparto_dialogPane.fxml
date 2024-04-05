@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaReparto">
+    <buttonTypes>
+        <ButtonType fx:constant="APPLY" />
+        <ButtonType fx:constant="CANCEL" />
+    </buttonTypes>
+    <content>
+        <HBox alignment="CENTER">
+         <children>
+            <GridPane alignment="CENTER" prefHeight="171.0" prefWidth="422.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="322.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints fillHeight="false" maxHeight="34.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="34.0" minHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="58.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="83.0" minHeight="78.0" prefHeight="78.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Nome" />
+                  <TextField fx:id="modificaNomeReparto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1">
+                     <styleClass>
+                        <String fx:value="input-field" />
+                        <String fx:value="rounded-md" />
+                     </styleClass>
+                  </TextField>
+                  <Label text="Data" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="modificaDataReparto" editable="false" prefHeight="25.0" prefWidth="280.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label layoutX="62.0" layoutY="39.0" text="Descrizione" GridPane.rowIndex="3" />
+                  <TextArea fx:id="modificaDescReparto" prefHeight="83.0" prefWidth="280.0" stylesheets="@../../css/style.css" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label layoutX="67.0" layoutY="15.0" text="Revisione" GridPane.rowIndex="1" />
+                  <TextField fx:id="modificaRevisioneReparto" layoutX="159.0" layoutY="11.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="281.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <styleClass>
+                        <String fx:value="input-field" />
+                        <String fx:value="rounded-md" />
+                     </styleClass>
+                  </TextField>
+               </children>
+            </GridPane>
+         </children>
+        </HBox>
+    </content>
+   <header>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+                    <Label text="Modifica Reparto">
+                        <font>
+                            <Font size="24.0" />
+                        </font>
+               <HBox.margin>
+                  <Insets left="35.0" top="20.0" />
+               </HBox.margin>
+                    </Label>
+         </children>
+      </HBox>
+   </header>
+</DialogPane>

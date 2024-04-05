@@ -1,31 +1,34 @@
 package Models.Tables;
 
-public class Provvedimento {
-    private int idProvvedimento;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Optional;
+
+public class Provvedimento extends TablesId implements Serializable {
+
     private String nome;
-    private int idMansione;
     private int idOggetto;
-    private String Rischio;
+    private String rischio;
     private String soggettiEsposti;
-    private int stima;
+    private int stima_d;
+    private int stima_p;
+    private Optional<LocalDate> data_inizio;
+    private Optional<LocalDate> data_scadenza;
 
-    public Provvedimento(int idProvvedimento, String nome, int idMansione, int idOggetto, String Rischio,
-            String soggettiEsposti, int stima) {
-        this.idProvvedimento = idProvvedimento;
+    public Provvedimento(int idProvvedimento, int idOggetto, String rischio, String nome,
+            String soggettiEsposti, int stima_d, int stima_p,
+            Optional<LocalDate> data_inizio,
+            Optional<LocalDate> data_scadenza) {
+        super(idProvvedimento);
+
         this.nome = nome;
-        this.idMansione = idMansione;
         this.idOggetto = idOggetto;
-        this.Rischio = Rischio;
+        this.rischio = rischio;
         this.soggettiEsposti = soggettiEsposti;
-        this.stima = stima;
-    }
-
-    public int getIdProvvedimento() {
-        return idProvvedimento;
-    }
-
-    public void setIdProvvedimento(int idProvvedimento) {
-        this.idProvvedimento = idProvvedimento;
+        this.stima_d = stima_d;
+        this.stima_p = stima_p;
+        this.data_inizio = data_inizio;
+        this.data_scadenza = data_scadenza;
     }
 
     public String getNome() {
@@ -34,14 +37,6 @@ public class Provvedimento {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getIdMansione() {
-        return idMansione;
-    }
-
-    public void setIdMansione(int idMansione) {
-        this.idMansione = idMansione;
     }
 
     public int getIdOggetto() {
@@ -61,18 +56,38 @@ public class Provvedimento {
     }
 
     public String getRischio() {
-        return Rischio;
+        return rischio;
     }
 
     public void setRischio(String rischio) {
-        this.Rischio = rischio;
-    }
-    public int getStima() {
-        return stima;
+        this.rischio = rischio;
     }
 
-    public void setStima(int stima) {
-        this.stima = stima;
+    public int getStimaR() {
+        return this.getStimaP() * this.getStimaD();
     }
 
+    public int getStimaD() {
+        return stima_d;
+    }
+
+    public void setStimaD(int stima_d) {
+        this.stima_d = stima_d;
+    }
+
+    public int getStimaP() {
+        return stima_p;
+    }
+
+    public void setStimaP(int stima_p) {
+        this.stima_p = stima_p;
+    }
+
+    public Optional<LocalDate> getDataInizio() {
+        return this.data_inizio;
+    }
+
+    public Optional<LocalDate> getDataScadenza() {
+        return this.data_scadenza;
+    }
 }

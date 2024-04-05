@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="547.0" prefWidth="862.0" styleClass="background" stylesheets="@../../css/style.css"
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
+    <center>
+        <TableView fx:id="tableOggetti" prefHeight="461.0" prefWidth="297.0">
+            <columns>
+                <TableColumn fx:id="nomeCol" prefWidth="791.0" text="Nome" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </center>
+    <top>
+        <VBox BorderPane.alignment="CENTER_LEFT">
+            <children>
+                <HBox alignment="CENTER">
+                    <children>
+                        <Label alignment="CENTER" text="Oggetto">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0">
+                    <children>
+                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" layoutX="802.0" layoutY="20.0" onAction="#onActionBack" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../icons/angle-left.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets left="15.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <JFXButton fx:id="btnModifica" contentDisplay="CENTER" ellipsisString="" onAction="#onModifica" prefHeight="35.0" prefWidth="65.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
+                                    <graphic>
+                                        <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../icons/pencil.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <Label text="Modifica" />
+                            </children>
+                            <HBox.margin>
+                                <Insets left="15.0" />
+                            </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <JFXButton fx:id="btnAggiungi" contentDisplay="CENTER" ellipsisString="" onAction="#onAggiungi" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                                    <graphic>
+                                        <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../icons/plus.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <Label prefHeight="17.0" prefWidth="51.0" text="Aggiungi" />
+                            </children>
+                            <HBox.margin>
+                                <Insets left="15.0" />
+                            </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <JFXButton fx:id="btnImporta" contentDisplay="CENTER" ellipsisString="" onAction="#onImporta" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                                    <graphic>
+                                        <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../icons/download_down_save_icon.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </JFXButton>
+                                <Label text="Importa" />
+                            </children>
+                            <HBox.margin>
+                                <Insets left="15.0" />
+                            </HBox.margin>
+                        </VBox>
+                        <Pane HBox.hgrow="SOMETIMES" />
+                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" onAction="#onActionSave" prefHeight="35.0" prefWidth="80.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../icons/angle-right.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+</BorderPane>

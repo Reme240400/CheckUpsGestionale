@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DialogPaneAddT">
+   <buttonTypes>
+      <ButtonType fx:constant="APPLY" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+   <content>
+      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="708.0">
+         <children>
+            <GridPane alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="160.0" />
+                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="619.0" minWidth="10.0" prefWidth="528.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label contentDisplay="CENTER" text="Descrizione" />
+                  <TextField fx:id="creaNome" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="404.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1">
+                     <styleClass>
+                        <String fx:value="input-field" />
+                        <String fx:value="rounded-md" />
+                     </styleClass></TextField>
+               </children>
+            </GridPane>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </content>
+   <header>
+      <HBox alignment="CENTER">
+         <children>
+            <Pane>
+               <children>
+                  <TextField fx:id="textFieldSocieta" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label text="Società" />
+               </children>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+            </Pane>
+            <Pane HBox.hgrow="SOMETIMES" />
+            <Pane>
+               <children>
+                  <TextField fx:id="textFieldUnitaLocale" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label text="Unità Locale" />
+               </children>
+            </Pane>
+            <Pane layoutX="183.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
+            <Pane layoutX="260.0" layoutY="10.0">
+               <children>
+                  <TextField fx:id="textFieldReparto" editable="false" layoutY="15.0" styleClass="transparent" stylesheets="@../../css/style.css" />
+                  <Label text="Reparto" />
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Pane>
+         </children>
+      </HBox>
+   </header>
+</DialogPane>

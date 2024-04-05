@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,52 +11,47 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="321.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Home">
    <center>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="67.0" prefWidth="600.0" />
-            <AnchorPane prefHeight="72.0" prefWidth="600.0">
+            <VBox alignment="CENTER" prefHeight="218.0" prefWidth="538.0" stylesheets="@../css/style.css">
                <children>
-                  <JFXComboBox editable="true" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" />
-                  <Label layoutX="22.0" layoutY="28.0" text="Società - Ente">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="480.0" layoutY="27.0" />
+                  <AnchorPane prefHeight="72.0" prefWidth="600.0">
+                     <children>
+                        <JFXComboBox fx:id="cercaSocieta" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" onHiding="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00" />
+                        <Label layoutX="22.0" layoutY="28.0" text="Società - Ente">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="8.0" prefWidth="600.0" />
+                  <AnchorPane prefHeight="72.0" prefWidth="600.0">
+                     <children>
+                        <JFXComboBox fx:id="cercaUnitaLocale" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00" />
+                        <Label layoutX="22.0" layoutY="28.0" text="Unità Locale">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="8.0" prefWidth="600.0" />
-            <AnchorPane prefHeight="72.0" prefWidth="600.0">
-               <children>
-                  <JFXComboBox editable="true" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" />
-                  <Label layoutX="22.0" layoutY="28.0" text="Unità Locale">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="483.0" layoutY="27.0" />
-               </children>
-            </AnchorPane>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="100.0" prefWidth="147.0">
-               <children>
-                  <JFXButton layoutX="25.0" layoutY="25.0" prefHeight="52.0" prefWidth="102.0" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
-               </children>
-            </AnchorPane>
-            <Pane prefHeight="100.0" prefWidth="260.0" />
-            <AnchorPane layoutX="304.0" layoutY="10.0" prefHeight="100.0" prefWidth="147.0">
-               <children>
-                  <JFXButton layoutX="46.0" layoutY="38.0" text="Stampa" />
-               </children>
-            </AnchorPane>
+            <JFXButton fx:id="btnValutaRischi" onAction="#goToValutaRischi" prefHeight="52.0" prefWidth="102.0" stylesheets="@../css/style.css" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
+            <Pane prefHeight="51.0" prefWidth="212.0" HBox.hgrow="SOMETIMES" />
+            <JFXButton fx:id="btnStampaPdf" prefHeight="53.0" prefWidth="95.0" stylesheets="@../css/style.css" text="Stampa" />
          </children>
       </HBox>
    </bottom>

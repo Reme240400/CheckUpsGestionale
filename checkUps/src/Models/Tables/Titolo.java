@@ -1,23 +1,17 @@
 package Models.Tables;
 
+import java.io.Serializable;
 
-public class Titolo {
-    private int idTitolo;
+public class Titolo extends TablesId implements Serializable{
+
     private String descrizione;
     private int idReparto;
 
-    public Titolo(int idTitolo, String descrizione, int idReparto) {
-        this.idTitolo = idTitolo;
+    public Titolo(int idTitolo, int idReparto, String descrizione) {
+        super(idTitolo);
+        
         this.descrizione = descrizione;
         this.idReparto = idReparto;
-    }
-
-    public int getIdTitolo() {
-        return idTitolo;
-    }
-
-    public void setIdTitolo(int idTitolo) {
-        this.idTitolo = idTitolo;
     }
 
     public String getDescrizione() {

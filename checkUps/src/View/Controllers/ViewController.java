@@ -2,91 +2,126 @@ package View.Controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 
+import Controllers.Controller;
+import Controllers.ControllerDb;
+import Helpers.ClassHelper;
+import Models.Dialogs;
+import Models.Model;
 import Models.ModelCreazione;
+import Models.ModelModifica;
+import Models.ModelPaths;
+import Models.ModelValutaRischi;
+import Models.Tables.Provvedimento;
+import View.Controllers.Creazione.dialogPane.DPScadenze;
 import javafx.fxml.Initializable;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class ViewController implements Initializable{
-
-    @FXML
-    private JFXButton btnQuit;
-
+public class ViewController implements Initializable {
     @FXML
     private JFXButton btnHome;
 
     @FXML
-    private JFXButton btnOrders;
+    private JFXButton btnCreate;
 
     @FXML
     private StackPane stackPane;
 
+    protected static ModelPaths modelPaths = new ModelPaths();
+    protected static ModelCreazione modelCreazione = new ModelCreazione();
+    protected static ModelModifica modelModifica = new ModelModifica();
+    protected static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ControllerDb.popolaListeDaDatabase();
+        Parent root = switchToHome();
+        modelPaths.setStackPaneHome(stackPane);
 
-        btnQuit.setOnAction(event -> {
-            try {
-                logout(event);
-            } catch (IOException e) {
-                e.printStackTrace();
+        root.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
+                    if (newWindow != null) {
+                        Stage mainStage = (Stage) newWindow;
+                        mainStage.setOnShown(evt -> mostraScadenze());
+                    }
+                });
             }
         });
+    }
 
-        try{
-            switchToHome();
+    private void mostraScadenze() {
+        var expired = new ArrayList<Provvedimento>();
+        var provs = ClassHelper.getListProvvedimento();
 
-        }catch (IOException e) {
-            e.printStackTrace();
+        for (Provvedimento p : provs) {
+            var scadenza = p.getDataScadenza();
+            if (scadenza.isEmpty())
+                continue;
+
+            if (scadenza.get().isBefore(LocalDate.now()) || scadenza.get().isEqual(LocalDate.now())) {
+                expired.add(p);
+            }
         }
-        
+
+        if (expired.isEmpty())
+            return;
+
+        Dialogs.showDialog("verifica_scadenze.fxml", "Provvedimenti scaduti",
+                (DPScadenze controller) -> controller.populate(expired));
     }
 
-    public void switchToHome() throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/View/fxml/home.fxml"));
+    public Parent switchToHome() {
+        Parent root = modelPaths.switchToHome();
+        modelCreazione.resetAllTmp();
+        if (root != null) {
+            Controller.changePane(stackPane, root);
+        }
 
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
+        return root;
+    }
+
+    public void switchToCreazione() throws IOException {
+        Parent root = modelPaths.switchToCreazione(modelCreazione);
+        modelCreazione.resetAllTmp();
+
+        if (root != null) {
+            Controller.changePane(stackPane, root);
+        }
 
     }
 
-    public void switchToCreazione(ActionEvent event) throws IOException{
-        ModelCreazione ModelCreazione = new ModelCreazione();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/fxml/main_creazione.fxml"));
-
-        Parent root = loader.load();
-        Creazione creazione = loader.getController();
-
-        creazione.setModelCreazione(ModelCreazione);
-
-        stackPane.getChildren().removeAll();
-        stackPane.getChildren().setAll(root);
-    }
-
-    public void logout(ActionEvent event) throws IOException{
-        System.out.println("Logout");
+    public void logout(ActionEvent event) throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
-        alert.setTitle("Quit");
+        alert.setTitle("Esci");
         alert.setHeaderText("Stai per uscire!");
         alert.setContentText("Vuoi salvare il lavoro prima di uscire?");
-
-        if(alert.showAndWait().get().getText().equals("OK")){
-            Stage stage = (Stage) btnQuit.getScene().getWindow();
-            System.out.println("Salvataggio in corso...");
-            stage.close();
-        }
     }
 
-    
+    public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
+
+        return Model.filterComboBox(cercaItem, units);
+    }
+
+    public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,
+            ObservableList<String> units) {
+
+        return Model.filterComboBoxById(cercaItem, id, units);
+    }
+
 }

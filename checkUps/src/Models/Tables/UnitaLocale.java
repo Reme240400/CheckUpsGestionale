@@ -1,29 +1,28 @@
 package Models.Tables;
 
+import java.io.Serializable;
 
-public class UnitaLocale {
-    private int idUnitaLocale;
+public class UnitaLocale extends TablesId implements Serializable {
     private int idSocieta;
     private String nome;
     private String indirizzo;
     private String localita;
     private String provincia;
+    private String telefono;
+    private String email;
 
-    public UnitaLocale(int idUnitaLocale, String nome, String indirizzo, String localita, String provincia, int idSocieta) {
-        this.idUnitaLocale = idUnitaLocale;
+    public UnitaLocale(int idUnitaLocale, int idSocieta, String nome, String indirizzo, String localita,
+            String provincia,
+            String telefono, String email) {
+        super(idUnitaLocale);
+        // this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
-    }
-
-    public int getIdUnitaLocale() {
-        return idUnitaLocale;
-    }
-
-    public void setIdUnitaLocale(int idUnitaLocale) {
-        this.idUnitaLocale = idUnitaLocale;
+        this.telefono = telefono;
+        this.email = email;
     }
 
     public int getIdSocieta() {
@@ -65,4 +64,22 @@ public class UnitaLocale {
     public void setProvincia(String provincia) {
         this.provincia = provincia.toUpperCase();
     }
+
+    public String getTelefono() {
+        return this.telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void toStringUnitaLocale() {
+        System.out.println("ID: " + getId() + " Nome: " + getNome() + " Indirizzo: " + getIndirizzo() + " Localita: "
+                + getLocalita() + " Provincia: " + getProvincia() + " Telefono: " + getTelefono());
+    }
+
 }
