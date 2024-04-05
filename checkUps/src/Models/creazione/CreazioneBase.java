@@ -1,7 +1,6 @@
 package Models.creazione;
 
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import Controllers.Controller;
@@ -13,7 +12,6 @@ import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
-import Models.Tables.TablesId;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
