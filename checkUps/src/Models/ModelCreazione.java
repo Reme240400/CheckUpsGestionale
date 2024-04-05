@@ -20,7 +20,7 @@ public class ModelCreazione extends ModelListe {
     // initialize variables
 
     private final BooleanProperty saved = new SimpleBooleanProperty(false);
-    private final BooleanProperty discard = new SimpleBooleanProperty(false);
+    private final BooleanProperty discard = new SimpleBooleanProperty(true);
     private final BooleanProperty canNext = new SimpleBooleanProperty(false);
     private Societa societaTmp = null;
     private UnitaLocale unitaLocaleTmp = null;
@@ -156,20 +156,18 @@ public class ModelCreazione extends ModelListe {
         resetProvvedimentoTmp();
     }
 
-    // ------------------ Controllo se i campi sono stati inseriti
-    // ------------------ //
-    public void areTextFieldsFilled(boolean comboBoxEmpty, TextField... textField) {
-        boolean areAllEmpty = Stream.of(textField)
-                .allMatch(t -> t.getText() == null || t.getText().isEmpty());
+    // public void areTextFieldsFilled(boolean comboBoxEmpty, TextField...
+    // textField) {
+    // boolean areAllEmpty = Stream.of(textField)
+    // .allMatch(t -> t.getText() == null || t.getText().isEmpty());
 
-        boolean isAnyEmpty = Stream.of(textField)
-                .anyMatch(t -> t.getText() == null || t.getText().isEmpty());
+    // boolean isAnyEmpty = Stream.of(textField)
+    // .anyMatch(t -> t.getText() == null || t.getText().isEmpty());
 
-        setSaved(!isAnyEmpty && !comboBoxEmpty);
-        setCanGoNext(!isAnyEmpty);
-        setDiscard(!areAllEmpty);
-    }
-    // ------------------ THE END ------------------ //
+    // setSaved(!isAnyEmpty && !comboBoxEmpty);
+    // setCanGoNext(!isAnyEmpty);
+    // setDiscard(!areAllEmpty);
+    // }
 
     // ------------------ Riempie i campi con le informazioni prese dalle liste
     // ------------------ //
@@ -188,12 +186,8 @@ public class ModelCreazione extends ModelListe {
                 textFieldTel.setText(String.valueOf(s.getTelefono()));
             });
 
-            setDiscard(true);
-
             createSocietaTmp(
                     ClassHelper.getListSocieta().stream().filter(s -> s.getNome().equals(societa)).findFirst().get());
-        } else {
-            setDiscard(false);
         }
     }
 }

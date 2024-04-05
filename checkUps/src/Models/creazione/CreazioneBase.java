@@ -1,6 +1,7 @@
 package Models.creazione;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import Controllers.Controller;
@@ -12,6 +13,7 @@ import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
+import Models.Tables.TablesId;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
@@ -20,6 +22,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class CreazioneBase implements CreazioneInterface {
     protected ModelCreazione modelCreazione;
@@ -60,6 +65,36 @@ public class CreazioneBase implements CreazioneInterface {
         this.localTitolo = modelCreazione.getTitoloTmp();
         this.localOggetto = modelCreazione.getOggettoTmp();
         this.localProvvedimento = modelCreazione.getProvvedimentoTmp();
+    }
+
+    protected boolean isSingleFieldChanged(String text, TextInputControl field) {
+        return !text.equals(field.getText());
+    }
+
+    protected boolean isImageChanged(Image oldImage, ImageView newImageView) {
+        Image newImage = newImageView.getImage();
+
+        if (oldImage == null && newImage != null)
+            return true;
+        if (oldImage != null && newImage == null)
+            return true;
+
+        if (oldImage.getWidth() != newImage.getWidth())
+            return true;
+        if (oldImage.getHeight() != newImage.getHeight())
+            return true;
+
+        for (int x = 0; x < oldImage.getWidth(); x++) {
+            for (int y = 0; y < oldImage.getHeight(); y++) {
+                int firstArgb = oldImage.getPixelReader().getArgb(x, y);
+                int secondArgb = newImage.getPixelReader().getArgb(x, y);
+
+                if (firstArgb != secondArgb)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     // Metodo generico che riempie una tabella con i dati di una lista (usato solo

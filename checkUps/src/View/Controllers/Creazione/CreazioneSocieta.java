@@ -80,8 +80,6 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     @FXML
     private JFXComboBox<String> cercaSocieta;
 
-    private OldSocietaFields oldData = new OldSocietaFields();
-
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
     // ------------------------------------------------------- INITIALIZE
@@ -220,7 +218,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         textAreaDesc.clear();
         logoImageView.setImage(null);
 
-        cercaSocieta.setValue(null);
+        cercaSocieta.getSelectionModel().clearSelection();
 
         modelCreazione.resetSocietaTmp();
         modelCreazione.setSaved(false);
@@ -235,9 +233,9 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         // sto creando una società nuova
         if (cercaSocieta.getValue() == null) {
             modelCreazione.setSaved(neededFieldsValid);
-            modelCreazione.setCanGoNext(false);
+            modelCreazione.setCanGoNext(neededFieldsValid);
         } else {
-            var dataChanged = oldData.areFieldChanged();
+            var dataChanged = this.isFormDataChanged();
             var set = neededFieldsValid && dataChanged;
 
             modelCreazione.setCanGoNext(neededFieldsValid);
@@ -265,7 +263,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
             Controller.inserisciNuovoRecord(societaTmp);
             modelCreazione.createSocietaTmp(societaTmp);
-        } else
+        } else if (this.isFormDataChanged())
             onAggiorna();
 
         super.changePage(TipoCreazionePagina.UNITA_LOCALE, true);
@@ -279,52 +277,19 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
     }
 
-    public class OldSocietaFields {
-        public boolean areFieldChanged() {
-            var soc = modelCreazione.getSocietaTmp();
+    public boolean isFormDataChanged() {
+        var soc = modelCreazione.getSocietaTmp();
 
-            return isSingleFieldChanged(soc.getNome(), textFieldSocieta) ||
-                    isSingleFieldChanged(soc.getLocalita(), textFieldLocalita) ||
-                    isSingleFieldChanged(soc.getIndirizzo(), textFieldIndirizzo) ||
-                    isSingleFieldChanged(soc.getProvincia(), textFieldProvincia) ||
-                    isSingleFieldChanged(soc.getTelefono(), textFieldTel) ||
-                    isSingleFieldChanged(soc.getDescrizione(), textAreaDesc) ||
-                    isSingleFieldChanged(soc.getPartitaIva(), textFieldPartitaIva) ||
-                    isSingleFieldChanged(soc.getCodiceFiscale(), textFieldCodiceFiscale) ||
-                    isSingleFieldChanged(soc.getBancaAppoggio(), textFieldBancaAppoggio) ||
-                    isSingleFieldChanged(soc.getCodiceAteco(), textFieldCodiceAteco);
-        }
-
-        private boolean isSingleFieldChanged(String text, TextInputControl field) {
-            return !text.equals(field.getText());
-        }
-
-        public boolean isImageChanged(ImageView newImageView) {
-            var soc = modelCreazione.getSocietaTmp();
-            Image oldImage = soc.getLogoImage();
-            Image newImage = newImageView.getImage();
-
-            if (oldImage == null && newImage != null)
-                return true;
-            if (oldImage != null && newImage == null)
-                return true;
-
-            if (oldImage.getWidth() != newImage.getWidth())
-                return true;
-            if (oldImage.getHeight() != newImage.getHeight())
-                return true;
-
-            for (int x = 0; x < oldImage.getWidth(); x++) {
-                for (int y = 0; y < oldImage.getHeight(); y++) {
-                    int firstArgb = oldImage.getPixelReader().getArgb(x, y);
-                    int secondArgb = newImage.getPixelReader().getArgb(x, y);
-
-                    if (firstArgb != secondArgb)
-                        return true;
-                }
-            }
-
-            return false;
-        }
+        return isSingleFieldChanged(soc.getNome(), textFieldSocieta) ||
+                isSingleFieldChanged(soc.getLocalita(), textFieldLocalita) ||
+                isSingleFieldChanged(soc.getIndirizzo(), textFieldIndirizzo) ||
+                isSingleFieldChanged(soc.getProvincia(), textFieldProvincia) ||
+                isSingleFieldChanged(soc.getTelefono(), textFieldTel) ||
+                isSingleFieldChanged(soc.getDescrizione(), textAreaDesc) ||
+                isSingleFieldChanged(soc.getPartitaIva(), textFieldPartitaIva) ||
+                isSingleFieldChanged(soc.getCodiceFiscale(), textFieldCodiceFiscale) ||
+                isSingleFieldChanged(soc.getBancaAppoggio(), textFieldBancaAppoggio) ||
+                isSingleFieldChanged(soc.getCodiceAteco(), textFieldCodiceAteco) ||
+                isImageChanged(soc.getLogoImage(), logoImageView);
     }
 }

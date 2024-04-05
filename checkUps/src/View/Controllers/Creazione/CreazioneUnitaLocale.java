@@ -94,17 +94,22 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         textFieldTel.setText(String.valueOf(modelCreazione.getUnitaLocaleTmp().getTelefono()));
         textFieldEmail.setText(modelCreazione.getUnitaLocaleTmp().getEmail());
         cercaUnita.setValue(modelCreazione.getUnitaLocaleTmp().getNome());
+
+        modelCreazione.setCanGoNext(true);
     }
 
     public void selezionaUnita() {
+        // Reset dei bottoni
+        modelCreazione.setSaved(false);
+        modelCreazione.setCanGoNext(false);
+
         Optional<UnitaLocale> curUnita = listUnitaLocale.stream()
                 .filter(u -> u.getIdSocieta() == localSocieta.getId())
                 .filter(s -> s.getNome().equals(cercaUnita.getValue()))
                 .findFirst();
 
-        if (curUnita.isEmpty()) {
+        if (curUnita.isEmpty())
             return;
-        }
 
         UnitaLocale unita = curUnita.get();
         textFieldUnitaLocale.setText(unita.getNome());
@@ -114,13 +119,12 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         textFieldTel.setText(unita.getTelefono());
         textFieldEmail.setText(unita.getEmail());
 
-        modelCreazione.createUnitaLocaleTmp(unita);
         modelCreazione.setCanGoNext(true);
-        modelCreazione.setDiscard(true);
+        modelCreazione.createUnitaLocaleTmp(unita);
     }
 
-    public void aggiorna() {
-
+    @FXML
+    public void onAggiorna() {
         UnitaLocale unitaLocale = new UnitaLocale(modelCreazione.getUnitaLocaleTmp().getId(),
                 localSocieta.getId(),
                 textFieldUnitaLocale.getText(),
@@ -132,9 +136,8 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
         Controller.modificaCampo(unitaLocale);
         modelCreazione.createUnitaLocaleTmp(unitaLocale);
+        modelCreazione.setSaved(false);
     }
-
-    // CODICE "SISTEMATO"
 
     public void pulisciDati() {
         textFieldIndirizzo.clear();
@@ -144,21 +147,33 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         textFieldTel.clear();
         textFieldEmail.clear();
 
-        modelCreazione.resetUnitaLocaleTmp();
-
         cercaUnita.getSelectionModel().clearSelection();
-        modelCreazione.setCanGoNext(false);
+
+        modelCreazione.resetUnitaLocaleTmp();
         modelCreazione.setSaved(false);
-        modelCreazione.setDiscard(false);
+        modelCreazione.setCanGoNext(false);
     }
 
+    @FXML
     public void keyReleasedProperty() {
-        modelCreazione.areTextFieldsFilled(cercaUnita.getValue() == null, textFieldUnitaLocale, textFieldIndirizzo,
-                textFieldLocalita,
-                textFieldProvincia, textFieldTel, textFieldEmail);
+        boolean neededFieldsValid = this.checkNeededTextFields(textFieldUnitaLocale, textFieldIndirizzo,
+                textFieldProvincia);
+
+        // sto creando una società nuova
+        if (cercaUnita.getValue() == null) {
+            modelCreazione.setSaved(neededFieldsValid);
+            modelCreazione.setCanGoNext(neededFieldsValid);
+        } else {
+            var dataChanged = this.isFormDataChanged();
+            var set = neededFieldsValid && dataChanged;
+
+            modelCreazione.setCanGoNext(neededFieldsValid);
+            modelCreazione.setSaved(set);
+        }
     }
 
-    public void onActionSave() {
+    @FXML
+    public void onSaveAndGoNext() {
         if (cercaUnita.getValue() == null) {
             int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
@@ -173,8 +188,8 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
             Controller.inserisciNuovoRecord(unitaLocale);
             modelCreazione.createUnitaLocaleTmp(unitaLocale);
-        } else
-            aggiorna();
+        } else if (this.isFormDataChanged())
+            this.onAggiorna();
 
         super.changePage(TipoCreazionePagina.REPARTO, true);
     }
@@ -189,7 +204,6 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         super.setModel(modelCreazione, modelPaths);
 
         this.btnAggiorna.disableProperty().bind(modelCreazione.savedProperty().not());
-        this.btnAnnulla.disableProperty().bind(modelCreazione.discardProperty().not());
         this.btnSalva.disableProperty().bind(modelCreazione.canGoNextProperty().not());
 
         ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
@@ -199,5 +213,16 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
         cercaUnita.setItems(filteredItems);
+    }
+
+    public boolean isFormDataChanged() {
+        var uLocale = modelCreazione.getUnitaLocaleTmp();
+
+        return isSingleFieldChanged(uLocale.getNome(), textFieldUnitaLocale) ||
+                isSingleFieldChanged(uLocale.getIndirizzo(), textFieldIndirizzo) ||
+                isSingleFieldChanged(uLocale.getLocalita(), textFieldLocalita) ||
+                isSingleFieldChanged(uLocale.getProvincia(), textFieldProvincia) ||
+                isSingleFieldChanged(uLocale.getProvincia(), textFieldProvincia) ||
+                isSingleFieldChanged(uLocale.getEmail(), textFieldEmail);
     }
 }
