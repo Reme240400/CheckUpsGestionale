@@ -26,6 +26,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
@@ -43,10 +44,12 @@ public class pdfGenerator {
     public static Image logoSocieta;
     public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
     public static String revisione;
+    
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
     public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
             String nomeFile) {
+        FontFactory.register("C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\arial\\ARIAL.TTF","ARIAL");
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         try {
@@ -65,11 +68,10 @@ public class pdfGenerator {
                 // Creazione pagina iniziale
                 PdfPTable tableIniziale = new PdfPTable(3);
                 tableIniziale.setWidthPercentage(100);
-                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 10);
+                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, FontFactory.getFont("ARIAL", 15));
                 societaCellIniziale.setBorderWidthRight(0);
                 tableIniziale.addCell(societaCellIniziale);
-                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD,
-                        10);
+                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
                 tableIniziale.addCell(unitaLocaleCellIniziale);
                 tableIniziale.setSpacingAfter(170f);
@@ -81,7 +83,7 @@ public class pdfGenerator {
 
                 PdfPCell body = createCell(
                         "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
-                        1, Font.BOLD, 20);
+                        1, FontFactory.getFont("ARIAL", 20));
                 body.setHorizontalAlignment(Element.ALIGN_CENTER);
                 body.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 body.setBorder(Rectangle.NO_BORDER);
@@ -93,11 +95,11 @@ public class pdfGenerator {
                 tableUnderBody.setWidthPercentage(100);
                 PdfPCell underBodyLeft = createCell(
                         "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
-                        1, Font.BOLD, 10);
+                        1, FontFactory.getFont("ARIAL", 10));
 
                 PdfPCell underBodyRight = createCell(
                         "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
-                        1, Font.BOLD, 10);
+                        1, FontFactory.getFont("ARIAL", 10));
                 underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
                 underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 underBodyLeft.setBorder(Rectangle.NO_BORDER);
@@ -130,17 +132,17 @@ public class pdfGenerator {
                 table.setWidthPercentage(100);
 
                 // Popola la tabella con dettagli sulla società, la sede e il reparto
-                PdfPCell societaCell = createCell("Società:", 1, Font.BOLD, 10);
+                PdfPCell societaCell = createCell("Società:", 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(societaCell);
-                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD, 10);
+                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(unitaLocaleCell);
-                PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD, 10);
+                PdfPCell repartiCell = createCell("Reparto:", 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(repartiCell);
-                PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD, 10);
+                PdfPCell societaValueCell = createCell(societa.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(societaValueCell);
-                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD, 10);
+                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(unitaLocaleValueCell);
-                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD, 10);
+                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(repartiValueCell);
 
                 table.setSpacingAfter(10f);
@@ -181,8 +183,8 @@ public class pdfGenerator {
                             // Crea un paragrafo per visualizzare le informazioni sul titolo
                             Paragraph titoloParagraph = new Paragraph();
                             titoloParagraph.setAlignment(Element.ALIGN_CENTER);
-                            Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-                            Chunk titoloChunk = new Chunk("TITOLO: " + n + " " + titolo.getDescrizione(), boldFont);
+                            Font font = FontFactory.getFont("ARIAL",15);
+                            Chunk titoloChunk = new Chunk("TITOLO: " + n + " " + titolo.getDescrizione(), font);
                             titoloParagraph.add(titoloChunk);
                             titoloParagraph.setSpacingAfter(10f);
 
@@ -195,8 +197,8 @@ public class pdfGenerator {
                         // Crea un paragrafo per visualizzare le informazioni sull'oggetto
                         Paragraph oggettoParagraph = new Paragraph();
                         oggettoParagraph.setAlignment(Element.ALIGN_LEFT);
-                        Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-                        oggettoParagraph.add(new Phrase("OGGETTO: " + oggetto.getNome(), boldFont));
+                        Font font = FontFactory.getFont("ARIAL",15);
+                        oggettoParagraph.add(new Phrase("OGGETTO: " + oggetto.getNome(), font));
                         oggettoParagraph.setSpacingAfter(10f);
 
                         // Aggiunge le informazioni sull'oggetto al documento
@@ -210,10 +212,10 @@ public class pdfGenerator {
 
                             // Visualizza gli header solo nella prima iterazione
                             if (j == 0) {
-                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD, 10));
-                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD, 10));
-                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD, 10));
-                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, FontFactory.getFont("ARIAL", 10)));
+                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, FontFactory.getFont("ARIAL", 10)));
+                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, FontFactory.getFont("ARIAL", 10)));
+                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, FontFactory.getFont("ARIAL", 10)));
                             }
                             j++;
 
@@ -222,16 +224,16 @@ public class pdfGenerator {
 
                             // Popola la tabella con i dettagli della misura
                             provvedimentoTable.addCell(
-                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD, 10));
+                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, FontFactory.getFont("ARIAL", 10)));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
-                            provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD, 10));
+                            provvedimentoTable.addCell(createCell(stima, 1, FontFactory.getFont("ARIAL", 10)));
                             provvedimentoTable.addCell(
                                     createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
-                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD, 10));
+                                            .replace("\r", "").replace("€", " euro"), 3, FontFactory.getFont("ARIAL", 10)));
 
                             provvedimentoTable
-                                    .addCell(createCell(provvedimento.getSoggettiEsposti(), 1, Font.BOLD, 10));
+                                    .addCell(createCell(provvedimento.getSoggettiEsposti(), 1, FontFactory.getFont("ARIAL", 10)));
 
                             // Aggiunge la tabella delle misure al documento
                             document.add(provvedimentoTable);
@@ -274,14 +276,13 @@ public class pdfGenerator {
                 // Creazione pagina iniziale
                 PdfPTable tableIniziale = new PdfPTable(3);
                 tableIniziale.setWidthPercentage(100);
-                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, Font.BOLD, 15);
+                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2, FontFactory.getFont("ARIAL", 20));
                 societaCellIniziale.setBorderWidthRight(0);
                 societaCellIniziale.setBorderWidthLeft(0);
                 societaCellIniziale.setBorderWidthBottom(0);
                 societaCellIniziale.setBorderWidthTop(0);
                 tableIniziale.addCell(societaCellIniziale);
-                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, Font.BOLD,
-                        15);
+                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1, FontFactory.getFont("ARIAL", 20));
                 unitaLocaleCellIniziale.setBorderWidthLeft(0);
                 unitaLocaleCellIniziale.setBorderWidthRight(0);
                 unitaLocaleCellIniziale.setBorderWidthBottom(0);
@@ -311,7 +312,7 @@ public class pdfGenerator {
                 tableBody.setWidthPercentage(100);
                 PdfPCell body = createCell(
                         "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
-                        1, Font.BOLD, 15);
+                        1, FontFactory.getFont("ARIAL", 20));
                 body.setHorizontalAlignment(Element.ALIGN_CENTER);
                 body.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 body.setBorder(Rectangle.NO_BORDER);
@@ -323,11 +324,11 @@ public class pdfGenerator {
                 tableUnderBody.setWidthPercentage(100);
                 PdfPCell underBodyLeft = createCell(
                         "Il Datore di Lavoro: _________________\n \n \nIl Medico Competente: _________________",
-                        1, Font.BOLD, 10);
+                        1, FontFactory.getFont("ARIAL", 10));
 
                 PdfPCell underBodyRight = createCell(
                         "Il rappresentante dei lavoratori per la sicurezza: _________________\n \n \n Il responsabile del servizio di prevenzione e protezione: _________________\n \n \n in data: ___________",
-                        1, Font.BOLD, 10);
+                        1, FontFactory.getFont("ARIAL", 10));
                 underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
                 underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 underBodyLeft.setBorder(Rectangle.NO_BORDER);
@@ -361,22 +362,22 @@ public class pdfGenerator {
                 table.setWidthPercentage(100);
 
                 // Popola la tabella con dettagli sulla società, la sede e il reparto
-                PdfPCell societaCell = createCell("Società:", 1, Font.BOLD, 10);
+                PdfPCell societaCell = createCell("Società:", 1, FontFactory.getFont("ARIAL", 15));
                 societaCell.setBorderWidthBottom(0);
                 table.addCell(societaCell);
-                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, Font.BOLD, 10);
+                PdfPCell unitaLocaleCell = createCell("Unità Locale:", 1, FontFactory.getFont("ARIAL", 15));
                 unitaLocaleCell.setBorderWidthBottom(0);
                 table.addCell(unitaLocaleCell);
-                PdfPCell repartiCell = createCell("Reparto:", 1, Font.BOLD, 10);
+                PdfPCell repartiCell = createCell("Reparto:", 1, FontFactory.getFont("ARIAL", 15));
                 repartiCell.setBorderWidthBottom(0);
                 table.addCell(repartiCell);
-                PdfPCell societaValueCell = createCell(societa.getNome(), 1, Font.BOLD, 10);
+                PdfPCell societaValueCell = createCell(societa.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 societaValueCell.setBorderWidthTop(0);
                 table.addCell(societaValueCell);
-                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, Font.BOLD, 10);
+                PdfPCell unitaLocaleValueCell = createCell(unitaLocale.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 unitaLocaleValueCell.setBorderWidthTop(0);
                 table.addCell(unitaLocaleValueCell);
-                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, Font.BOLD, 10);
+                PdfPCell repartiValueCell = createCell(reparto.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 repartiValueCell.setBorderWidthTop(0);
                 table.addCell(repartiValueCell);
 
@@ -418,8 +419,8 @@ public class pdfGenerator {
                             // Crea un paragrafo per visualizzare le informazioni sul titolo
                             Paragraph titoloParagraph = new Paragraph();
                             titoloParagraph.setAlignment(Element.ALIGN_CENTER);
-                            Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-                            Chunk titoloChunk = new Chunk("TITOLO: " + n + " " + titolo.getDescrizione(), boldFont);
+                            Font font = FontFactory.getFont("ARIAL",15);
+                            Chunk titoloChunk = new Chunk("TITOLO: " + n + " " + titolo.getDescrizione(), font);
                             titoloParagraph.add(titoloChunk);
                             titoloParagraph.setSpacingAfter(10f);
 
@@ -432,8 +433,8 @@ public class pdfGenerator {
                         // Crea un paragrafo per visualizzare le informazioni sull'oggetto
                         Paragraph oggettoParagraph = new Paragraph();
                         oggettoParagraph.setAlignment(Element.ALIGN_LEFT);
-                        Font boldFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-                        oggettoParagraph.add(new Phrase("OGGETTO: " + oggetto.getNome(), boldFont));
+                        Font font = FontFactory.getFont("ARIAL",15);
+                        oggettoParagraph.add(new Phrase("OGGETTO: " + oggetto.getNome(), font));
                         oggettoParagraph.setSpacingAfter(10f);
 
                         // Aggiunge le informazioni sull'oggetto al documento
@@ -447,10 +448,10 @@ public class pdfGenerator {
 
                             // Visualizza gli header solo nella prima iterazione
                             if (j == 0) {
-                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, Font.BOLD, 10));
-                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, Font.BOLD, 10));
-                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, Font.BOLD, 10));
-                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, Font.BOLD, 10));
+                                provvedimentoTable.addCell(createCell("RISCHIO ", 1, FontFactory.getFont("ARIAL", 10)));
+                                provvedimentoTable.addCell(createCell("STIMA (PxD = R) ", 1, FontFactory.getFont("ARIAL", 10)));
+                                provvedimentoTable.addCell(createCell("MISURE DI PREVENZIONE ", 3, FontFactory.getFont("ARIAL", 10)));
+                                provvedimentoTable.addCell(createCell("MANSIONI ESPOSTE ", 1, FontFactory.getFont("ARIAL", 10)));
                             }
                             j++;
 
@@ -459,19 +460,19 @@ public class pdfGenerator {
 
                             // Popola la tabella con i dettagli della misura
                             provvedimentoTable.addCell(
-                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, Font.BOLD, 10));
+                                    createCell(replaceInvalidCharacters(provvedimento.getRischio()), 1, FontFactory.getFont("ARIAL", 10)));
                             String stima = (provvedimento.getStimaP() + " x " + provvedimento.getStimaD() + " = "
                                     + provvedimento.getStimaR());
-                            provvedimentoTable.addCell(createCell(stima, 1, Font.BOLD, 10));
+                            provvedimentoTable.addCell(createCell(stima, 1, FontFactory.getFont("ARIAL", 10)));
                             provvedimentoTable.addCell(
                                     createCell(replaceInvalidCharacters(provvedimento.getNome().replace("\n", ""))
-                                            .replace("\r", "").replace("€", " euro"), 3, Font.BOLD, 10));
+                                            .replace("\r", "").replace("€", " euro"), 3, FontFactory.getFont("ARIAL", 10)));
                             String soggettiEsposti = provvedimento.getSoggettiEsposti();
                             if (soggettiEsposti != null) {
                                 soggettiEsposti = replaceInvalidCharacters(soggettiEsposti).replace("&lt;", "<")
                                         .replace("&gt;", ">");
                             }
-                            provvedimentoTable.addCell(createCell(soggettiEsposti, 1, Font.BOLD, 10));
+                            provvedimentoTable.addCell(createCell(soggettiEsposti, 1, FontFactory.getFont("ARIAL", 10)));
 
                             // Aggiunge la tabella delle misure al documento
                             document.add(provvedimentoTable);
@@ -495,8 +496,7 @@ public class pdfGenerator {
 
     // Metodo di supporto per creare una PdfPCell con contenuto, colspan e stile del
     // carattere specificati
-    private static PdfPCell createCell(String content, int colspan, int fontStyle, int size) {
-        Font font = new Font(Font.FontFamily.HELVETICA, size, fontStyle);
+    private static PdfPCell createCell(String content, int colspan, Font font) {
         PdfPCell cell = new PdfPCell(new Phrase(content, font));
         cell.setColspan(colspan);
         return cell;
