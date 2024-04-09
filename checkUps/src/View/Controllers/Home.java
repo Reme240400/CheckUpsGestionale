@@ -102,7 +102,6 @@ public class Home implements Initializable {
                 stackPane = modelPaths.getStackPaneHome();
 
                 if (root != null) {
-                    // title.setText("Valuta Rischi");
                     Controller.changePane(stackPane, root);
                 }
 
@@ -110,7 +109,7 @@ public class Home implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            Alerts.errorAlert();
+            Alerts.errorAlert("Errore", "Dati non validi", "Seleziona una società e un'unità locale per procedere");
         }
 
     }
