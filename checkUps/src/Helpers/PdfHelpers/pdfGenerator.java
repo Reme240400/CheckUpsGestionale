@@ -40,7 +40,7 @@ public class pdfGenerator {
 
     // Variabile statica per tenere traccia del numero di pagina corrente
     public static int currentPage = 1;
-    public static int pagineTotali = 0;
+    public static int pagineTotali = 1;
     public static Image logoSocieta;
     public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
     public static String revisione;
@@ -270,7 +270,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         currentPage = 0;
-        pagineTotali = pagine - 1;
+        pagineTotali = pagine;
         try {
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
@@ -550,7 +550,7 @@ private static Image javafxImageToPdfImage(javafx.scene.image.Image javafxImage)
     // Classe interna per definire un piè di pagina personalizzato per il documento
     // PDF
     private static class PdfFooter extends PdfPageEventHelper {
-        public void onEndPage(PdfWriter writer, Document document) {
+        public void onStartPage(PdfWriter writer, Document document) {
             // Crea una tabella per il piè di pagina con tre colonne
             PdfPTable table = new PdfPTable(3);
             currentPage++;
@@ -578,7 +578,6 @@ private static Image javafxImageToPdfImage(javafx.scene.image.Image javafxImage)
             // Scrive il piè di pagina nel documento
             table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
         }
-
     }
 
     // Metodo di supporto per sostituire caratteri non validi in un testo
