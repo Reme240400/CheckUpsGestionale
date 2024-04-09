@@ -8,30 +8,35 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="1096.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.ViewController">
     <top>
-        <HBox fx:id="top_pane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="1013.0" styleClass="top_pane" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
-            <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="927.0" HBox.hgrow="ALWAYS">
-                    <children>
-                        <ImageView fitHeight="51.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="bordered">
-                            <image>
-                                <Image url="@../images/logo%20con%20sfondo%20transpartente.png" />
-                            </image>
-                            <HBox.margin>
-                                <Insets left="20.0" />
-                            </HBox.margin>
-                        </ImageView>
-                        <Pane layoutX="516.0" layoutY="10.0" prefHeight="70.0" prefWidth="205.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnHome" onAction="#switchToHome" prefHeight="50.0" prefWidth="280.0" stylesheets="@../css/style.css" text="Home" />
-                        <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnCreate" onAction="#switchToCreazione" prefHeight="50.0" prefWidth="280.0" stylesheets="@../css/style.css" text="Crea" />
-                        <Pane layoutX="137.0" layoutY="10.0" prefHeight="70.0" prefWidth="267.0" HBox.hgrow="SOMETIMES" />
-                    </children>
-                </HBox>
-            </children>
-        </HBox>
+          <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="927.0">
+              <children>
+                  <ImageView fitHeight="51.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true" styleClass="bordered">
+                      <image>
+                          <Image url="@../images/logo%20con%20sfondo%20transpartente.png" />
+                      </image>
+                      <HBox.margin>
+                          <Insets left="20.0" />
+                      </HBox.margin>
+                  </ImageView>
+                  <Pane layoutX="516.0" layoutY="10.0" prefHeight="70.0" prefWidth="205.0" HBox.hgrow="SOMETIMES" />
+                  <JFXButton fx:id="btnHome" onAction="#switchToHome" prefHeight="50.0" prefWidth="280.0" stylesheets="@../css/style.css" text="HOME">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </JFXButton>
+                  <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                  <JFXButton fx:id="btnCreate" onAction="#switchToCreazione" prefHeight="50.0" prefWidth="280.0" stylesheets="@../css/style.css" text="CREA">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </JFXButton>
+                  <Pane layoutX="137.0" layoutY="10.0" prefHeight="70.0" prefWidth="267.0" HBox.hgrow="SOMETIMES" />
+              </children>
+          </HBox>
     </top>
     <center>
         <StackPane fx:id="stackPane" prefHeight="420.0" prefWidth="537.0" styleClass="background" stylesheets="@../css/style.css" BorderPane.alignment="CENTER" />

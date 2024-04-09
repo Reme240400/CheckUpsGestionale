@@ -40,8 +40,6 @@ public class Home implements Initializable {
 
     private StackPane stackPane;
 
-    // private Label title;
-
     private ModelPaths modelPaths;
     private ModelValutaRischi modelValutaRischi;
 
@@ -82,6 +80,10 @@ public class Home implements Initializable {
         }
     }
 
+    public void showScadenze(){
+        ViewController.mostraScadenze();
+    }
+
     public void goToValutaRischi() {
         if (cercaSocieta.getValue() != null && cercaUnitaLocale.getValue() != null && !cercaSocieta.getValue().isEmpty()
                 && !cercaUnitaLocale.getValue().isEmpty()) {
@@ -119,8 +121,4 @@ public class Home implements Initializable {
         this.modelValutaRischi = modelValutaRischi;
 
     }
-
-    // public void setTitleValuta(Label title) {
-    // this.title = title;
-    // }
 }

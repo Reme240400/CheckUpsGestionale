@@ -20,9 +20,9 @@
                   <AnchorPane prefHeight="72.0" prefWidth="600.0">
                      <children>
                         <JFXComboBox fx:id="cercaSocieta" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" onHiding="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00" />
-                        <Label layoutX="22.0" layoutY="28.0" text="Società - Ente">
+                        <Label layoutX="14.0" layoutY="24.0" text="Società - Ente">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
@@ -34,9 +34,9 @@
                   <AnchorPane prefHeight="72.0" prefWidth="600.0">
                      <children>
                         <JFXComboBox fx:id="cercaUnitaLocale" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00" />
-                        <Label layoutX="22.0" layoutY="28.0" text="Unità Locale">
+                        <Label layoutX="14.0" layoutY="24.0" text="Unità Locale">
                            <font>
-                              <Font size="16.0" />
+                              <Font size="18.0" />
                            </font>
                         </Label>
                      </children>
@@ -49,9 +49,21 @@
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnValutaRischi" onAction="#goToValutaRischi" prefHeight="52.0" prefWidth="102.0" stylesheets="@../css/style.css" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true" />
+            <JFXButton fx:id="btnValutaRischi" onAction="#goToValutaRischi" prefHeight="55.0" prefWidth="110.0" stylesheets="@../css/style.css" text="Valutazione Rischi" textAlignment="CENTER" wrapText="true">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font></JFXButton>
             <Pane prefHeight="51.0" prefWidth="212.0" HBox.hgrow="SOMETIMES" />
-            <JFXButton fx:id="btnStampaPdf" prefHeight="53.0" prefWidth="95.0" stylesheets="@../css/style.css" text="Stampa" />
+            <JFXButton fx:id="btnScadenze" onAction="#showScadenze" prefHeight="55.0" prefWidth="110.0" stylesheets="@../css/style.css" text="Scadenze">
+               <HBox.margin>
+                  <Insets bottom="10.0" right="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font></JFXButton>
          </children>
       </HBox>
    </bottom>

@@ -13,9 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="547.0" prefWidth="862.0" styleClass="background" stylesheets="@../../css/style.css"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
+<BorderPane prefHeight="547.0" prefWidth="862.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneOggetto">
     <center>
         <TableView fx:id="tableOggetti" prefHeight="461.0" prefWidth="297.0">
             <columns>
@@ -40,7 +38,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="862.0">
                     <children>
-                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" layoutX="802.0" layoutY="20.0" onAction="#onActionBack" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" layoutX="802.0" layoutY="20.0" onAction="#onActionBack" prefHeight="45.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -54,7 +52,7 @@
                         </JFXButton>
                         <VBox alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="btnModifica" contentDisplay="CENTER" ellipsisString="" onAction="#onModifica" prefHeight="35.0" prefWidth="65.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
+                                <JFXButton fx:id="btnModifica" contentDisplay="CENTER" ellipsisString="" onAction="#onModifica" prefHeight="38.0" prefWidth="55.0" ripplerFill="#2b6ef0" styleClass="bordered" stylesheets="@../../css/style.css" textAlignment="CENTER" textOverrun="CLIP">
                                     <graphic>
                                         <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -71,7 +69,7 @@
                         </VBox>
                         <VBox alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="btnAggiungi" contentDisplay="CENTER" ellipsisString="" onAction="#onAggiungi" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                                <JFXButton fx:id="btnAggiungi" contentDisplay="CENTER" ellipsisString="" onAction="#onAggiungi" prefHeight="38.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                                     <graphic>
                                         <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -88,7 +86,7 @@
                         </VBox>
                         <VBox alignment="CENTER">
                             <children>
-                                <JFXButton fx:id="btnImporta" contentDisplay="CENTER" ellipsisString="" onAction="#onImporta" prefHeight="35.0" prefWidth="69.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                                <JFXButton fx:id="btnImporta" contentDisplay="CENTER" ellipsisString="" onAction="#onImporta" prefHeight="38.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                                     <graphic>
                                         <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -104,7 +102,7 @@
                             </HBox.margin>
                         </VBox>
                         <Pane HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" onAction="#onActionSave" prefHeight="35.0" prefWidth="80.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                        <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" onAction="#onActionSave" prefHeight="45.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

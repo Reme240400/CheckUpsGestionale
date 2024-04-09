@@ -64,7 +64,7 @@ public class ViewController implements Initializable {
         });
     }
 
-    private void mostraScadenze() {
+    public static void mostraScadenze() {
         var expired = new ArrayList<Provvedimento>();
         var provs = ClassHelper.getListProvvedimento();
 

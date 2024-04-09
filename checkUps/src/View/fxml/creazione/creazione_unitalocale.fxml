@@ -17,18 +17,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="672.0" prefWidth="908.0" styleClass="background" stylesheets="@../../css/style.css"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
+<BorderPane prefHeight="672.0" prefWidth="900.0" styleClass="background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.CreazioneUnitaLocale">
     <center>
         <HBox alignment="CENTER" prefHeight="509.0" prefWidth="832.0" BorderPane.alignment="CENTER">
             <children>
                 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="435.0" prefWidth="614.0">
                     <children>
-                        <GridPane alignment="CENTER" prefHeight="439.0" prefWidth="614.0" VBox.vgrow="SOMETIMES">
+                        <GridPane alignment="CENTER" VBox.vgrow="SOMETIMES">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="261.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="62.0" />
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="132.0" />
+                                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="464.0" minWidth="10.0" prefWidth="458.0" />
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -39,47 +37,101 @@
                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label prefHeight="17.0" prefWidth="93.0" text="Nome:" />
-                                <TextField fx:id="textFieldUnitaLocale" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1">
+                                <Label prefHeight="17.0" prefWidth="44.0" text="Nome">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font></Label>
+                                <TextField fx:id="textFieldUnitaLocale" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1">
                                     <styleClass>
                                         <String fx:value="input-field" />
                                         <String fx:value="rounded-md" />
                                     </styleClass>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                                 </TextField>
-                                <Label prefHeight="17.0" prefWidth="56.0" text="Località:" GridPane.rowIndex="1" />
-                                <Label prefHeight="17.0" prefWidth="56.0" text="Indirizzo:" GridPane.rowIndex="2" />
+                                <Label prefHeight="17.0" prefWidth="56.0" text="Località" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font></Label>
+                                <Label prefHeight="17.0" prefWidth="62.0" text="Indirizzo" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font></Label>
                                 <TextField fx:id="textFieldIndirizzo" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                     <styleClass>
                                         <String fx:value="input-field" />
                                         <String fx:value="rounded-md" />
                                     </styleClass>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                                 </TextField>
-                                <Label prefHeight="17.0" prefWidth="56.0" text="Provincia:" GridPane.rowIndex="3" />
-                                <Label prefHeight="17.0" prefWidth="56.0" text="Telefono:" GridPane.rowIndex="5" />
-                                <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                <Label prefHeight="17.0" prefWidth="68.0" text="Provincia" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font></Label>
+                                <Label prefHeight="17.0" prefWidth="68.0" text="Telefono" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font></Label>
+                                <TextField fx:id="textFieldTel" accessibleText="INTEGER" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                     <styleClass>
                                         <String fx:value="input-field" />
                                         <String fx:value="rounded-md" />
                                     </styleClass>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                                 </TextField>
-                                <TextField fx:id="textFieldProvincia" layoutX="326.0" layoutY="171.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="324.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                <TextField fx:id="textFieldProvincia" layoutX="326.0" layoutY="171.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <styleClass>
                                         <String fx:value="input-field" />
                                         <String fx:value="rounded-md" />
                                     </styleClass>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                                 </TextField>
-                                <TextField fx:id="textFieldLocalita" layoutX="326.0" layoutY="55.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="437.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <TextField fx:id="textFieldLocalita" layoutX="326.0" layoutY="55.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <styleClass>
                                         <String fx:value="input-field" />
                                         <String fx:value="rounded-md" />
                                     </styleClass>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                                 </TextField>
-                                <Label layoutX="65.0" layoutY="434.0" prefHeight="17.0" prefWidth="56.0" text="Email:" GridPane.rowIndex="4" />
-                                <TextField fx:id="textFieldEmail" accessibleText="INTEGER" layoutX="326.0" layoutY="429.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="59.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                <Label layoutX="65.0" layoutY="434.0" prefHeight="17.0" prefWidth="56.0" text="Email" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font></Label>
+                                <TextField fx:id="textFieldEmail" accessibleText="INTEGER" layoutX="326.0" layoutY="429.0" onKeyTyped="#keyReleasedProperty" prefHeight="25.0" prefWidth="330.0" stylesheets="@../../css/style.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                     <styleClass>
                                         <String fx:value="input-field" />
                                         <String fx:value="rounded-md" />
                                     </styleClass>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
                                 </TextField>
                             </children>
                         </GridPane>
@@ -98,14 +150,14 @@
                     <children>
                         <Label text="Unita Locale">
                             <font>
-                                <Font name="System Bold" size="24.0" />
+                                <Font name="Arial Black" size="24.0" />
                             </font>
                         </Label>
                     </children>
                 </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="752.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="908.0">
                     <children>
-                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="848.0" layoutY="10.0" onAction="#onActionBack" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                        <JFXButton fx:id="btnBack" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="848.0" layoutY="10.0" onAction="#onActionBack" prefHeight="45.0" prefWidth="54.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -117,9 +169,9 @@
                                 <Insets left="15.0" />
                             </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onAggiorna" ripplerFill="#32a834" textFill="WHITE" textOverrun="CLIP">
+                        <JFXButton fx:id="btnAggiorna" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onAggiorna" ripplerFill="#32a834" styleClass="rounded-md" stylesheets="@../../css/style.css" textFill="WHITE" textOverrun="CLIP">
                             <graphic>
-                                <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../icons/save_icon.png" />
                                     </image>
@@ -129,9 +181,9 @@
                                 <Insets left="15.0" />
                             </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" onAction="#pulisciDati" ripplerFill="#fc3636" textFill="WHITE" textOverrun="CLIP">
+                        <JFXButton fx:id="btnAnnulla" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" layoutX="35.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#pulisciDati" prefHeight="46.0" prefWidth="54.0" ripplerFill="#fc3636" styleClass="rounded-md" stylesheets="@../../css/style.css" textFill="WHITE" textOverrun="CLIP">
                             <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../icons/cross.png" />
                                     </image>
@@ -141,11 +193,13 @@
                                 <Insets left="15.0" />
                             </HBox.margin>
                         </JFXButton>
-                        <Pane prefHeight="38.0" prefWidth="88.0" HBox.hgrow="SOMETIMES" />
-                        <JFXComboBox fx:id="cercaUnita" editable="true" focusColor="#ffffff00" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." styleClass="rounded-md" stylesheets="@../../css/style.css" unFocusColor="#ffffff00" />
-                        <Pane layoutX="80.0" layoutY="10.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="44.0" />
-                        <Pane layoutX="137.0" layoutY="10.0" prefHeight="38.0" prefWidth="75.0" HBox.hgrow="SOMETIMES" />
-                        <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onSaveAndGoNext" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                        <Pane HBox.hgrow="SOMETIMES" />
+                        <JFXComboBox fx:id="cercaUnita" editable="true" focusColor="#ffffff00" onHiding="#selezionaUnita" prefHeight="25.0" prefWidth="424.0" promptText="Cerca..." styleClass="rounded-md" stylesheets="@../../css/style.css" unFocusColor="#ffffff00">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding></JFXComboBox>
+                        <Pane layoutX="137.0" layoutY="10.0" HBox.hgrow="SOMETIMES" />
+                        <JFXButton fx:id="btnSalva" contentDisplay="CENTER" ellipsisString="" graphicTextGap="0.0" onAction="#onSaveAndGoNext" prefHeight="61.0" prefWidth="55.0" ripplerFill="#53bed3" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                             <HBox.margin>
                                 <Insets right="15.0" />
                             </HBox.margin>
