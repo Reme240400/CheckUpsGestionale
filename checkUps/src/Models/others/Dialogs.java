@@ -1,4 +1,4 @@
-package Models;
+package Models.others;
 
 import java.util.Optional;
 import java.util.function.Consumer;

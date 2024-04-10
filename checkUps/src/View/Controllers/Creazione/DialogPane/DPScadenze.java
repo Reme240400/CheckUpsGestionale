@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Helpers.ClassHelper;
-import Models.ScadenzaElement;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
+import Models.others.ScadenzaElement;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

@@ -14,12 +14,12 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Models.Alerts;
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.TipoCreazionePagina;
 import Models.Tables.Societa;
-import Models.creazione.CreazioneBase;
+import Models.others.Alerts;
+import Models.others.CreazioneBase;
+import Models.others.TipoCreazionePagina;
 import View.Controllers.ViewController;
 
 import javafx.collections.FXCollections;

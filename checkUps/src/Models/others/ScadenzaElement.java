@@ -1,4 +1,4 @@
-package Models;
+package Models.others;
 
 import Models.Tables.Provvedimento;
 import Models.Tables.Societa;

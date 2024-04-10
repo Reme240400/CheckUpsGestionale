@@ -5,8 +5,7 @@ import java.util.ResourceBundle;
 
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.TipoCreazionePagina;
-
+import Models.others.TipoCreazionePagina;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;

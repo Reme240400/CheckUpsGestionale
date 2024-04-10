@@ -1,8 +1,8 @@
-package Models.creazione;
+package Interfaces;
 
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.TipoCreazionePagina;
+import Models.others.TipoCreazionePagina;
 import javafx.scene.control.TextField;
 
 public interface CreazioneInterface {

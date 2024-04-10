@@ -9,12 +9,12 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Models.Alerts;
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.TipoCreazionePagina;
 import Models.Tables.Reparto;
-import Models.creazione.CreazioneBase;
+import Models.others.Alerts;
+import Models.others.CreazioneBase;
+import Models.others.TipoCreazionePagina;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddR;
 import View.Controllers.Modifiche.DialogPaneModificaReparto;
 

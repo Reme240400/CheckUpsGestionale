@@ -10,13 +10,13 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Models.Alerts;
-import Models.Dialogs;
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.TipoCreazionePagina;
 import Models.Tables.Provvedimento;
-import Models.creazione.CreazioneBase;
+import Models.others.Alerts;
+import Models.others.CreazioneBase;
+import Models.others.Dialogs;
+import Models.others.TipoCreazionePagina;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
 import View.Controllers.Modifiche.DialogPaneModificaProv;
 

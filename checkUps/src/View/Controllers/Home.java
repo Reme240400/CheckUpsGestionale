@@ -10,12 +10,11 @@ import com.jfoenix.controls.JFXComboBox;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
-import Models.Alerts;
 import Models.ModelPaths;
 import Models.ModelValutaRischi;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
-
+import Models.others.Alerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

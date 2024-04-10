@@ -15,9 +15,9 @@ import Helpers.ClassHelper;
 import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelPaths;
-import Models.TipoCreazionePagina;
 import Models.Tables.UnitaLocale;
-import Models.creazione.CreazioneBase;
+import Models.others.CreazioneBase;
+import Models.others.TipoCreazionePagina;
 import View.Controllers.ViewController;
 
 import javafx.collections.FXCollections;
