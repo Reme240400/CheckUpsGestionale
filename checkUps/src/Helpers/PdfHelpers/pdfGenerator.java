@@ -43,13 +43,13 @@ public class pdfGenerator {
     public static int currentPage = 1;
     public static int pagineTotali = 1;
     public static Image logoSocieta;
-    public static String urlLogoCheckUps = "C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
+    public static String urlLogoCheckUps = "checkUps\\src\\resources\\logo\\logo con sfondo transpartente.png";
     public static String revisione;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
     public static void stampaValutazioneRischi(Societa societa, UnitaLocale unitaLocale, List<Reparto> reparti,
             String nomeFile) {
-        FontFactory.register("C:\\dev\\CheckUps\\CheckUpsGestionale\\checkUps\\src\\resources\\fonts\\arial\\ARIAL.TTF",
+        FontFactory.register("checkUps\\src\\resources\\fonts\\arial\\ARIAL.TTF",
                 "ARIAL");
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
