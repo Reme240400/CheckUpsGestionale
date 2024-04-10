@@ -8,7 +8,6 @@ import Models.Tables.Societa;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.control.Cell;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
