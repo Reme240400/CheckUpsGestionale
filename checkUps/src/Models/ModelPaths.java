@@ -19,9 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 public class ModelPaths {
-
-    private ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
-
     private String loadedFXMLs = null;
     private StackPane stackPane = null;
     private StackPane stackPaneHome = null;
@@ -70,7 +67,7 @@ public class ModelPaths {
     }
 
     // *************** Cambia la scena a valuta rischi *************** //
-    public Parent switchToValutaRischi(ModelValutaRischi modelValutaRischi, Societa societa, UnitaLocale unita)
+    public Parent switchToValutaRischi(Societa societa, UnitaLocale unita)
             throws IOException {
         URL fxmlURL = getClass().getClassLoader().getResource("View/fxml/valuta_rischi.fxml");
 
@@ -80,7 +77,6 @@ public class ModelPaths {
         ValutaRischi rischiController = loader.getController();
 
         rischiController.setSection(unita, societa);
-        rischiController.setModel(modelValutaRischi);
 
         loadedFXMLs = fxmlURL.toString();
 
@@ -145,7 +141,7 @@ public class ModelPaths {
 
                 Home home = loader.getController();
 
-                home.setModel(modelValutaRischi, this);
+                home.setModel(this);
 
                 loadedFXMLs = fxmlURL.toString();
 

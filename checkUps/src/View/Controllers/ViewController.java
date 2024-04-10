@@ -17,7 +17,6 @@ import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelModifica;
 import Models.ModelPaths;
-import Models.ModelValutaRischi;
 import Models.Tables.Provvedimento;
 import View.Controllers.Creazione.dialogPane.DPScadenze;
 import javafx.fxml.Initializable;
@@ -44,7 +43,6 @@ public class ViewController implements Initializable {
     protected static ModelPaths modelPaths = new ModelPaths();
     protected static ModelCreazione modelCreazione = new ModelCreazione();
     protected static ModelModifica modelModifica = new ModelModifica();
-    protected static ModelValutaRischi modelValutaRischi = new ModelValutaRischi();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

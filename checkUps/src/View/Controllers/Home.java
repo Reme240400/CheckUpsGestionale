@@ -12,7 +12,6 @@ import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.Alerts;
 import Models.ModelPaths;
-import Models.ModelValutaRischi;
 import Models.Tables.Societa;
 import Models.Tables.UnitaLocale;
 
@@ -41,7 +40,6 @@ public class Home implements Initializable {
     private StackPane stackPane;
 
     private ModelPaths modelPaths;
-    private ModelValutaRischi modelValutaRischi;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -97,7 +95,7 @@ public class Home implements Initializable {
                         .filter(u -> u.getNome().equals(cercaUnitaLocale.getValue()))
                         .findFirst().get();
 
-                Parent root = modelPaths.switchToValutaRischi(modelValutaRischi, societa, unitaLocale);
+                Parent root = modelPaths.switchToValutaRischi(societa, unitaLocale);
 
                 stackPane = modelPaths.getStackPaneHome();
 
@@ -114,10 +112,7 @@ public class Home implements Initializable {
 
     }
 
-    public void setModel(ModelValutaRischi modelValutaRischi, ModelPaths modelPaths) {
-
+    public void setModel(ModelPaths modelPaths) {
         this.modelPaths = modelPaths;
-        this.modelValutaRischi = modelValutaRischi;
-
     }
 }
