@@ -19,7 +19,10 @@
                <children>
                   <AnchorPane prefHeight="72.0" prefWidth="600.0">
                      <children>
-                        <JFXComboBox fx:id="cercaSocieta" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" onHiding="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00" />
+                        <JFXComboBox fx:id="cercaSocieta" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" onHiding="#onSelectedSocieta" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></JFXComboBox>
                         <Label layoutX="14.0" layoutY="24.0" text="Società - Ente">
                            <font>
                               <Font size="18.0" />
@@ -33,7 +36,10 @@
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="8.0" prefWidth="600.0" />
                   <AnchorPane prefHeight="72.0" prefWidth="600.0">
                      <children>
-                        <JFXComboBox fx:id="cercaUnitaLocale" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00" />
+                        <JFXComboBox fx:id="cercaUnitaLocale" editable="true" focusColor="#ffffff00" layoutX="146.0" layoutY="24.0" prefHeight="25.0" prefWidth="295.0" styleClass="rounded-md" stylesheets="@../css/style.css" unFocusColor="#ffffff00">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding></JFXComboBox>
                         <Label layoutX="14.0" layoutY="24.0" text="Unità Locale">
                            <font>
                               <Font size="18.0" />
