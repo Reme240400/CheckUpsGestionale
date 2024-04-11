@@ -64,6 +64,9 @@ public class CreazioneBase implements CreazioneInterface {
     }
 
     protected boolean isSingleFieldChanged(String text, TextInputControl field) {
+        if (text == null)
+            text = "";
+
         return !text.equals(field.getText());
     }
 
