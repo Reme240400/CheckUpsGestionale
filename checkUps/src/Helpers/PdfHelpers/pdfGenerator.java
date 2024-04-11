@@ -53,81 +53,82 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         try {
+            // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il documento
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nomeFile));
+                writer.setPageEvent(new PdfFooter());
+
+            // Apre il documento
+            document.open();
+
+            PdfPTable tableIniziale = new PdfPTable(3);
+            tableIniziale.setWidthPercentage(100);
+            PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2,
+                    FontFactory.getFont("ARIAL", 12));
+            societaCellIniziale.setBorderWidthRight(0);
+            tableIniziale.addCell(societaCellIniziale);
+            PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1,
+                    FontFactory.getFont("ARIAL", 12));
+            unitaLocaleCellIniziale.setBorderWidthLeft(0);
+            tableIniziale.addCell(unitaLocaleCellIniziale);
+            tableIniziale.setSpacingAfter(170f);
+            // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
+            document.add(tableIniziale);
+
+            PdfPTable tableBody = new PdfPTable(1);
+            tableBody.setWidthPercentage(100);
+
+            PdfPCell body = createCell(
+                    "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
+                    1, FontFactory.getFont("ARIAL", 20));
+            body.setHorizontalAlignment(Element.ALIGN_CENTER);
+            body.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            body.setBorder(Rectangle.NO_BORDER);
+            tableBody.addCell(body);
+            tableBody.setSpacingAfter(0f);
+            document.add(tableBody);
+
+            PdfPTable tableUnderBody = new PdfPTable(2);
+            tableUnderBody.setWidthPercentage(100);
+            PdfPCell underBodyLeft = createCell(
+                    "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
+                    1, FontFactory.getFont("ARIAL", 10));
+
+            PdfPCell underBodyRight = createCell(
+                    "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
+                    1, FontFactory.getFont("ARIAL", 10));
+            underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
+            underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            underBodyLeft.setBorder(Rectangle.NO_BORDER);
+            underBodyRight.setHorizontalAlignment(Element.ALIGN_CENTER);
+            underBodyRight.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            underBodyRight.setBorder(Rectangle.NO_BORDER);
+            tableUnderBody.addCell(underBodyLeft);
+            tableUnderBody.addCell(underBodyRight);
+            tableUnderBody.setSpacingAfter(150f);
+            document.add(tableUnderBody);
+
+            PdfPTable tableLogo = new PdfPTable(1);
+            tableLogo.setWidthPercentage(100);
+
+            if (societa.hasImage()) {
+                PdfPCell logoSocieta = createImageCell(
+                        societa.getLogoImage(),
+                        1);
+                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logoSocieta.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logoSocieta);
+                tableLogo.setSpacingAfter(30f);
+                document.add(tableLogo);
+            }
+
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
 
-                // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
-                // documento
+                document.newPage();
+                
                 revisione = reparto.getRevisione();
-                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nomeFile));
-                writer.setPageEvent(new PdfFooter());
 
-                // Apre il documento
-                document.open();
-
-                // Creazione pagina iniziale
-                PdfPTable tableIniziale = new PdfPTable(3);
-                tableIniziale.setWidthPercentage(100);
-                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2,
-                        FontFactory.getFont("ARIAL", 15));
-                societaCellIniziale.setBorderWidthRight(0);
-                tableIniziale.addCell(societaCellIniziale);
-                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1,
-                        FontFactory.getFont("ARIAL", 15));
-                unitaLocaleCellIniziale.setBorderWidthLeft(0);
-                tableIniziale.addCell(unitaLocaleCellIniziale);
-                tableIniziale.setSpacingAfter(170f);
-                // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
-                document.add(tableIniziale);
-
-                PdfPTable tableBody = new PdfPTable(1);
-                tableBody.setWidthPercentage(100);
-
-                PdfPCell body = createCell(
-                        "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
-                        1, FontFactory.getFont("ARIAL", 20));
-                body.setHorizontalAlignment(Element.ALIGN_CENTER);
-                body.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                body.setBorder(Rectangle.NO_BORDER);
-                tableBody.addCell(body);
-                tableBody.setSpacingAfter(0f);
-                document.add(tableBody);
-
-                PdfPTable tableUnderBody = new PdfPTable(2);
-                tableUnderBody.setWidthPercentage(100);
-                PdfPCell underBodyLeft = createCell(
-                        "Il Datore di Lavoro: \n \n \nIl Medico Competente: ",
-                        1, FontFactory.getFont("ARIAL", 10));
-
-                PdfPCell underBodyRight = createCell(
-                        "Il rappresentante dei lavoratori per la sicurezza: \n \n \n Il responsabile del servizio di prevenzione e protezione: \n \n \n in data: ",
-                        1, FontFactory.getFont("ARIAL", 10));
-                underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
-                underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                underBodyLeft.setBorder(Rectangle.NO_BORDER);
-                underBodyRight.setHorizontalAlignment(Element.ALIGN_CENTER);
-                underBodyRight.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                underBodyRight.setBorder(Rectangle.NO_BORDER);
-                tableUnderBody.addCell(underBodyLeft);
-                tableUnderBody.addCell(underBodyRight);
-                tableUnderBody.setSpacingAfter(150f);
-                document.add(tableUnderBody);
-
-                PdfPTable tableLogo = new PdfPTable(1);
-                tableLogo.setWidthPercentage(100);
-
-                if (societa.hasImage()) {
-                    PdfPCell logoSocieta = createImageCell(
-                            societa.getLogoImage(),
-                            1);
-                    logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                    logoSocieta.setBorder(Rectangle.NO_BORDER);
-                    tableLogo.addCell(logoSocieta);
-                    tableLogo.setSpacingAfter(30f);
-                    document.add(tableLogo);
-                    document.newPage();
-                }
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
                 // il reparto
                 PdfPTable table = new PdfPTable(3);
@@ -137,9 +138,11 @@ public class pdfGenerator {
                 PdfPCell societaCell = createCell("Società: " + societa.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 societaCell.setPaddingBottom(5); // Imposta lo spazio inferiore della cella
                 table.addCell(societaCell);
+
                 PdfPCell unitaLocaleCell = createCell("Unità Locale: " + unitaLocale.getNome(), 1,
                         FontFactory.getFont("ARIAL", 15));
                 table.addCell(unitaLocaleCell);
+
                 PdfPCell repartiCell = createCell("Reparto: " + reparto.getNome(), 1, FontFactory.getFont("ARIAL", 15));
                 table.addCell(repartiCell);
                 societaCell.setPaddingBottom(10f); // Imposta lo spazio vuoto inferiore a 5 punti
@@ -162,7 +165,7 @@ public class pdfGenerator {
                     float currentPosition = writer.getVerticalPosition(false);
                     currentPosition = writer.getVerticalPosition(false);
                     if (currentPosition < 120) {
-                        document.newPage();
+                       // document.newPage();
                     }
                     // Filtra gli oggetti in base al titolo
                     List<Oggetto> oggetti = ModelListe.filtraOggettiDaTitolo(titolo.getId());
@@ -175,7 +178,7 @@ public class pdfGenerator {
                         // Filtra le misure in base all'oggetto
                         currentPosition = writer.getVerticalPosition(false);
                         if (currentPosition < 120) {
-                            document.newPage();
+                            //document.newPage();
                         }
                         // System.out.println(currentPosition);
                         List<Provvedimento> provvedimenti = ModelListe.filtraProvvedimentiDaOggetto(oggetto.getId());
@@ -293,100 +296,102 @@ public class pdfGenerator {
         currentPage = 0;
         pagineTotali = pagine;
         try {
-            // Itera attraverso i reparti per la valutazione dei rischi
-            for (Reparto reparto : reparti) {
-                // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
-                // documento
-                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nomeFile));
+            // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il documento
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(nomeFile));
                 writer.setPageEvent(new PdfFooter());
 
-                // Apre il documento
-                document.open();
+            // Apre il documento
+            document.open();
 
-                // Creazione pagina iniziale
-                PdfPTable tableIniziale = new PdfPTable(3);
-                tableIniziale.setWidthPercentage(100);
-                PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2,
-                        FontFactory.getFont("ARIAL", 20));
-                societaCellIniziale.setBorderWidthRight(0);
-                societaCellIniziale.setBorderWidthLeft(0);
-                societaCellIniziale.setBorderWidthBottom(0);
-                societaCellIniziale.setBorderWidthTop(0);
-                tableIniziale.addCell(societaCellIniziale);
-                PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1,
-                        FontFactory.getFont("ARIAL", 20));
-                unitaLocaleCellIniziale.setBorderWidthLeft(0);
-                unitaLocaleCellIniziale.setBorderWidthRight(0);
-                unitaLocaleCellIniziale.setBorderWidthBottom(0);
-                unitaLocaleCellIniziale.setBorderWidthTop(0);
-                tableIniziale.addCell(unitaLocaleCellIniziale);
-                tableIniziale.setSpacingAfter(70f);
-                // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
-                document.add(tableIniziale);
+            // Creazione pagina iniziale
+            PdfPTable tableIniziale = new PdfPTable(3);
+            tableIniziale.setWidthPercentage(100);
 
-                // LOGO CHECKUPS
-                PdfPTable tableLogoChekups = new PdfPTable(1);
-                tableLogoChekups.setWidthPercentage(100);
-                Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
-                // Imposta le dimensioni dell'immagine
-                PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
-                logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logoChekups.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logoChekups.setBorder(Rectangle.NO_BORDER);
-                logoChekups.setFixedHeight(90f);
-                tableLogoChekups.addCell(logoChekups);
-                tableLogoChekups.setSpacingAfter(80f);
-                document.add(tableLogoChekups);
+            PdfPCell societaCellIniziale = createCell("Società: " + societa.getNome(), 2,
+                    FontFactory.getFont("ARIAL", 20));
+            societaCellIniziale.setBorderWidthRight(0);
+            societaCellIniziale.setBorderWidthLeft(0);
+            societaCellIniziale.setBorderWidthBottom(0);
+            societaCellIniziale.setBorderWidthTop(0);
+            tableIniziale.addCell(societaCellIniziale);
 
-                // SCRITTE SOTTO LOGO
-                PdfPTable tableBody = new PdfPTable(1);
-                tableBody.setWidthPercentage(100);
-                PdfPCell body = createCell(
-                        "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
-                        1, FontFactory.getFont("ARIAL", 20));
-                body.setHorizontalAlignment(Element.ALIGN_CENTER);
-                body.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                body.setBorder(Rectangle.NO_BORDER);
-                tableBody.addCell(body);
-                tableBody.setSpacingAfter(35f);
-                document.add(tableBody);
+            PdfPCell unitaLocaleCellIniziale = createCell("Unità locale: " + unitaLocale.getNome(), 1,
+                    FontFactory.getFont("ARIAL", 20));
+            unitaLocaleCellIniziale.setBorderWidthLeft(0);
+            unitaLocaleCellIniziale.setBorderWidthRight(0);
+            unitaLocaleCellIniziale.setBorderWidthBottom(0);
+            unitaLocaleCellIniziale.setBorderWidthTop(0);
+            tableIniziale.addCell(unitaLocaleCellIniziale);
+            tableIniziale.setSpacingAfter(70f);
+            // Aggiunge la tabella iniziale al documento e vado alla seconda pagina
+            document.add(tableIniziale);
 
-                PdfPTable tableUnderBody = new PdfPTable(2);
-                tableUnderBody.setWidthPercentage(100);
-                PdfPCell underBodyLeft = createCell(
-                        "Il Datore di Lavoro: _________________\n \n \nIl Medico Competente: _________________",
-                        1, FontFactory.getFont("ARIAL", 10));
+            // LOGO CHECKUPS
+            PdfPTable tableLogoChekups = new PdfPTable(1);
+            tableLogoChekups.setWidthPercentage(100);
+            Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
+            // Imposta le dimensioni dell'immagine
+            PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
+            logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
+            logoChekups.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            logoChekups.setBorder(Rectangle.NO_BORDER);
+            logoChekups.setFixedHeight(90f);
+            tableLogoChekups.addCell(logoChekups);
+            tableLogoChekups.setSpacingAfter(80f);
+            document.add(tableLogoChekups);
 
-                PdfPCell underBodyRight = createCell(
-                        "Il rappresentante dei lavoratori per la sicurezza: _________________\n \n \n Il responsabile del servizio di prevenzione e protezione: _________________\n \n \n in data: ___________",
-                        1, FontFactory.getFont("ARIAL", 10));
-                underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
-                underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                underBodyLeft.setBorder(Rectangle.NO_BORDER);
-                underBodyRight.setHorizontalAlignment(Element.ALIGN_CENTER);
-                underBodyRight.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                underBodyRight.setBorder(Rectangle.NO_BORDER);
-                tableUnderBody.addCell(underBodyLeft);
-                tableUnderBody.addCell(underBodyRight);
-                tableUnderBody.setSpacingAfter(40f);
-                document.add(tableUnderBody);
+            // SCRITTE SOTTO LOGO
+            PdfPTable tableBody = new PdfPTable(1);
+            tableBody.setWidthPercentage(100);
+            PdfPCell body = createCell(
+                    "- Relazione Tecnica di Valutazione Rischi - \n in materia di sicurezza e salute sul lavoro, ex D.Lgs 81/2008 ",
+                    1, FontFactory.getFont("ARIAL", 20));
+            body.setHorizontalAlignment(Element.ALIGN_CENTER);
+            body.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            body.setBorder(Rectangle.NO_BORDER);
+            tableBody.addCell(body);
+            tableBody.setSpacingAfter(35f);
+            document.add(tableBody);
 
-                PdfPTable tableLogo = new PdfPTable(1);
-                tableLogo.setWidthPercentage(100);
+            PdfPTable tableUnderBody = new PdfPTable(2);
+            tableUnderBody.setWidthPercentage(100);
+            PdfPCell underBodyLeft = createCell(
+                    "Il Datore di Lavoro: _________________\n \n \nIl Medico Competente: _________________",
+                    1, FontFactory.getFont("ARIAL", 10));
 
-                if (societa.hasImage()) {
-                    PdfPCell logoSocieta = createImageCell(
-                            societa.getLogoImage(),
-                            1);
-                    logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                    logoSocieta.setBorder(Rectangle.NO_BORDER);
-                    tableLogo.addCell(logoSocieta);
-                    tableLogo.setSpacingAfter(30f);
-                    document.add(tableLogo);
-                }
+            PdfPCell underBodyRight = createCell(
+                    "Il rappresentante dei lavoratori per la sicurezza: _________________\n \n \n Il responsabile del servizio di prevenzione e protezione: _________________\n \n \n in data: ___________",
+                    1, FontFactory.getFont("ARIAL", 10));
+            underBodyLeft.setHorizontalAlignment(Element.ALIGN_CENTER);
+            underBodyLeft.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            underBodyLeft.setBorder(Rectangle.NO_BORDER);
+            underBodyRight.setHorizontalAlignment(Element.ALIGN_CENTER);
+            underBodyRight.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            underBodyRight.setBorder(Rectangle.NO_BORDER);
+            tableUnderBody.addCell(underBodyLeft);
+            tableUnderBody.addCell(underBodyRight);
+            tableUnderBody.setSpacingAfter(40f);
+            document.add(tableUnderBody);
+
+            PdfPTable tableLogo = new PdfPTable(1);
+            tableLogo.setWidthPercentage(100);
+
+            if (societa.hasImage()) {
+                PdfPCell logoSocieta = createImageCell(
+                        societa.getLogoImage(),
+                        1);
+                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
+                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                logoSocieta.setBorder(Rectangle.NO_BORDER);
+                tableLogo.addCell(logoSocieta);
+                tableLogo.setSpacingAfter(30f);
+                document.add(tableLogo);
+            }
+
+            // Itera attraverso i reparti per la valutazione dei rischi
+            for (Reparto reparto : reparti) {
+                
                 document.newPage();
-
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
                 // il reparto
                 PdfPTable table = new PdfPTable(3);
@@ -418,7 +423,7 @@ public class pdfGenerator {
                     float currentPosition = writer.getVerticalPosition(false);
                     currentPosition = writer.getVerticalPosition(false);
                     if (currentPosition < 120) {
-                        document.newPage();
+                      //  document.newPage();
                     }
                     // Filtra gli oggetti in base al titolo
                     List<Oggetto> oggetti = ModelListe.filtraOggettiDaTitolo(titolo.getId());
@@ -430,7 +435,7 @@ public class pdfGenerator {
                     for (Oggetto oggetto : oggetti) {
                         currentPosition = writer.getVerticalPosition(false);
                         if (currentPosition < 120) {
-                            document.newPage();
+                           // document.newPage();
                         }
                         // Filtra le misure in base all'oggetto
                         List<Provvedimento> provvedimenti = ModelListe.filtraProvvedimentiDaOggetto(oggetto.getId());
