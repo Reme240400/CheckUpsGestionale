@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -62,6 +63,8 @@ public class ValutaRischi implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        
         tableView.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
 
