@@ -16,7 +16,7 @@
               <children>
                   <ImageView fitHeight="68.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true" styleClass="bordered" HBox.hgrow="SOMETIMES">
                       <image>
-                          <Image url="@../images/CULogoNew.jpg" />
+                          <Image url="@../images/CULOGONUOVO.png" />
                       </image>
                       <HBox.margin>
                           <Insets left="20.0" />
