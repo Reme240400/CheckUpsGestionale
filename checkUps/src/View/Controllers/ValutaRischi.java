@@ -62,6 +62,8 @@ public class ValutaRischi implements Initializable {
         nameCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("nome"));
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         tableView.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
 
