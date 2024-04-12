@@ -80,7 +80,7 @@ public class DialogPaneModificaProv implements DialogInterface, Initializable {
         return stimaP.getValue();
     }
 
-    public int getStimaR() {
+    private int getStimaR() {
         try {
             return Integer.parseInt(stimaR.getText());
         } catch (NumberFormatException e) {

@@ -90,4 +90,8 @@ public class Provvedimento extends TablesId implements Serializable {
     public Optional<LocalDate> getDataScadenza() {
         return this.data_scadenza;
     }
+
+    public void setDataScadenza(Optional<LocalDate> scadenza) {
+        this.data_scadenza = scadenza;
+    }
 }

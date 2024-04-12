@@ -179,8 +179,6 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
         }
     }
 
-    // CODICE "SISTEMATO"
-
     // Va alla schermata di creazione Titolo
     public void onActionSave() {
         if (tableReparti.getSelectionModel().getSelectedItem() == null) {

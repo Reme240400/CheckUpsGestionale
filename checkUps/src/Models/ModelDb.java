@@ -723,17 +723,11 @@ public class ModelDb {
                         "stima_p",
                         provvedimento.getStimaP());
 
-                modificaCampoData("provvedimenti",
-                        "id_provvedimento",
-                        provvedimento.getId(),
-                        "data_inizio",
-                        provvedimento.getDataInizio().get());
+                if (provvedimento.getDataInizio().isPresent())
+                    modificaCampoData("provvedimenti", "id_provvedimento", provvedimento.getId(), "data_inizio", provvedimento.getDataInizio().get());
 
-                modificaCampoData("provvedimenti",
-                        "id_provvedimento",
-                        provvedimento.getId(),
-                        "data_scadenza",
-                        provvedimento.getDataScadenza().get());
+                if (provvedimento.getDataScadenza().isPresent())
+                    modificaCampoData("provvedimenti", "id_provvedimento", provvedimento.getId(), "data_scadenza", provvedimento.getDataScadenza().get());
 
                 break;
 

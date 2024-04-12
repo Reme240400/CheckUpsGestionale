@@ -146,6 +146,13 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                         return;
                     }
 
+                    modelCreazione.getProvvedimentoTmp().setRischio(controller.getRischio());
+                    modelCreazione.getProvvedimentoTmp().setNome(controller.getNome());
+                    modelCreazione.getProvvedimentoTmp().setSoggettiEsposti(controller.getSoggettiEsposti());
+                    modelCreazione.getProvvedimentoTmp().setStimaD(controller.getStimaD());
+                    modelCreazione.getProvvedimentoTmp().setStimaP(controller.getStimaP());
+                    modelCreazione.getProvvedimentoTmp().setDataScadenza(Optional.ofNullable(controller.getDataFine()));
+
                     Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
                     tableProvvedimenti.refresh();
                 });
