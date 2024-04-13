@@ -94,4 +94,8 @@ public class Provvedimento extends TablesId implements Serializable {
     public void setDataScadenza(Optional<LocalDate> scadenza) {
         this.data_scadenza = scadenza;
     }
+
+    public void setDataInizio(Optional<LocalDate> inizio) {
+        this.data_inizio = inizio;
+    }
 }

@@ -137,25 +137,26 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
 
         Dialogs.showDialogWithResponse("dialogPaneModifica/modifica_prov_dialogPane.fxml",
                 "Modifica Provvedimento",
-                (DialogPaneModificaProv controller) -> controller.setModel(modelCreazione),
-                (DialogPaneModificaProv controller) -> {
-                    var result = controller.areFieldsValid();
-                    if (!result.isValid()) {
-                        Alerts.errorAlert("Errore", "Errore durante la modifica",
-                                result.getErrorMessage());
-                        return;
-                    }
+        (DialogPaneModificaProv controller) -> controller.setModel(modelCreazione),
+        (DialogPaneModificaProv controller) -> {
+            var result = controller.areFieldsValid();
+            if (!result.isValid()) {
+                Alerts.errorAlert("Errore", "Errore durante la modifica",
+                        result.getErrorMessage());
+                return;
+            }
 
-                    modelCreazione.getProvvedimentoTmp().setRischio(controller.getRischio());
-                    modelCreazione.getProvvedimentoTmp().setNome(controller.getNome());
-                    modelCreazione.getProvvedimentoTmp().setSoggettiEsposti(controller.getSoggettiEsposti());
-                    modelCreazione.getProvvedimentoTmp().setStimaD(controller.getStimaD());
-                    modelCreazione.getProvvedimentoTmp().setStimaP(controller.getStimaP());
-                    modelCreazione.getProvvedimentoTmp().setDataScadenza(Optional.ofNullable(controller.getDataFine()));
+            modelCreazione.getProvvedimentoTmp().setRischio(controller.getRischio());
+            modelCreazione.getProvvedimentoTmp().setNome(controller.getNome());
+            modelCreazione.getProvvedimentoTmp().setSoggettiEsposti(controller.getSoggettiEsposti());
+            modelCreazione.getProvvedimentoTmp().setStimaD(controller.getStimaD());
+            modelCreazione.getProvvedimentoTmp().setStimaP(controller.getStimaP());
+            modelCreazione.getProvvedimentoTmp().setDataInizio(Optional.of(LocalDate.now()));
+            modelCreazione.getProvvedimentoTmp().setDataScadenza(Optional.ofNullable(controller.getDataFine()));
 
-                    Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
-                    tableProvvedimenti.refresh();
-                });
+            Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
+            tableProvvedimenti.refresh();
+        });
     }
 
     public void onActionBack() {

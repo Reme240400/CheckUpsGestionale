@@ -57,7 +57,8 @@ public class DialogPaneModificaProv implements DialogInterface, Initializable {
             }
         });
 
-        modificaDataFine.disableProperty().set(true);
+        // if(modificaDataFine != null)
+        //     modificaDataFine.disableProperty().set(true);
     }
 
     public String getNome() {

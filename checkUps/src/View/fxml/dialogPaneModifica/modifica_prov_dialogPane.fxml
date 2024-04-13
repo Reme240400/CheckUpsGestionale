@@ -16,9 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<DialogPane expanded="true"
-    xmlns="http://javafx.com/javafx/21"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaProv">
+<DialogPane expanded="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Modifiche.DialogPaneModificaProv">
     <buttonTypes>
         <ButtonType fx:constant="APPLY" />
         <ButtonType fx:constant="CANCEL" />
@@ -35,7 +33,6 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints />
-                                <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
                                 <RowConstraints minHeight="10.0" prefHeight="70.0" valignment="CENTER" vgrow="SOMETIMES" />
@@ -58,8 +55,8 @@
                                     </styleClass>
                                 </TextField>
                                 <Label layoutX="84.0" layoutY="36.0" text="Soggetti Esposti" GridPane.rowIndex="3" />
-                                <Label text="Scadenza" GridPane.rowIndex="5" />
-                                <DatePicker fx:id="modificaDataFine" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <Label text="Scadenza" GridPane.rowIndex="4" />
+                                <DatePicker fx:id="modificaDataFine" prefHeight="25.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                         <GridPane>
