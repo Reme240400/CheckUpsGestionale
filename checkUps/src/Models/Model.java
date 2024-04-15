@@ -49,8 +49,7 @@ public class Model {
     }
 
     public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
-
-        FilteredList<String> filteredList = new FilteredList<String>(units, p -> true);
+        FilteredList<String> filteredList = new FilteredList<>(units, p -> true);
 
         // Add a listener to the textProperty of the combobox editor. The
         // listener will simply filter the list every time the input is changed
@@ -63,22 +62,25 @@ public class Model {
                 // If the no item in the list is selected or the selected item
                 // isn't equal to the current input, we refilter the list.
                 if (selected == null || !selected.equals(editor.getText())) {
-                    filteredList.setPredicate(item -> {
-                        // We return true for any items that starts with the
-                        // same letters as the input. We use toUpperCase to
-                        // avoid case sensitivity.
-                        if (item.toUpperCase().startsWith(newValue.toUpperCase())) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    });
+                    filteredList.setPredicate(item -> item.toLowerCase().startsWith(newValue.toLowerCase()));
+                    cercaItem.show();
+                }
+
+                // Check if the editor text is not empty, then hide the prompt text.
+                if (!editor.getText().isEmpty()) {
+                    cercaItem.setStyle("-fx-prompt-text-fill: transparent;"); // Hide the prompt text
+                } else {
+                    cercaItem.setStyle(""); // Show the prompt text
                 }
             });
         });
 
-        return filteredList;
+        // Initialize the prompt text visibility initially based on editor text
+        if (!cercaItem.getEditor().getText().isEmpty()) {
+            cercaItem.setStyle("-fx-prompt-text-fill: transparent;"); // Hide the prompt text initially
+        }
 
+        return filteredList;
     }
 
     public static FilteredList<String> filterComboBoxById(JFXComboBox<String> cercaItem, int id,

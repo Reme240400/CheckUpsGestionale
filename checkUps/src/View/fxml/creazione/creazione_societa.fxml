@@ -296,7 +296,7 @@
                             </HBox.margin>
                         </JFXButton>
                         <Pane nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="SOMETIMES" />
-                        <JFXComboBox fx:id="cercaSocieta" editable="true" focusColor="#ffffff00" onHiding="#selezionaSocieta" prefHeight="30.0" prefWidth="453.0" promptText="Cerca..." styleClass="rounded-md" stylesheets="@../../css/style.css" unFocusColor="#ffffff00">
+                        <JFXComboBox fx:id="cercaSocieta" editable="true" focusColor="#ffffff00" onHiding="#selezionaSocieta" prefHeight="30.0" prefWidth="453.0" styleClass="rounded-md" stylesheets="@../../css/style.css" unFocusColor="#ffffff00">
                             <padding>
                                 <Insets left="8.0" />
                             </padding>
