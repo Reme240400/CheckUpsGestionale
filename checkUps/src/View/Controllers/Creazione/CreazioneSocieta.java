@@ -21,7 +21,6 @@ import Models.others.Alerts;
 import Models.others.CreazioneBase;
 import Models.others.TipoCreazionePagina;
 import View.Controllers.ViewController;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -85,7 +84,6 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
     // -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         // * controlla se vengono inseriti solo numeri nel campo telefono
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
@@ -100,10 +98,11 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         TextFormatter<Long> formatter = new TextFormatter<Long>(new LongStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
 
-        ObservableList<String> societies = FXCollections
-                .observableArrayList(listSocieta.stream().map(s -> s.getNome()).toList());
+        ObservableList<String> societa = FXCollections
+                .observableArrayList(listSocieta.stream().map(Societa::getNome).toList());
 
-        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societies);
+        cercaSocieta.setPromptText("Inserisci il nome della società...");
+        FilteredList<String> filteredItems = ViewController.filterComboBox(cercaSocieta, societa);
         cercaSocieta.setItems(filteredItems);
     }
 

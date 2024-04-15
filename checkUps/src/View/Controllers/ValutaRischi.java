@@ -64,7 +64,7 @@ public class ValutaRischi implements Initializable {
         descCol.setCellValueFactory(new PropertyValueFactory<Reparto, String>("descrizione"));
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        
+
         tableView.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
 
@@ -76,12 +76,12 @@ public class ValutaRischi implements Initializable {
 
             // Se fa parte di una riga o della riga stessa,
             // gestisci l'evento invece di usare la gestione standard
-            if (node instanceof TableRow) {
+            if (node instanceof TableRow<?>) {
                 // Impedisci ulteriori gestioni
                 evt.consume();
 
-                TableRow<Reparto> row = (TableRow<Reparto>) node;
-                TableView<Reparto> tv = row.getTableView();
+                TableRow<?> row = (TableRow<?>) node;
+                TableView<?> tv = row.getTableView();
 
                 // Focalizza la TableView
                 tv.requestFocus();

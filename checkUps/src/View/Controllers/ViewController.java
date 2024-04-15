@@ -114,7 +114,6 @@ public class ViewController implements Initializable {
     }
 
     public static FilteredList<String> filterComboBox(JFXComboBox<String> cercaItem, ObservableList<String> units) {
-
         return Model.filterComboBox(cercaItem, units);
     }
 

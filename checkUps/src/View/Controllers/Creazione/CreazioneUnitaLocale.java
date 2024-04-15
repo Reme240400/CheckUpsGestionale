@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXButton;
@@ -30,10 +29,6 @@ import javafx.scene.control.TextFormatter;
 import javafx.util.converter.LongStringConverter;
 
 public class CreazioneUnitaLocale extends CreazioneBase implements Initializable {
-
-    @FXML
-    private JFXComboBox<String> cercaUnita;
-
     @FXML
     private JFXButton btnSalva;
 
@@ -61,6 +56,9 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
     @FXML
     private TextField textFieldEmail;
 
+    @FXML
+    private JFXComboBox<String> cercaUnita;
+
     private List<UnitaLocale> listUnitaLocale;
 
     @Override
@@ -80,7 +78,6 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
         TextFormatter<Long> formatter = new TextFormatter<Long>(new LongStringConverter(), null, filter);
         textFieldTel.setTextFormatter(formatter);
-
     }
 
     public void setOldTextFields() {
@@ -209,10 +206,11 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         ObservableList<String> unitalocali = FXCollections.observableArrayList(listUnitaLocale.stream()
                 .filter(u -> u.getIdSocieta() == this.localSocieta.getId())
                 .map(UnitaLocale::getNome)
-                .collect(Collectors.toList()));
+                .toList());
 
         FilteredList<String> filteredItems = ViewController.filterComboBox(cercaUnita, unitalocali);
         cercaUnita.setItems(filteredItems);
+        cercaUnita.setPromptText("Inserisci il nome dell'unità locale...");
     }
 
     public boolean isFormDataChanged() {
