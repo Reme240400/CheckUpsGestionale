@@ -48,8 +48,9 @@ public class pdfGenerator {
                 "ARIAL");
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
-        paginaAttuale=0;
-        pagineTotali=0;
+        paginaAttuale = 0;
+        pagineTotali = 0;
+        revisione = reparti.get(0).getRevisione();
         try {
             // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
             // documento
@@ -143,11 +144,11 @@ public class pdfGenerator {
             int i = 0;
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
+                revisione = reparto.getRevisione();
                 if (i != 0) {
                     document.newPage();
                 }
                 i++;
-                revisione = reparto.getRevisione();
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
                 // il reparto
                 PdfPTable table = new PdfPTable(3);
@@ -189,7 +190,7 @@ public class pdfGenerator {
                     // Itera attraverso gli oggetti
                     for (Oggetto oggetto : oggetti) {
                         currentPosition = writer.getVerticalPosition(false);
-                        if (currentPosition < 120 && oggetti.size()!=k) {
+                        if (currentPosition < 120 && oggetti.size() != k) {
                             document.newPage();
                         }
                         // Filtra le misure in base all'oggetto
@@ -288,9 +289,9 @@ public class pdfGenerator {
             // Chiude il documento se è aperto
             if (document != null && document.isOpen()) {
                 document.close();
-            }   
-            pagineTotali=paginaAttuale;
-            paginaAttuale=0;
+            }
+            pagineTotali = paginaAttuale;
+            paginaAttuale = 0;
             stampaValutazioneRischiRender(societa, unitaLocale, reparti, nomeFile);
         }
 
@@ -301,7 +302,8 @@ public class pdfGenerator {
             String nomeFile) {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
-        paginaAttuale=0;
+        paginaAttuale = 0;
+        
         try {
             // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
             // documento
@@ -395,11 +397,11 @@ public class pdfGenerator {
             int i = 0;
             // Itera attraverso i reparti per la valutazione dei rischi
             for (Reparto reparto : reparti) {
+                revisione = reparto.getRevisione();
                 if (i != 0) {
                     document.newPage();
                 }
                 i++;
-                revisione = reparto.getRevisione();
                 // Crea una tabella per visualizzare le informazioni sulla società, la sede ed
                 // il reparto
                 PdfPTable table = new PdfPTable(3);
@@ -441,7 +443,7 @@ public class pdfGenerator {
                     // Itera attraverso gli oggetti
                     for (Oggetto oggetto : oggetti) {
                         currentPosition = writer.getVerticalPosition(false);
-                        if (currentPosition < 120 && oggetti.size()!=k) {
+                        if (currentPosition < 120 && oggetti.size() != k) {
                             document.newPage();
                         }
                         // Filtra le misure in base all'oggetto
@@ -541,8 +543,8 @@ public class pdfGenerator {
             if (document != null && document.isOpen()) {
                 document.close();
             }
-            paginaAttuale=0;
-            pagineTotali=0;
+            paginaAttuale = 0;
+            pagineTotali = 0;
         }
     }
 
@@ -598,26 +600,21 @@ public class pdfGenerator {
             // Crea una tabella per il piè di pagina con tre colonne
             PdfPTable table = new PdfPTable(3);
             paginaAttuale++;
-            System.out.println(paginaAttuale);
             // Formatta la data corrente
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String formattedDate = dateFormat.format(new Date());
-
             // Imposta il colore del bordo delle celle su bianco
             table.getDefaultCell().setBorderColor(BaseColor.WHITE);
             table.setTotalWidth(document.right() - document.left());
             table.getDefaultCell().setFixedHeight(20);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-
             // Aggiunge data, logo e numero di pagina al piè di pagina
             table.addCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
-
             if (paginaAttuale != 1) {
                 table.addCell(logoSocieta);
             } else {
                 table.addCell("");
             }
-
             table.addCell("Pagina " + (paginaAttuale) + " di " + (pagineTotali));
             // Scrive il piè di pagina nel documento
             table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
