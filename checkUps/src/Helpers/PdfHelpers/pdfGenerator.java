@@ -37,7 +37,7 @@ public class pdfGenerator {
     // Variabile statica per tenere traccia del numero di pagina corrente
     public static int paginaAttuale;
     public static int pagineTotali;
-    public static Image logoSocieta;
+    public static com.itextpdf.text.Image logoSocieta;
     public static String urlLogoCheckUps = "checkUps\\src\\resources\\logo\\CULogoNew.jpg";
     public static String revisione;
 
@@ -130,15 +130,7 @@ public class pdfGenerator {
             tableLogo.setWidthPercentage(100);
 
             if (societa.hasImage()) {
-                PdfPCell logoSocieta = createImageCell(
-                        societa.getLogoImage(),
-                        1);
-                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logoSocieta.setBorder(Rectangle.NO_BORDER);
-                tableLogo.addCell(logoSocieta);
-                tableLogo.setSpacingAfter(30f);
-                document.add(tableLogo);
+                logoSocieta = javafxImageToPdfImage(societa.getLogoImage());
             }
             document.newPage();
             int i = 0;
@@ -383,15 +375,7 @@ public class pdfGenerator {
             tableLogo.setWidthPercentage(100);
 
             if (societa.hasImage()) {
-                PdfPCell logoSocieta = createImageCell(
-                        societa.getLogoImage(),
-                        1);
-                logoSocieta.setHorizontalAlignment(Element.ALIGN_CENTER);
-                logoSocieta.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                logoSocieta.setBorder(Rectangle.NO_BORDER);
-                tableLogo.addCell(logoSocieta);
-                tableLogo.setSpacingAfter(30f);
-                document.add(tableLogo);
+                logoSocieta = javafxImageToPdfImage(societa.getLogoImage());
             }
             document.newPage();
             int i = 0;
@@ -562,16 +546,6 @@ public class pdfGenerator {
         return cell;
     }
 
-    private static PdfPCell createImageCell(javafx.scene.image.Image image, int colspan) {
-        // Converti l'immagine JavaFX in un'immagine iTextPDF
-        Image pdfImage = javafxImageToPdfImage(image);
-
-        PdfPCell cell = new PdfPCell(pdfImage, true);
-        cell.setColspan(colspan);
-        cell.setBorder(Rectangle.NO_BORDER); // Assicurati che non ci siano bordi attorno all'immagine
-        return cell;
-    }
-
     // Metodo per convertire un'immagine JavaFX in un'immagine iTextPDF
     private static Image javafxImageToPdfImage(javafx.scene.image.Image javafxImage) {
         // Converti l'immagine JavaFX in un'immagine AWT
@@ -606,18 +580,31 @@ public class pdfGenerator {
             // Imposta il colore del bordo delle celle su bianco
             table.getDefaultCell().setBorderColor(BaseColor.WHITE);
             table.setTotalWidth(document.right() - document.left());
-            table.getDefaultCell().setFixedHeight(20);
+            table.getDefaultCell().setFixedHeight(41);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
             // Aggiunge data, logo e numero di pagina al piè di pagina
-            table.addCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
+            PdfPCell cellRevisione = new PdfPCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
+            cellRevisione.setBorderColor(BaseColor.WHITE);
+            cellRevisione.setVerticalAlignment(Element.ALIGN_BOTTOM);
+            cellRevisione.setPaddingBottom(10f);
+            table.addCell(cellRevisione);
             if (paginaAttuale != 1) {
-                table.addCell(logoSocieta);
+                if(logoSocieta!=null){
+                    table.addCell(logoSocieta);
+                }else{
+                    table.addCell("");
+                }
             } else {
                 table.addCell("");
             }
-            table.addCell("Pagina " + (paginaAttuale) + " di " + (pagineTotali));
+            PdfPCell cellPagine = new PdfPCell(new Phrase("Pagina " + (paginaAttuale) + " di " + (pagineTotali)));
+            cellPagine.setVerticalAlignment(Element.ALIGN_BOTTOM); // Imposta l'allineamento verticale in basso
+            cellPagine.setBorderColor(BaseColor.WHITE);
+            cellPagine.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cellPagine.setPaddingBottom(10f);
+            table.addCell(cellPagine);
             // Scrive il piè di pagina nel documento
-            table.writeSelectedRows(0, -1, document.left(), document.bottom(), writer.getDirectContent());
+            table.writeSelectedRows(0, -1, document.left(), document.bottom()+4, writer.getDirectContent());
         }
     }
 
