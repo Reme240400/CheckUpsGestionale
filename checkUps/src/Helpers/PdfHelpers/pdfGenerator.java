@@ -295,7 +295,7 @@ public class pdfGenerator {
         // Crea un nuovo documento con una dimensione personalizzata
         Document document = new Document(new Rectangle(1008, 612));
         paginaAttuale = 0;
-        
+        revisione = reparti.get(0).getRevisione();
         try {
             // Crea un'istanza di PdfWriter e imposta un piè di pagina personalizzato per il
             // documento
@@ -582,19 +582,20 @@ public class pdfGenerator {
             table.setTotalWidth(document.right() - document.left());
             table.getDefaultCell().setFixedHeight(41);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-            // Aggiunge data, logo e numero di pagina al piè di pagina
-            PdfPCell cellRevisione = new PdfPCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
-            cellRevisione.setBorderColor(BaseColor.WHITE);
-            cellRevisione.setVerticalAlignment(Element.ALIGN_BOTTOM);
-            cellRevisione.setPaddingBottom(10f);
-            table.addCell(cellRevisione);
             if (paginaAttuale != 1) {
+                 // Aggiunge data, logo e numero di pagina al piè di pagina
+                PdfPCell cellRevisione = new PdfPCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
+                cellRevisione.setBorderColor(BaseColor.WHITE);
+                cellRevisione.setVerticalAlignment(Element.ALIGN_BOTTOM);
+                cellRevisione.setPaddingBottom(10f);
+                table.addCell(cellRevisione);
                 if(logoSocieta!=null){
                     table.addCell(logoSocieta);
                 }else{
                     table.addCell("");
                 }
             } else {
+                table.addCell("");
                 table.addCell("");
             }
             PdfPCell cellPagine = new PdfPCell(new Phrase("Pagina " + (paginaAttuale) + " di " + (pagineTotali)));
