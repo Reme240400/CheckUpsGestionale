@@ -20,13 +20,11 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import Helpers.ClassHelper;
-import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
-//import Models.Tables.Rischio;
 import Models.Tables.Societa;
-import Models.Tables.TablesId;
+import Models.Tables.TableData;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 import javafx.scene.image.Image;
@@ -89,36 +87,6 @@ public class ModelDb {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public static void popolaListaMansioni() {
-        try (Connection connection = connessioneDb()) {
-            if (connection != null) {
-                ClassHelper.svuotaListaMansioni();
-                try (Statement statement = connection.createStatement();
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
-                    while (resultSet.next()) {
-                        int idMansione = resultSet.getInt("id_mansione");
-                        String nome = resultSet.getString("nome");
-                        String responsabile = resultSet.getString("responsabile");
-
-                        Mansione mansione = new Mansione(idMansione, nome, responsabile);
-                        ModelListe.inserisciRecordInLista(mansione);
-                    }
-                } catch (SQLException e) {
-                    System.out.println("Errore durante la lettura della tabella mansioni: " + e.getMessage());
-                } finally {
-                    try {
-                        connection.close();
-                    } catch (SQLException e) {
-                        System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e);// TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -307,42 +275,18 @@ public class ModelDb {
     }
 
     // Metodo generico per l'eliminazione di un record da qualsiasi tabella
-    public static void eliminaRecord(Object obj, int recordId) {
-        String objName = obj.getClass().getSimpleName();
-        String tableName = objName;
-
-        switch (objName) {
-            case "Titolo":
-                tableName = "titoli";
-                break;
-
-            case "Reparto":
-                tableName = "reparti";
-                break;
-
-            case "Oggetto":
-                tableName = "oggetti";
-                break;
-
-            default:
-                break;
-        }
-
-        try (Connection connection = connessioneDb()) {
-            if (connection != null) {
-                try (Statement statement = connection.createStatement()) {
-                    String query = "DELETE FROM public." + tableName + " WHERE id_" + objName + " = ?";
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.setInt(1, recordId);
-                    preparedStatement.executeUpdate();
-                } catch (SQLException e) {
-                    System.out.println("Errore durante l'eliminazione del record dalla tabella " + tableName + ": "
-                            + e.getMessage());
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static void eliminaRecord(TableData record) {
+        doUpdateQuery("DELETE FROM public." + record.getTableName() + " WHERE " + record.getPrimaryKey() + " = ?",
+                (ps) -> {
+                    try {
+                        ps.setInt(1, record.getId());
+                    } catch (SQLException e) {
+                        System.out.println(
+                                "Errore durante l'eliminazione del record " + record.getId() + " dalla tabella "
+                                        + record.getTableName() + ": " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                });
     }
 
     // Metodo generico per la modifica di un campo in qualsiasi tabella
@@ -514,9 +458,6 @@ public class ModelDb {
     public static void inserisciRecord(Object obj) {
 
         switch (obj.getClass().getSimpleName()) {
-            case "Mansione":
-                inserisciElementoMansioni(ClassHelper.getListMansione());
-                break;
             case "Titolo":
                 inserisciElementoTitoli(ClassHelper.getListTitolo());
                 break;
@@ -541,28 +482,8 @@ public class ModelDb {
 
     }
 
-    public static void modificaCampo(TablesId obj) {
+    public static void modificaCampo(TableData obj) {
         switch (obj.getClass().getSimpleName()) {
-            case "Mansione":
-                Mansione mansione = ((Mansione) obj);
-
-                modificaCampoIntero(obj.getClass().getSimpleName().toLowerCase(),
-                        mansione.getId(),
-                        "id_mansione",
-                        mansione.getId());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
-                        mansione.getId(),
-                        "nome",
-                        ((Mansione) obj).getNome());
-
-                modificaCampoStringa(obj.getClass().getSimpleName().toLowerCase(),
-                        mansione.getId(),
-                        "responsabile",
-                        mansione.getResponsabile());
-
-                break;
-
             case "Titolo":
                 Titolo titolo = ((Titolo) obj);
 
@@ -724,10 +645,12 @@ public class ModelDb {
                         provvedimento.getStimaP());
 
                 if (provvedimento.getDataInizio().isPresent())
-                    modificaCampoData("provvedimenti", "id_provvedimento", provvedimento.getId(), "data_inizio", provvedimento.getDataInizio().get());
+                    modificaCampoData("provvedimenti", "id_provvedimento", provvedimento.getId(), "data_inizio",
+                            provvedimento.getDataInizio().get());
 
                 if (provvedimento.getDataScadenza().isPresent())
-                    modificaCampoData("provvedimenti", "id_provvedimento", provvedimento.getId(), "data_scadenza", provvedimento.getDataScadenza().get());
+                    modificaCampoData("provvedimenti", "id_provvedimento", provvedimento.getId(), "data_scadenza",
+                            provvedimento.getDataScadenza().get());
 
                 break;
 
@@ -987,34 +910,6 @@ public class ModelDb {
         }
     }
 
-    public void visualizzaTabellaMansioni() {
-        Connection connection = connessioneDb();
-        if (connection != null) {
-            try (Statement statement = connection.createStatement();
-                    ResultSet resultSet = statement.executeQuery("SELECT * FROM public.mansioni")) {
-
-                while (resultSet.next()) {
-                    int idMansione = resultSet.getInt("id_mansione");
-                    String nome = resultSet.getString("nome");
-                    String responsabile = resultSet.getString("responsabile");
-
-                    System.out.println("ID Mansione: " + idMansione);
-                    System.out.println("Nome: " + nome);
-                    System.out.println("Responsabile: " + responsabile);
-                    System.out.println();
-                }
-            } catch (SQLException e) {
-                System.out.println("Errore durante la lettura della tabella mansioni: " + e.getMessage());
-            } finally {
-                try {
-                    connection.close(); // Chiude la connessione in modo controllato
-                } catch (SQLException e) {
-                    System.out.println("Errore durante la chiusura della connessione: " + e.getMessage());
-                }
-            }
-        }
-    }
-
     public void visualizzaTabellaProvvedimenti() {
         Connection connection = connessioneDb();
         if (connection != null) {
@@ -1024,7 +919,6 @@ public class ModelDb {
                 while (resultSet.next()) {
                     int idProvvedimento = resultSet.getInt("id_provvedimento");
                     String nome = resultSet.getString("nome");
-                    // int idMansione = resultSet.getInt("id_mansione");
                     int idOggetto = resultSet.getInt("id_oggetto");
                     int idElencoRischi = resultSet.getInt("id_elenco_rischi");
 
@@ -1140,20 +1034,6 @@ public class ModelDb {
                 ps.setInt(1, titoloList.get(titoloList.size() - 1).getId());
                 ps.setString(2, titoloList.get(titoloList.size() - 1).getDescrizione());
                 ps.setInt(3, titoloList.get(titoloList.size() - 1).getIdReparto());
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    // Metodo per inserire una riga (l'ultimo elemento della lista) nella tabella
-    // corrispondente
-    public static void inserisciElementoMansioni(List<Mansione> mansioneList) {
-        doUpdateQuery("INSERT INTO public.mansioni (id_mansione, nome, responsabile) VALUES (?, ?, ?)", (statement) -> {
-            try {
-                statement.setInt(1, mansioneList.get(mansioneList.size() - 1).getId());
-                statement.setString(2, mansioneList.get(mansioneList.size() - 1).getNome());
-                statement.setString(3, mansioneList.get(mansioneList.size() - 1).getResponsabile());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

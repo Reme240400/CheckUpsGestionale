@@ -2,13 +2,14 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class Oggetto extends TablesId implements Serializable{
+import Helpers.ClassHelper;
 
+public class Oggetto extends TableData implements Serializable {
     private String nome;
     private int idTitolo;
 
     public Oggetto(int idOggetto, String nome, int idTitolo) {
-        super(idOggetto);
+        super(idOggetto, "oggetti", "id_titolo");
 
         this.nome = nome;
         this.idTitolo = idTitolo;
@@ -30,4 +31,7 @@ public class Oggetto extends TablesId implements Serializable{
         this.idTitolo = idTitolo;
     }
 
+    public void selfRemoveFromList() {
+        ClassHelper.getListOggetto().remove(this);
+    }
 }

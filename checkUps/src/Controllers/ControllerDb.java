@@ -6,7 +6,6 @@ public class ControllerDb {
 
     // Metodo per popolare tutte le liste dal DB
     public static void popolaListeDaDatabase() {
-        ModelDb.popolaListaMansioni();
         ModelDb.popolaListaOggetti();
         ModelDb.popolaListaProvvedimenti();
         ModelDb.popolaListaReparti();
@@ -25,12 +24,6 @@ public class ControllerDb {
 
     public static void popolaListaProvvedimentiDaDb() {
         ModelDb.popolaListaProvvedimenti();
-    }
-
-    // Metodo per eliminare un qualsiasi record passandogli il nome della tabella e
-    // l'id del record da eliminare
-    public static void eliminaRecordDaId(String tableName, int recordId) {
-        ModelDb.eliminaRecord(tableName, recordId);
     }
 
     // Metodo per modificare un qualsiasi campo di tipo stringa di un record

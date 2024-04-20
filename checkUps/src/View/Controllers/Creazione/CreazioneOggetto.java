@@ -46,7 +46,6 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
     private List<Oggetto> listaOggetti;
 
-
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         listaOggetti = ClassHelper.getListOggetto();
@@ -56,17 +55,19 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
     @FXML
     public void onElimina() {
-        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
-            if (Alerts.deleteAlert(tableOggetti.getSelectionModel().getSelectedItem().getNome())) {
-                ClassHelper.getListProvvedimento().stream()
-                        .filter(prov -> prov.getIdOggetto() == tableOggetti.getSelectionModel().getSelectedItem().getId())
-                        .forEach(prov -> Controller.eliminaRecord(prov, prov.getId()));
-                
-                Oggetto reparto = tableOggetti.getSelectionModel().getSelectedItem();
-                Controller.eliminaRecord(reparto, reparto.getId());
-                tableOggetti.getItems().remove(reparto);
-            }
-        }
+        if (tableOggetti.getSelectionModel().getSelectedItem() == null)
+            return;
+
+        Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
+        if (Alerts.deleteAlert(oggetto.getNome()) == false)
+            return;
+
+        List<Provvedimento> toDelete = ClassHelper.getListProvvedimento().stream().filter(prov -> prov.getIdOggetto() == oggetto.getId()).toList();
+        toDelete.forEach(Provvedimento::selfRemoveFromList);
+
+        Controller.eliminaRecord(oggetto);
+        tableOggetti.getItems().remove(oggetto);
+        tableOggetti.refresh();
     }
 
     @FXML

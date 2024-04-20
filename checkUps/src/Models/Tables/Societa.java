@@ -3,9 +3,10 @@ package Models.Tables;
 import java.io.Serializable;
 import java.util.Optional;
 
+import Helpers.ClassHelper;
 import javafx.scene.image.Image;
 
-public class Societa extends TablesId implements Serializable {
+public class Societa extends TableData implements Serializable {
 
     private String nome;
     private String indirizzo;
@@ -22,7 +23,7 @@ public class Societa extends TablesId implements Serializable {
     public Societa(int idSocieta, String nome, String indirizzo, String localita, String provincia, String telefono,
             String descrizione, String pIva, String codFiscale, String bancaAppoggio, String codAteco,
             Optional<Image> logo) {
-        super(idSocieta);
+        super(idSocieta, "societa", "id_societa");
         this.indirizzo = indirizzo;
         this.localita = localita;
         this.provincia = provincia;
@@ -122,5 +123,10 @@ public class Societa extends TablesId implements Serializable {
 
     public boolean hasImage() {
         return this.logoImage.isPresent();
+    }
+
+    @Override
+    public void selfRemoveFromList() {
+        ClassHelper.getListSocieta().remove(this);
     }
 }

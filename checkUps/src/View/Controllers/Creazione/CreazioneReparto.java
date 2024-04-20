@@ -2,6 +2,7 @@ package View.Controllers.Creazione;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,10 @@ import Controllers.Controller;
 import Helpers.ClassHelper;
 import Models.ModelCreazione;
 import Models.ModelPaths;
+import Models.Tables.Oggetto;
+import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
+import Models.Tables.Titolo;
 import Models.others.Alerts;
 import Models.others.CreazioneBase;
 import Models.others.TipoCreazionePagina;
@@ -120,13 +124,33 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
         tableReparti.refresh();
     }
 
-    // --------------- elimina il reparto selezionato --------------- //
+    @FXML
     public void onElimina() {
-        if (tableReparti.getSelectionModel().getSelectedItem() != null) {
-            Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
-            Controller.eliminaRecord(reparto, reparto.getId());
-            tableReparti.getItems().remove(reparto);
+        if (tableReparti.getSelectionModel().getSelectedItem() == null)
+            return;
+
+        Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
+        if (Alerts.deleteAlert(reparto.getNome()) == false)
+            return;
+
+        List<Provvedimento> provvedimenti = new ArrayList<>();
+        List<Oggetto> oggetti = new ArrayList<>();
+        List<Titolo> titoli = ClassHelper.getListTitolo().stream().filter(t -> t.getId() == reparto.getId()).toList();
+        for (Titolo titolo : titoli) {
+            oggetti.addAll(ClassHelper.getListOggetto().stream().filter(oggetto -> oggetto.getIdTitolo() == titolo.getId()).toList());
+
+            for (Oggetto oggetto : oggetti) {
+                List<Provvedimento> toDelete = ClassHelper.getListProvvedimento().stream().filter(prov -> prov.getIdOggetto() == oggetto.getId()).toList();
+                provvedimenti.addAll(toDelete);
+            }
         }
+
+        provvedimenti.forEach(Provvedimento::selfRemoveFromList);
+        oggetti.forEach(Oggetto::selfRemoveFromList);
+        titoli.forEach(Titolo::selfRemoveFromList);
+        Controller.eliminaRecord(reparto);
+        tableReparti.getItems().remove(reparto);
+        tableReparti.refresh();
     }
 
     // --------------- apre un dialog Pane per creare il Reparto --------------- //

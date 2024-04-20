@@ -12,65 +12,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import Helpers.ClassHelper;
-import Models.Tables.Mansione;
 import Models.Tables.Oggetto;
 import Models.Tables.Provvedimento;
 import Models.Tables.Reparto;
 import Models.Tables.Societa;
-import Models.Tables.TablesId;
+import Models.Tables.TableData;
 import Models.Tables.Titolo;
 import Models.Tables.UnitaLocale;
 
 public class ModelListe {
-
-    // Metodo per eliminare un elemento sia da db che nelle liste
-    public static void rimuoviDaLista(Object obj, int id) {
-
-        switch (obj.getClass().getSimpleName()) {
-
-            case "Mansione":
-                ClassHelper.getListMansione().remove((Mansione) obj);
-                break;
-            case "Titolo":
-                ClassHelper.getListTitolo().remove((Titolo) obj);
-                break;
-            case "Reparto":
-                ClassHelper.getListReparto().remove((Reparto) obj);
-                break;
-            case "Societa":
-                ClassHelper.getListSocieta().remove((Societa) obj);
-                break;
-            case "Oggetto":
-                ClassHelper.getListOggetto().remove((Oggetto) obj);
-                break;
-            case "Provvedimento":
-                ClassHelper.getListProvvedimento().remove((Provvedimento) obj);
-                break;
-            case "UnitaLocale":
-                ClassHelper.getListUnitaLocale().remove((UnitaLocale) obj);
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected value: " + obj.getClass().getSimpleName());
-        }
-    }
-
     // Metodo per modificare il valore di una campo sia nella lista che nel db
-    public static void modificaCampoInLista(TablesId obj/* , String campo, String valore, int id */) {
+    public static void modificaCampoInLista(TableData obj/* , String campo, String valore, int id */) {
 
         switch (obj.getClass().getSimpleName()) {
-
-            case "Mansione":
-                Mansione mansione = ((Mansione) obj);
-
-                ClassHelper.getListMansione().stream().filter(m -> m.getId() == mansione.getId())
-                        .forEach(m -> {
-                            m.setNome(mansione.getNome());
-                            m.setResponsabile(mansione.getResponsabile());
-                        });
-
-                break;
-
             case "Titolo":
 
                 Titolo titolo = ((Titolo) obj);
@@ -153,11 +107,6 @@ public class ModelListe {
     // Metodo per inserire un nuovo elemento nella lista
     public static void inserisciRecordInLista(Object obj) {
         switch (obj.getClass().getSimpleName()) {
-            case "Mansione":
-                Mansione mansione = (Mansione) obj;
-
-                ClassHelper.getListMansione().add(mansione);
-                break;
             case "Titolo":
                 Titolo titolo = (Titolo) obj;
 

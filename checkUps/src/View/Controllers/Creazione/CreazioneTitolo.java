@@ -1,5 +1,6 @@
 package View.Controllers.Creazione;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.jfoenix.controls.JFXButton;
@@ -55,17 +56,24 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
 
     @FXML
     public void onElimina() {
-        if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
+        if (tableTitoli.getSelectionModel().getSelectedItem() == null) return;
 
-            if (Alerts.deleteAlert(tableTitoli.getSelectionModel().getSelectedItem().getDescrizione())) {
+        Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
+        if (Alerts.deleteAlert(titolo.getDescrizione()) == false)
+            return;
 
-                
-
-                Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
-                Controller.eliminaRecord(titolo, titolo.getId());
-                tableTitoli.getItems().remove(titolo);
-            }
+        List<Provvedimento> provvedimenti = new ArrayList<>();
+        List<Oggetto> oggetti = ClassHelper.getListOggetto().stream().filter(oggetto -> oggetto.getIdTitolo() == titolo.getId()).toList();
+        for (Oggetto oggetto : oggetti) {
+            List<Provvedimento> toDelete = ClassHelper.getListProvvedimento().stream().filter(prov -> prov.getIdOggetto() == oggetto.getId()).toList();
+            provvedimenti.addAll(toDelete);
         }
+
+        provvedimenti.forEach(Provvedimento::selfRemoveFromList);
+        oggetti.forEach(Oggetto::selfRemoveFromList);
+        Controller.eliminaRecord(titolo);
+        tableTitoli.getItems().remove(titolo);
+        tableTitoli.refresh();
     }
 
     @FXML
