@@ -101,6 +101,23 @@
                                 <Insets left="15.0" />
                             </HBox.margin>
                         </VBox>
+                  <VBox alignment="CENTER" layoutX="235.0" layoutY="10.0">
+                     <children>
+                        <JFXButton fx:id="btnElimina" contentDisplay="CENTER" ellipsisString="" onAction="#onElimina" prefHeight="38.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                           <graphic>
+                              <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/trash_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Label text="Elimina" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </VBox>
                         <Pane HBox.hgrow="SOMETIMES" />
                         <JFXButton fx:id="btnNext" contentDisplay="CENTER" ellipsisString="" onAction="#onActionSave" prefHeight="45.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                             <graphic>

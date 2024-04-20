@@ -46,6 +46,7 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
 
     private List<Oggetto> listaOggetti;
 
+
     @Override
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         listaOggetti = ClassHelper.getListOggetto();
@@ -54,9 +55,13 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
     }
 
     @FXML
-    public void delete() {
+    public void onElimina() {
         if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
             if (Alerts.deleteAlert(tableOggetti.getSelectionModel().getSelectedItem().getNome())) {
+                ClassHelper.getListProvvedimento().stream()
+                        .filter(prov -> prov.getIdOggetto() == tableOggetti.getSelectionModel().getSelectedItem().getId())
+                        .forEach(prov -> Controller.eliminaRecord(prov, prov.getId()));
+                
                 Oggetto reparto = tableOggetti.getSelectionModel().getSelectedItem();
                 Controller.eliminaRecord(reparto, reparto.getId());
                 tableOggetti.getItems().remove(reparto);

@@ -54,11 +54,17 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
     }
 
     @FXML
-    public void delete() {
+    public void onElimina() {
         if (tableTitoli.getSelectionModel().getSelectedItem() != null) {
-            Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
-            Controller.eliminaRecord(titolo, titolo.getId());
-            tableTitoli.getItems().remove(titolo);
+
+            if (Alerts.deleteAlert(tableTitoli.getSelectionModel().getSelectedItem().getDescrizione())) {
+
+                
+
+                Titolo titolo = tableTitoli.getSelectionModel().getSelectedItem();
+                Controller.eliminaRecord(titolo, titolo.getId());
+                tableTitoli.getItems().remove(titolo);
+            }
         }
     }
 

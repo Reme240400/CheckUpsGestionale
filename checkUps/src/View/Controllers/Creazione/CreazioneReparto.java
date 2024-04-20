@@ -121,7 +121,7 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
     }
 
     // --------------- elimina il reparto selezionato --------------- //
-    public void delete() {
+    public void onElimina() {
         if (tableReparti.getSelectionModel().getSelectedItem() != null) {
             Reparto reparto = tableReparti.getSelectionModel().getSelectedItem();
             Controller.eliminaRecord(reparto, reparto.getId());

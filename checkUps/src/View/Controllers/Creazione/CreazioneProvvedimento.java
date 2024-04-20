@@ -119,7 +119,7 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
     }
 
     @FXML
-    public void delete() {
+    public void onElimina() {
         if (tableProvvedimenti.getSelectionModel().getSelectedItem() != null) {
             Provvedimento provvedimento = tableProvvedimenti.getSelectionModel().getSelectedItem();
             Controller.eliminaRecord(provvedimento, provvedimento.getId());
