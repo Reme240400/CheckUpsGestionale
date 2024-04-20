@@ -587,13 +587,13 @@ public class ModelDb {
                         "id_reparto",
                         reparto.getId(),
                         "nome",
-                        reparto.getDescrizione());
+                        reparto.getNome());
 
                 modificaCampoStringa("reparti",
                         "id_reparto",
                         reparto.getId(),
                         "revisione",
-                        reparto.getDescrizione());
+                        reparto.getRevisione());
 
                 modificaCampoData("reparti",
                         "id_reparto",
