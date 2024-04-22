@@ -39,6 +39,7 @@ public class pdfGenerator {
     public static int pagineTotali;
     public static com.itextpdf.text.Image logoSocieta;
     public static String urlLogoCheckUps = "checkUps\\src\\resources\\logo\\LOGOCheckUp.jpg";
+    public static String urlLogoCheckUpsPiccolo = "checkUps\\src\\resources\\logo\\LOGOCheckUpPiccolo.jpg";
     public static String revisione;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
@@ -545,6 +546,7 @@ public class pdfGenerator {
         cell.setColspan(colspan);
         return cell;
     }
+    
 
     // Metodo per convertire un'immagine JavaFX in un'immagine iTextPDF
     private static Image javafxImageToPdfImage(javafx.scene.image.Image javafxImage) {
@@ -582,28 +584,33 @@ public class pdfGenerator {
             table.setTotalWidth(document.right() - document.left());
             table.getDefaultCell().setFixedHeight(41);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
-            if (paginaAttuale != 1) {
-                 // Aggiunge data, logo e numero di pagina al piè di pagina
-                PdfPCell cellRevisione = new PdfPCell(new Phrase("Revisione n. " + revisione + " del:  " + formattedDate));
-                cellRevisione.setBorderColor(BaseColor.WHITE);
-                cellRevisione.setVerticalAlignment(Element.ALIGN_BOTTOM);
-                cellRevisione.setPaddingBottom(10f);
-                table.addCell(cellRevisione);
-                if(logoSocieta!=null){
-                    table.addCell(logoSocieta);
-                }else{
-                    table.addCell("");
-                }
-            } else {
-                table.addCell("");
-                table.addCell("");
+            
+            // Aggiunge data, logo e numero di pagina al piè di pagina
+            Phrase phrase = new Phrase();
+            phrase.add(new Chunk("Redatto a cura di: ")); // Aggiunge il testo
+            try{
+                phrase.add(new Chunk(Image.getInstance(urlLogoCheckUps), 0, -10)); // Aggiunge l'immagine
+            }catch(Exception e){
+                System.out.println("Errore nel caricamento del logo piccolo al piè di pagina");
             }
-            PdfPCell cellPagine = new PdfPCell(new Phrase("Pagina " + (paginaAttuale) + " di " + (pagineTotali)));
-            cellPagine.setVerticalAlignment(Element.ALIGN_BOTTOM); // Imposta l'allineamento verticale in basso
-            cellPagine.setBorderColor(BaseColor.WHITE);
-            cellPagine.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cellPagine.setPaddingBottom(10f);
-            table.addCell(cellPagine);
+            PdfPCell cellLogoCheckUps = new PdfPCell(phrase);
+            cellLogoCheckUps.setBorderColor(BaseColor.WHITE);
+            cellLogoCheckUps.setVerticalAlignment(Element.ALIGN_CENTER);
+            cellLogoCheckUps.setPaddingBottom(10f);
+            table.addCell(cellLogoCheckUps); 
+            if(logoSocieta!=null){
+                //logoSocieta.scaleToFit(50,50);
+                table.addCell(logoSocieta);
+            }else{
+                table.addCell("");
+            }                    
+            PdfPCell cellPagineRev = new PdfPCell(new Phrase("Rev N. " + revisione + " del: " + formattedDate +" - Pag. " + (paginaAttuale) + " di " + (pagineTotali)));
+            cellPagineRev.setVerticalAlignment(Element.ALIGN_BOTTOM); // Imposta l'allineamento verticale in basso
+            cellPagineRev.setBorderColor(BaseColor.WHITE);
+            cellPagineRev.setVerticalAlignment(Element.ALIGN_CENTER);
+            cellPagineRev.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cellPagineRev.setPaddingBottom(10f);
+            table.addCell(cellPagineRev);
             // Scrive il piè di pagina nel documento
             table.writeSelectedRows(0, -1, document.left(), document.bottom()+4, writer.getDirectContent());
         }
