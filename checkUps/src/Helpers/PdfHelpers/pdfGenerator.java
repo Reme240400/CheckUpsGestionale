@@ -38,7 +38,7 @@ public class pdfGenerator {
     public static int paginaAttuale;
     public static int pagineTotali;
     public static com.itextpdf.text.Image logoSocieta;
-    public static String urlLogoCheckUps = "checkUps\\src\\resources\\logo\\CULogoNew.jpg";
+    public static String urlLogoCheckUps = "checkUps\\src\\resources\\logo\\LOGOCheckUp.jpg";
     public static String revisione;
 
     // Metodo per generare un documento PDF per la valutazione dei rischi
