@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 
-<DialogPane expanded="true"
+<DialogPane expanded="true" fx:id="dialogPane"
     xmlns="http://javafx.com/javafx/21"
     xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Controllers.Creazione.dialogPane.DPScadenze">
     <buttonTypes>
