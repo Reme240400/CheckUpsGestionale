@@ -54,14 +54,20 @@ public class CreazioneOggetto extends CreazioneBase implements Initializable {
     }
 
     @FXML
-    public void delete() {
-        if (tableOggetti.getSelectionModel().getSelectedItem() != null) {
-            if (Alerts.deleteAlert(tableOggetti.getSelectionModel().getSelectedItem().getNome())) {
-                Oggetto reparto = tableOggetti.getSelectionModel().getSelectedItem();
-                Controller.eliminaRecord(reparto, reparto.getId());
-                tableOggetti.getItems().remove(reparto);
-            }
-        }
+    public void onElimina() {
+        if (tableOggetti.getSelectionModel().getSelectedItem() == null)
+            return;
+
+        Oggetto oggetto = tableOggetti.getSelectionModel().getSelectedItem();
+        if (Alerts.deleteAlert(oggetto.getNome()) == false)
+            return;
+
+        List<Provvedimento> toDelete = ClassHelper.getListProvvedimento().stream().filter(prov -> prov.getIdOggetto() == oggetto.getId()).toList();
+        toDelete.forEach(Provvedimento::selfRemoveFromList);
+
+        Controller.eliminaRecord(oggetto);
+        tableOggetti.getItems().remove(oggetto);
+        tableOggetti.refresh();
     }
 
     @FXML

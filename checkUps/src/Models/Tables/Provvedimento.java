@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class Provvedimento extends TablesId implements Serializable {
+import Helpers.ClassHelper;
+
+public class Provvedimento extends TableData implements Serializable {
 
     private String nome;
     private int idOggetto;
@@ -19,7 +21,7 @@ public class Provvedimento extends TablesId implements Serializable {
             String soggettiEsposti, int stima_d, int stima_p,
             Optional<LocalDate> data_inizio,
             Optional<LocalDate> data_scadenza) {
-        super(idProvvedimento);
+        super(idProvvedimento, "provvedimenti", "id_provvedimento");
 
         this.nome = nome;
         this.idOggetto = idOggetto;
@@ -97,5 +99,10 @@ public class Provvedimento extends TablesId implements Serializable {
 
     public void setDataInizio(Optional<LocalDate> inizio) {
         this.data_inizio = inizio;
+    }
+
+    @Override
+    public void selfRemoveFromList() {
+        ClassHelper.getListProvvedimento().remove(this);
     }
 }

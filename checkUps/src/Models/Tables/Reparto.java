@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class Reparto extends TablesId implements Serializable {
+import Helpers.ClassHelper;
+
+public class Reparto extends TableData implements Serializable {
 
     private int idUnitaLocale;
     private String nome;
@@ -14,7 +16,7 @@ public class Reparto extends TablesId implements Serializable {
 
     public Reparto(int idReparto, int idUnitaLocale, String nome, String descrizione, String revisione,
             Optional<LocalDate> data) {
-        super(idReparto);
+        super(idReparto, "reparti", "id_reparto");
 
         this.idUnitaLocale = idUnitaLocale;
         this.nome = nome;
@@ -63,4 +65,8 @@ public class Reparto extends TablesId implements Serializable {
         this.data = data;
     }
 
+    @Override
+    public void selfRemoveFromList() {
+        ClassHelper.getListReparto().remove(this);
+    }
 }

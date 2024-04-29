@@ -2,7 +2,9 @@ package Models.Tables;
 
 import java.io.Serializable;
 
-public class UnitaLocale extends TablesId implements Serializable {
+import Helpers.ClassHelper;
+
+public class UnitaLocale extends TableData implements Serializable {
     private int idSocieta;
     private String nome;
     private String indirizzo;
@@ -14,7 +16,7 @@ public class UnitaLocale extends TablesId implements Serializable {
     public UnitaLocale(int idUnitaLocale, int idSocieta, String nome, String indirizzo, String localita,
             String provincia,
             String telefono, String email) {
-        super(idUnitaLocale);
+        super(idUnitaLocale, "unita_locali", "id_unita_locale");
         // this.idUnitaLocale = idUnitaLocale;
         this.idSocieta = idSocieta;
         this.nome = nome;
@@ -77,9 +79,8 @@ public class UnitaLocale extends TablesId implements Serializable {
         return email;
     }
 
-    public void toStringUnitaLocale() {
-        System.out.println("ID: " + getId() + " Nome: " + getNome() + " Indirizzo: " + getIndirizzo() + " Localita: "
-                + getLocalita() + " Provincia: " + getProvincia() + " Telefono: " + getTelefono());
+    @Override
+    public void selfRemoveFromList() {
+        ClassHelper.getListUnitaLocale().remove(this);
     }
-
 }

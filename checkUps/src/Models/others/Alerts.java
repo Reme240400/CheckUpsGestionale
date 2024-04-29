@@ -49,11 +49,10 @@ public class Alerts {
     }
 
     public static boolean deleteAlert(String string) {
-
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Elimina");
         alert.setHeaderText("Elimina");
-        alert.setContentText("Sei sicuro di voler eliminare " + string + "?");
+        alert.setContentText("Sei sicuro di voler eliminare '" + string + "' ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

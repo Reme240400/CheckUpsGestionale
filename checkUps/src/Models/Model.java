@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 import com.jfoenix.controls.JFXComboBox;
 
-import Models.Tables.TablesId;
+import Models.Tables.TableData;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
@@ -22,7 +22,7 @@ public class Model {
      * 
      * @param path: file da controllare
      */
-    public static <T extends TablesId> int autoSetId(List<T> list) {
+    public static <T extends TableData> int autoSetId(List<T> list) {
 
         int maxId = 0;
 
