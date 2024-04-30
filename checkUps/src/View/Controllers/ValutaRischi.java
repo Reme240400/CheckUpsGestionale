@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import com.jfoenix.controls.JFXButton;
 
 import Helpers.ClassHelper;
@@ -19,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -31,6 +35,7 @@ public class ValutaRischi implements Initializable {
 
     @FXML
     private TableColumn<Reparto, String> descCol;
+
     @FXML
     private TableColumn<Reparto, String> nameCol;
 
@@ -129,9 +134,27 @@ public class ValutaRischi implements Initializable {
     }
 
     public void createPDF() throws IOException {
+        String nomeFile = null;
+        // chiedi con un pop up che chiede il nome del file
         if (tableView.getSelectionModel().getSelectedItem() != null) {
+            JFrame frame = new JFrame("Inserisci il nome del file");
+            
+            // Visualizzazione del pop-up per l'inserimento del nome del file
+            nomeFile = JOptionPane.showInputDialog(frame, "Inserisci il nome del file:");
+            
+            // Visualizzazione del nome del file inserito
+            if (nomeFile != null && !nomeFile.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Hai inserito il nome del file: " + nomeFile);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Nessun nome del file inserito.");
+                nomeFile = "valutazione_rischi";
+            }
+            
+            // Chiusura del frame
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
             List<Reparto> reparti = tableView.getSelectionModel().getSelectedItems();
-            pdfGenerator.stampaValutazioneRischi(societa, unitaLocale, reparti, "prova.pdf");
+            pdfGenerator.stampaValutazioneRischi(societa, unitaLocale, reparti, nomeFile + ".pdf");
         }
 
     }
