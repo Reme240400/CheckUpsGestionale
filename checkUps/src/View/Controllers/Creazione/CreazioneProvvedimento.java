@@ -69,14 +69,14 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
         rischioCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("rischio"));
         nomeCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("nome"));
         soggettiCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, String>("soggettiEsposti"));
-        stimaRCol.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getStimaR()).asObject());
+        stimaRCol.setCellValueFactory(new PropertyValueFactory<Provvedimento, Integer>("stimaR"));
         datainizioCol.setCellValueFactory(data -> {
             var dataInizio = data.getValue().getDataInizio();
             return dataInizio.isPresent() ? new SimpleStringProperty(dataInizio.get().toString())
                     : new SimpleStringProperty("");
         });
         datascadenzaCol.setCellValueFactory(data -> {
-            var dataScadenza = data.getValue().getDataInizio();
+            var dataScadenza = data.getValue().getDataScadenza();
             return dataScadenza.isPresent() ? new SimpleStringProperty(dataScadenza.get().toString())
                     : new SimpleStringProperty("");
         });
