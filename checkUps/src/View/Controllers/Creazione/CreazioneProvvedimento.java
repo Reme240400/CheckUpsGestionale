@@ -20,7 +20,6 @@ import Models.others.TipoCreazionePagina;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
 import View.Controllers.Modifiche.DialogPaneModificaProv;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

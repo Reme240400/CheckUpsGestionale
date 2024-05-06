@@ -71,6 +71,9 @@ public class CreazioneBase implements CreazioneInterface {
     }
 
     protected boolean isImageChanged(Image oldImage, ImageView newImageView) {
+        if (oldImage == null && newImageView.getImage() == null)
+            return false;
+    
         Image newImage = newImageView.getImage();
 
         if (oldImage == null && newImage != null)

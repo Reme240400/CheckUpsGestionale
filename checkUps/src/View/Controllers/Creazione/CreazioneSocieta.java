@@ -80,8 +80,6 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
     List<Societa> listSocieta = ClassHelper.getListSocieta();
 
-    // ------------------------------------------------------- INITIALIZE
-    // -------------------------------------------------------------------- //
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // * controlla se vengono inseriti solo numeri nel campo telefono
@@ -111,11 +109,11 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
         modelCreazione.setSaved(false);
         modelCreazione.setCanGoNext(false);
 
+        if (cercaSocieta.getValue() == null || cercaSocieta.getValue().isBlank())
+            return;
+
         Optional<Societa> curSocieta = listSocieta.stream().filter(s -> s.getNome().equals(cercaSocieta.getValue()))
                 .findFirst();
-
-        if (curSocieta.isEmpty())
-            return;
 
         Societa soc = curSocieta.get();
         textFieldSocieta.setText(soc.getNome());
@@ -229,11 +227,11 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
                 textFieldPartitaIva);
 
         // sto creando una società nuova
-        if (cercaSocieta.getValue() == null) {
-            modelCreazione.setSaved(neededFieldsValid);
+        if (cercaSocieta.getValue() == null || cercaSocieta.getValue().isBlank()) {
             modelCreazione.setCanGoNext(neededFieldsValid);
         } else {
             var dataChanged = this.isFormDataChanged();
+            System.out.println(dataChanged);
             var set = neededFieldsValid && dataChanged;
 
             modelCreazione.setCanGoNext(neededFieldsValid);
@@ -243,7 +241,7 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
 
     @FXML
     public void onSaveAndGoNext() {
-        if (cercaSocieta.getValue() == null) {
+        if (cercaSocieta.getValue() == null || cercaSocieta.getValue().isBlank()) {
             int id = Controller.getNewId(listSocieta);
 
             Societa societaTmp = new Societa(id,
