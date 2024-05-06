@@ -89,6 +89,9 @@ public class pdfGenerator {
             PdfPTable tableLogoChekups = new PdfPTable(1);
             tableLogoChekups.setWidthPercentage(100);
             Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
+            if (societa.hasImage()) {
+                logoCheckUpsImage = javafxImageToPdfImage(societa.getLogoImage());
+            }
             // Imposta le dimensioni dell'immagine
             PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
             logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -98,6 +101,7 @@ public class pdfGenerator {
             tableLogoChekups.addCell(logoChekups);
             tableLogoChekups.setSpacingAfter(60f);
             document.add(tableLogoChekups);
+            logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
             // SCRITTE SOTTO LOGO
             PdfPTable tableBody = new PdfPTable(1);
             tableBody.setWidthPercentage(100);
@@ -340,6 +344,13 @@ public class pdfGenerator {
                             String termine = provvedimento.getDataScadenza().toString();
                             if (termine == "Optional.empty") {
                                 termine = "";
+                            }
+                            // Trova l'indice delle parentesi quadre
+                            int startIndex = termine.indexOf("[");
+                            int endIndex = termine.indexOf("]");
+                            // Se entrambi gli indici sono validi, estrai la data
+                            if (startIndex != -1 && endIndex != -1) {
+                                termine = termine.substring(startIndex + 1, endIndex);
                             }
                             PdfPCell termineCell = createCell(termine, 1,
                                     FontFactory.getFont("ARIAL", 10));
@@ -405,6 +416,9 @@ public class pdfGenerator {
             PdfPTable tableLogoChekups = new PdfPTable(1);
             tableLogoChekups.setWidthPercentage(100);
             Image logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
+            if (societa.hasImage()) {
+                logoCheckUpsImage = javafxImageToPdfImage(societa.getLogoImage());
+            }
             // Imposta le dimensioni dell'immagine
             PdfPCell logoChekups = createImageCell(logoCheckUpsImage, 1);
             logoChekups.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -414,7 +428,8 @@ public class pdfGenerator {
             tableLogoChekups.addCell(logoChekups);
             tableLogoChekups.setSpacingAfter(60f);
             document.add(tableLogoChekups);
-            // SCRITTE SOTTO LOGO
+            logoCheckUpsImage = Image.getInstance(urlLogoCheckUps);
+            // SCRITTE SOTTO LOGO 
             PdfPTable tableBody = new PdfPTable(1);
             tableBody.setWidthPercentage(100);
             PdfPCell body = createCell(
@@ -655,6 +670,13 @@ public class pdfGenerator {
                             String termine = provvedimento.getDataScadenza().toString();
                             if (termine == "Optional.empty") {
                                 termine = "";
+                            }
+                            // Trova l'indice delle parentesi quadre
+                            int startIndex = termine.indexOf("[");
+                            int endIndex = termine.indexOf("]");
+                            // Se entrambi gli indici sono validi, estrai la data
+                            if (startIndex != -1 && endIndex != -1) {
+                                termine = termine.substring(startIndex + 1, endIndex);
                             }
                             PdfPCell termineCell = createCell(termine, 1,
                                     FontFactory.getFont("ARIAL", 10));
