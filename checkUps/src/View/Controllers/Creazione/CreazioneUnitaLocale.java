@@ -100,13 +100,13 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
         modelCreazione.setSaved(false);
         modelCreazione.setCanGoNext(false);
 
+        if (cercaUnita.getValue() == null || cercaUnita.getValue().isBlank())
+            return;
+
         Optional<UnitaLocale> curUnita = listUnitaLocale.stream()
                 .filter(u -> u.getIdSocieta() == localSocieta.getId())
                 .filter(s -> s.getNome().equals(cercaUnita.getValue()))
                 .findFirst();
-
-        if (curUnita.isEmpty())
-            return;
 
         UnitaLocale unita = curUnita.get();
         textFieldUnitaLocale.setText(unita.getNome());
@@ -157,8 +157,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
                 textFieldProvincia);
 
         // sto creando una società nuova
-        if (cercaUnita.getValue() == null) {
-            modelCreazione.setSaved(neededFieldsValid);
+        if (cercaUnita.getValue() == null || cercaUnita.getValue().isBlank()) {
             modelCreazione.setCanGoNext(neededFieldsValid);
         } else {
             var dataChanged = this.isFormDataChanged();
@@ -171,7 +170,7 @@ public class CreazioneUnitaLocale extends CreazioneBase implements Initializable
 
     @FXML
     public void onSaveAndGoNext() {
-        if (cercaUnita.getValue() == null) {
+        if (cercaUnita.getValue() == null || cercaUnita.getValue().isBlank()) {
             int id = Model.autoSetId(ClassHelper.getListUnitaLocale());
 
             UnitaLocale unitaLocale = new UnitaLocale(id,

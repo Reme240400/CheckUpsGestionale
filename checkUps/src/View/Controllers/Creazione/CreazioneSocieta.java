@@ -231,7 +231,6 @@ public class CreazioneSocieta extends CreazioneBase implements Initializable {
             modelCreazione.setCanGoNext(neededFieldsValid);
         } else {
             var dataChanged = this.isFormDataChanged();
-            System.out.println(dataChanged);
             var set = neededFieldsValid && dataChanged;
 
             modelCreazione.setCanGoNext(neededFieldsValid);
