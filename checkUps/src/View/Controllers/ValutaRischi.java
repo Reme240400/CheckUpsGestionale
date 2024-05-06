@@ -154,7 +154,7 @@ public class ValutaRischi implements Initializable {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
             List<Reparto> reparti = tableView.getSelectionModel().getSelectedItems();
-            pdfGenerator.stampaValutazioneRischi(societa, unitaLocale, reparti, nomeFile + ".pdf");
+            pdfGenerator.stampaValutazioneRischi(societa, unitaLocale, reparti, nomeFile + ".pdfa");
         }
 
     }

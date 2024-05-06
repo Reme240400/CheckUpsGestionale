@@ -56,9 +56,6 @@ public class DialogPaneModificaProv implements DialogInterface, Initializable {
             } catch (NullPointerException e) {
             }
         });
-
-        // if(modificaDataFine != null)
-        //     modificaDataFine.disableProperty().set(true);
     }
 
     public String getNome() {
@@ -88,7 +85,6 @@ public class DialogPaneModificaProv implements DialogInterface, Initializable {
             return -1;
         }
     }
-
     public LocalDate getDataFine() {
         return modificaDataFine.getValue();
     }
