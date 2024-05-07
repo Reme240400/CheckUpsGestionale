@@ -106,7 +106,7 @@ public class pdfGenerator {
             PdfPTable tableBody = new PdfPTable(1);
             tableBody.setWidthPercentage(100);
             PdfPCell body = createCell(
-                    "Relazione Tecnica di Valutazione Rischi - \n in materia di salute e sicurezza sul lavoro D.Lgs. n. 81/2008 e s.m. e i. \n \n Firmano in data: ________________ ",
+                    "Relazione Tecnica di Valutazione Rischi - \n in materia di salute e sicurezza sul lavoro D.Lgs. n. 81/2008 e s.m. e i. \n \n \nFirmano in data: ________________________ ",
                     1, FontFactory.getFont("ARIAL", 16));
             body.setHorizontalAlignment(Element.ALIGN_CENTER);
             body.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -130,7 +130,7 @@ public class pdfGenerator {
             tableUnderBody.addCell(underBodyRight);
             tableUnderBody.setWidthPercentage(65);
             underBodyLeft = createCell(
-                    "Il Responsabile del servizio di Prevenzione e Protezione \n \n \n \n \n \n",
+                    "Il Responsabile del Servizio di Prevenzione e Protezione \n \n \n \n \n \n",
                     1, FontFactory.getFont("ARIAL_ITALIC", 10));
             underBodyRight = createCell(
                     "Il Medico Competente \n \n \n \n \n \n",
@@ -232,13 +232,16 @@ public class pdfGenerator {
                             PdfPTable tableTitolo = new PdfPTable(1);
                             // Creazione della cella per il titolo
                             PdfPCell cellaTitolo = new PdfPCell();
+                            // Creazione del testo per la prima parte (Arial Bold)
+                            Chunk parte1 = new Chunk("Titolo: ", FontFactory.getFont("ARIAL", 15));
                             // Creazione del testo per la seconda parte (Arial)
-                            Chunk parte1 = new Chunk(n + " " + titolo.getDescrizione(),
+                            Chunk parte2 = new Chunk(n + " " + titolo.getDescrizione(),
                                     FontFactory.getFont("ARIAL_BOLD", 15));
                             // Imposta il testo completo nella cella
                             Phrase titoloPhrase = new Phrase();
                             // Aggiunta delle due parti alla cella
                             titoloPhrase.add(parte1);
+                            titoloPhrase.add(parte2);
                             cellaTitolo.setPhrase(titoloPhrase);
                             cellaTitolo.setVerticalAlignment(Element.ALIGN_CENTER);
                             cellaTitolo.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -436,7 +439,7 @@ public class pdfGenerator {
             PdfPTable tableBody = new PdfPTable(1);
             tableBody.setWidthPercentage(100);
             PdfPCell body = createCell(
-                    "Relazione Tecnica di Valutazione Rischi - \n in materia di salute e sicurezza sul lavoro D.Lgs. n. 81/2008 e s.m. e i. \n \n Firmano in data: ________________ ",
+                    "Relazione Tecnica di Valutazione Rischi - \n in materia di salute e sicurezza sul lavoro D.Lgs. n. 81/2008 e s.m. e i. \n \n \nFirmano in data: ________________________ ",
                     1, FontFactory.getFont("ARIAL", 16));
             body.setHorizontalAlignment(Element.ALIGN_CENTER);
             body.setVerticalAlignment(Element.ALIGN_MIDDLE);
@@ -561,13 +564,16 @@ public class pdfGenerator {
                             PdfPTable tableTitolo = new PdfPTable(1);
                             // Creazione della cella per il titolo
                             PdfPCell cellaTitolo = new PdfPCell();
+                            // Creazione del testo per la prima parte (Arial Bold)
+                            Chunk parte1 = new Chunk("Titolo: ", FontFactory.getFont("ARIAL", 15));
                             // Creazione del testo per la seconda parte (Arial)
-                            Chunk parte1 = new Chunk(n + " " + titolo.getDescrizione(),
+                            Chunk parte2 = new Chunk(n + " " + titolo.getDescrizione(),
                                     FontFactory.getFont("ARIAL_BOLD", 15));
                             // Imposta il testo completo nella cella
                             Phrase titoloPhrase = new Phrase();
                             // Aggiunta delle due parti alla cella
                             titoloPhrase.add(parte1);
+                            titoloPhrase.add(parte2);
                             cellaTitolo.setPhrase(titoloPhrase);
                             cellaTitolo.setVerticalAlignment(Element.ALIGN_CENTER);
                             cellaTitolo.setHorizontalAlignment(Element.ALIGN_CENTER);
