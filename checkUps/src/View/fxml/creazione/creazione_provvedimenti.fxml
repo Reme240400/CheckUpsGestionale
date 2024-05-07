@@ -91,6 +91,23 @@
                         </VBox>
                   <VBox alignment="CENTER">
                      <children>
+                        <JFXButton fx:id="btnImporta" contentDisplay="CENTER" ellipsisString="" onAction="#onImporta" prefHeight="38.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
+                           <graphic>
+                              <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../icons/download_down_save_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Label text="Importa" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="15.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
                         <JFXButton fx:id="btnElimina" contentDisplay="CENTER" ellipsisString="" onAction="#onElimina" prefHeight="38.0" prefWidth="55.0" ripplerFill="#58f02b" styleClass="bordered" stylesheets="@../../css/style.css" textOverrun="CLIP">
                            <graphic>
                               <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
