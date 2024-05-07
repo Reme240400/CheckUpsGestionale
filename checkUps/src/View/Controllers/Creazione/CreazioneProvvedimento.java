@@ -10,13 +10,16 @@ import com.jfoenix.controls.JFXButton;
 
 import Controllers.Controller;
 import Helpers.ClassHelper;
+import Models.Model;
 import Models.ModelCreazione;
 import Models.ModelPaths;
 import Models.Tables.Provvedimento;
+import Models.imports.ImportProvvedimentoElement;
 import Models.others.Alerts;
 import Models.others.CreazioneBase;
 import Models.others.Dialogs;
 import Models.others.TipoCreazionePagina;
+import View.Controllers.Creazione.dialogPane.DPImportProvvedimento;
 import View.Controllers.Creazione.dialogPane.DialogPaneAddP;
 import View.Controllers.Modifiche.DialogPaneModificaProv;
 
@@ -159,6 +162,40 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                     modelCreazione.getProvvedimentoTmp().setDataScadenza(Optional.ofNullable(controller.getDataFine()));
 
                     Controller.modificaCampo(modelCreazione.getProvvedimentoTmp());
+                    tableProvvedimenti.refresh();
+                });
+    }
+
+    @FXML
+    public void onImporta() {
+        Dialogs.showDialogWithResponse("dialogPaneImporta/importa_provvedimenti.fxml",
+                "Importa Provvedimento",
+                (DPImportProvvedimento controller) -> {
+                    controller.fillInfo(modelCreazione.getSocietaTmp().getNome(),
+                            modelCreazione.getUnitaLocaleTmp().getNome(),
+                            modelCreazione.getRepartoTmp().getNome(),
+                            modelCreazione.getTitoloTmp().getDescrizione(),
+                            modelCreazione.getOggettoTmp().getNome());
+                    controller.populateTable(modelCreazione.getRepartoTmp().getId());
+                },
+                (DPImportProvvedimento controller) -> {
+                    if (controller.getSelectedData() == null) {
+                        Alerts.errorAlert("Errore", "Errore nell'importazione",
+                                "Non è stato selezionato nessun provvedimento");
+                        return;
+                    }
+
+                    ImportProvvedimentoElement selected = controller.getSelectedData();
+                    Provvedimento provvedimento = selected.getProvvedimento();
+
+                    Provvedimento nuovoProvvedimento = new Provvedimento(
+                            Model.autoSetId(ClassHelper.getListProvvedimento()), modelCreazione.getOggettoTmp().getId(),
+                            provvedimento.getRischio(), provvedimento.getNome(),
+                            provvedimento.getSoggettiEsposti(), provvedimento.getStimaD(), provvedimento.getStimaP(),
+                            provvedimento.getDataInizio(), provvedimento.getDataScadenza());
+
+                    Controller.inserisciNuovoRecord(nuovoProvvedimento);
+                    tableProvvedimenti.getItems().add(nuovoProvvedimento);
                     tableProvvedimenti.refresh();
                 });
     }
