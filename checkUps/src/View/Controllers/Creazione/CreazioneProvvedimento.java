@@ -103,8 +103,8 @@ public class CreazioneProvvedimento extends CreazioneBase implements Initializab
                     int id = Controller.getNewId(listProv);
                     Provvedimento newProvvedimento = new Provvedimento(id,
                             localOggetto.getId(),
-                            controller.getNome(),
                             controller.getRischio(),
+                            controller.getNome(),
                             controller.getSoggettiEsposti(),
                             controller.getStimaD(),
                             controller.getStimaP(),

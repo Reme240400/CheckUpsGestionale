@@ -68,7 +68,7 @@ public class DialogPaneModificaReparto implements DialogInterface, Initializable
 
     @Override
     public FieldsCheckResponse areFieldsValid() {
-        if (this.getNomeReparto().isBlank()) {
+        if (this.getNomeReparto() == null || this.getNomeReparto().isBlank()) {
             return new FieldsCheckResponse("Nome Reparto non valido");
         }
 
@@ -76,7 +76,7 @@ public class DialogPaneModificaReparto implements DialogInterface, Initializable
             return new FieldsCheckResponse("Data Reparto non valida");
         }
 
-        if (this.getRevisioneReparto().isBlank()) {
+        if (this.getRevisioneReparto() == null || this.getRevisioneReparto().isBlank()) {
             return new FieldsCheckResponse("Revisione Reparto non valida");
         }
 
