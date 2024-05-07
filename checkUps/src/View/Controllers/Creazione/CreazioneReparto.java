@@ -137,10 +137,12 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
         List<Oggetto> oggetti = new ArrayList<>();
         List<Titolo> titoli = ClassHelper.getListTitolo().stream().filter(t -> t.getId() == reparto.getId()).toList();
         for (Titolo titolo : titoli) {
-            oggetti.addAll(ClassHelper.getListOggetto().stream().filter(oggetto -> oggetto.getIdTitolo() == titolo.getId()).toList());
+            oggetti.addAll(ClassHelper.getListOggetto().stream()
+                    .filter(oggetto -> oggetto.getIdTitolo() == titolo.getId()).toList());
 
             for (Oggetto oggetto : oggetti) {
-                List<Provvedimento> toDelete = ClassHelper.getListProvvedimento().stream().filter(prov -> prov.getIdOggetto() == oggetto.getId()).toList();
+                List<Provvedimento> toDelete = ClassHelper.getListProvvedimento().stream()
+                        .filter(prov -> prov.getIdOggetto() == oggetto.getId()).toList();
                 provvedimenti.addAll(toDelete);
             }
         }
@@ -183,8 +185,8 @@ public class CreazioneReparto extends CreazioneBase implements Initializable {
                     Reparto newReparto = new Reparto(id,
                             localUnita.getId(),
                             dialogController.getNome(),
-                            dialogController.getRevisione(),
                             dialogController.getDesc(),
+                            dialogController.getRevisione(),
                             Optional.of(dialogController.getData()));
 
                     Controller.inserisciNuovoRecord(newReparto);
