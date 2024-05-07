@@ -79,26 +79,26 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
     @FXML
     public void aggiungi() {
         Dialogs.showDialogWithResponse("dialogPaneCreazione/creaTitolo_dialogPane.fxml", "Crea Reparto",
-                (DialogPaneAddT controller) -> {
-                    controller.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
-                            modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
-                },
-                (DialogPaneAddT controller) -> {
-                    if (controller.getNome() != null && !controller.getNome().equals("")) {
-                        int id = Controller.getNewId(listaTitolo);
-                        Titolo newTitolo = new Titolo(id,
-                                modelCreazione.getRepartoTmp().getId(),
-                                controller.getNome());
-                        modelCreazione.createTitoloTmp(newTitolo);
-                        Controller.inserisciNuovoRecord(newTitolo);
-                        tableTitoli.getItems().add(newTitolo);
-                        tableTitoli.refresh();
-                    } else {
-                        Alerts.errorAlert("Errore", "Errore nell'inserimento",
-                                "Qualcosa non è stato inserito correttamente");
-                    }
-                });
-
+            (DialogPaneAddT controller) -> {
+                controller.fillTextBox(modelCreazione.getSocietaTmp().getNome(),
+                        modelCreazione.getUnitaLocaleTmp().getNome(), modelCreazione.getRepartoTmp().getNome());
+            },
+            (DialogPaneAddT controller) -> {
+                if (controller.getNome() != null && !controller.getNome().equals("")) {
+                    int id = Controller.getNewId(listaTitolo);
+                    Titolo newTitolo = new Titolo(id,
+                            modelCreazione.getRepartoTmp().getId(),
+                            controller.getNome());
+                    modelCreazione.createTitoloTmp(newTitolo);
+                    Controller.inserisciNuovoRecord(newTitolo);
+                    tableTitoli.getItems().add(newTitolo);
+                    tableTitoli.refresh();
+                } else {
+                    Alerts.errorAlert("Errore", "Errore nell'inserimento",
+                            "Qualcosa non è stato inserito correttamente");
+                }
+            }
+        );
     }
 
     @FXML
@@ -160,8 +160,6 @@ public class CreazioneTitolo extends CreazioneBase implements Initializable {
                     ModelDb.bulkInsertTitolo(nuovoTitolo.getId(), oggetti, provvedimenti);
                 });
     }
-
-    // CODICE "SISTEMATO"
 
     public void onActionSave() {
         if (tableTitoli.getSelectionModel().getSelectedItem() == null) {
